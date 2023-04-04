@@ -10,7 +10,10 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     fluidPage(
-      h1("clinTables")
+      h1("clinTables"),
+      fluidRow(
+        mod_data_read_ui("data_read_1")
+      )
     )
   )
 }
