@@ -49,6 +49,9 @@ usethis::use_news_md(open = FALSE)
 ## Use git ----
 usethis::use_git()
 
+credentials::set_github_pat("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")
+usethis::use_github()
+
 ## Init Testing Infrastructure ----
 ## Create a template for tests
 golem::use_recommended_tests()
