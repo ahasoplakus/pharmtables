@@ -49,7 +49,7 @@ usethis::use_news_md(open = FALSE)
 ## Use git ----
 usethis::use_git()
 
-credentials::set_github_pat("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")
+# credentials::set_github_pat("")
 usethis::use_github()
 
 ## Init Testing Infrastructure ----
