@@ -20,14 +20,18 @@ app_ui <- function(request) {
         skin = "light",
         status = "info",
         sidebarMenu(
-          id = "sidebarmenu"
+          id = "sidebarmenu",
           # add global filters module ui here
+          mod_global_filters_ui("global_filters_1")
         )
       ),
       body = dashboardBody(
         fluidRow(
           mod_data_read_ui("data_read_1"),
-          mod_dt_table_ui("dt_table_1")
+          column(
+            width = 12,
+            mod_adsl_display_ui("adsl_display_1")
+          )
         )
       ),
       dark = NULL
