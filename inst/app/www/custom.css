@@ -1,0 +1,19 @@
+.navbar-white {
+    background-color: #7DB9B6;
+}
+
+.layout-fixed .main-sidebar {
+    bottom: 0;
+    float: none;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    text-align: center;
+    background-color: #EEEEEE;
+}
+
+.layout-fixed .brand-link {
+    width: 250px;
+    background-color: #F5E9CF;
+}
