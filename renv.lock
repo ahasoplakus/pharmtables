@@ -9,21 +9,12 @@
     ]
   },
   "Packages": {
-    "DT": {
-      "Package": "DT",
-      "Version": "0.27",
+    "BH": {
+      "Package": "BH",
+      "Version": "1.81.0-1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Requirements": [
-        "crosstalk",
-        "htmltools",
-        "htmlwidgets",
-        "jquerylib",
-        "jsonlite",
-        "magrittr",
-        "promises"
-      ],
-      "Hash": "3444e6ed78763f9f13aaa39f2481eb34"
+      "Hash": "68122010f01c4dcfbe58ce7112f2433d"
     },
     "R6": {
       "Package": "R6",
@@ -45,6 +36,18 @@
         "utils"
       ],
       "Hash": "e749cae40fa9ef469b6050959517453c"
+    },
+    "anytime": {
+      "Package": "anytime",
+      "Version": "0.3.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "BH",
+        "R",
+        "Rcpp"
+      ],
+      "Hash": "74a64813f17b492da9c6afda6b128e3d"
     },
     "askpass": {
       "Package": "askpass",
@@ -235,19 +238,6 @@
         "sys"
       ],
       "Hash": "93762d0a34d78e6a025efdbfb5c6bb41"
-    },
-    "crosstalk": {
-      "Package": "crosstalk",
-      "Version": "1.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R6",
-        "htmltools",
-        "jsonlite",
-        "lazyeval"
-      ],
-      "Hash": "6aa54f69598c32177e920eb3402e8293"
     },
     "curl": {
       "Package": "curl",
@@ -694,16 +684,6 @@
         "rlang"
       ],
       "Hash": "7e7b457d7766bc47f2a5f21cc2984f8e"
-    },
-    "lazyeval": {
-      "Package": "lazyeval",
-      "Version": "0.2.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R"
-      ],
-      "Hash": "d908914ae53b04d4c0c0fd72ecc35370"
     },
     "lifecycle": {
       "Package": "lifecycle",
@@ -1270,6 +1250,24 @@
         "xtable"
       ],
       "Hash": "c2eae3d8c670fa9dfa35a12066f4a1d5"
+    },
+    "shinyWidgets": {
+      "Package": "shinyWidgets",
+      "Version": "0.7.6",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "anytime",
+        "bslib",
+        "grDevices",
+        "htmltools",
+        "jsonlite",
+        "rlang",
+        "sass",
+        "shiny"
+      ],
+      "Hash": "fd889b32caa37b8ed9b1e9e7ef1564bc"
     },
     "sourcetools": {
       "Package": "sourcetools",

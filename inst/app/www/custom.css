@@ -44,10 +44,15 @@ div.sidebar .shiny-input-container {
 }
 
 .btn-default {
-    background-color: #4D455D;
+    background-color: #7DB9B6;
     border-color: #ddd;
     color: #fff;
     width: 60%;
     border-radius: 2rem;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #2E4F4F;
 }
 

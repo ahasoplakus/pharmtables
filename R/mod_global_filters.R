@@ -59,7 +59,6 @@ mod_global_filters_server <- function(id, dataset, load_data){
     })
 
     filters <- reactive({
-      req(input$pop_fil)
       logger::log_info("mod_global_filters_server: store filters")
       input$pop_fil
     })
