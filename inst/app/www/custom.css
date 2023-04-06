@@ -1,5 +1,5 @@
 .navbar-white {
-    background-color: #7DB9B6;
+    background-color: #DBE4C6;
 }
 
 .layout-fixed .main-sidebar {
@@ -10,12 +10,13 @@
     position: fixed;
     top: 0;
     text-align: center;
-    background-color: #EEEEEE;
+    background-color: #fff;
 }
 
 .layout-fixed .brand-link {
     width: 250px;
-    background-color: #F5E9CF;
+    color: #fff;
+    background-color: #6096B4;
 }
 
 .nav-sidebar .nav-item>.nav-link {
@@ -44,15 +45,35 @@ div.sidebar .shiny-input-container {
 }
 
 .btn-default {
-    background-color: #7DB9B6;
+    background-color: #94AF9F;
     border-color: #ddd;
     color: #fff;
-    width: 60%;
+    width: 180px;
     border-radius: 2rem;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
     background-color: #2E4F4F;
+}
+
+.direct-chat-contacts {
+    bottom: 0;
+    color: #2E4F4F;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.side_apply {
+    background-color: #94AF9F;
+    border-color: #ddd;
+    color: #fff;
+    width: 180px;
+    border-radius: 2rem;
+    margin: auto;
 }
 

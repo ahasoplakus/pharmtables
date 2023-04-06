@@ -9,7 +9,8 @@ build_adsl(
   subtitle = c("x.x.x: Demographic Characteristics",
     "Table x.x.x.x: Demographic Characteristics - Full Analysis Set"),
   footer = "Source: ADSL DDMMYYYY hh:mm; Listing x.xx; SDTM package: DDMMYYYY",
-  split_by = "ARM",
+  split_cols_by = "ARM",
+  split_rows_by = NULL,
   summ_vars = c("AGE", "SEX", "COUNTRY")
 )
 }
@@ -20,9 +21,9 @@ build_adsl(
 
 \item{footer}{Footer of the demographic table}
 
-\item{split_by}{Variable to split the table}
-
 \item{summ_vars}{Summary variables}
+
+\item{split_by}{Variable to split the table}
 }
 \value{
 A tabletree object.

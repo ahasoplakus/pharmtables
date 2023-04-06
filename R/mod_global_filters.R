@@ -12,7 +12,7 @@ mod_global_filters_ui <- function(id){
   ns <- NS(id)
   tagList(
     menuItem(
-      text = "Global Filters",
+      text = "Study Filters",
       pickerInput(
         ns("pop_fil"),
         "",
