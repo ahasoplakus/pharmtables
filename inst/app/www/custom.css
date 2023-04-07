@@ -54,7 +54,7 @@ div.sidebar .shiny-input-container {
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
-    background-color: #2E4F4F;
+    background-color: #6096B4;
 }
 
 .direct-chat-contacts {
@@ -75,5 +75,9 @@ div.sidebar .shiny-input-container {
     width: 180px;
     border-radius: 2rem;
     margin: auto;
+}
+
+.h2, h2 {
+    font-size: 1.5rem;
 }
 
