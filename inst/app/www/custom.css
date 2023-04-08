@@ -30,7 +30,7 @@
 }
 
 label {
-    display: inline-block;
+    display: flex;
     margin-bottom: .5rem;
     margin-right: 100px;
 }
@@ -79,5 +79,31 @@ div.sidebar .shiny-input-container {
 
 .h2, h2 {
     font-size: 1.5rem;
+}
+
+.pretty {
+    position: relative;
+    display: flex !important;
+    margin-right: 1rem;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.irs--shiny .irs-bar {
+    top: 25px;
+    height: 8px;
+    border-top: 1px solid #428bca;
+    border-bottom: 1px solid #428bca;
+    background: #8ed1f0 !important;
+}
+
+.irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single {
+    color: #fff;
+    text-shadow: none;
+    padding: 1px 3px;
+    background-color: #94AF9F !important;
+    border-radius: 3px;
+    font-size: 11px;
+    line-height: 1.333;
 }
 

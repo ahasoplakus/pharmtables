@@ -71,15 +71,17 @@ mod_adsl_display_server <-
         req(input$summ_var)
         logger::log_info("mod_adsl_display_server: data has {nrow(df_out()[[dataset]])} rows")
 
-        df <- df_out()[[dataset]] |>
-          dplyr::filter(
-            SEX %in% global_filters()$sex,
-            RACE %in% global_filters()$race,
-            ETHNIC %in% global_filters()$ethnic,
-            COUNTRY %in% global_filters()$country,
-            SITEID %in% global_filters()$siteid,
-            USUBJID %in% global_filters()$usubjid
-          )
+        df <- filter_adsl(
+          df_out()[[dataset]],
+          global_filters()$pop,
+          global_filters()$sex,
+          global_filters()$race,
+          global_filters()$ethnic,
+          global_filters()$country,
+          global_filters()$age,
+          global_filters()$siteid,
+          global_filters()$usubjid
+        )
 
         logger::log_info("mod_adsl_display_server: filtered data has {nrow(df)} rows")
 

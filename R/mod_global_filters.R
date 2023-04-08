@@ -25,17 +25,19 @@ mod_global_filters_server <- function(id, dataset, load_data) {
       logger::log_info("mod_global_filters_server: update filters")
 
       make_widget <-
-        create_widget(c("SEX", "RACE", "ETHNIC", "COUNTRY", "SITEID", "USUBJID"),
+        create_widget(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"),
                   load_data(),
                   dataset,
                   ns)
 
       menuItem(
         text = "Study Filters",
+        create_flag_widget(c("SAFFL", "ITTFL"), ns),
         make_widget[["SEX"]],
         make_widget[["RACE"]],
         make_widget[["ETHNIC"]],
         make_widget[["COUNTRY"]],
+        make_widget[["AGE"]],
         make_widget[["SITEID"]],
         make_widget[["USUBJID"]],
         actionButton(ns("apply"), "Apply")
@@ -44,10 +46,12 @@ mod_global_filters_server <- function(id, dataset, load_data) {
 
     filters <- reactive({
       logger::log_info("mod_global_filters_server: store filters")
-      list(sex = input$sex,
+      list(pop = input$pop,
+           sex = input$sex,
            race = input$race,
            ethnic = input$ethnic,
            country = input$country,
+           age = input$age,
            siteid = input$siteid,
            usubjid = input$usubjid)
     })
