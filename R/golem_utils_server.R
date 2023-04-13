@@ -45,7 +45,7 @@ drop_nulls <- function(x) {
 #'
 #' @examples
 #' NA %|NA|% 1
-"%|NA|%" <- function(x, y) {
+`%|NA|%` <- function(x, y) {
   if (is.na(x)) {
     y
   } else {

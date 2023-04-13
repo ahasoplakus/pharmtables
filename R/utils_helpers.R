@@ -39,7 +39,8 @@ create_widget <- function(filter_list, df, dataset, namespace) {
                    selected = filter_values[[x]],
                    multiple = TRUE,
                    options = list(`actions-box` = TRUE, size = 10),
-                   choicesOpt = list(content = stringr::str_trunc(filter_values[[x]],
+                   choicesOpt =
+                     list(content = stringr::str_trunc(filter_values[[x]],
                                                                   width = 20))
                  )
                } else {
