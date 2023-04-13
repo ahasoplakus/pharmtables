@@ -27,9 +27,11 @@
 build_adsl <- function(title = "x.x: Study Subject Data",
                        subtitle = c(
                          "x.x.x: Demographic Characteristics",
-                         "Table x.x.x.x: Demographic Characteristics - Full Analysis Set"
+                         "Table x.x.x.x: Demographic Characteristics -
+                         Full Analysis Set"
                        ),
-                       footer = "Source: ADSL DDMMYYYY hh:mm; Listing x.xx; SDTM package: DDMMYYYY",
+                       footer = "Source: ADSL DDMMYYYY hh:mm; Listing x.xx;
+                       SDTM package: DDMMYYYY",
                        split_cols_by = "ARM",
                        split_rows_by = NULL,
                        summ_vars = c("AGE", "SEX", "COUNTRY")) {

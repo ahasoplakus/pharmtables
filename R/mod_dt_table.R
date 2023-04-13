@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_dt_table_ui <- function(id){
+mod_dt_table_ui <- function(id) {
   ns <- NS(id)
   tagList(
     htmlOutput(ns("out_data"))
@@ -19,8 +19,8 @@ mod_dt_table_ui <- function(id){
 #' @noRd
 #'
 #' @importFrom rtables build_table as_html
-mod_dt_table_server <- function(id, display_df){
-  moduleServer( id, function(input, output, session){
+mod_dt_table_server <- function(id, display_df) {
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
     output$out_data <- renderPrint({
@@ -30,9 +30,3 @@ mod_dt_table_server <- function(id, display_df){
     })
   })
 }
-
-## To be copied in the UI
-# mod_dt_table_ui("dt_table_1")
-
-## To be copied in the server
-# mod_dt_table_server("dt_table_1")

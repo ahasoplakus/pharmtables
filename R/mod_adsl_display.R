@@ -69,7 +69,8 @@ mod_adsl_display_server <-
         req(!purrr::every(global_filters(), is.null))
         req(input$split_col)
         req(input$summ_var)
-        logger::log_info("mod_adsl_display_server: data has {nrow(df_out()[[dataset]])} rows")
+        logger::log_info("mod_adsl_display_server: data has
+                         {nrow(df_out()[[dataset]])} rows")
 
         df <- filter_adsl(
           df_out()[[dataset]],
@@ -83,7 +84,8 @@ mod_adsl_display_server <-
           global_filters()$usubjid
         )
 
-        logger::log_info("mod_adsl_display_server: filtered data has {nrow(df)} rows")
+        logger::log_info("mod_adsl_display_server: filtered
+                         data has {nrow(df)} rows")
 
         lyt <- build_adsl(
           split_cols_by = input$split_col,
@@ -99,9 +101,3 @@ mod_adsl_display_server <-
                           display_df = adsl)
     })
   }
-
-## To be copied in the UI
-# mod_adsl_display_ui("adsl_display_1")
-
-## To be copied in the server
-# mod_adsl_display_server("adsl_display_1")

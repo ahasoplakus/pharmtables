@@ -25,7 +25,8 @@ mod_global_filters_server <- function(id, dataset, load_data) {
       logger::log_info("mod_global_filters_server: update filters")
 
       make_widget <-
-        create_widget(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"),
+        create_widget(c("SEX", "RACE", "ETHNIC", "COUNTRY",
+                        "AGE", "SITEID", "USUBJID"),
                   load_data(),
                   dataset,
                   ns)
@@ -61,9 +62,3 @@ mod_global_filters_server <- function(id, dataset, load_data) {
 
   })
 }
-
-## To be copied in the UI
-# mod_global_filters_ui("global_filters_1")
-
-## To be copied in the server
-# mod_global_filters_server("global_filters_1")
