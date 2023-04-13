@@ -4,6 +4,10 @@
 # clinTables
 
 <!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of clinTables is to …
@@ -22,6 +26,17 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(clinTables)
+#> Warning: replacing previous import 'bs4Dash::insertTab' by 'shiny::insertTab'
+#> when loading 'clinTables'
+#> Warning: replacing previous import 'bs4Dash::actionButton' by
+#> 'shiny::actionButton' when loading 'clinTables'
+#> Warning: replacing previous import 'bs4Dash::tabsetPanel' by
+#> 'shiny::tabsetPanel' when loading 'clinTables'
+#> Warning: replacing previous import 'bs4Dash::column' by 'shiny::column' when
+#> loading 'clinTables'
+#> Registered S3 method overwritten by 'tern':
+#>   method   from 
+#>   tidy.glm broom
 ## basic example code
 ```
 
