@@ -1,15 +1,28 @@
-#' adsl_display
+#' Build adsl dataset
 #'
 #' @param title Title of the demographic table
 #' @param subtitle Subtitle of the demographic table
 #' @param footer Footer of the demographic table
-#' @param split_by Variable to split the table
+#' @param split_cols_by Variable to split the table by columns
+#' @param split_rows_by Variable to split the table by rows
 #' @param summ_vars Summary variables
 #'
-#' @description A fct function to build the demographic table full set
+#' @description A function to build the demographic table full set
 #'
 #' @return A tabletree object.
 #' @export
+#'
+#' @examples
+#' lyt <- build_adsl(
+#' split_cols_by = "ARM",
+#' split_rows_by = "SEX",
+#' summ_vars = c("AGE", "RACE")
+#' )
+#'
+#' ## Use the tabletree object to within build_table
+#' \dontrun{
+#' rtables::build_table(lyt, random.cdisc.data::cadsl)
+#' }
 #'
 build_adsl <- function(title = "x.x: Study Subject Data",
                        subtitle = c(

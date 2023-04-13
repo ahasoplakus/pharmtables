@@ -8,59 +8,52 @@
 #'
 #' @importFrom shiny NS tagList
 #' @importFrom shinyWidgets pickerInput updatePickerInput
-mod_global_filters_ui <- function(id){
+mod_global_filters_ui <- function(id) {
   ns <- NS(id)
-  tagList(
-    menuItem(
-      text = "Study Filters",
-      pickerInput(
-        ns("pop_fil"),
-        "",
-        choices = NULL,
-        selected = NULL,
-        multiple = TRUE,
-        options = NULL,
-        choicesOpt = NULL
-      ),
-      actionButton(
-        ns("apply"),
-        "Apply"
-      )
-    )
-  )
+  tagList(menuItemOutput(ns("glob_filt_ui")))
 }
 
 #' global_filters Server Functions
 #'
 #' @noRd
-mod_global_filters_server <- function(id, dataset, load_data){
-  moduleServer( id, function(input, output, session){
+mod_global_filters_server <- function(id, dataset, load_data) {
+  moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    observe({
+    output$glob_filt_ui <- renderMenu({
       req(load_data())
       logger::log_info("mod_global_filters_server: update filters")
 
-      race <- levels(unique(load_data()[[dataset]][["RACE"]]))
+      make_widget <-
+        create_widget(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"),
+                  load_data(),
+                  dataset,
+                  ns)
 
-      updatePickerInput(
-        session = session,
-        inputId = "pop_fil",
-        label = "Race",
-        choices = race,
-        selected = race,
-        options = list(
-          `actions-box` = TRUE, size = 10
-        ),
-        choicesOpt = list(
-          content = stringr::str_trunc(race, width = 20)
-        )
+      menuItem(
+        text = "Study Filters",
+        create_flag_widget(c("SAFFL", "ITTFL"), ns),
+        make_widget[["SEX"]],
+        make_widget[["RACE"]],
+        make_widget[["ETHNIC"]],
+        make_widget[["COUNTRY"]],
+        make_widget[["AGE"]],
+        make_widget[["SITEID"]],
+        make_widget[["USUBJID"]],
+        actionButton(ns("apply"), "Apply")
       )
     })
 
     filters <- reactive({
       logger::log_info("mod_global_filters_server: store filters")
-      input$pop_fil
+      list(pop = input$pop,
+           sex = input$sex,
+           race = input$race,
+           ethnic = input$ethnic,
+           country = input$country,
+           age = input$age,
+           siteid = input$siteid,
+           usubjid = input$usubjid)
     })
 
     return(list(filters = filters,

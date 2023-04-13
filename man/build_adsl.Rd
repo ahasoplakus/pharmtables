@@ -2,7 +2,7 @@
 % Please edit documentation in R/fct_adsl_display.R
 \name{build_adsl}
 \alias{build_adsl}
-\title{adsl_display}
+\title{Build adsl dataset}
 \usage{
 build_adsl(
   title = "x.x: Study Subject Data",
@@ -21,13 +21,28 @@ build_adsl(
 
 \item{footer}{Footer of the demographic table}
 
-\item{summ_vars}{Summary variables}
+\item{split_cols_by}{Variable to split the table by columns}
 
-\item{split_by}{Variable to split the table}
+\item{split_rows_by}{Variable to split the table by rows}
+
+\item{summ_vars}{Summary variables}
 }
 \value{
 A tabletree object.
 }
 \description{
-A fct function to build the demographic table full set
+A function to build the demographic table full set
+}
+\examples{
+lyt <- build_adsl(
+split_cols_by = "ARM",
+split_rows_by = "SEX",
+summ_vars = c("AGE", "RACE")
+)
+
+## Use the tabletree object to within build_table
+\dontrun{
+rtables::build_table(lyt, random.cdisc.data::cadsl)
+}
+
 }
