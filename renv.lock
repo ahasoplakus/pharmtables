@@ -1505,14 +1505,14 @@
     },
     "ps": {
       "Package": "ps",
-      "Version": "1.7.3",
+      "Version": "1.7.4",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "ebaacc87f539b1100e285e9e5d6496ad"
+      "Hash": "d88be14c6790aa6fd7b27a2079a45a85"
     },
     "purrr": {
       "Package": "purrr",
@@ -1560,14 +1560,14 @@
     },
     "random.cdisc.data": {
       "Package": "random.cdisc.data",
-      "Version": "0.3.13.9056",
+      "Version": "0.3.13.9058",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteUsername": "insightsengineering",
       "RemoteRepo": "random.cdisc.data",
+      "RemoteUsername": "insightsengineering",
       "RemoteRef": "main",
-      "RemoteSha": "51858f0da3ba19bfc148ba29414e56f867c929b7",
+      "RemoteSha": "cbf3ae1f52faedeb43577b5aeaafea1372c6cbfe",
       "Requirements": [
         "R",
         "checkmate",
@@ -1581,7 +1581,7 @@
         "tidyr",
         "yaml"
       ],
-      "Hash": "9aae18bfebefa24fe5fde8c62a01b96a"
+      "Hash": "d471de7cba1f92e304f6fb3ca14a154d"
     },
     "rappdirs": {
       "Package": "rappdirs",
@@ -2020,14 +2020,14 @@
     },
     "tern": {
       "Package": "tern",
-      "Version": "0.8.1.9003",
+      "Version": "0.8.1.9005",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteUsername": "insightsengineering",
       "RemoteRepo": "tern",
+      "RemoteUsername": "insightsengineering",
       "RemoteRef": "main",
-      "RemoteSha": "e222a2b829ffd647bc7632dc4c57ef14ae01f525",
+      "RemoteSha": "aa8075dd9c6a4373553be542f720e3304c86c2e8",
       "Requirements": [
         "R",
         "Rdpack",
@@ -2056,7 +2056,7 @@
         "tidyr",
         "utils"
       ],
-      "Hash": "01d714538aa63ed3bd76f47cbd54e6a6"
+      "Hash": "9e22c9c7d26c043fe50ae7a168de3de4"
     },
     "testthat": {
       "Package": "testthat",
