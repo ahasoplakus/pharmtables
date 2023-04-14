@@ -1,29 +1,24 @@
 testServer(
   mod_data_read_server,
   # Add here your module params
-  args = list()
+  args = list(id = "data_read_1", data_list = c("cadsl", "cadcm"))
   , {
     ns <- session$ns
     expect_true(
       inherits(ns, "function")
     )
     expect_true(
-      grepl(id, ns(""))
+      grepl(id, ns("data_read_1"))
     )
     expect_true(
       grepl("test", ns("test"))
     )
-    # Here are some examples of tests you can
-    # run on your module
-    # - Testing the setting of inputs
-    # session$setInputs(x = 1)
-    # expect_true(input$x == 1)
-    # - If ever your input updates a reactiveValues
-    # - Note that this reactiveValues must be passed
-    # - to the testServer function via args = list()
-    # expect_true(r$x == 1)
-    # - Testing output
-    # expect_true(inherits(output$tbl$html, "html"))
+
+    expect_equal(length(read_df()), 2)
+    expect_s3_class(read_df()[["cadsl"]], c("tbl_df", "tbl", "data.frame"))
+    expect_s3_class(read_df()[["cadcm"]], c("tbl_df", "tbl", "data.frame"))
+    expect_true(nrow(read_df()[["cadsl"]]) == 400)
+    expect_equal(nrow(read_df()[["cadcm"]]), 3685)
 })
 
 test_that("module ui works", {
