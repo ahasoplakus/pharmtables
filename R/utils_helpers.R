@@ -62,7 +62,7 @@ create_widget <- function(filter_list, df, dataset, namespace) {
 #' @param flags Population Flags
 #' @param namespace namespace
 #'
-#' @return
+#' @return radio button widget for analysis population
 #'
 #' @noRd
 create_flag_widget <- function(flags, namespace) {
