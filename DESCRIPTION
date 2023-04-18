@@ -14,6 +14,7 @@ Imports:
     golem (>= 0.4.0),
     purrr (>= 1.0.1),
     rlang (>= 1.1.0),
+    rmarkdown (>= 2.21),
     rtables (>= 0.6.0),
     shiny (>= 1.7.4),
     shinyWidgets (>= 0.7.6),
@@ -24,7 +25,6 @@ Suggests:
     knitr,
     logger (>= 0.2.2),
     random.cdisc.data (>= 0.3.13.9058),
-    rmarkdown,
     spelling,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
