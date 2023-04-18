@@ -2,7 +2,10 @@
 #'
 #' @param request Internal parameter for `{shiny}`.
 #'     DO NOT REMOVE.
-#' @import shiny bs4Dash
+#' @import shiny
+#' @importFrom bs4Dash dashboardPage dashboardHeader dashboardSidebar
+#' sidebarMenu menuItem menuItemOutput renderMenu dashboardBody tabBox box
+#' boxSidebar
 #' @noRd
 app_ui <- function(request) {
   tagList(
