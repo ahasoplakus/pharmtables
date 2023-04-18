@@ -39,10 +39,13 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-          needs: check
+      - name: Check
+        env:
+          _R_CHECK_CRAN_INCOMING_: false
+        run: |
+          options(crayon.enabled = TRUE)
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran","--no-build-vignettes","--ignore-vignettes"), build_args=c("--no-build-vignettes"),error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:
