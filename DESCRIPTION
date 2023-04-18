@@ -13,6 +13,7 @@ Imports:
     dplyr (>= 1.1.1),
     golem (>= 0.4.0),
     purrr (>= 1.0.1),
+    random.cdisc.data (>= 0.3.13.9058),
     rlang (>= 1.1.0),
     rtables (>= 0.6.0),
     shiny (>= 1.7.4),
@@ -23,7 +24,6 @@ Imports:
 Suggests: 
     knitr,
     logger (>= 0.2.2),
-    random.cdisc.data (>= 0.3.13.9058),
     rmarkdown,
     spelling,
     testthat (>= 3.0.0)
