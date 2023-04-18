@@ -1,0 +1,11 @@
+utils::globalVariables(c("AGE",
+                         "COUNTRY",
+                         "ETHNIC",
+                         "ITTFL",
+                         "RACE",
+                         "SAFFL",
+                         "SEX",
+                         "SITEID",
+                         "USUBJID",
+                         "adsl",
+                         "tabletree"))
