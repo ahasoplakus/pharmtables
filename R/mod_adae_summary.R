@@ -89,8 +89,14 @@ mod_adae_summary_server <- function(id,
         rtables::add_overall_col(label = "All Patients") |>
         rtables::add_colcounts() |>
         tern::count_patients_with_flags("USUBJID",
-                                        flag_variables = formatters::var_labels(df[, c("fl1", "fl2", "fl3",
-                                                                                       "fl4", "fl5", "fl6")]))
+                                        flag_variables =
+                                          formatters::var_labels(df[,
+                                                                    c("fl1",
+                                                                      "fl2",
+                                                                      "fl3",
+                                                                      "fl4",
+                                                                      "fl5",
+                                                                      "fl6")]))
 
       return(list(
         adsl = df,
@@ -104,9 +110,3 @@ mod_adae_summary_server <- function(id,
                         display_df = ae_summ)
   })
 }
-
-## To be copied in the UI
-# mod_ae_summary_ui("ae_summary_1")
-
-## To be copied in the server
-# mod_ae_summary_server("ae_summary_1")

@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_adae_display_ui <- function(id){
+mod_adae_display_ui <- function(id) {
   ns <- NS(id)
   tagList(
     box(

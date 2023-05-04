@@ -44,7 +44,8 @@ build_adsl <- function(title = "x.x: Study Subject Data",
       split_rows_by(split_rows_by) |>
       add_overall_col("All Patients") |>
       summarize_vars(summ_vars,
-                     .stats = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction"),
+                     .stats = c("n", "mean_sd", "se", "median", "range",
+                                "quantiles", "count_fraction"),
                      .labels = c(n = "n",
                                  mean_sd = "Mean, SD",
                                  se = "Standard Error",
@@ -61,7 +62,8 @@ build_adsl <- function(title = "x.x: Study Subject Data",
       split_cols_by(split_cols_by) |>
       add_overall_col("All Patients") |>
       summarize_vars(summ_vars,
-                     .stats = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction"),
+                     .stats = c("n", "mean_sd", "se", "median", "range",
+                                "quantiles", "count_fraction"),
                      .labels = c(n = "n",
                                  mean_sd = "Mean, SD",
                                  se = "Standard Error",
