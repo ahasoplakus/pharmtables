@@ -60,7 +60,7 @@ mod_adae_summary_server <- function(id,
 
       df <- df_out()[[dataset]] |>
         dplyr::filter(USUBJID %in% unique(df_adsl$USUBJID)) |>
-        mutate(
+        dplyr::mutate(
           fl1 = TRUE,
           fl2 = TRTEMFL == "Y",
           fl3 = TRTEMFL == "Y" & AEOUT == "FATAL",
