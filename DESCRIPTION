@@ -23,6 +23,7 @@ Imports:
     tidyr (>= 1.3.0)
 Remotes: 
     insightsengineering/random.cdisc.data,
+    insightsengineering/rtables,
     insightsengineering/tern
 Suggests: 
     knitr,
