@@ -26,7 +26,7 @@ mod_dt_table_server <- function(id, display_df) {
     output$out_data <- renderPrint({
       req(display_df()$adsl)
       logger::log_info("mod_dt_table_server: display data")
-      as_html(build_table(display_df()$lyt, display_df()$adsl))
+      as_html(build_table(display_df()$lyt, display_df()$adsl), display_df()$alt_df)
     })
   })
 }
