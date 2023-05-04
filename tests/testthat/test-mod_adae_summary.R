@@ -1,5 +1,5 @@
 testServer(
-  mod_ae_summary_server,
+  mod_adae_summary_server,
   # Add here your module params
   args = list()
   , {
@@ -25,9 +25,9 @@ testServer(
     # - Testing output
     # expect_true(inherits(output$tbl$html, "html"))
 })
- 
+
 test_that("module ui works", {
-  ui <- mod_ae_summary_ui(id = "test")
+  ui <- mod_adae_summary_ui(id = "test")
   golem::expect_shinytaglist(ui)
   # Check that formals have not been removed
   fmls <- formals(mod_ae_summary_ui)
@@ -35,4 +35,4 @@ test_that("module ui works", {
     expect_true(i %in% names(fmls))
   }
 })
- 
+
