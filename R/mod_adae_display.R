@@ -80,7 +80,7 @@ mod_adae_display_server <- function(id,
       req(input$summ_var)
 
       df_adsl <- adsl() |>
-        dplyr::select(USUBJID, ends_with("ARM")) |>
+        dplyr::select(USUBJID, dplyr::ends_with("ARM")) |>
         unique()
 
       logger::log_info("mod_adae_display_server: alt_data has

@@ -52,7 +52,7 @@ mod_adae_summary_server <- function(id,
       req(input$split_col)
 
       df_adsl <- adsl() |>
-        dplyr::select(USUBJID, ends_with("ARM")) |>
+        dplyr::select(USUBJID, dplyr::ends_with("ARM")) |>
         unique()
 
       logger::log_info("mod_adae_summary_server: alt_data has

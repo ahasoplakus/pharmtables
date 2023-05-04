@@ -8,4 +8,9 @@ utils::globalVariables(c("AGE",
                          "SITEID",
                          "USUBJID",
                          "adsl",
-                         "tabletree"))
+                         "tabletree",
+                         "AEACN",
+                         "TRTEMFL",
+                         "AEOUT",
+                         "AEREL",
+                         "DCSREAS"))
