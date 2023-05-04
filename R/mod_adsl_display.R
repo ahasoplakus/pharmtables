@@ -11,6 +11,7 @@ mod_adsl_display_ui <- function(id) {
   ns <- NS(id)
   tagList(
     box(
+      id = "box_adsl",
       sidebar = boxSidebar(
         id = "demog_side",
         background = "#EFF5F5",
@@ -55,49 +56,33 @@ mod_adsl_display_ui <- function(id) {
 #'
 #' @importFrom rtables basic_table split_cols_by split_rows_by add_overall_col
 #' @importFrom tern summarize_vars
-mod_adsl_display_server <-
-  function(id,
-           dataset,
-           df_out,
-           global_filters = NULL,
-           apply) {
-    moduleServer(id, function(input, output, session) {
-      ns <- session$ns
+mod_adsl_display_server <- function(id, adsl) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
 
-      adsl <- reactive({
-        req(df_out())
-        req(!purrr::every(global_filters(), is.null))
-        req(input$split_col)
-        req(input$summ_var)
-        logger::log_info("mod_adsl_display_server: data has
-                         {nrow(df_out()[[dataset]])} rows")
+    disp_df <- reactive({
+      req(adsl())
+      req(input$split_col)
+      req(input$summ_var)
 
-        df <- filter_adsl(
-          df_out()[[dataset]],
-          global_filters()$pop,
-          global_filters()$sex,
-          global_filters()$race,
-          global_filters()$ethnic,
-          global_filters()$country,
-          global_filters()$age,
-          global_filters()$siteid,
-          global_filters()$usubjid
-        )
+      logger::log_info("mod_adsl_display_server: processed
+                         adsl has {nrow(adsl())} rows")
 
-        logger::log_info("mod_adsl_display_server: filtered
-                         data has {nrow(df)} rows")
+      lyt <- build_adsl(
+        split_cols_by = input$split_col,
+        split_rows_by = input$split_row,
+        summ_vars = input$summ_var
+      )
 
-        lyt <- build_adsl(
-          split_cols_by = input$split_col,
-          split_rows_by = input$split_row,
-          summ_vars = input$summ_var
-        )
+      return(list(
+        adsl = adsl(),
+        alt_df = NULL,
+        lyt = lyt
+      ))
+    }) |>
+      bindEvent(list(adsl(), input$run))
 
-        return(list(adsl = df, lyt = lyt))
-      }) |>
-        bindEvent(list(apply(), input$run))
-
-      mod_dt_table_server("dt_table_1",
-                          display_df = adsl)
-    })
-  }
+    mod_dt_table_server("dt_table_1",
+                        display_df = disp_df)
+  })
+}

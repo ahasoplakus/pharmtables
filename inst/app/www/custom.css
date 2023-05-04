@@ -1,5 +1,5 @@
 .navbar-white {
-    background-color: #DBE4C6;
+    background-color: #A3C7D6;
 }
 
 .layout-fixed .main-sidebar {
@@ -13,10 +13,18 @@
     background-color: #fff;
 }
 
-.layout-fixed .brand-link {
+#logo-id {
     width: 250px;
     color: #fff;
-    background-color: #6096B4;
+    background-color: #624F82;
+    font-size: x-large;
+    padding: 6px;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+    margin-right: 7.5px;
 }
 
 .nav-sidebar .nav-item>.nav-link {
@@ -45,31 +53,74 @@ div.sidebar .shiny-input-container {
 }
 
 .btn-default {
-    background-color: #94AF9F;
+    background-color: #624F82;
     border-color: #ddd;
     color: #fff;
     width: 180px;
     border-radius: 2rem;
 }
 
+[class*=sidebar-light-] .nav-sidebar>.nav-item:hover>.nav-link {
+    background-color: #E9D5DA;
+    color: #212529;
+    margin-right: 5px !important;
+}
+
+[class*=sidebar-light-] .nav-sidebar>.nav-item.menu-open>.nav-link {
+    background-color: #E9D5DA;
+    color: #212529;
+    margin-right: 75px !important;
+}
+
+.nav-sidebar .nav-item>.nav-link {
+    background-color: #E9D5DA;
+    margin-right: 5px;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
-    background-color: #6096B4;
+    background-color: #624F82;
+}
+
+.nav-item>a:hover {
+    color: #fff !important;
+    background-color: #A3C7D6 !important;
+}
+
+.os-theme-dark>.os-scrollbar, .os-theme-light>.os-scrollbar {
+    padding: 2px;
+    box-sizing: border-box;
+    background: 0 0;
+    background-color: #fff;
 }
 
 .direct-chat-contacts {
     bottom: 0;
     color: #2E4F4F;
+    background-color: #f5f2fa !important;
     overflow: auto;
     position: absolute;
     top: 0;
     display: flex;
     justify-content: center;
     align-items: start;
+    border-style: ridge;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-width: thick;
+    height: fit-content !important;
+}
+
+#box_adsl .card-header {
+    background-color: aliceblue !important;
+}
+
+#box_adae .card-header {
+    background-color: aliceblue !important;
 }
 
 .side_apply {
-    background-color: #94AF9F;
+    background-color: #624F82;
     border-color: #ddd;
     color: #fff;
     width: 180px;
@@ -89,21 +140,47 @@ div.sidebar .shiny-input-container {
     line-height: 1;
 }
 
+.pretty .state label:before {
+    border-color: #624F82 !important;
+}
+
+#global_filters_1-pop .pretty input:checked~.state.p-info label:after,.pretty.p-toggle .state.p-info label:after {
+    border-color: #5bc0de !important;
+    background-color: #A3C7D6 !important;
+}
+
+#global_filters_1-sex .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+    background-color: #A3C7D6 !important;
+}
+
+#global_filters_1-race .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+    background-color: #A3C7D6 !important;
+}
+
+#global_filters_1-ethnic .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+    background-color: #A3C7D6 !important;
+}
+
+#global_filters_1-country .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+    background-color: #A3C7D6 !important;
+}
+
 .irs--shiny .irs-bar {
     top: 25px;
     height: 8px;
+    border-color: #624F82 !important;
     border-top: 1px solid #428bca;
     border-bottom: 1px solid #428bca;
-    background: #8ed1f0 !important;
+    background: #A3C7D6 !important;
 }
 
-.irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single {
-    color: #fff;
-    text-shadow: none;
-    padding: 1px 3px;
-    background-color: #94AF9F !important;
-    border-radius: 3px;
-    font-size: 11px;
-    line-height: 1.333;
+.irs--shiny .irs-from,
+.irs--shiny .irs-to,
+.irs--shiny .irs-single {
+  background-color: #624F82 !important;
 }
 
+.bootstrap-select>.dropdown-toggle {
+    background-color: #E9D5DA !important;
+    border-color: #624F82 !important;
+}

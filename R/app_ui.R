@@ -14,7 +14,10 @@ app_ui <- function(request) {
     # Your application UI logic
     dashboardPage(
       header = dashboardHeader(
-        title = "clinTables",
+        title = div(id = "logo-id",
+                    img(src = "www/logo.png",
+                        style = "height:45px; width:40px"),
+                    "clinTables"),
         status = "white",
         border = TRUE,
         skin = "light"
@@ -22,11 +25,9 @@ app_ui <- function(request) {
       sidebar = dashboardSidebar(
         skin = "light",
         status = "info",
-        sidebarMenu(
-          id = "sidebarmenu",
-          # add global filters module ui here
-          mod_global_filters_ui("global_filters_1")
-        )
+        sidebarMenu(id = "sidebarmenu",
+                    # add global filters module ui here
+                    mod_global_filters_ui("global_filters_1"))
       ),
       body = dashboardBody(
         tabBox(
@@ -38,11 +39,22 @@ app_ui <- function(request) {
             "Demographics",
             fluidRow(
               mod_data_read_ui("data_read_1"),
+              mod_process_adsl_ui("process_adsl_1"),
               mod_adsl_display_ui("adsl_display_1")
             )
           ),
           tabPanel(
-            "Adverse Events"
+            "Adverse Events",
+            tabBox(
+              id = "ae_tabs",
+              type = "pills",
+              width = 12,
+              collapsible = FALSE,
+              tabPanel("AE Summary",
+                       mod_adae_summary_ui("adae_summary_1")),
+              tabPanel("AE by Toxicity/Severity",
+                       mod_adae_display_ui("adae_display_1"))
+            )
           )
         )
       ),
