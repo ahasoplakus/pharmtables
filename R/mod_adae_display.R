@@ -110,7 +110,7 @@ mod_adae_display_server <- function(id,
                       split_fun = drop_split_levels) |>
         summarize_occurrences_by_grade(input$summ_var)
 
-      return(list(adsl = df, alt_df = df_adsl, lyt = lyt))
+      return(list(out_df = df, alt_df = df_adsl, lyt = lyt))
     }) |>
       bindEvent(list(adsl(), input$run))
 

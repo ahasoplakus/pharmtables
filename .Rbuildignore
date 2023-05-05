@@ -20,3 +20,4 @@ $run_dev.*
 ^\.github$
 ^doc$
 ^Meta$
+^codecov\.yml$

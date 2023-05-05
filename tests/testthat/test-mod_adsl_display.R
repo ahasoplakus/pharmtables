@@ -1,7 +1,7 @@
 testServer(
   mod_adsl_display_server,
   # Add here your module params
-  args = list()
+  args = list(id = "adsl_display_abc", adsl = reactive(random.cdisc.data::cadsl))
   , {
     ns <- session$ns
     expect_true(
@@ -13,6 +13,33 @@ testServer(
     expect_true(
       grepl("test", ns("test"))
     )
+
+    session$setInputs(split_col = "ARM")
+    session$setInputs(split_row = "SEX")
+    session$setInputs(summ_var = c("AGE", "SEX"))
+    session$setInputs(run = 1)
+
+    exp_lyt <- build_adsl(
+      split_cols_by = "ARM",
+      split_rows_by = "SEX",
+      summ_vars = c("AGE", "SEX")
+    )
+
+    exp_lyt1 <- build_adsl(
+      split_cols_by = "ARM",
+      split_rows_by = "SEX",
+      summ_vars = c("AGE", "SEX", "COUNTRY")
+    )
+
+    expect_equal(nrow(disp_df()$out_df), 400)
+    expect_null(disp_df()$alt_df)
+    expect_identical(disp_df()$lyt, exp_lyt)
+
+    session$setInputs(summ_var = c("AGE", "SEX", "COUNTRY"))
+    session$setInputs(run = 2)
+
+    expect_identical(disp_df()$lyt, exp_lyt1)
+    expect_false(identical(disp_df()$lyt, exp_lyt))
 })
 
 test_that("module ui works", {

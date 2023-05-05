@@ -99,7 +99,7 @@ mod_adae_summary_server <- function(id,
                                                                       "fl6")]))
 
       return(list(
-        adsl = df,
+        out_df = df,
         alt_df = df_adsl,
         lyt = lyt
       ))

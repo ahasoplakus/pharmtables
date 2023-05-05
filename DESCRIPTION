@@ -27,6 +27,7 @@ Remotes:
     insightsengineering/rtables,
     insightsengineering/tern
 Suggests: 
+    covr,
     knitr,
     logger (>= 0.2.2),
     rmarkdown,

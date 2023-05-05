@@ -75,7 +75,7 @@ mod_adsl_display_server <- function(id, adsl) {
       )
 
       return(list(
-        adsl = adsl(),
+        out_df = adsl(),
         alt_df = NULL,
         lyt = lyt
       ))
