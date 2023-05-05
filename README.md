@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# clinTables
+# clinTables <a href='https://github.com/ahasoplakus/clinTables/'><img src="man/figures/logo.png" align="right"/></a>
 
 <!-- badges: start -->
 
@@ -26,14 +26,6 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(clinTables)
-#> Warning: replacing previous import 'bs4Dash::insertTab' by 'shiny::insertTab'
-#> when loading 'clinTables'
-#> Warning: replacing previous import 'bs4Dash::actionButton' by
-#> 'shiny::actionButton' when loading 'clinTables'
-#> Warning: replacing previous import 'bs4Dash::tabsetPanel' by
-#> 'shiny::tabsetPanel' when loading 'clinTables'
-#> Warning: replacing previous import 'bs4Dash::column' by 'shiny::column' when
-#> loading 'clinTables'
 #> Registered S3 method overwritten by 'tern':
 #>   method   from 
 #>   tidy.glm broom

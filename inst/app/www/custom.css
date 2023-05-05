@@ -184,3 +184,7 @@ div.sidebar .shiny-input-container {
     background-color: #E9D5DA !important;
     border-color: #624F82 !important;
 }
+
+.selectize-dropdown, .selectize-input, .selectize-input input {
+    position: static !important;
+}

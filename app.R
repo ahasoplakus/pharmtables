@@ -10,4 +10,4 @@ options(shiny.sanitize.errors = FALSE)
 # rsconnect::writeManifest() # Needed for continuous deployment
 
 # Launch the app
-clinTables::run_app() # add parameters here (if any)
+run_app() # add parameters here (if any)
