@@ -96,7 +96,7 @@ mod_adae_summary_server <- function(id,
                                                                       "fl4",
                                                                       "fl5",
                                                                       "fl6")]))
-browser()
+
       return(list(
         out_df = df,
         alt_df = df_adsl,
