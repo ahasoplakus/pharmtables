@@ -1,4 +1,4 @@
-test_that("adsl gets filtered correctly", {
+test_that("mod_process_adsl_server works", {
   trigger <- reactiveVal()
   gf <- reactiveVal()
   testServer(
