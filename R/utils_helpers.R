@@ -34,7 +34,11 @@ create_widget <- function(filter_list, df, dataset, namespace) {
                } else if (length(filter_values[[x]]) > 5) {
                  pickerInput(
                    namespace(tolower(x)),
-                   label = stringr::str_to_title(x),
+                   label = dplyr::case_match(stringr::str_to_title(x),
+                                             "Ethnic" ~ "Ethnicity",
+                                             "Siteid" ~ "Site",
+                                             "Usubjid" ~ "Subject ID(s)",
+                                             .default = stringr::str_to_title(x)),
                    choices = filter_values[[x]],
                    selected = filter_values[[x]],
                    multiple = TRUE,
@@ -46,7 +50,11 @@ create_widget <- function(filter_list, df, dataset, namespace) {
                } else {
                  shinyWidgets::prettyCheckboxGroup(
                    namespace(tolower(x)),
-                   label = stringr::str_to_title(x),
+                   label = dplyr::case_match(stringr::str_to_title(x),
+                                             "Ethnic" ~ "Ethnicity",
+                                             "Siteid" ~ "Site",
+                                             "Usubjid" ~ "Subject ID(s)",
+                                             .default = stringr::str_to_title(x)),
                    choices = filter_values[[x]],
                    selected = filter_values[[x]],
                    outline = TRUE,

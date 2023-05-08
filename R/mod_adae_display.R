@@ -66,8 +66,7 @@ mod_adae_display_ui <- function(id) {
 mod_adae_display_server <- function(id,
                                     dataset,
                                     df_out,
-                                    adsl,
-                                    apply) {
+                                    adsl) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
