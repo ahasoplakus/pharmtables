@@ -99,8 +99,7 @@ create_flag_widget <- function(flags, namespace) {
 #' @param usubjid Subject Identifier
 #'
 #' @return Filtered adsl
-#' @export
-#'
+#' @noRd
 filter_adsl <-
   function(df,
            pop,

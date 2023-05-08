@@ -11,51 +11,25 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://codecov.io/gh/ahasoplakus/clinTables)
 <!-- badges: end -->
 
-The goal of clinTables is to …
+`clinTables` is a shiny app to visualize standard tables used in
+<b>Clinical Trials</b> through a <b>Shiny</b> Web Application
+
+<left> Find the <b>app</b> here:
+[clinTables](https://sukalpo94.shinyapps.io/clinTables/) </left>
 
 ## Installation
 
-You can install the development version of clinTables like so:
+Latest `dev` version
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+remotes::install_github("ahasoplakus/clinTables")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+Run `library(clinTables)` to access all the exported functions from
+`clinTables` that help in reproducing analysis performed in the app. Or,
+you can run the application locally using:
 
 ``` r
-library(clinTables)
-#> Registered S3 method overwritten by 'tern':
-#>   method   from 
-#>   tidy.glm broom
-## basic example code
+# Launch the application 
+clinTables::run_app()
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
