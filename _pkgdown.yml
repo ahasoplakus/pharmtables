@@ -3,19 +3,19 @@ url: https://ahasoplakus.github.io/clinTables/
 template:
   bootstrap: 5
   params:
+    noindex: false
     bootswatch: journal
   theme: github-light
   bslib:
-    bg: "#fff"
-    fg: "#51557E"
-    primary: "#A3C7D6"
+    primary: "#65647C"
+    secondary: "#99A98F"
     base_font: {google: "Roboto"}
     heading_font: {google: "Roboto Slab"}
     code_font: {google: "Poltawski Nowy"}
 repo:
   url:
     home: https://github.com/ahasoplakus/clinTables/
-    source: https://github.com/ahasoplakus/clinTables/blob/main/
+    source: https://github.com/ahasoplakus/clinTables/blob/devel/
     issue: https://github.com/ahasoplakus/clinTables/issues/
     user: https://github.com/
 
@@ -30,7 +30,7 @@ reference:
   - has_keyword("helpers")
 
 navbar:
-  bg: primary
+  bg: secondary
   structure:
     right: [github, linkedin, twitter]
   components:
