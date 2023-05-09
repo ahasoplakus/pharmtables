@@ -165,6 +165,12 @@ div.sidebar .shiny-input-container {
     background-color: #A3C7D6 !important;
 }
 
+#adae_summary_1-events .pretty input:checked~.state.p-info label:after,.pretty.p-toggle .state.p-info label:after {
+    border-color: #5bc0de !important;
+    background-color: #A3C7D6 !important;
+}
+
+
 .irs--shiny .irs-bar {
     top: 25px;
     height: 8px;

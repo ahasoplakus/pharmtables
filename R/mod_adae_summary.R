@@ -113,7 +113,10 @@ mod_adae_summary_server <- function(id,
         label = "Show/Hide Events",
         choiceNames = labs,
         choiceValues = choices,
-        selected = selected
+        selected = selected,
+        prettyOptions = list(animation = "pulse",
+                             status = "info",
+                             shape = "curve")
       )
     }) |>
       bindEvent(ae_summ_init())
