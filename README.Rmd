@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 [![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://codecov.io/gh/ahasoplakus/clinTables)
 <!-- badges: end -->
 
-`clinTables` is a shiny app to visualize standard tables used in <b>Clinical Trials</b> through a <b>Shiny</b> Web Application
+`clinTables` is a shiny application to visualize standard tables used in <b>Clinical Trials</b>
 
 <left>
 Find the <b>app</b> here: [clinTables](https://sukalpo94.shinyapps.io/clinTables/)

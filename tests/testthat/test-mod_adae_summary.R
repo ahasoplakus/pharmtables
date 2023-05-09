@@ -19,8 +19,8 @@ test_that("mod_adae_summary_server works", {
       expect_true(grepl("test", ns("test")))
 
       df <- df_out()[[dataset]] |>
-        dplyr::filter(USUBJID %in% unique(adsl()$USUBJID)) |>
-        dplyr::mutate(
+        filter(USUBJID %in% unique(adsl()$USUBJID)) |>
+        mutate(
           fl1 = TRUE,
           fl2 = TRTEMFL == "Y",
           fl3 = TRTEMFL == "Y" & AEOUT == "FATAL",

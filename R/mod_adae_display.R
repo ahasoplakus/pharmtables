@@ -79,14 +79,14 @@ mod_adae_display_server <- function(id,
       req(input$summ_var)
 
       df_adsl <- adsl() |>
-        dplyr::select(USUBJID, dplyr::ends_with("ARM")) |>
+        select(USUBJID, ends_with("ARM")) |>
         unique()
 
       logger::log_info("mod_adae_display_server: alt_data has
                          {nrow(df_adsl)} rows")
 
       df <- df_out()[[dataset]] |>
-        dplyr::filter(USUBJID %in% unique(df_adsl$USUBJID))
+        filter(USUBJID %in% unique(df_adsl$USUBJID))
 
       logger::log_info("mod_adae_display_server: adae has
                          {nrow(df)} rows")

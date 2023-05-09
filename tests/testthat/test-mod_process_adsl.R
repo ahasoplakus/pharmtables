@@ -44,14 +44,14 @@ test_that("mod_process_adsl_server works", {
 
       # check adsl gets filtered when global_filters update and apply is clicked
       trigger(2)
-      gf(purrr::list_assign(gf(), sex = "M"))
+      gf(list_assign(gf(), sex = "M"))
       session$flushReact()
 
       expect_equal(nrow(adsl()), 88)
       expect_equal(unique(as.character(adsl()$SEX)), "M")
 
       # check adsl does not update if global filters update but apply is not clicked
-      gf(purrr::list_assign(gf(), age = 40))
+      gf(list_assign(gf(), age = 40))
       session$flushReact()
 
       expect_equal(nrow(adsl()), 88)

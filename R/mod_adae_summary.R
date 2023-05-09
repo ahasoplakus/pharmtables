@@ -51,15 +51,15 @@ mod_adae_summary_server <- function(id,
       req(input$split_col)
 
       df_adsl <- adsl() |>
-        dplyr::select(USUBJID, dplyr::ends_with("ARM")) |>
+        select(USUBJID, ends_with("ARM")) |>
         unique()
 
       logger::log_info("mod_adae_summary_server: alt_data has
                          {nrow(df_adsl)} rows")
 
       df <- df_out()[[dataset]] |>
-        dplyr::filter(USUBJID %in% unique(df_adsl$USUBJID)) |>
-        dplyr::mutate(
+        filter(USUBJID %in% unique(df_adsl$USUBJID)) |>
+        mutate(
           fl1 = TRUE,
           fl2 = TRTEMFL == "Y",
           fl3 = TRTEMFL == "Y" & AEOUT == "FATAL",

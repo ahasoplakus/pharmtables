@@ -25,9 +25,9 @@ mod_data_read_server <- function(id, data_list) {
       req(data_list)
       logger::log_info("mod_data_read_server: reading {data_list}")
       df <- data_list |>
-        purrr::map(~ paste0("random.cdisc.data::", .x)) |>
-        purrr::map(~ eval(rlang::parse_expr(.x))) |>
-        purrr::set_names(data_list)
+        map(~ paste0("random.cdisc.data::", .x)) |>
+        map(~ eval(parse_expr(.x))) |>
+        set_names(data_list)
     })
 
     return(read_df)

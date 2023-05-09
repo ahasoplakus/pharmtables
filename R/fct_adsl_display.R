@@ -10,6 +10,8 @@
 #' @description A function to build the demographic table full set
 #'
 #' @return A tabletree object.
+#' @family helpers
+#' @keywords helpers
 #' @export
 #'
 #' @examples

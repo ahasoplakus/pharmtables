@@ -46,3 +46,5 @@ rtables::build_table(lyt, random.cdisc.data::cadsl)
 }
 
 }
+\concept{helpers}
+\keyword{helpers}

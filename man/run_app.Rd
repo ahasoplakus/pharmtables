@@ -39,3 +39,5 @@ See `?golem::get_golem_options` for more details.}
 \description{
 Run the Shiny Application
 }
+\concept{app_specific}
+\keyword{app_specific}
