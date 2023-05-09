@@ -40,8 +40,6 @@ test_that("mod_adae_summary_server works", {
 
       formatters::var_labels(df)[names(labels)] <- labels
 
-      session$setInputs(split_col = "ARM")
-
       exp_lyt <- basic_table() |>
         split_cols_by(var = "ARM") |>
         rtables::add_colcounts() |>
@@ -57,9 +55,30 @@ test_that("mod_adae_summary_server works", {
                                                                       "fl5",
                                                                       "fl6")]))
 
+      exp_lyt1 <- basic_table() |>
+        split_cols_by(var = "ARM") |>
+        rtables::add_colcounts() |>
+        rtables::add_overall_col(label = "All Patients") |>
+        rtables::add_colcounts() |>
+        tern::count_patients_with_flags("USUBJID",
+                                        flag_variables =
+                                          formatters::var_labels(df[,
+                                                                    c("fl4",
+                                                                      "fl5",
+                                                                      "fl6")]))
+
+      session$setInputs(split_col = "ARM")
+      session$setInputs(events = names(select(df, starts_with("fl"))))
+      session$setInputs(run = 1)
+
       expect_equal(nrow(ae_summ()$out_df), 1934)
       expect_equal(nrow(ae_summ()$alt_df), 400)
       expect_identical(ae_summ()$lyt, exp_lyt)
+
+      session$setInputs(events = names(select(df, c("fl4", "fl5", "fl6"))))
+      session$setInputs(run = 2)
+
+      expect_identical(ae_summ()$lyt, exp_lyt1)
     }
   )
 })
