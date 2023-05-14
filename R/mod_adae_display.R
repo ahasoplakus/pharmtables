@@ -12,6 +12,7 @@ mod_adae_display_ui <- function(id) {
   tagList(
     box(
       id = "box_adae",
+      title = "Summary of Treatment-Emergent Adverse Events (TEAES) By Body System And Severity",
       sidebar = boxSidebar(
         id = "adae_side",
         background = "#EFF5F5",
@@ -46,12 +47,19 @@ mod_adae_display_ui <- function(id) {
           multiple = FALSE,
           width = 300
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Apply"),
+        tagAppendAttributes(actionButton(ns("run"), "Update"),
                             class = "side_apply")
       ),
       maximizable = TRUE,
       width = 12,
       height = "800px",
+      shinyWidgets::prettySwitch(
+        ns("view"),
+        label = "Default View",
+        value = TRUE,
+        status = "info",
+        inline = TRUE
+      ),
       mod_dt_table_ui(ns("dt_table_2"))
     )
   )
@@ -91,27 +99,23 @@ mod_adae_display_server <- function(id,
       logger::log_info("mod_adae_display_server: adae has
                          {nrow(df)} rows")
 
-      lyt <- basic_table() |>
-        split_cols_by(var = input$split_col) |>
-        add_colcounts() |>
-        add_overall_col(label = "All Patients") |>
-        add_colcounts() |>
-        summarize_num_patients("USUBJID") |>
-        split_rows_by(input$class,
-                      child_labels = "visible",
-                      nested = TRUE,
-                      indent_mod = 1,
-                      split_fun = drop_split_levels) |>
-        split_rows_by(input$term,
-                      child_labels = "visible",
-                      nested = TRUE,
-                      indent_mod = 2,
-                      split_fun = drop_split_levels) |>
-        summarize_occurrences_by_grade(input$summ_var)
+      out_df <- adae_sev_tox(
+        adsl = df_adsl,
+        df_adae = df,
+        colsby = input$split_col,
+        grade_val = input$summ_var,
+        class_val = input$class,
+        term_val = input$term,
+        default_view = input$view
+      )
 
-      return(list(out_df = df, alt_df = df_adsl, lyt = lyt))
+      return(list(
+        out_df = out_df,
+        alt_df = NULL,
+        lyt = NULL
+      ))
     }) |>
-      bindEvent(list(adsl(), input$run))
+      bindEvent(list(adsl(), input$run, input$view))
 
     mod_dt_table_server("dt_table_2",
                         display_df = ae_explore)

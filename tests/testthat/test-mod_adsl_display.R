@@ -15,12 +15,18 @@ test_that("mod_adsl_display_server works", {
                session$setInputs(run = 1)
 
                exp_lyt <- build_adsl(
+                 title = "",
+                 subtitle = "",
+                 footer = "",
                  split_cols_by = "ARM",
                  split_rows_by = "SEX",
                  summ_vars = c("AGE", "SEX")
                )
 
                exp_lyt1 <- build_adsl(
+                 title = "",
+                 subtitle = "",
+                 footer = "",
                  split_cols_by = "ARM",
                  split_rows_by = "SEX",
                  summ_vars = c("AGE", "SEX", "COUNTRY")

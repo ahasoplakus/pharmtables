@@ -144,8 +144,12 @@ div.sidebar .shiny-input-container {
     border-color: #624F82 !important;
 }
 
-#global_filters_1-pop .pretty input:checked~.state.p-info label:after,.pretty.p-toggle .state.p-info label:after {
-    border-color: #5bc0de !important;
+.pretty.p-switch input:checked~.state.p-info:before {
+    border-color: #624F82;
+}
+
+.pretty input:checked~.state.p-info label:after,.pretty.p-toggle .state.p-info label:after {
+    border-color: #624F82 !important;
     background-color: #A3C7D6 !important;
 }
 
@@ -169,7 +173,6 @@ div.sidebar .shiny-input-container {
     border-color: #5bc0de !important;
     background-color: #A3C7D6 !important;
 }
-
 
 .irs--shiny .irs-bar {
     top: 25px;

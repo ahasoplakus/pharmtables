@@ -12,6 +12,7 @@ mod_adsl_display_ui <- function(id) {
   tagList(
     box(
       id = "box_adsl",
+      title = "Demographic Characteristics",
       sidebar = boxSidebar(
         id = "demog_side",
         background = "#EFF5F5",
@@ -39,7 +40,7 @@ mod_adsl_display_ui <- function(id) {
           multiple = TRUE,
           width = 300
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Apply"),
+        tagAppendAttributes(actionButton(ns("run"), "Update"),
                             class = "side_apply")
       ),
       maximizable = TRUE,
@@ -69,6 +70,9 @@ mod_adsl_display_server <- function(id, adsl) {
                          adsl has {nrow(adsl())} rows")
 
       lyt <- build_adsl(
+        title = "",
+        subtitle = "",
+        footer = "",
         split_cols_by = input$split_col,
         split_rows_by = input$split_row,
         summ_vars = input$summ_var

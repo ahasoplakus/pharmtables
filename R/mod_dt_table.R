@@ -24,13 +24,18 @@ mod_dt_table_server <- function(id, display_df) {
     output$out_data <- renderPrint({
       req(display_df()$out_df)
       logger::log_info("mod_dt_table_server: display data")
-      as_html(
-        build_table(
-          lyt = display_df()$lyt,
-          df = display_df()$out_df,
-          alt_counts_df = display_df()$alt_df
+      if (is.data.frame(display_df()$out_df)) {
+        df <- as_html(
+          build_table(
+            lyt = display_df()$lyt,
+            df = display_df()$out_df,
+            alt_counts_df = display_df()$alt_df
+          )
         )
-      )
+      } else {
+        df <- as_html(display_df()$out_df)
+      }
+      df
     })
   })
 }

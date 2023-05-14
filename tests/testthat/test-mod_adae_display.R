@@ -27,6 +27,7 @@ test_that("mod_adae_display_server works", {
       session$setInputs(class = "AESOC")
       session$setInputs(term = "AETERM")
       session$setInputs(summ_var = "AETOXGR")
+      session$setInputs(view = FALSE)
       session$setInputs(run = 1)
 
       exp_lyt <- basic_table() |>
@@ -47,9 +48,13 @@ test_that("mod_adae_display_server works", {
                       split_fun = drop_split_levels) |>
         summarize_occurrences_by_grade("AETOXGR")
 
-      expect_equal(nrow(ae_explore()$out_df), 1934)
-      expect_equal(nrow(ae_explore()$alt_df), 400)
-      expect_identical(ae_explore()$lyt, exp_lyt)
+      exp_df <- build_table(lyt = exp_lyt,
+                            df = df_out()[[dataset]],
+                            alt_counts_df = adsl())
+
+      expect_identical(ae_explore()$out_df, exp_df)
+      expect_equal(nrow(ae_explore()$alt_df), NULL)
+      expect_identical(ae_explore()$lyt, NULL)
     })
 })
 

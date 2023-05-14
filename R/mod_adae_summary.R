@@ -12,6 +12,7 @@ mod_adae_summary_ui <- function(id) {
   tagList(
     box(
       id = "box_adae_summ",
+      title = "Summary of Adverse Events",
       sidebar = boxSidebar(
         id = "adae_summ_side",
         background = "#EFF5F5",
@@ -34,7 +35,7 @@ mod_adae_summary_ui <- function(id) {
           status = "info",
           shape = "curve"
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Apply"),
+        tagAppendAttributes(actionButton(ns("run"), "Update"),
                             class = "side_apply")
       ),
       maximizable = TRUE,

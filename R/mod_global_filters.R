@@ -41,7 +41,7 @@ mod_global_filters_server <- function(id, dataset, load_data) {
         make_widget[["AGE"]],
         make_widget[["SITEID"]],
         make_widget[["USUBJID"]],
-        actionButton(ns("apply"), "Apply")
+        actionButton(ns("apply"), "Update")
       )
     })
 
