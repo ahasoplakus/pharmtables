@@ -119,6 +119,14 @@ div.sidebar .shiny-input-container {
     background-color: aliceblue !important;
 }
 
+#box_adae_summ .card-header {
+    background-color: aliceblue !important;
+}
+
+#box_adae_bod .card-header {
+    background-color: aliceblue !important;
+}
+
 .side_apply {
     background-color: #624F82;
     border-color: #ddd;
@@ -144,8 +152,24 @@ div.sidebar .shiny-input-container {
     border-color: #624F82 !important;
 }
 
+.pretty.p-switch .state:before {
+    border-color: #624F82;
+}
+
+.pretty.p-switch .state label:after {
+    background-color: #624F82 !important;
+}
+
 .pretty.p-switch input:checked~.state.p-info:before {
     border-color: #624F82;
+}
+
+.pretty.p-switch.p-fill input:checked~.state.p-info:before {
+    background-color: transparent !important;
+}
+
+.pretty.p-switch.p-fill input:checked~.state label:after {
+    background-color: #A3C7D6 !important;
 }
 
 .pretty input:checked~.state.p-info label:after,.pretty.p-toggle .state.p-info label:after {

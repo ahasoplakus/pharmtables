@@ -52,6 +52,8 @@ app_ui <- function(request) {
               collapsible = FALSE,
               tabPanel("AE Summary",
                        mod_adae_summary_ui("adae_summary_1")),
+              tabPanel("AE Summary by Body System",
+                       mod_adae_bodsys_ui("adae_bodsys_1")),
               tabPanel("AE by Toxicity/Severity",
                        mod_adae_display_ui("adae_display_1"))
             )

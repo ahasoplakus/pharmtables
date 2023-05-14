@@ -32,6 +32,13 @@ app_server <- function(input, output, session) {
     adsl = filt_adsl
   )
 
+  mod_adae_bodsys_server(
+    "adae_bodsys_1",
+    dataset = "cadae",
+    df_out = load_data,
+    adsl = filt_adsl
+  )
+
   mod_adae_display_server(
     "adae_display_1",
     dataset = "cadae",
