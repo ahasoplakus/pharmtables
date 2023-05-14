@@ -58,7 +58,8 @@ mod_adae_display_ui <- function(id) {
         label = "Default View",
         value = TRUE,
         status = "info",
-        inline = TRUE
+        inline = TRUE,
+        fill = TRUE
       ),
       mod_dt_table_ui(ns("dt_table_2"))
     )

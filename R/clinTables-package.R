@@ -29,11 +29,14 @@
 #' @importFrom purrr set_names
 #' @importFrom rlang parse_expr
 #' @importFrom rlang sym
+#' @importFrom rtables add_overall_col
 #' @importFrom rtables cbind_rtables
+#' @importFrom rtables drop_split_levels
 #' @importFrom rtables remove_split_levels
 #' @importFrom stringr str_to_title
 #' @importFrom stringr str_trunc
 #' @importFrom tern count_occurrences
+#' @importFrom tern summarize_num_patients
 #' @importFrom tidyr replace_na
 ## usethis namespace: end
 NULL
