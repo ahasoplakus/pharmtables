@@ -28,6 +28,7 @@
 #' @importFrom purrr reduce
 #' @importFrom purrr set_names
 #' @importFrom rlang parse_expr
+#' @importFrom rlang sym
 #' @importFrom rtables cbind_rtables
 #' @importFrom rtables remove_split_levels
 #' @importFrom stringr str_to_title

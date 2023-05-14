@@ -56,7 +56,7 @@ adae_sev_tox <- function(adsl,
     adae <-
       full_join(adae, pre_ae1, by = c("USUBJID", colsby, class_val, term_val)) |>
       modify_if(is.factor, as.character) |>
-      mutate(!!grade_val := tidyr::replace_na(!!rlang::sym(grade_val), "Missing")) |>
+      mutate(!!grade_val := replace_na(!!sym(grade_val), "Missing")) |>
       left_join(adsl, by = c("USUBJID", colsby)) |>
       modify_if(is.character, as.factor)
 
@@ -68,11 +68,11 @@ adae_sev_tox <- function(adsl,
         df <- adae |>
           filter(.data[[colsby]] == .x) |>
           mutate(sp_labs = "N") |>
-          mutate(!!colsby := as.character(!!rlang::sym(colsby)))
+          mutate(!!colsby := as.character(!!sym(colsby)))
 
         df_adsl1 <- adsl |>
           filter(.data[[colsby]] == .x) |>
-          mutate(!!colsby := as.character(!!rlang::sym(colsby)))
+          mutate(!!colsby := as.character(!!sym(colsby)))
 
         df_adsl <- df_adsl1 |>
           select(all_of(c("USUBJID", colsby))) |>
@@ -87,7 +87,7 @@ adae_sev_tox <- function(adsl,
           count_occurrences(term_val) |>
           build_table(mutate(
             df,
-            !!colsby := ifelse(.data[[grade_val]] == "Missing", "Missing", !!rlang::sym(colsby)),
+            !!colsby := ifelse(.data[[grade_val]] == "Missing", "Missing", !!sym(colsby)),
             sp_labs = ifelse(.data[[grade_val]] == "Missing", "Missing", sp_labs)
           ),
           alt_counts_df = df_adsl1)

@@ -13,4 +13,10 @@ utils::globalVariables(c("AGE",
                          "TRTEMFL",
                          "AEOUT",
                          "AEREL",
-                         "DCSREAS"))
+                         "DCSREAS",
+                         ".data",
+                         "n",
+                         "colsby_lab",
+                         "AETOXGR",
+                         "AESEVN",
+                         ":="))
