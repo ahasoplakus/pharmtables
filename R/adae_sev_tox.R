@@ -64,7 +64,7 @@ adae_sev_tox <- function(adsl,
     names(dummy_sev) <- grade_val
 
     l1 <- levels(adsl[[colsby]]) |>
-      map( ~ {
+      map(~ {
         df <- adae |>
           filter(.data[[colsby]] == .x) |>
           mutate(sp_labs = "N") |>
