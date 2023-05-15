@@ -47,11 +47,11 @@ test_that("adae_by_sev_tox works with alternate view", {
   expect_equal(class(out_df)[1], "TableTree")
   expect_equal(length(obj_clA), 3)
   expect_identical(names(obj_clA), c("MILD", "MODERATE", "SEVERE"))
-  expect_identical(names(val_obj_clA), c("A: Drug X", "B: Placebo", "C: Combination", "All Patients" ))
+  expect_identical(names(val_obj_clA), c("A: Drug X", "B: Placebo", "C: Combination", "All Patients"))
   expect_identical(round(unlist(val_obj_clA[["A: Drug X"]]), 4), c(50, 0.3731))
 
   expect_equal(length(obj_clB), 3)
   expect_identical(names(obj_clB), c("MILD", "MODERATE", "SEVERE"))
-  expect_identical(names(val_obj_clB), c("A: Drug X", "B: Placebo", "C: Combination", "All Patients" ))
+  expect_identical(names(val_obj_clB), c("A: Drug X", "B: Placebo", "C: Combination", "All Patients"))
   expect_identical(round(unlist(val_obj_clB[["A: Drug X"]]), 4), c(47, 0.3507))
 })
