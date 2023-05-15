@@ -100,7 +100,7 @@ mod_adae_display_server <- function(id,
       logger::log_info("mod_adae_display_server: adae has
                          {nrow(df)} rows")
 
-      out_df <- adae_sev_tox(
+      out_df <- adae_by_sev_tox(
         adsl = df_adsl,
         df_adae = df,
         colsby = input$split_col,

@@ -31,5 +31,5 @@ you can run the application locally using:
 
 ``` r
 # Launch the application 
-clinTables::run_app()
+run_app()
 ```

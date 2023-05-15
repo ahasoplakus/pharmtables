@@ -1,4 +1,4 @@
-#' Adverse Events by Body System and Severity/Toxicity
+#' Adverse Events Table by Body System and Severity/Toxicity
 #'
 #' @param adsl adsl data
 #' @param df_adae adae data
@@ -13,13 +13,28 @@
 #' @keywords helpers
 #' @export
 #'
-adae_sev_tox <- function(adsl,
-                         df_adae,
-                         colsby = "ARM",
-                         grade_val = "AESEV",
-                         class_val = "AESOC",
-                         term_val = "AEDECOD",
-                         default_view = TRUE) {
+#' @examples
+#'
+#' adsl <- random.cdisc.data::cadsl
+#' adae <- random.cdisc.data::cadae
+#'
+#' ae_by_sev_tox_table <- adae_by_sev_tox(
+#' adsl = adsl,
+#' df_adae = adae,
+#' colsby = "ARM",
+#' grade_val = "AESEV",
+#' class_val = "AESOC",
+#' term_val = "AEDECOD",
+#' default_view = TRUE
+#' )
+#'
+adae_by_sev_tox <- function(adsl,
+                            df_adae,
+                            colsby = "ARM",
+                            grade_val = "AESEV",
+                            class_val = "AESOC",
+                            term_val = "AEDECOD",
+                            default_view = TRUE) {
   if (isTRUE(default_view)) {
     adsl <- adsl |>
       add_count(.data[[colsby]]) |>

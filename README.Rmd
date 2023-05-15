@@ -39,5 +39,5 @@ Run `library(clinTables)` to access all the exported functions from `clinTables`
 
 ```{r, eval=FALSE}
 # Launch the application 
-clinTables::run_app()
+run_app()
 ```
