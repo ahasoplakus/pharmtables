@@ -61,7 +61,7 @@ mod_adae_bodsys_server <- function(id,
     ns <- session$ns
 
     ae_bodsys <- reactive({
-      req(df_out())
+      req(df_out()[[dataset]])
       req(adsl())
       req(input$split_col)
       req(input$class)

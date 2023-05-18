@@ -80,7 +80,7 @@ mod_adae_display_server <- function(id,
     ns <- session$ns
 
     ae_explore <- reactive({
-      req(df_out())
+      req(df_out()[[dataset]])
       req(adsl())
       req(input$split_col)
       req(input$class)

@@ -57,7 +57,7 @@ mod_adae_summary_server <- function(id,
     ns <- session$ns
 
     ae_summ_init <- reactive({
-      req(df_out())
+      req(df_out()[[dataset]])
       req(adsl())
 
       df_adsl <- adsl() |>

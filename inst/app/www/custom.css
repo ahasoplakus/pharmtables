@@ -60,6 +60,26 @@ div.sidebar .shiny-input-container {
     border-radius: 2rem;
 }
 
+.btn.btn-file {
+    overflow: hidden;
+    background-color: #A3C7D6;
+    border: 2px solid #624F82;
+    position: relative;
+}
+
+.input-group>.custom-file,
+.input-group>.custom-select,
+.input-group>.form-control,
+.input-group>.form-control-plaintext {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
+    border: 2px solid #624F82;
+}
+
 [class*=sidebar-light-] .nav-sidebar>.nav-item:hover>.nav-link {
     background-color: #E9D5DA;
     color: #212529;
@@ -153,7 +173,7 @@ div.sidebar .shiny-input-container {
 }
 
 .pretty.p-switch .state:before {
-    border-color: #624F82;
+    border: 2px solid #624F82;
 }
 
 .pretty.p-switch .state label:after {
@@ -161,7 +181,7 @@ div.sidebar .shiny-input-container {
 }
 
 .pretty.p-switch input:checked~.state.p-info:before {
-    border-color: #624F82;
+    border: 2px solid #624F82;
 }
 
 .pretty.p-switch.p-fill input:checked~.state.p-info:before {
@@ -220,4 +240,19 @@ div.sidebar .shiny-input-container {
 
 .selectize-dropdown, .selectize-input, .selectize-input input {
     position: static !important;
+}
+
+.progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #a7bcae;
+    transition: width .6s ease;
 }
