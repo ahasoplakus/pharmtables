@@ -56,9 +56,33 @@ mod_data_read_server <- function(id) {
 
     rv <- reactiveValues(data_list = character(0),
                          df = NULL,
-                         state = "init",
-                         trig_upload = TRUE,
-                         trig_null = 0)
+                         trig_reset = 0,
+                         upload_state = "stale")
+
+    observe({
+      req(isTRUE(input$def_data))
+      logger::log_info("mod_data_read_server: reset fileinput")
+      shinyjs::reset("upload")
+      show_toast(
+        title = "Data uploaded from system folder",
+        text = "Default datasets have been called from random.cdisc.data",
+        type = "success",
+        position = "center",
+        width = "600px"
+      )
+      rv$upload <- purrr::list_assign(input$upload, name = NULL)
+      rv$upload_state <- "refresh"
+      rv$trig_reset <- rv$trig_reset + 1
+    }, priority = 100) |>
+      bindEvent(input$def_data)
+
+    observe({
+      req(input$upload)
+      logger::log_info("mod_data_read_server: uploading data")
+      rv$upload <- input$upload
+      rv$upload_state <- "stale"
+    }) |>
+      bindEvent(input$upload)
 
     observe({
       logger::log_info("mod_data_read_server: data_list")
@@ -71,31 +95,23 @@ mod_data_read_server <- function(id) {
             app_sys("extdata"), "/", x, ".RDS"
           ))) |>
           set_names(rv$data_list)
-        shinyjs::reset("upload")
-        rv$data_list <- character(0)
-        logger::log_info("mod_data_read_server: data read complete with {nrow(rv$df[[1]])} rows")
+        logger::log_info(
+          "mod_data_read_server: data read complete from system folder with {nrow(rv$df[[1]])} rows"
+        )
       } else {
-        if (isTRUE(rv$trig_upload)) {
-          rv$data_list <- str_remove_all(input$upload$name, ".RDS")
-        }
+        rv$data_list <- str_remove_all(rv$upload$name, ".RDS")
         if (!identical(rv$data_list, character(0))) {
-          rv$df <- map(input$upload$datapath, readRDS) |>
+          rv$df <- map(rv$upload$datapath, readRDS) |>
             set_names(rv$data_list)
           logger::log_info("mod_data_read_server: data read complete with {nrow(rv$df[[1]])} rows")
         } else {
           rv$df <- NULL
-          rv$trig_null <- rv$trig_null + 1
+          rv$trig_reset <- rv$trig_reset + 1
           logger::log_info("mod_data_read_server: no data has been read yet")
         }
       }
-    }) |>
-      bindEvent(list(input$def_data, input$upload))
-
-    observe({
-      logger::log_info("mod_data_read_server: update state")
-      rv$state <- "reset"
-    }) |>
-      bindEvent(rv$trig_null, ignoreInit = TRUE)
+    }, priority = 99) |>
+      bindEvent(list(rv$upload, input$def_data))
 
     output$glimpse_dat <- renderUI({
       req(rv$df)
@@ -112,14 +128,17 @@ mod_data_read_server <- function(id) {
     output$print_dat <- renderDataTable({
       req(input$glimpse != "")
       req(rv$df)
-      datatable(
-        rv$df[[input$glimpse]],
-        filter = "top",
-        options = list(pageLength = 5, autoWidth = TRUE)
-        )
+      datatable(rv$df[[input$glimpse]],
+                filter = "top",
+                options = list(pageLength = 5, autoWidth = TRUE))
     })
 
     read_df <- reactive({
+      if (!is.null(rv$df) && rv$upload_state == "refresh") {
+        rv$upload_state <- "stale"
+        return(NULL)
+      }
+      req(rv$upload_state == "stale")
       if (is.null(rv$df)) {
         show_toast(
           title = "No data to display",
@@ -142,11 +161,9 @@ mod_data_read_server <- function(id) {
       req(!is.null(rv$df[["cadsl"]]))
       logger::log_info("mod_data_read_server: sending data")
 
-      rv$state <- "init"
-      rv$trig_upload <- FALSE
       rv$df
     }) |>
-      bindEvent(list(input$apply, rv$state), ignoreInit = TRUE)
+      bindEvent(list(input$apply, rv$trig_reset), ignoreInit = TRUE)
 
     return(read_df)
   })
