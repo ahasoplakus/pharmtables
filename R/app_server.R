@@ -18,6 +18,7 @@ app_server <- function(input, output, session) {
     mod_global_filters_server("global_filters_1",
                               dataset = "cadsl",
                               load_data = load_data)
+
   processed_adsl <-
     mod_process_adsl_server(
       "process_adsl_1",
@@ -30,9 +31,25 @@ app_server <- function(input, output, session) {
   mod_adsl_display_server("adsl_display_1",
                           adsl = processed_adsl)
 
-  mod_adae_global_server("adae_global_1",
-                         dataset = "cadae",
-                         df_out = load_data,
-                         adsl = processed_adsl)
+  mod_adae_global_server(
+    "adae_global_1",
+    dataset = "cadae",
+    df_out = load_data,
+    adsl = processed_adsl
+  )
+
+  mod_adxx_bodsys_server(
+    "admh_bodsys_1",
+    dataset = "cadmh",
+    df_out = load_data,
+    adsl = processed_adsl
+  )
+
+  mod_adxx_bodsys_server(
+    "adcm_bodsys_1",
+    dataset = "cadcm",
+    df_out = load_data,
+    adsl = processed_adsl
+  )
 
 }

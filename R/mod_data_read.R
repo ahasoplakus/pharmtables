@@ -34,16 +34,12 @@ mod_data_read_ui <- function(id) {
     column(
       width = 2,
       div(actionButton(ns("apply"), "Run Application"), style = "padding-left: 50px; padding-top: 45px;")
-    ),
-    column(
-      width = 6,
-      div(uiOutput(ns("glimpse_dat")),
-          style = "padding-left: 50px; padding-top: 15px;")
     )
   ),
   fluidRow(column(
     width = 12,
-    div(dataTableOutput(ns("print_dat")), style = "overflow-x: scroll;")
+    uiOutput(ns("glimpse_dat")),
+    div(reactable::reactableOutput(ns("print_dat")), style = "overflow-x: scroll;")
   )))
 }
 
@@ -54,23 +50,32 @@ mod_data_read_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    rv <- reactiveValues(data_list = character(0),
-                         df = NULL,
-                         trig_reset = 0,
-                         upload_state = "stale")
+    rv <- reactiveValues(
+      data_list = character(0),
+      df = NULL,
+      trig_reset = 0,
+      upload_state = "stale",
+      preview = FALSE
+    )
 
     observe({
+      shinyjs::enable("upload")
+      shinyjs::runjs("$('#data_read_1-upload').parent().removeClass('btn-disabled').addClass('btn-default');")
       req(isTRUE(input$def_data))
       logger::log_info("mod_data_read_server: reset fileinput")
       shinyjs::reset("upload")
+      shinyjs::disable("upload")
+      shinyjs::runjs("$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');")
       show_toast(
-        title = "Data uploaded from system folder",
-        text = "Default datasets have been called from random.cdisc.data",
+        title = "Data uploaded from package system folder",
+        text = "Default datasets have been loaded from random.cdisc.data",
         type = "success",
         position = "center",
         width = "600px"
       )
-      rv$upload <- purrr::list_assign(input$upload, name = NULL)
+      if (!is.null(input$upload)) {
+        rv$upload <- purrr::list_assign(input$upload, name = NULL)
+      }
       rv$upload_state <- "refresh"
       rv$trig_reset <- rv$trig_reset + 1
     }, priority = 100) |>
@@ -115,22 +120,61 @@ mod_data_read_server <- function(id) {
 
     output$glimpse_dat <- renderUI({
       req(rv$df)
-      selectInput(
+      shinyWidgets::prettySwitch(
         ns("glimpse"),
-        "Preview data",
-        choices = c("", names(rv$df)),
-        selected = "",
-        multiple = FALSE,
-        width = 300
+        label = "Preview data",
+        value = rv$preview,
+        status = "info",
+        inline = TRUE,
+        fill = TRUE
       )
     })
 
-    output$print_dat <- renderDataTable({
-      req(input$glimpse != "")
+    observe({
+      rv$preview <- input$glimpse
+    }) |>
+      bindEvent(input$glimpse)
+
+    output$print_dat <- reactable::renderReactable({
       req(rv$df)
-      datatable(rv$df[[input$glimpse]],
-                filter = "top",
-                options = list(pageLength = 5, autoWidth = TRUE))
+      req(isTRUE(input$glimpse))
+      source <- "Local"
+      if (is.null(rv$upload$name))
+        source <- "random.cdisc.data"
+      df <- tibble::tibble(
+        `Name` = names(rv$df),
+        `N_Rows` = map(rv$df, \(x) nrow(x)),
+        `Colnames` = map(rv$df, \(x) names(x)),
+        `Source` = source
+      )
+      reactable::reactable(
+        df,
+        bordered = TRUE,
+        striped = TRUE,
+        highlight = TRUE,
+        columns = list(
+          `Name` = reactable::colDef(minWidth = 50),   # 50% width, 200px minimum
+          `N_Rows` = reactable::colDef(minWidth = 50),   # 25% width, 100px minimum
+          `Colnames` = reactable::colDef(minWidth = 250),  # 25% width, 100px minimum
+          `Source` = reactable::colDef(minWidth = 50)
+        ),
+        details = function(rowNum) {
+          sub_df <- rv$df[[rowNum]]
+          htmltools::div(
+            style = "padding: 1rem",
+            reactable::reactable(
+              sub_df,
+              columns = list(
+                USUBJID = reactable::colDef(sticky = "left")
+              ),
+              filterable = TRUE,
+              bordered = TRUE,
+              striped = TRUE,
+              highlight = TRUE
+            )
+          )
+        }
+      )
     })
 
     read_df <- reactive({

@@ -72,6 +72,7 @@ mod_adae_summary_server <- function(id,
         mutate(
           fl1 = TRUE,
           fl2 = TRTEMFL == "Y",
+          fl21 = TRTEMFL == "Y" & AESER == "Y",
           fl3 = TRTEMFL == "Y" & AEOUT == "FATAL",
           fl4 = TRTEMFL == "Y" & AEOUT == "FATAL" & AEREL == "Y",
           fl5 = TRTEMFL == "Y" & AEACN == "DRUG WITHDRAWN",
@@ -84,6 +85,7 @@ mod_adae_summary_server <- function(id,
       labels <- c(
         "fl1" = "Total AEs",
         "fl2" = "Total number of patients with at least one adverse event",
+        "fl21" = "Total number of patients with at least one serious adverse event",
         "fl3" = "Total number of patients with fatal AEs",
         "fl4" = "Total number of patients with related fatal AEs",
         "fl5" = "Total number of patients with drug withdrawn due to AEs",
@@ -127,7 +129,7 @@ mod_adae_summary_server <- function(id,
       req(input$split_col)
       req(input$events)
 
-      disp_eve <- c("fl1", "fl2", "fl3", "fl4", "fl5", "fl6")
+      disp_eve <- c("fl1", "fl2", "fl21", "fl3", "fl4", "fl5", "fl6")
       disp_eve <- disp_eve[disp_eve %in% input$events]
 
       lyt <- basic_table() |>
