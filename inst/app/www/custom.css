@@ -1,5 +1,5 @@
 .navbar-white {
-    background-color: #126E82;
+    background-color: #D8E3E7;
 }
 
 .layout-fixed .main-sidebar {
@@ -16,7 +16,7 @@
 #logo-id {
     width: 250px;
     color: #fff;
-    background-color: #3BACB6;
+    background-color: #126E82;
     font-size: x-large;
     padding: 6px;
 }
@@ -69,8 +69,8 @@ div.sidebar .shiny-input-container {
 
 .btn.btn-file {
     overflow: hidden;
-    background-color: #126E82;
-    border: 2px solid #3BACB6;
+    background-color: #3BACB6;
+    border: 2px solid #293B5F;
     width: 120px !important;
     position: relative;
 }
@@ -89,30 +89,35 @@ div.sidebar .shiny-input-container {
 }
 
 [class*=sidebar-light-] .nav-sidebar>.nav-item:hover>.nav-link {
-    background-color: #95D1CC;
+    background-color: #D8E3E7;
     color: #212529;
     margin-right: 5px !important;
 }
 
 [class*=sidebar-light-] .nav-sidebar>.nav-item.menu-open>.nav-link {
-    background-color: #95D1CC;
+    background-color: #D8E3E7;
     color: #212529;
     margin-right: 75px !important;
+    border: 2px solid #293B5F !important;
+    width: 230px;
 }
 
 .nav-sidebar .nav-item>.nav-link {
-    background-color: #95D1CC;
+    background-color: #D8E3E7;
     margin-right: 5px;
+    border: 2px solid #293B5F !important;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
     background-color: #3BACB6;
+    border: 2px solid #293B5F !important;
 }
 
 .nav-item>a:hover {
-    color: #fff !important;
-    background-color: #126E82 !important;
+    color: #536162 !important;
+    background-color: #E1F1DD !important;
+    border: 2px solid #293B5F !important;
 }
 
 .os-theme-dark>.os-scrollbar, .os-theme-light>.os-scrollbar {
@@ -140,27 +145,33 @@ div.sidebar .shiny-input-container {
 }
 
 #box_adsl .card-header {
-    background-color: #E1F1DD !important;
+    border-top: 2px solid #3BACB6 !important;
+    border-left: 2px solid #3BACB6 !important;
 }
 
 #box_adae .card-header {
-    background-color: #E1F1DD !important;
+    border-top: 2px solid #3BACB6 !important;
+    border-left: 2px solid #3BACB6 !important;
 }
 
 #box_adae_summ .card-header {
-    background-color: #E1F1DD !important;
+    border-top: 2px solid #3BACB6 !important;
+    border-left: 2px solid #3BACB6 !important;
 }
 
 #adae_global_1-adae_bodsys_1-box_adxx_bodsys .card-header {
-    background-color: #E1F1DD !important;
+    border-top: 2px solid #3BACB6 !important;
+    border-left: 2px solid #3BACB6 !important;
 }
 
 #admh_bodsys_1-box_adxx_bodsys .card-header {
-    background-color: #E1F1DD !important;
+    border-top: 2px solid #3BACB6 !important;
+    border-left: 2px solid #3BACB6 !important;
 }
 
 #adcm_bodsys_1-box_adxx_bodsys .card-header {
-    background-color: #E1F1DD !important;
+    border-top: 2px solid #3BACB6 !important;
+    border-left: 2px solid #3BACB6 !important;
 }
 
 .side_apply {
@@ -185,53 +196,56 @@ div.sidebar .shiny-input-container {
 }
 
 .pretty .state label:before {
-    border-color: #3BACB6 !important;
+    border-color: #293B5F !important;
 }
 
 .pretty.p-switch .state:before {
-    border: 2px solid #3BACB6;
+    border: 2px solid #293B5F;
 }
 
 .pretty.p-switch .state label:after {
-    background-color: #3BACB6 !important;
+    background-color: #E1E5EA !important;
+    border: 2px solid #293B5F;
 }
 
 .pretty.p-switch input:checked~.state.p-info:before {
-    border: 2px solid #3BACB6;
+    border: 2px solid #293B5F;
 }
 
 .pretty.p-switch.p-fill input:checked~.state.p-info:before {
-    background-color: transparent !important;
+    background-color: #E1E5EA !important;
+    border: 2px solid #293B5F;
 }
 
 .pretty.p-switch.p-fill input:checked~.state label:after {
-    background-color: #126E82 !important;
+    background-color: #3BACB6 !important;
+    border: 2px solid #293B5F;
 }
 
 .pretty input:checked~.state.p-info label:after,.pretty.p-toggle .state.p-info label:after {
-    border-color: #3BACB6 !important;
-    background-color: #126E82 !important;
+    border-color: #293B5F !important;
+    background-color: #3BACB6 !important;
 }
 
 #global_filters_1-sex .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
-    background-color: #126E82 !important;
+    background-color: #3BACB6 !important;
 }
 
 #global_filters_1-race .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
-    background-color: #126E82 !important;
+    background-color: #3BACB6 !important;
 }
 
 #global_filters_1-ethnic .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
-    background-color: #126E82 !important;
+    background-color: #3BACB6 !important;
 }
 
 #global_filters_1-country .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
-    background-color: #126E82 !important;
+    background-color: #3BACB6 !important;
 }
 
 #adae_summary_1-events .pretty input:checked~.state.p-info label:after,.pretty.p-toggle .state.p-info label:after {
-    border-color: #5bc0de !important;
-    background-color: #126E82 !important;
+    border-color: #293B5F !important;
+    background-color: #3BACB6 !important;
 }
 
 .irs--shiny .irs-bar {
@@ -240,7 +254,7 @@ div.sidebar .shiny-input-container {
     border-color: #3BACB6 !important;
     border-top: 1px solid #428bca;
     border-bottom: 1px solid #428bca;
-    background: #126E82 !important;
+    background: #3BACB6 !important;
 }
 
 .irs--shiny .irs-from,
@@ -250,8 +264,8 @@ div.sidebar .shiny-input-container {
 }
 
 .bootstrap-select>.dropdown-toggle {
-    background-color: #95D1CC !important;
-    border-color: #3BACB6 !important;
+    background-color: #D8E3E7 !important;
+    border: 2px solid #293B5F !important;
 }
 
 .selectize-dropdown, .selectize-input, .selectize-input input {
