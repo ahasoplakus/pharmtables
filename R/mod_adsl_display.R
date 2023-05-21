@@ -21,22 +21,22 @@ mod_adsl_display_ui <- function(id) {
         selectInput(
           ns("split_col"),
           "Split Cols by",
-          choices = c("ARM", "ACTARM", "TRT01P", "TRT02P", "TRT01A", "TRT02A"),
-          selected = c("ARM"),
+          choices = NULL,
+          selected = NULL,
           width = 300
         ),
         selectInput(
           ns("split_row"),
           "Split Rows by",
-          choices = c("", "SEX", "RACE", "ETHNIC", "COUNTRY"),
+          choices = NULL,
           selected = NULL,
           width = 300
         ),
         selectInput(
           ns("summ_var"),
           "Summarize",
-          choices = c("AGE", "SEX", "COUNTRY", "RACE", "ETHNIC"),
-          selected = c("AGE", "SEX", "COUNTRY"),
+          choices = NULL,
+          selected = NULL,
           multiple = TRUE,
           width = 300
         ),
@@ -57,12 +57,45 @@ mod_adsl_display_ui <- function(id) {
 #'
 #' @importFrom rtables basic_table split_cols_by split_rows_by add_overall_col
 #' @importFrom tern summarize_vars
-mod_adsl_display_server <- function(id, adsl) {
+mod_adsl_display_server <- function(id, adsl, filters) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
+    observe({
+      req(filters$trt_filt())
+      req(filters$summ_filt())
+
+      logger::log_info("mod_adsl_display_server: updating table options")
+      updateSelectInput(
+        session,
+        "split_col",
+        choices = filters$trt_filt(),
+        selected = filters$trt_filt()[1]
+      )
+
+      updateSelectInput(
+        session,
+        "split_row",
+        choices = c("", filters$row_filt()),
+        selected = ""
+      )
+
+      updateSelectInput(
+        session,
+        "summ_var",
+        choices = filters$summ_filt(),
+        selected = filters$summ_filt()[1]
+      )
+    }) |>
+      bindEvent(list(
+        filters$trt_filt(),
+        filters$row_filt(),
+        filters$summ_filt()
+      ))
+
     disp_df <- reactive({
       req(adsl())
+      req(filters)
       req(input$split_col)
       req(input$summ_var)
 
@@ -78,6 +111,7 @@ mod_adsl_display_server <- function(id, adsl) {
         summ_vars = input$summ_var
       )
 
+      logger::log_info("mod_adsl_display_server: sending adsl layout for display")
       return(list(
         out_df = adsl(),
         alt_df = NULL,

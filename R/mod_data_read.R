@@ -9,8 +9,8 @@
 #' @importFrom shiny NS tagList
 mod_data_read_ui <- function(id) {
   ns <- NS(id)
-  tagList(fluidRow(
-    column(
+  tagList(
+    fluidRow(column(
       width = 4,
       shinyWidgets::prettySwitch(
         ns("def_data"),
@@ -18,7 +18,8 @@ mod_data_read_ui <- function(id) {
         value = FALSE,
         status = "info",
         inline = TRUE,
-        fill = TRUE
+        fill = TRUE,
+        slim = TRUE
       ),
       fileInput(
         ns("upload"),
@@ -30,17 +31,30 @@ mod_data_read_ui <- function(id) {
         placeholder = "No file selected",
         capture = NULL
       )
-    ),
+    )),
+    fluidRow(column(width = 2, uiOutput(
+      ns("glimpse_dat")
+    )),
     column(
       width = 2,
-      div(actionButton(ns("apply"), "Run Application"), style = "padding-left: 50px; padding-top: 45px;")
+      div(actionButton(ns("apply"), "Run Application"),
+          style = "padding-bottom: 30px; padding-left: 60px;")
+    )),
+    tabBox(
+      id = ns("tabcard_preview"),
+      type = "pills",
+      width = 12,
+      collapsible = FALSE,
+      tabPanel(
+        "Datasets",
+        div(reactable::reactableOutput(ns("print_dat")), style = "overflow-x: scroll;")
+      ),
+      tabPanel("Filters",
+               mod_setup_filters_ui(ns(
+                 "setup_filters_1"
+               )))
     )
-  ),
-  fluidRow(column(
-    width = 12,
-    uiOutput(ns("glimpse_dat")),
-    div(reactable::reactableOutput(ns("print_dat")), style = "overflow-x: scroll;")
-  )))
+  )
 }
 
 #' data_read Server Functions
@@ -54,18 +68,21 @@ mod_data_read_server <- function(id) {
       data_list = character(0),
       df = NULL,
       trig_reset = 0,
-      upload_state = "stale",
-      preview = FALSE
+      upload_state = "stale"
     )
 
     observe({
       shinyjs::enable("upload")
-      shinyjs::runjs("$('#data_read_1-upload').parent().removeClass('btn-disabled').addClass('btn-default');")
+      shinyjs::runjs(
+        "$('#data_read_1-upload').parent().removeClass('btn-disabled').addClass('btn-default');"
+      )
       req(isTRUE(input$def_data))
       logger::log_info("mod_data_read_server: reset fileinput")
       shinyjs::reset("upload")
       shinyjs::disable("upload")
-      shinyjs::runjs("$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');")
+      shinyjs::runjs(
+        "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
+      )
       show_toast(
         title = "Data uploaded from package system folder",
         text = "Default datasets have been loaded from random.cdisc.data",
@@ -123,17 +140,13 @@ mod_data_read_server <- function(id) {
       shinyWidgets::prettySwitch(
         ns("glimpse"),
         label = "Preview data",
-        value = rv$preview,
+        value = TRUE,
         status = "info",
         inline = TRUE,
-        fill = TRUE
+        fill = TRUE,
+        slim = TRUE
       )
     })
-
-    observe({
-      rv$preview <- input$glimpse
-    }) |>
-      bindEvent(input$glimpse)
 
     output$print_dat <- reactable::renderReactable({
       req(rv$df)
@@ -149,24 +162,26 @@ mod_data_read_server <- function(id) {
       )
       reactable::reactable(
         df,
+        filterable = TRUE,
         bordered = TRUE,
         striped = TRUE,
         highlight = TRUE,
         columns = list(
-          `Name` = reactable::colDef(minWidth = 50),   # 50% width, 200px minimum
-          `N_Rows` = reactable::colDef(minWidth = 50),   # 25% width, 100px minimum
-          `Colnames` = reactable::colDef(minWidth = 250),  # 25% width, 100px minimum
+          `Name` = reactable::colDef(minWidth = 50),
+          # 50% width, 200px minimum
+          `N_Rows` = reactable::colDef(minWidth = 50),
+          # 25% width, 100px minimum
+          `Colnames` = reactable::colDef(minWidth = 250),
+          # 25% width, 100px minimum
           `Source` = reactable::colDef(minWidth = 50)
         ),
         details = function(rowNum) {
           sub_df <- rv$df[[rowNum]]
-          htmltools::div(
+          div(
             style = "padding: 1rem",
             reactable::reactable(
               sub_df,
-              columns = list(
-                USUBJID = reactable::colDef(sticky = "left")
-              ),
+              columns = list(USUBJID = reactable::colDef(sticky = "left")),
               filterable = TRUE,
               bordered = TRUE,
               striped = TRUE,
@@ -176,6 +191,10 @@ mod_data_read_server <- function(id) {
         }
       )
     })
+
+    filters <-
+      mod_setup_filters_server("setup_filters_1",
+                               df_in = eventReactive(rv$df, rv$df))
 
     read_df <- reactive({
       if (!is.null(rv$df) && rv$upload_state == "refresh") {
@@ -209,6 +228,7 @@ mod_data_read_server <- function(id) {
     }) |>
       bindEvent(list(input$apply, rv$trig_reset), ignoreInit = TRUE)
 
-    return(read_df)
+    return(list(df_read = read_df,
+                dm_filt = filters$dm_filt))
   })
 }

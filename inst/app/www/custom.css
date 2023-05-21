@@ -16,7 +16,7 @@
 #logo-id {
     width: 250px;
     color: #fff;
-    background-color: #126E82;
+    background-color: #27374D;
     font-size: x-large;
     padding: 6px;
 }
@@ -69,7 +69,7 @@ div.sidebar .shiny-input-container {
 
 .btn.btn-file {
     overflow: hidden;
-    background-color: #3BACB6;
+    background-color: #27374D;
     border: 2px solid #293B5F;
     width: 120px !important;
     position: relative;
@@ -89,8 +89,8 @@ div.sidebar .shiny-input-container {
 }
 
 [class*=sidebar-light-] .nav-sidebar>.nav-item:hover>.nav-link {
-    background-color: #D8E3E7;
-    color: #212529;
+    background-color: #526D82;
+    color: #fff;
     margin-right: 5px !important;
 }
 
@@ -115,8 +115,8 @@ div.sidebar .shiny-input-container {
 }
 
 .nav-item>a:hover {
-    color: #536162 !important;
-    background-color: #E1F1DD !important;
+    color: #fff !important;
+    background-color: #526D82 !important;
     border: 2px solid #293B5F !important;
 }
 
@@ -218,7 +218,7 @@ div.sidebar .shiny-input-container {
 }
 
 .pretty.p-switch.p-fill input:checked~.state label:after {
-    background-color: #3BACB6 !important;
+    background-color: #27374D !important;
     border: 2px solid #293B5F;
 }
 
@@ -251,10 +251,8 @@ div.sidebar .shiny-input-container {
 .irs--shiny .irs-bar {
     top: 25px;
     height: 8px;
-    border-color: #3BACB6 !important;
-    border-top: 1px solid #428bca;
-    border-bottom: 1px solid #428bca;
-    background: #3BACB6 !important;
+    border-color: #526D82 !important;
+    background: #27374D !important;
 }
 
 .irs--shiny .irs-from,

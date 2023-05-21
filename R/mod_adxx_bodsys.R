@@ -75,7 +75,6 @@ mod_adxx_bodsys_server <- function(id,
 
     observe({
       req(dataset != "cadae")
-      req(!"AESER" %in% names(df_out()[[dataset]]))
       shinyjs::hide("aeser")
     })
 
