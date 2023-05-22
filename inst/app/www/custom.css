@@ -72,6 +72,7 @@ div.sidebar .shiny-input-container {
     background-color: #27374D;
     border: 2px solid #293B5F;
     width: 120px !important;
+    color: #fff;
     position: relative;
 }
 
@@ -144,17 +145,12 @@ div.sidebar .shiny-input-container {
     height: fit-content !important;
 }
 
-#data_read_1-box_preview .card-header {
-    border-top: 2px solid #3BACB6 !important;
-    border-left: 2px solid #3BACB6 !important;
-}
-
 #adsl_display_1-box_adsl .card-header {
     border-top: 2px solid #3BACB6 !important;
     border-left: 2px solid #3BACB6 !important;
 }
 
-#adae_global_1-adae_display_1-box_adae .card-header {
+#adae_global_1-adae_sev_tox_1-box_adae .card-header {
     border-top: 2px solid #3BACB6 !important;
     border-left: 2px solid #3BACB6 !important;
 }
@@ -288,4 +284,10 @@ div.sidebar .shiny-input-container {
     white-space: nowrap;
     background-color: #a7bcae;
     transition: width .6s ease;
+}
+
+.rt-expander:after {
+    border-left: 5.04px solid transparent;
+    border-right: 5.04px solid transparent;
+    border-top: 7px solid #3BACB6;
 }

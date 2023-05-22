@@ -1,4 +1,4 @@
-#' adae_display UI Function
+#' adae_sev_tox UI Function
 #'
 #' @description A shiny Module.
 #'
@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_adae_display_ui <- function(id) {
+mod_adae_sev_tox_ui <- function(id) {
   ns <- NS(id)
   tagList(
     box(
@@ -66,13 +66,13 @@ mod_adae_display_ui <- function(id) {
   )
 }
 
-#' adae_display Server Functions
+#' adae_sev_tox Server Functions
 #'
 #' @importFrom tern summarize_num_patients summarize_occurrences_by_grade
 #' @importFrom rtables add_colcounts add_overall_col drop_split_levels
 #'
 #' @noRd
-mod_adae_display_server <- function(id,
+mod_adae_sev_tox_server <- function(id,
                                     dataset,
                                     df_out,
                                     adsl) {
@@ -84,7 +84,7 @@ mod_adae_display_server <- function(id,
     observe({
       req(adsl())
       req(df_out()[[dataset]])
-      logger::log_info("mod_adxx_bodsys_server: updating table options for {dataset}")
+      logger::log_info("mod_adae_sev_tox_server: updating table options for {dataset}")
 
       df <- df_out()[[dataset]]
 
@@ -145,13 +145,13 @@ mod_adae_display_server <- function(id,
         select(USUBJID, ends_with("ARM"), starts_with("TRT")) |>
         unique()
 
-      logger::log_info("mod_adae_display_server: alt_data has
+      logger::log_info("mod_adae_sev_tox_server: alt_data has
                          {nrow(df_adsl)} rows")
 
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      logger::log_info("mod_adae_display_server: adae has
+      logger::log_info("mod_adae_sev_tox_server: adae has
                          {nrow(df)} rows")
 
       out_df <- adae_by_sev_tox(

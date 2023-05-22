@@ -43,8 +43,10 @@ mod_data_read_ui <- function(id) {
     box(
       id = ns("box_preview"),
       width = 12,
-      collapsible = FALSE,
-      div(reactable::reactableOutput(ns("print_dat")), style = "overflow-x: scroll;")
+      maximizable = TRUE,
+      collapsible = TRUE,
+      collapsed = FALSE,
+      div(reactable::reactableOutput(ns("print_dat")), style = "overflow-x: scroll; overflow-y: scroll;")
     )
   )
 }

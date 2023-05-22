@@ -20,7 +20,7 @@ mod_adae_global_ui <- function(id) {
       tabPanel("AE Summary by Body System Class",
                mod_adxx_bodsys_ui(ns("adae_bodsys_1"))),
       tabPanel("AE Summary by Toxicity/Severity",
-               mod_adae_display_ui(ns("adae_display_1")))
+               mod_adae_sev_tox_ui(ns("adae_sev_tox_1")))
     )
   )
 }
@@ -45,8 +45,8 @@ mod_adae_global_server <- function(id, dataset, df_out, adsl) {
       adsl = adsl
     )
 
-    mod_adae_display_server(
-      "adae_display_1",
+    mod_adae_sev_tox_server(
+      "adae_sev_tox_1",
       dataset = dataset,
       df_out = df_out,
       adsl = adsl
