@@ -18,8 +18,7 @@ mod_data_read_ui <- function(id) {
         value = FALSE,
         status = "info",
         inline = TRUE,
-        fill = TRUE,
-        slim = TRUE
+        fill = TRUE
       ),
       fileInput(
         ns("upload"),
@@ -138,8 +137,7 @@ mod_data_read_server <- function(id) {
         value = TRUE,
         status = "info",
         inline = TRUE,
-        fill = TRUE,
-        slim = TRUE
+        fill = TRUE
       )
     })
 
@@ -217,7 +215,7 @@ mod_data_read_server <- function(id) {
 
       rv$df
     }) |>
-      bindEvent(list(input$apply, rv$trig_reset), ignoreInit = TRUE)
+      bindEvent(list(input$apply, rv$trig_reset), ignoreNULL = TRUE)
 
     return(list(df_read = read_df))
   })
