@@ -22,6 +22,7 @@
 #' @importFrom dplyr starts_with
 #' @importFrom dplyr ungroup
 #' @importFrom formatters var_labels
+#' @importFrom purrr discard
 #' @importFrom purrr every
 #' @importFrom purrr list_assign
 #' @importFrom purrr map

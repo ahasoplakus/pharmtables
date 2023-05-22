@@ -11,40 +11,39 @@ mod_adae_display_ui <- function(id) {
   ns <- NS(id)
   tagList(
     box(
-      id = "box_adae",
+      id = ns("box_adae"),
       title = "Summary of Treatment-Emergent Adverse Events (TEAES) By Body System And Severity",
       sidebar = boxSidebar(
-        id = "adae_side",
+        id = ns("adae_side"),
         background = "#EFF5F5",
         width = 25,
         h2("Table Options"),
         selectInput(
           ns("split_col"),
           "Split Cols by",
-          choices = c("ARM", "ACTARM", "TRT01P", "TRT02P", "TRT01A", "TRT02A"),
-          selected = c("ARM"),
+          choices = NULL,
+          selected = NULL,
           width = 300
         ),
         selectInput(
           ns("class"),
           "Class",
-          choices = c("AEBODSYS", "AESOC"),
-          selected = "AESOC",
+          choices = NULL,
+          selected = NULL,
           width = 300
         ),
         selectInput(
           ns("term"),
           "Term",
-          choices = c("AETERM", "AEDECOD"),
-          selected = "AEDECOD",
+          choices = NULL,
+          selected = NULL,
           width = 300
         ),
         selectInput(
           ns("summ_var"),
           "Summarize",
-          choices = c("AESEV", "AETOXGR"),
-          selected = c("AESEV"),
-          multiple = FALSE,
+          choices = NULL,
+          selected = NULL,
           width = 300
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
@@ -59,7 +58,8 @@ mod_adae_display_ui <- function(id) {
         value = TRUE,
         status = "info",
         inline = TRUE,
-        fill = TRUE
+        fill = TRUE,
+        slim = TRUE
       ),
       mod_dt_table_ui(ns("dt_table_2"))
     )
@@ -78,6 +78,60 @@ mod_adae_display_server <- function(id,
                                     adsl) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+
+    rv <- reactiveValues(trig_report = FALSE)
+
+    observe({
+      req(adsl())
+      req(df_out()[[dataset]])
+      logger::log_info("mod_adxx_bodsys_server: updating table options for {dataset}")
+
+      df <- df_out()[[dataset]]
+
+      trt_choices <-
+        names(select(adsl(), setdiff(starts_with(
+          c("ARM", "TRT0")
+        ), ends_with("DTM"))))
+      class_choices <-
+        names(select(df, union(ends_with(
+          c("SOC", "BODSYS", "CAT")
+        ), starts_with("ATC"))))
+      term_choices <-
+        names(select(df, ends_with(c(
+          "TERM", "DECOD"
+        ))))
+      summ_var <-
+        names(select(df, ends_with(c("SEV", "TOXGR"))))
+
+      updateSelectInput(session,
+                        "split_col",
+                        choices = trt_choices,
+                        selected = trt_choices[1])
+
+      updateSelectInput(session,
+                        "class",
+                        choices = class_choices,
+                        selected = class_choices[1])
+
+      updateSelectInput(session,
+                        "term",
+                        choices = term_choices,
+                        selected = term_choices[1])
+
+      updateSelectInput(session,
+                        "summ_var",
+                        choices = summ_var,
+                        selected = summ_var[1])
+    }) |>
+      bindEvent(adsl())
+
+    observe({
+      req(input$split_col != "")
+      req(input$class != "")
+      req(input$term != "")
+      req(input$summ_var != "")
+      rv$trig_report <- TRUE
+    })
 
     ae_explore <- reactive({
       req(df_out()[[dataset]])
@@ -116,7 +170,7 @@ mod_adae_display_server <- function(id,
         lyt = NULL
       ))
     }) |>
-      bindEvent(list(adsl(), input$run, input$view))
+      bindEvent(list(adsl(), rv$trig_report, input$run, input$view))
 
     mod_dt_table_server("dt_table_2",
                         display_df = ae_explore)

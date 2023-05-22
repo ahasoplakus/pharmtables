@@ -29,8 +29,7 @@ app_server <- function(input, output, session) {
     )
 
   mod_adsl_display_server("adsl_display_1",
-                          adsl = processed_adsl,
-                          filters = load_data$dm_filt)
+                          adsl = processed_adsl)
 
   mod_adae_global_server(
     "adae_global_1",

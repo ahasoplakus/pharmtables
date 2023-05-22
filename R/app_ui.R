@@ -53,18 +53,12 @@ app_ui <- function(request) {
           tabPanel(
             "Medical History",
             mod_adxx_bodsys_ui("admh_bodsys_1",
-                               title = "Summary of Medical History By Body System Class",
-                               trt_choices = c("ARM", "ACTARM", "TRT01P", "TRT02P", "TRT01A", "TRT02A"),
-                               class_choices = c("MHSOC", "MHBODSYS"),
-                               term_choices = c("MHTERM", "MHDECOD"))
+                               title = "Summary of Medical History By Body System Class")
           ),
           tabPanel(
             "Concomitant Medications",
             mod_adxx_bodsys_ui("adcm_bodsys_1",
-                               title = "Summary of Concomitant Medications by Categories",
-                               trt_choices = c("ARM", "ACTARM", "TRT01P", "TRT02P", "TRT01A", "TRT02A"),
-                               class_choices = c("CMCAT", "ATC1", "ATC2", "ATC3", "ATC4"),
-                               term_choices = c("CMDECOD"))
+                               title = "Summary of Concomitant Medications by Categories")
           )
         )
       ),

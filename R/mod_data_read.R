@@ -40,19 +40,11 @@ mod_data_read_ui <- function(id) {
       div(actionButton(ns("apply"), "Run Application"),
           style = "padding-bottom: 30px; padding-left: 60px;")
     )),
-    tabBox(
-      id = ns("tabcard_preview"),
-      type = "pills",
+    box(
+      id = ns("box_preview"),
       width = 12,
       collapsible = FALSE,
-      tabPanel(
-        "Datasets",
-        div(reactable::reactableOutput(ns("print_dat")), style = "overflow-x: scroll;")
-      ),
-      tabPanel("Filters",
-               mod_setup_filters_ui(ns(
-                 "setup_filters_1"
-               )))
+      div(reactable::reactableOutput(ns("print_dat")), style = "overflow-x: scroll;")
     )
   )
 }
@@ -95,7 +87,7 @@ mod_data_read_server <- function(id) {
       }
       rv$upload_state <- "refresh"
       rv$trig_reset <- rv$trig_reset + 1
-    }, priority = 100) |>
+    }, priority = 1000) |>
       bindEvent(input$def_data)
 
     observe({
@@ -132,7 +124,7 @@ mod_data_read_server <- function(id) {
           logger::log_info("mod_data_read_server: no data has been read yet")
         }
       }
-    }, priority = 99) |>
+    }, priority = 999) |>
       bindEvent(list(rv$upload, input$def_data))
 
     output$glimpse_dat <- renderUI({
@@ -192,10 +184,6 @@ mod_data_read_server <- function(id) {
       )
     })
 
-    filters <-
-      mod_setup_filters_server("setup_filters_1",
-                               df_in = eventReactive(rv$df, rv$df))
-
     read_df <- reactive({
       if (!is.null(rv$df) && rv$upload_state == "refresh") {
         rv$upload_state <- "stale"
@@ -228,7 +216,6 @@ mod_data_read_server <- function(id) {
     }) |>
       bindEvent(list(input$apply, rv$trig_reset), ignoreInit = TRUE)
 
-    return(list(df_read = read_df,
-                dm_filt = filters$dm_filt))
+    return(list(df_read = read_df))
   })
 }

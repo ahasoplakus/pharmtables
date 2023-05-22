@@ -144,17 +144,22 @@ div.sidebar .shiny-input-container {
     height: fit-content !important;
 }
 
-#box_adsl .card-header {
+#data_read_1-box_preview .card-header {
     border-top: 2px solid #3BACB6 !important;
     border-left: 2px solid #3BACB6 !important;
 }
 
-#box_adae .card-header {
+#adsl_display_1-box_adsl .card-header {
     border-top: 2px solid #3BACB6 !important;
     border-left: 2px solid #3BACB6 !important;
 }
 
-#box_adae_summ .card-header {
+#adae_global_1-adae_display_1-box_adae .card-header {
+    border-top: 2px solid #3BACB6 !important;
+    border-left: 2px solid #3BACB6 !important;
+}
+
+#adae_global_1-adae_summary_1-box_adae_summ .card-header {
     border-top: 2px solid #3BACB6 !important;
     border-left: 2px solid #3BACB6 !important;
 }
