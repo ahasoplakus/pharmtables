@@ -1,19 +1,29 @@
 test_that("mod_data_read_server works", {
   testServer(mod_data_read_server,
              # Add here your module params
-             args = list(id = "data_read_1", data_list = c("cadsl", "cadcm"))
+             args = list(id = "data_read_123")
              ,
              {
                ns <- session$ns
                expect_true(inherits(ns, "function"))
-               expect_true(grepl(id, ns("data_read_1")))
+               expect_true(grepl(id, ns("data_read_123")))
                expect_true(grepl("test", ns("test")))
 
-               expect_equal(length(read_df()), 2)
-               expect_s3_class(read_df()[["cadsl"]], c("tbl_df", "tbl", "data.frame"))
-               expect_s3_class(read_df()[["cadcm"]], c("tbl_df", "tbl", "data.frame"))
-               expect_true(nrow(read_df()[["cadsl"]]) == 400)
-               expect_equal(nrow(read_df()[["cadcm"]]), 3685)
+               session$setInputs(def_data = FALSE)
+               session$setInputs(upload = NULL)
+               session$setInputs(apply = 0)
+               session$setInputs(glimpse = FALSE)
+
+               expect_null(rv$df)
+               expect_equal(rv$upload_state, "stale")
+               expect_equal(rv$trig_reset, 1)
+
+               session$setInputs(def_data = TRUE)
+
+               expect_equal(rv$trig_reset, 2)
+               expect_equal(rv$upload_state, "refresh")
+               expect_true(length(rv$df) > 0)
+               expect_equal(nrow(rv$df[["cadae"]]), 1934)
              })
 })
 

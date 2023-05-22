@@ -46,7 +46,8 @@ mod_data_read_ui <- function(id) {
       maximizable = TRUE,
       collapsible = TRUE,
       collapsed = FALSE,
-      div(reactable::reactableOutput(ns("print_dat")), style = "overflow-x: scroll; overflow-y: scroll;")
+      div(reactable::reactableOutput(ns("print_dat")),
+          style = "overflow-x: scroll; overflow-y: scroll;")
     )
   )
 }
