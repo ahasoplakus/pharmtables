@@ -11,7 +11,7 @@ Imports:
     bs4Dash (>= 2.2.1),
     config (>= 0.3.1),
     dplyr (>= 1.1.1),
-    formatters (>= 0.4.0),
+    formatters (>= 0.4.1),
     golem (>= 0.4.0),
     logger (>= 0.2.2),
     purrr (>= 1.0.1),
