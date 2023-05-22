@@ -14,10 +14,12 @@ app_ui <- function(request) {
     # Your application UI logic
     dashboardPage(
       header = dashboardHeader(
-        title = div(id = "logo-id",
-                    img(src = "www/logo.png",
-                        style = "height:45px; width:40px"),
-                    "clinTables"),
+        title = div(
+          id = "logo-id",
+          img(src = "www/logo.png",
+              style = "height:45px; width:40px"),
+          "clinTables"
+        ),
         status = "white",
         border = TRUE,
         skin = "light"
@@ -35,28 +37,28 @@ app_ui <- function(request) {
           type = "pills",
           width = 12,
           collapsible = FALSE,
+          tabPanel("Study Setup",
+                   mod_data_read_ui("data_read_1")),
           tabPanel(
             "Demographics",
             fluidRow(
-              mod_data_read_ui("data_read_1"),
               mod_process_adsl_ui("process_adsl_1"),
               mod_adsl_display_ui("adsl_display_1")
             )
           ),
           tabPanel(
             "Adverse Events",
-            tabBox(
-              id = "ae_tabs",
-              type = "pills",
-              width = 12,
-              collapsible = FALSE,
-              tabPanel("AE Summary",
-                       mod_adae_summary_ui("adae_summary_1")),
-              tabPanel("AE Summary by Body System",
-                       mod_adae_bodsys_ui("adae_bodsys_1")),
-              tabPanel("AE by Toxicity/Severity",
-                       mod_adae_display_ui("adae_display_1"))
-            )
+            mod_adae_global_ui("adae_global_1")
+          ),
+          tabPanel(
+            "Medical History",
+            mod_adxx_bodsys_ui("admh_bodsys_1",
+                               title = "Summary of Medical History By Body System Class")
+          ),
+          tabPanel(
+            "Concomitant Medications",
+            mod_adxx_bodsys_ui("adcm_bodsys_1",
+                               title = "Summary of Concomitant Medications by Categories")
           )
         )
       ),
@@ -77,9 +79,10 @@ golem_add_external_resources <- function() {
   add_resource_path("www",
                     app_sys("app/www"))
 
-  tags$head(favicon(),
-            bundle_resources(path = app_sys("app/www"),
-                             app_title = "clinTables"))
-  # Add here other external resources
-  # for example, you can add shinyalert::useShinyalert()
+  tags$head(
+    favicon(),
+    bundle_resources(path = app_sys("app/www"),
+                     app_title = "clinTables"),
+    shinyjs::useShinyjs()
+  )
 }

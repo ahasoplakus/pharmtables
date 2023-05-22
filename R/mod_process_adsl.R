@@ -24,7 +24,7 @@ mod_process_adsl_server <- function(id,
     ns <- session$ns
 
     adsl <- reactive({
-      req(df_out())
+      req(df_out()[[dataset]])
       req(!every(global_filters(), is.null))
       logger::log_info("mod_process_adsl_server: loaded adsl has
                          {nrow(df_out()[[dataset]])} rows")

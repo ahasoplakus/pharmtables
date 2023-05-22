@@ -21,7 +21,7 @@ mod_global_filters_server <- function(id, dataset, load_data) {
     ns <- session$ns
 
     output$glob_filt_ui <- renderMenu({
-      req(load_data())
+      req(load_data()[[dataset]])
       logger::log_info("mod_global_filters_server: update filters")
 
       make_widget <-

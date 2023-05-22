@@ -1,6 +1,6 @@
-test_that("mod_adae_display_server works", {
+test_that("mod_adae_sev_tox_server works", {
   testServer(
-    mod_adae_display_server,
+    mod_adae_sev_tox_server,
     # Add here your module params
     args = list(
       id = "adae_display_abc",
@@ -59,12 +59,11 @@ test_that("mod_adae_display_server works", {
 })
 
 test_that("module ui works", {
-  ui <- mod_adae_display_ui(id = "test")
+  ui <- mod_adae_sev_tox_ui(id = "test")
   golem::expect_shinytaglist(ui)
   # Check that formals have not been removed
-  fmls <- formals(mod_adae_display_ui)
+  fmls <- formals(mod_adae_sev_tox_ui)
   for (i in c("id")){
     expect_true(i %in% names(fmls))
   }
 })
-

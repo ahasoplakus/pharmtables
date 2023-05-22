@@ -1,9 +1,9 @@
-test_that("mod_adae_bodsys_server works", {
+test_that("mod_adxx_bodsys_server works", {
   testServer(
-    mod_adae_bodsys_server,
+    mod_adxx_bodsys_server,
     # Add here your module params
     args = list(
-      id = "adae_bodsys_abc",
+      id = "adxx_bodsys_abc",
       dataset = "cadae",
       df_out = reactive(
         list(cadsl = random.cdisc.data::cadsl,
@@ -25,8 +25,8 @@ test_that("mod_adae_bodsys_server works", {
         summarize_num_patients(
           var = "USUBJID",
           .stats = c("unique", "nonunique"),
-          .labels = c(unique = "Total number of patients with at least one AE",
-                      nonunique = "Overall total number of events")
+          .labels = c(unique = "Total number of patients with at least one event",
+                      nonunique = "Total number of events")
         ) |>
         split_rows_by(
           "AEBODSYS",
@@ -42,18 +42,18 @@ test_that("mod_adae_bodsys_server works", {
       session$setInputs(term = "AEDECOD")
       session$setInputs(run = 1)
 
-      expect_identical(ae_bodsys()$lyt, exp_lyt)
-      expect_equal(nrow(ae_bodsys()$out_df), 1934)
-      expect_equal(nrow(ae_bodsys()$alt_df), 400)
+      expect_identical(xx_bodsys()$lyt, exp_lyt)
+      expect_equal(nrow(xx_bodsys()$out_df), 1934)
+      expect_equal(nrow(xx_bodsys()$alt_df), 400)
     }
   )
 })
 
 test_that("module ui works", {
-  ui <- mod_adae_bodsys_ui(id = "test")
+  ui <- mod_adxx_bodsys_ui(id = "test")
   golem::expect_shinytaglist(ui)
   # Check that formals have not been removed
-  fmls <- formals(mod_adae_bodsys_ui)
+  fmls <- formals(mod_adxx_bodsys_ui)
   for (i in c("id")) {
     expect_true(i %in% names(fmls))
   }

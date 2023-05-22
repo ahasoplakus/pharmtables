@@ -11,18 +11,18 @@ mod_adae_summary_ui <- function(id) {
   ns <- NS(id)
   tagList(
     box(
-      id = "box_adae_summ",
+      id = ns("box_adae_summ"),
       title = "Summary of Adverse Events",
       sidebar = boxSidebar(
-        id = "adae_summ_side",
+        id = ns("adae_summ_side"),
         background = "#EFF5F5",
         width = 35,
         h2("Table Options"),
         selectInput(
           ns("split_col"),
           "Split Cols by",
-          choices = c("ARM", "ACTARM", "TRT01P", "TRT02P", "TRT01A", "TRT02A"),
-          selected = c("ARM"),
+          choices = NULL,
+          selected = NULL,
           width = 300
         ),
         shinyWidgets::prettyCheckboxGroup(
@@ -57,7 +57,7 @@ mod_adae_summary_server <- function(id,
     ns <- session$ns
 
     ae_summ_init <- reactive({
-      req(df_out())
+      req(df_out()[[dataset]])
       req(adsl())
 
       df_adsl <- adsl() |>
@@ -72,6 +72,7 @@ mod_adae_summary_server <- function(id,
         mutate(
           fl1 = TRUE,
           fl2 = TRTEMFL == "Y",
+          fl21 = TRTEMFL == "Y" & AESER == "Y",
           fl3 = TRTEMFL == "Y" & AEOUT == "FATAL",
           fl4 = TRTEMFL == "Y" & AEOUT == "FATAL" & AEREL == "Y",
           fl5 = TRTEMFL == "Y" & AEACN == "DRUG WITHDRAWN",
@@ -84,6 +85,7 @@ mod_adae_summary_server <- function(id,
       labels <- c(
         "fl1" = "Total AEs",
         "fl2" = "Total number of patients with at least one adverse event",
+        "fl21" = "Total number of patients with at least one serious adverse event",
         "fl3" = "Total number of patients with fatal AEs",
         "fl4" = "Total number of patients with related fatal AEs",
         "fl5" = "Total number of patients with drug withdrawn due to AEs",
@@ -108,6 +110,8 @@ mod_adae_summary_server <- function(id,
       choices <- names(select(df, starts_with("fl")))
       selected <- choices
       labs <- as.character(ae_summ_init()$labs)
+      trt_choices <-
+        names(select(adsl(), setdiff(starts_with(c("ARM", "TRT0")), ends_with("DTM"))))
 
       shinyWidgets::updatePrettyCheckboxGroup(
         inputId = "events",
@@ -119,15 +123,20 @@ mod_adae_summary_server <- function(id,
                              status = "info",
                              shape = "curve")
       )
+
+      updateSelectInput(session,
+                        "split_col",
+                        choices = trt_choices,
+                        selected = trt_choices[1])
     }) |>
       bindEvent(ae_summ_init())
 
     ae_summ <- reactive({
       req(ae_summ_init())
-      req(input$split_col)
+      req(input$split_col != "")
       req(input$events)
 
-      disp_eve <- c("fl1", "fl2", "fl3", "fl4", "fl5", "fl6")
+      disp_eve <- c("fl1", "fl2", "fl21", "fl3", "fl4", "fl5", "fl6")
       disp_eve <- disp_eve[disp_eve %in% input$events]
 
       lyt <- basic_table() |>

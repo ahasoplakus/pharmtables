@@ -1,6 +1,6 @@
 Tests and Coverage
 ================
-15 May, 2023 15:22:18
+22 May, 2023 21:13:07
 
 -   [Coverage](#coverage)
 -   [Unit Tests](#unit-tests)
@@ -15,23 +15,24 @@ Coverage summary is created using the
 
 | Object                                                | Coverage (%) |
 |:------------------------------------------------------|:------------:|
-| clinTables                                            |    96.35     |
+| clinTables                                            |    85.38     |
 | [R/run\_app.R](../R/run_app.R)                        |     0.00     |
+| [R/utils\_helpers.R](../R/utils_helpers.R)            |    16.46     |
+| [R/mod\_global\_filters.R](../R/mod_global_filters.R) |    52.50     |
+| [R/mod\_data\_read.R](../R/mod_data_read.R)           |    64.77     |
 | [R/golem\_utils\_server.R](../R/golem_utils_server.R) |    77.78     |
 | [R/golem\_utils\_ui.R](../R/golem_utils_ui.R)         |    87.94     |
-| [R/utils\_helpers.R](../R/utils_helpers.R)            |    97.47     |
+| [R/app\_server.R](../R/app_server.R)                  |    94.74     |
 | [R/adae\_by\_sev\_tox.R](../R/adae_by_sev_tox.R)      |    97.87     |
+| [R/mod\_adxx\_bodsys.R](../R/mod_adxx_bodsys.R)       |    98.59     |
 | [R/app\_config.R](../R/app_config.R)                  |    100.00    |
-| [R/app\_server.R](../R/app_server.R)                  |    100.00    |
 | [R/app\_ui.R](../R/app_ui.R)                          |    100.00    |
 | [R/fct\_adsl\_display.R](../R/fct_adsl_display.R)     |    100.00    |
-| [R/mod\_adae\_bodsys.R](../R/mod_adae_bodsys.R)       |    100.00    |
-| [R/mod\_adae\_display.R](../R/mod_adae_display.R)     |    100.00    |
+| [R/mod\_adae\_global.R](../R/mod_adae_global.R)       |    100.00    |
+| [R/mod\_adae\_sev\_tox.R](../R/mod_adae_sev_tox.R)    |    100.00    |
 | [R/mod\_adae\_summary.R](../R/mod_adae_summary.R)     |    100.00    |
 | [R/mod\_adsl\_display.R](../R/mod_adsl_display.R)     |    100.00    |
-| [R/mod\_data\_read.R](../R/mod_data_read.R)           |    100.00    |
 | [R/mod\_dt\_table.R](../R/mod_dt_table.R)             |    100.00    |
-| [R/mod\_global\_filters.R](../R/mod_global_filters.R) |    100.00    |
 | [R/mod\_process\_adsl.R](../R/mod_process_adsl.R)     |    100.00    |
 
 <br>
@@ -43,18 +44,19 @@ Unit Test summary is created using the
 
 | file                                                              |   n | time | error | failed | skipped | warning | icon |
 |:------------------------------------------------------------------|----:|-----:|------:|-------:|--------:|--------:|:-----|
-| [test-adae\_by\_sev\_tox.R](testthat/test-adae_by_sev_tox.R)      |  14 | 2.25 |     0 |      0 |       0 |       0 |      |
-| [test-fct\_adsl\_display.R](testthat/test-fct_adsl_display.R)     |   2 | 0.64 |     0 |      0 |       0 |       0 |      |
-| [test-golem-recommended.R](testthat/test-golem-recommended.R)     |  10 | 0.12 |     0 |      0 |       1 |       0 | \+   |
-| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R) |  13 | 0.06 |     0 |      0 |       0 |       0 |      |
+| [test-adae\_by\_sev\_tox.R](testthat/test-adae_by_sev_tox.R)      |  14 | 2.01 |     0 |      0 |       0 |       0 |      |
+| [test-fct\_adsl\_display.R](testthat/test-fct_adsl_display.R)     |   2 | 0.41 |     0 |      0 |       0 |       0 |      |
+| [test-golem-recommended.R](testthat/test-golem-recommended.R)     |  10 | 0.16 |     0 |      0 |       1 |       0 | \+   |
+| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R) |  13 | 0.07 |     0 |      0 |       0 |       0 |      |
 | [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R)         |  51 | 0.17 |     0 |      0 |       0 |       0 |      |
-| [test-mod\_adae\_bodsys.R](testthat/test-mod_adae_bodsys.R)       |   8 | 0.79 |     0 |      0 |       0 |       0 |      |
-| [test-mod\_adae\_display.R](testthat/test-mod_adae_display.R)     |   8 | 3.95 |     0 |      0 |       0 |       0 |      |
-| [test-mod\_adae\_summary.R](testthat/test-mod_adae_summary.R)     |   9 | 0.67 |     0 |      0 |       0 |       0 |      |
-| [test-mod\_adsl\_display.R](testthat/test-mod_adsl_display.R)     |  10 | 1.62 |     0 |      0 |       0 |       0 |      |
-| [test-mod\_data\_read.R](testthat/test-mod_data_read.R)           |  10 | 0.08 |     0 |      0 |       0 |       0 |      |
+| [test-mod\_adae\_global.R](testthat/test-mod_adae_global.R)       |   2 | 0.03 |     0 |      0 |       0 |       0 |      |
+| [test-mod\_adae\_sev\_tox.R](testthat/test-mod_adae_sev_tox.R)    |   8 | 3.80 |     0 |      0 |       0 |       0 |      |
+| [test-mod\_adae\_summary.R](testthat/test-mod_adae_summary.R)     |   9 | 0.78 |     0 |      0 |       0 |       0 |      |
+| [test-mod\_adsl\_display.R](testthat/test-mod_adsl_display.R)     |  10 | 1.47 |     0 |      0 |       0 |       0 |      |
+| [test-mod\_adxx\_bodsys.R](testthat/test-mod_adxx_bodsys.R)       |   8 | 0.98 |     0 |      0 |       0 |       0 |      |
+| [test-mod\_data\_read.R](testthat/test-mod_data_read.R)           |  12 | 0.30 |     0 |      0 |       0 |       0 |      |
 | [test-mod\_dt\_table.R](testthat/test-mod_dt_table.R)             |   2 | 0.01 |     0 |      0 |       0 |       0 |      |
-| [test-mod\_global\_filters.R](testthat/test-mod_global_filters.R) |  12 | 0.16 |     0 |      0 |       0 |       0 |      |
+| [test-mod\_global\_filters.R](testthat/test-mod_global_filters.R) |  12 | 0.11 |     0 |      0 |       0 |       0 |      |
 | [test-mod\_process\_adsl.R](testthat/test-mod_process_adsl.R)     |  16 | 0.12 |     0 |      0 |       0 |       0 |      |
 | [test-utils\_helpers.R](testthat/test-utils_helpers.R)            |   1 | 0.00 |     0 |      0 |       0 |       0 |      |
 
@@ -65,49 +67,50 @@ Show Detailed Test Results
 
 | file                                                                      | context              | test                                              | status  |   n | time | icon |
 |:--------------------------------------------------------------------------|:---------------------|:--------------------------------------------------|:--------|----:|-----:|:-----|
-| [test-adae\_by\_sev\_tox.R](testthat/test-adae_by_sev_tox.R#L20)          | adae\_by\_sev\_tox   | adae\_by\_sev\_tox works with default view        | PASS    |   5 | 1.39 |      |
-| [test-adae\_by\_sev\_tox.R](testthat/test-adae_by_sev_tox.R#L47)          | adae\_by\_sev\_tox   | adae\_by\_sev\_tox works with alternate view      | PASS    |   9 | 0.86 |      |
-| [test-fct\_adsl\_display.R](testthat/test-fct_adsl_display.R#L28)         | fct\_adsl\_display   | build\_adsl works with split\_rows\_by as NULL    | PASS    |   1 | 0.47 |      |
-| [test-fct\_adsl\_display.R](testthat/test-fct_adsl_display.R#L60)         | fct\_adsl\_display   | build\_adsl works when split\_rows\_by is present | PASS    |   1 | 0.17 |      |
-| [test-golem-recommended.R](testthat/test-golem-recommended.R#L3)          | golem-recommended    | app ui                                            | PASS    |   2 | 0.06 |      |
-| [test-golem-recommended.R](testthat/test-golem-recommended.R#L13)         | golem-recommended    | app server                                        | PASS    |   4 | 0.01 |      |
-| [test-golem-recommended.R](testthat/test-golem-recommended.R#L24_L26)     | golem-recommended    | app\_sys works                                    | PASS    |   1 | 0.02 |      |
-| [test-golem-recommended.R](testthat/test-golem-recommended.R#L36_L42)     | golem-recommended    | golem-config works                                | PASS    |   2 | 0.03 |      |
+| [test-adae\_by\_sev\_tox.R](testthat/test-adae_by_sev_tox.R#L20)          | adae\_by\_sev\_tox   | adae\_by\_sev\_tox works with default view        | PASS    |   5 | 1.28 |      |
+| [test-adae\_by\_sev\_tox.R](testthat/test-adae_by_sev_tox.R#L47)          | adae\_by\_sev\_tox   | adae\_by\_sev\_tox works with alternate view      | PASS    |   9 | 0.73 |      |
+| [test-fct\_adsl\_display.R](testthat/test-fct_adsl_display.R#L28)         | fct\_adsl\_display   | build\_adsl works with split\_rows\_by as NULL    | PASS    |   1 | 0.28 |      |
+| [test-fct\_adsl\_display.R](testthat/test-fct_adsl_display.R#L60)         | fct\_adsl\_display   | build\_adsl works when split\_rows\_by is present | PASS    |   1 | 0.13 |      |
+| [test-golem-recommended.R](testthat/test-golem-recommended.R#L3)          | golem-recommended    | app ui                                            | PASS    |   2 | 0.11 |      |
+| [test-golem-recommended.R](testthat/test-golem-recommended.R#L13)         | golem-recommended    | app server                                        | PASS    |   4 | 0.02 |      |
+| [test-golem-recommended.R](testthat/test-golem-recommended.R#L24_L26)     | golem-recommended    | app\_sys works                                    | PASS    |   1 | 0.01 |      |
+| [test-golem-recommended.R](testthat/test-golem-recommended.R#L36_L42)     | golem-recommended    | golem-config works                                | PASS    |   2 | 0.02 |      |
 | [test-golem-recommended.R](testthat/test-golem-recommended.R#L67)         | golem-recommended    | app launches                                      | SKIPPED |   1 | 0.00 | \+   |
-| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L2)      | golem\_utils\_server | not\_in works                                     | PASS    |   2 | 0.00 |      |
-| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L7)      | golem\_utils\_server | not\_null works                                   | PASS    |   2 | 0.01 |      |
+| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L2)      | golem\_utils\_server | not\_in works                                     | PASS    |   2 | 0.02 |      |
+| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L7)      | golem\_utils\_server | not\_null works                                   | PASS    |   2 | 0.00 |      |
 | [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L12)     | golem\_utils\_server | not\_na works                                     | PASS    |   2 | 0.02 |      |
 | [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L17_L22) | golem\_utils\_server | drop\_nulls works                                 | PASS    |   1 | 0.00 |      |
-| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L26_L29) | golem\_utils\_server | %\|\|% works                                      | PASS    |   2 | 0.00 |      |
-| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L37_L40) | golem\_utils\_server | %\|NA\|% works                                    | PASS    |   2 | 0.01 |      |
+| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L26_L29) | golem\_utils\_server | %\|\|% works                                      | PASS    |   2 | 0.01 |      |
+| [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L37_L40) | golem\_utils\_server | %\|NA\|% works                                    | PASS    |   2 | 0.00 |      |
 | [test-golem\_utils\_server.R](testthat/test-golem_utils_server.R#L48_L50) | golem\_utils\_server | rv and rvtl work                                  | PASS    |   2 | 0.02 |      |
-| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L2)              | golem\_utils\_ui     | Test with\_red\_star works                        | PASS    |   2 | 0.00 |      |
-| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L10)             | golem\_utils\_ui     | Test list\_to\_li works                           | PASS    |   3 | 0.03 |      |
+| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L2)              | golem\_utils\_ui     | Test with\_red\_star works                        | PASS    |   2 | 0.02 |      |
+| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L10)             | golem\_utils\_ui     | Test list\_to\_li works                           | PASS    |   3 | 0.01 |      |
 | [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L22_L28)         | golem\_utils\_ui     | Test list\_to\_p works                            | PASS    |   3 | 0.02 |      |
-| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L53)             | golem\_utils\_ui     | Test named\_to\_li works                          | PASS    |   3 | 0.02 |      |
-| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L66)             | golem\_utils\_ui     | Test tagRemoveAttributes works                    | PASS    |   4 | 0.02 |      |
-| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L82)             | golem\_utils\_ui     | Test undisplay works                              | PASS    |   8 | 0.01 |      |
-| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L110)            | golem\_utils\_ui     | Test display works                                | PASS    |   4 | 0.01 |      |
+| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L53)             | golem\_utils\_ui     | Test named\_to\_li works                          | PASS    |   3 | 0.01 |      |
+| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L66)             | golem\_utils\_ui     | Test tagRemoveAttributes works                    | PASS    |   4 | 0.00 |      |
+| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L82)             | golem\_utils\_ui     | Test undisplay works                              | PASS    |   8 | 0.03 |      |
+| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L110)            | golem\_utils\_ui     | Test display works                                | PASS    |   4 | 0.02 |      |
 | [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L124)            | golem\_utils\_ui     | Test jq\_hide works                               | PASS    |   2 | 0.00 |      |
-| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L132)            | golem\_utils\_ui     | Test rep\_br works                                | PASS    |   2 | 0.00 |      |
+| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L132)            | golem\_utils\_ui     | Test rep\_br works                                | PASS    |   2 | 0.02 |      |
 | [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L140)            | golem\_utils\_ui     | Test enurl works                                  | PASS    |   2 | 0.00 |      |
 | [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L148)            | golem\_utils\_ui     | Test columns wrappers works                       | PASS    |  16 | 0.04 |      |
-| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L172)            | golem\_utils\_ui     | Test make\_action\_button works                   | PASS    |   2 | 0.02 |      |
-| [test-mod\_adae\_bodsys.R](testthat/test-mod_adae_bodsys.R#L2_L49)        | mod\_adae\_bodsys    | mod\_adae\_bodsys\_server works                   | PASS    |   6 | 0.78 |      |
-| [test-mod\_adae\_bodsys.R](testthat/test-mod_adae_bodsys.R#L54)           | mod\_adae\_bodsys    | module ui works                                   | PASS    |   2 | 0.01 |      |
-| [test-mod\_adae\_display.R](testthat/test-mod_adae_display.R#L2_L58)      | mod\_adae\_display   | mod\_adae\_display\_server works                  | PASS    |   6 | 3.89 |      |
-| [test-mod\_adae\_display.R](testthat/test-mod_adae_display.R#L63)         | mod\_adae\_display   | module ui works                                   | PASS    |   2 | 0.06 |      |
-| [test-mod\_adae\_summary.R](testthat/test-mod_adae_summary.R#L2_L83)      | mod\_adae\_summary   | mod\_adae\_summary\_server works                  | PASS    |   7 | 0.66 |      |
-| [test-mod\_adae\_summary.R](testthat/test-mod_adae_summary.R#L89)         | mod\_adae\_summary   | module ui works                                   | PASS    |   2 | 0.01 |      |
-| [test-mod\_adsl\_display.R](testthat/test-mod_adsl_display.R#L2_L44)      | mod\_adsl\_display   | mod\_adsl\_display\_server works                  | PASS    |   8 | 1.59 |      |
-| [test-mod\_adsl\_display.R](testthat/test-mod_adsl_display.R#L49)         | mod\_adsl\_display   | module ui works                                   | PASS    |   2 | 0.03 |      |
-| [test-mod\_data\_read.R](testthat/test-mod_data_read.R#L2_L17)            | mod\_data\_read      | mod\_data\_read\_server works                     | PASS    |   8 | 0.07 |      |
-| [test-mod\_data\_read.R](testthat/test-mod_data_read.R#L22)               | mod\_data\_read      | module ui works                                   | PASS    |   2 | 0.01 |      |
+| [test-golem\_utils\_ui.R](testthat/test-golem_utils_ui.R#L172)            | golem\_utils\_ui     | Test make\_action\_button works                   | PASS    |   2 | 0.00 |      |
+| [test-mod\_adae\_global.R](testthat/test-mod_adae_global.R#L31)           | mod\_adae\_global    | module ui works                                   | PASS    |   2 | 0.03 |      |
+| [test-mod\_adae\_sev\_tox.R](testthat/test-mod_adae_sev_tox.R#L2_L58)     | mod\_adae\_sev\_tox  | mod\_adae\_sev\_tox\_server works                 | PASS    |   6 | 3.78 |      |
+| [test-mod\_adae\_sev\_tox.R](testthat/test-mod_adae_sev_tox.R#L63)        | mod\_adae\_sev\_tox  | module ui works                                   | PASS    |   2 | 0.02 |      |
+| [test-mod\_adae\_summary.R](testthat/test-mod_adae_summary.R#L2_L83)      | mod\_adae\_summary   | mod\_adae\_summary\_server works                  | PASS    |   7 | 0.76 |      |
+| [test-mod\_adae\_summary.R](testthat/test-mod_adae_summary.R#L89)         | mod\_adae\_summary   | module ui works                                   | PASS    |   2 | 0.02 |      |
+| [test-mod\_adsl\_display.R](testthat/test-mod_adsl_display.R#L2_L44)      | mod\_adsl\_display   | mod\_adsl\_display\_server works                  | PASS    |   8 | 1.46 |      |
+| [test-mod\_adsl\_display.R](testthat/test-mod_adsl_display.R#L49)         | mod\_adsl\_display   | module ui works                                   | PASS    |   2 | 0.01 |      |
+| [test-mod\_adxx\_bodsys.R](testthat/test-mod_adxx_bodsys.R#L2_L49)        | mod\_adxx\_bodsys    | mod\_adxx\_bodsys\_server works                   | PASS    |   6 | 0.97 |      |
+| [test-mod\_adxx\_bodsys.R](testthat/test-mod_adxx_bodsys.R#L54)           | mod\_adxx\_bodsys    | module ui works                                   | PASS    |   2 | 0.01 |      |
+| [test-mod\_data\_read.R](testthat/test-mod_data_read.R#L2_L27)            | mod\_data\_read      | mod\_data\_read\_server works                     | PASS    |  10 | 0.27 |      |
+| [test-mod\_data\_read.R](testthat/test-mod_data_read.R#L32)               | mod\_data\_read      | module ui works                                   | PASS    |   2 | 0.03 |      |
 | [test-mod\_dt\_table.R](testthat/test-mod_dt_table.R#L20)                 | mod\_dt\_table       | module ui works                                   | PASS    |   2 | 0.01 |      |
-| [test-mod\_global\_filters.R](testthat/test-mod_global_filters.R#L2_L57)  | mod\_global\_filters | mod\_global\_filters\_server works                | PASS    |  10 | 0.14 |      |
-| [test-mod\_global\_filters.R](testthat/test-mod_global_filters.R#L62)     | mod\_global\_filters | module ui works                                   | PASS    |   2 | 0.02 |      |
-| [test-mod\_process\_adsl.R](testthat/test-mod_process_adsl.R#L4_L69)      | mod\_process\_adsl   | mod\_process\_adsl\_server works                  | PASS    |  14 | 0.12 |      |
-| [test-mod\_process\_adsl.R](testthat/test-mod_process_adsl.R#L74)         | mod\_process\_adsl   | module ui works                                   | PASS    |   2 | 0.00 |      |
+| [test-mod\_global\_filters.R](testthat/test-mod_global_filters.R#L2_L57)  | mod\_global\_filters | mod\_global\_filters\_server works                | PASS    |  10 | 0.10 |      |
+| [test-mod\_global\_filters.R](testthat/test-mod_global_filters.R#L62)     | mod\_global\_filters | module ui works                                   | PASS    |   2 | 0.01 |      |
+| [test-mod\_process\_adsl.R](testthat/test-mod_process_adsl.R#L4_L69)      | mod\_process\_adsl   | mod\_process\_adsl\_server works                  | PASS    |  14 | 0.11 |      |
+| [test-mod\_process\_adsl.R](testthat/test-mod_process_adsl.R#L74)         | mod\_process\_adsl   | module ui works                                   | PASS    |   2 | 0.01 |      |
 | [test-utils\_helpers.R](testthat/test-utils_helpers.R#L2)                 | utils\_helpers       | multiplication works                              | PASS    |   1 | 0.00 |      |
 
 | Failed | Warning | Skipped |
@@ -130,7 +133,7 @@ Session Info
 
 | Package  | Version |
 |:---------|:--------|
-| testthat | 3.1.7   |
+| testthat | 3.1.8   |
 | covr     | 3.6.2   |
 | covrpage | 0.2     |
 
