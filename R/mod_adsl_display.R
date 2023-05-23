@@ -11,40 +11,43 @@ mod_adsl_display_ui <- function(id) {
   ns <- NS(id)
   tagList(
     box(
+      id = ns("box_adsl"),
+      title = "Demographic Characteristics",
       sidebar = boxSidebar(
-        id = "demog_side",
+        id = ns("demog_side"),
         background = "#EFF5F5",
         width = 25,
         h2("Table Options"),
         selectInput(
           ns("split_col"),
           "Split Cols by",
-          choices = c("ARM", "ACTARM", "TRT01P", "TRT02P", "TRT01A", "TRT02A"),
-          selected = c("ARM"),
-          width = 300
-        ),
-        selectInput(
-          ns("split_row"),
-          "Split Rows by",
-          choices = c("", "SEX", "RACE", "ETHNIC", "COUNTRY"),
+          choices = NULL,
           selected = NULL,
           width = 300
+        ),
+        selectizeInput(
+          ns("split_row"),
+          "Split Rows by",
+          choices = NULL,
+          selected = NULL,
+          width = 200,
+          options = list(maxItems = 1)
         ),
         selectInput(
           ns("summ_var"),
           "Summarize",
-          choices = c("AGE", "SEX", "COUNTRY", "RACE", "ETHNIC"),
-          selected = c("AGE", "SEX", "COUNTRY"),
+          choices = NULL,
+          selected = NULL,
           multiple = TRUE,
           width = 300
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Apply"),
+        tagAppendAttributes(actionButton(ns("run"), "Update"),
                             class = "side_apply")
       ),
       maximizable = TRUE,
       width = 12,
       height = "800px",
-      mod_dt_table_ui(ns("dt_table_1"))
+      div(mod_dt_table_ui(ns("dt_table_1")), style = "overflow-x: scroll;")
     )
   )
 }
@@ -55,49 +58,73 @@ mod_adsl_display_ui <- function(id) {
 #'
 #' @importFrom rtables basic_table split_cols_by split_rows_by add_overall_col
 #' @importFrom tern summarize_vars
-mod_adsl_display_server <-
-  function(id,
-           dataset,
-           df_out,
-           global_filters = NULL,
-           apply) {
-    moduleServer(id, function(input, output, session) {
-      ns <- session$ns
+mod_adsl_display_server <- function(id, adsl) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
 
-      adsl <- reactive({
-        req(df_out())
-        req(!purrr::every(global_filters(), is.null))
-        req(input$split_col)
-        req(input$summ_var)
-        logger::log_info("mod_adsl_display_server: data has
-                         {nrow(df_out()[[dataset]])} rows")
+    rv <- reactiveValues(trig_report = FALSE)
 
-        df <- filter_adsl(
-          df_out()[[dataset]],
-          global_filters()$pop,
-          global_filters()$sex,
-          global_filters()$race,
-          global_filters()$ethnic,
-          global_filters()$country,
-          global_filters()$age,
-          global_filters()$siteid,
-          global_filters()$usubjid
-        )
+    observe({
+      req(adsl())
+      logger::log_info("mod_adsl_display_server: updating table options")
 
-        logger::log_info("mod_adsl_display_server: filtered
-                         data has {nrow(df)} rows")
+      trt_choices <-
+        names(select(adsl(), setdiff(starts_with(c("ARM", "TRT0")), ends_with("DTM"))))
+      rowgrp_choices <-
+        names(discard(adsl(), is.numeric))
+      summ_vars <-
+        names(discard(adsl(), is.character))
 
-        lyt <- build_adsl(
-          split_cols_by = input$split_col,
-          split_rows_by = input$split_row,
-          summ_vars = input$summ_var
-        )
+      updateSelectInput(session,
+                        "split_col",
+                        choices = trt_choices,
+                        selected = trt_choices[1])
 
-        return(list(adsl = df, lyt = lyt))
-      }) |>
-        bindEvent(list(apply(), input$run))
+      updateSelectizeInput(session,
+                        "split_row",
+                        choices = c("", rowgrp_choices),
+                        selected = "",
+                        options = list(maxItems = 1))
 
-      mod_dt_table_server("dt_table_1",
-                          display_df = adsl)
+      updateSelectInput(session,
+                        "summ_var",
+                        choices = summ_vars,
+                        selected = summ_vars[1])
+    }) |>
+      bindEvent(adsl())
+
+    observe({
+      req(input$split_col != "")
+      req(input$summ_var)
+      rv$trig_report <- TRUE
     })
-  }
+
+    disp_df <- reactive({
+      req(adsl())
+      req(input$split_col != "")
+      req(input$summ_var)
+      logger::log_info("mod_adsl_display_server: processed adsl has {nrow(adsl())} rows")
+
+      lyt <- build_adsl(
+        title = "",
+        subtitle = "",
+        footer = "",
+        split_cols_by = input$split_col,
+        split_rows_by = input$split_row,
+        summ_vars = input$summ_var
+      )
+
+      logger::log_info("mod_adsl_display_server: sending adsl layout for display")
+
+      return(list(
+        out_df = adsl(),
+        alt_df = NULL,
+        lyt = lyt
+      ))
+    }) |>
+      bindEvent(list(adsl(), rv$trig_report, input$run))
+
+    mod_dt_table_server("dt_table_1",
+                        display_df = disp_df)
+  })
+}

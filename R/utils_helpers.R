@@ -13,48 +13,60 @@
 create_widget <- function(filter_list, df, dataset, namespace) {
   filter_values <-
     filter_list |>
-    purrr::set_names() |>
-    purrr::map(\(x) if (is.factor(df[[dataset]][[x]])) {
-      levels(unique(dplyr::pull(df[[dataset]], x)))
+    set_names() |>
+    map(\(x) if (is.factor(df[[dataset]][[x]])) {
+      levels(unique(pull(df[[dataset]], x)))
     } else {
-      unique(dplyr::pull(df[[dataset]], x))
+      unique(pull(df[[dataset]], x))
     })
 
   filter_list |>
-    purrr::set_names() |>
-    purrr::map(\(x)
-               if (isTRUE(is.numeric(filter_values[[x]]))) {
-                 sliderInput(
-                   namespace(tolower(x)),
-                   label = stringr::str_to_title(x),
-                   min = min(filter_values[[x]], na.rm = TRUE),
-                   max = max(filter_values[[x]], na.rm = TRUE),
-                   value = max(filter_values[[x]], na.rm = TRUE)
-                 )
-               } else if (length(filter_values[[x]]) > 5) {
-                 pickerInput(
-                   namespace(tolower(x)),
-                   label = stringr::str_to_title(x),
-                   choices = filter_values[[x]],
-                   selected = filter_values[[x]],
-                   multiple = TRUE,
-                   options = list(`actions-box` = TRUE, size = 10),
-                   choicesOpt =
-                     list(content = stringr::str_trunc(filter_values[[x]],
-                                                                  width = 20))
-                 )
-               } else {
-                 shinyWidgets::prettyCheckboxGroup(
-                   namespace(tolower(x)),
-                   label = stringr::str_to_title(x),
-                   choices = filter_values[[x]],
-                   selected = filter_values[[x]],
-                   outline = TRUE,
-                   animation = "pulse",
-                   status = "info",
-                   shape = "curve"
-                 )
-               })
+    set_names() |>
+    map(\(x)
+        if (isTRUE(is.numeric(filter_values[[x]]))) {
+          sliderInput(
+            namespace(tolower(x)),
+            label = str_to_title(x),
+            min = min(filter_values[[x]], na.rm = TRUE),
+            max = max(filter_values[[x]], na.rm = TRUE),
+            value = max(filter_values[[x]], na.rm = TRUE)
+          )
+        } else if (length(filter_values[[x]]) > 5) {
+          pickerInput(
+            namespace(tolower(x)),
+            label = case_match(
+              str_to_title(x),
+              "Ethnic" ~ "Ethnicity",
+              "Siteid" ~ "Site",
+              "Usubjid" ~ "Subject ID(s)",
+              .default = str_to_title(x)
+            ),
+            choices = filter_values[[x]],
+            selected = filter_values[[x]],
+            multiple = TRUE,
+            options = list(`actions-box` = TRUE, size = 10),
+            choicesOpt =
+              list(content = str_trunc(filter_values[[x]],
+                                                width = 20))
+          )
+        } else {
+          shinyWidgets::prettyCheckboxGroup(
+            namespace(tolower(x)),
+            label = case_match(
+              str_to_title(x),
+              "Ethnic" ~ "Ethnicity",
+              "Siteid" ~ "Site",
+              "Usubjid" ~ "Subject ID(s)",
+              .default = str_to_title(x)
+            ),
+            choices = filter_values[[x]],
+            selected = filter_values[[x]],
+            outline = TRUE,
+            animation = "pulse",
+            status = "info",
+            shape = "curve"
+          )
+        })
 }
 
 #' Population Flag widget
@@ -62,7 +74,7 @@ create_widget <- function(filter_list, df, dataset, namespace) {
 #' @param flags Population Flags
 #' @param namespace namespace
 #'
-#' @return
+#' @return radio button widget for analysis population
 #'
 #' @noRd
 create_flag_widget <- function(flags, namespace) {
@@ -91,8 +103,7 @@ create_flag_widget <- function(flags, namespace) {
 #' @param usubjid Subject Identifier
 #'
 #' @return Filtered adsl
-#' @export
-#'
+#' @noRd
 filter_adsl <-
   function(df,
            pop,
@@ -105,14 +116,14 @@ filter_adsl <-
            usubjid) {
     if (pop == "SAFFL") {
       adsl <- df |>
-        dplyr::filter(SAFFL == "Y")
+        filter(SAFFL == "Y")
     } else {
       adsl <- df |>
-        dplyr::filter(ITTFL == "Y")
+        filter(ITTFL == "Y")
     }
 
     adsl <- adsl |>
-      dplyr::filter(
+      filter(
         SEX %in% sex,
         RACE %in% race,
         ETHNIC %in% ethnic,

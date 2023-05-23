@@ -11,3 +11,15 @@ $run_dev.*
 ^README\.Rmd$
 ^CODE_OF_CONDUCT\.md$
 ^\.github$
+^.lintr$
+^app.R
+^lint.yaml
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
+^doc$
+^Meta$
+^codecov\.yml$
+^rsconnect$
+^manifest.json

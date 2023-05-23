@@ -1,29 +1,42 @@
-testServer(
-  mod_data_read_server,
-  # Add here your module params
-  args = list()
-  , {
-    ns <- session$ns
-    expect_true(
-      inherits(ns, "function")
-    )
-    expect_true(
-      grepl(id, ns(""))
-    )
-    expect_true(
-      grepl("test", ns("test"))
-    )
-    # Here are some examples of tests you can
-    # run on your module
-    # - Testing the setting of inputs
-    # session$setInputs(x = 1)
-    # expect_true(input$x == 1)
-    # - If ever your input updates a reactiveValues
-    # - Note that this reactiveValues must be passed
-    # - to the testServer function via args = list()
-    # expect_true(r$x == 1)
-    # - Testing output
-    # expect_true(inherits(output$tbl$html, "html"))
+test_that("mod_data_read_server works", {
+  testServer(mod_data_read_server,
+             # Add here your module params
+             args = list(id = "data_read_123")
+             ,
+             {
+               ns <- session$ns
+               expect_true(inherits(ns, "function"))
+               expect_true(grepl(id, ns("data_read_123")))
+               expect_true(grepl("test", ns("test")))
+
+               df <- list(name = "cadsl.RDS",
+                          datapath = app_sys("extdata/cadsl.RDS"))
+
+               session$setInputs(glimpse = FALSE)
+               session$setInputs(def_data = FALSE)
+               session$setInputs(upload = df)
+               session$setInputs(apply = 1)
+
+               expect_equal(length(rv$df), 1)
+               expect_equal(nrow(rv$df[["cadsl"]]), 400)
+               expect_equal(rv$upload_state, "stale")
+               expect_equal(rv$trig_reset, 2)
+               expect_equal(nrow(read_df()[["cadsl"]]), 400)
+
+               session$setInputs(def_data = TRUE)
+               expect_null(read_df())
+
+               session$setInputs(apply = 2)
+               expect_true(length(read_df()) > 0)
+               expect_equal(nrow(read_df()[["cadsl"]]), 400)
+               expect_equal(nrow(read_df()[["cadmh"]]), 1934)
+               expect_equal(nrow(read_df()[["cadae"]]), 1934)
+               expect_equal(nrow(read_df()[["cadcm"]]), 3685)
+
+               session$setInputs(glimpse = TRUE)
+               expect_false(is.null(output$print_dat))
+               expect_type(output$print_dat, "character")
+             })
 })
 
 test_that("module ui works", {
@@ -31,7 +44,7 @@ test_that("module ui works", {
   golem::expect_shinytaglist(ui)
   # Check that formals have not been removed
   fmls <- formals(mod_data_read_ui)
-  for (i in c("id")){
+  for (i in c("id")) {
     expect_true(i %in% names(fmls))
   }
 })

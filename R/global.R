@@ -1,0 +1,27 @@
+utils::globalVariables(
+  c(
+    "AGE",
+    "COUNTRY",
+    "ETHNIC",
+    "ITTFL",
+    "RACE",
+    "SAFFL",
+    "SEX",
+    "SITEID",
+    "USUBJID",
+    "adsl",
+    "tabletree",
+    "AEACN",
+    "TRTEMFL",
+    "AEOUT",
+    "AEREL",
+    "DCSREAS",
+    ".data",
+    "n",
+    "colsby_lab",
+    "AETOXGR",
+    "AESEVN",
+    "AESER",
+    ":="
+  )
+)

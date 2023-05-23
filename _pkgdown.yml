@@ -1,0 +1,44 @@
+url: https://ahasoplakus.github.io/clinTables/
+
+template:
+  bootstrap: 5
+  params:
+    noindex: false
+    bootswatch: journal
+  theme: github-light
+  bslib:
+    primary: "#65647C"
+    secondary: "#99A98F"
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "Poltawski Nowy"}
+repo:
+  url:
+    home: https://github.com/ahasoplakus/clinTables/
+    source: https://github.com/ahasoplakus/clinTables/blob/devel/
+    issue: https://github.com/ahasoplakus/clinTables/issues/
+    user: https://github.com/
+
+reference:
+- title: Run App
+  desc: Run the application locally
+  contents:
+  - has_keyword("app_specific")
+
+- title: Helper Functions
+  contents:
+  - has_keyword("helpers")
+
+navbar:
+  bg: secondary
+  structure:
+    right: [github, linkedin, twitter]
+  components:
+    linkedin:
+      icon: fa-linkedin
+      href: https://www.linkedin.com/in/sukalpo-saha-186329b1/
+      aria-label: Linkedin
+    twitter:
+      icon: fa-twitter
+      href: https://twitter.com/saha_sukalpo
+      aria-label: Twitter
