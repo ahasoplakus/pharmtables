@@ -25,12 +25,13 @@ mod_adsl_display_ui <- function(id) {
           selected = NULL,
           width = 300
         ),
-        selectInput(
+        selectizeInput(
           ns("split_row"),
           "Split Rows by",
           choices = NULL,
           selected = NULL,
-          width = 300
+          width = 300,
+          options = list(maxItems = 1)
         ),
         selectInput(
           ns("summ_var"),
@@ -79,10 +80,11 @@ mod_adsl_display_server <- function(id, adsl) {
                         choices = trt_choices,
                         selected = trt_choices[1])
 
-      updateSelectInput(session,
+      updateSelectizeInput(session,
                         "split_row",
                         choices = c("", rowgrp_choices),
-                        selected = "")
+                        selected = "",
+                        options = list(maxItems = 1))
 
       updateSelectInput(session,
                         "summ_var",

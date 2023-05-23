@@ -5,7 +5,7 @@ test_that("mod_global_filters_server works", {
     args = list(
       id = "global_filters_abc",
       dataset = "cadsl",
-      load_data = random.cdisc.data::cadsl
+      load_data = reactive(list(cadsl =random.cdisc.data::cadsl))
     )
     ,
     {
@@ -15,9 +15,9 @@ test_that("mod_global_filters_server works", {
       expect_true(grepl("test", ns("test")))
 
       session$setInputs(pop = "ITTFL")
-      session$setInputs(sex = levels(load_data$SEX))
-      session$setInputs(race = levels(load_data$RACE))
-      session$setInputs(country = levels(load_data$COUNTRY)[1])
+      session$setInputs(sex = levels(load_data()[[dataset]]$SEX))
+      session$setInputs(race = levels(load_data()[[dataset]]$RACE))
+      session$setInputs(country = levels(load_data()[[dataset]]$COUNTRY)[1])
 
       all_race <- c(
         "ASIAN",
@@ -38,7 +38,7 @@ test_that("mod_global_filters_server works", {
       expect_equal(filters()$country, "CHN")
 
       session$setInputs(pop = "SAFFL")
-      session$setInputs(sex = levels(load_data$SEX)[1])
+      session$setInputs(sex = levels(load_data()[[dataset]]$SEX)[1])
       session$setInputs(age = 50)
       expect_equal(
         filters(),
@@ -53,6 +53,11 @@ test_that("mod_global_filters_server works", {
           usubjid = NULL
         )
       )
+
+      load(app_sys("test_objects/glob_filt_ui_obj.Rdata"))
+      expect_type(output$glob_filt_ui, "list")
+      expect_type(output$glob_filt_ui$html, "character")
+      expect_identical(output$glob_filt_ui$html, glob_filt_ui_obj)
     }
   )
 })

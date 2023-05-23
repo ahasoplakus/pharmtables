@@ -32,6 +32,10 @@ test_that("mod_data_read_server works", {
                expect_equal(nrow(read_df()[["cadmh"]]), 1934)
                expect_equal(nrow(read_df()[["cadae"]]), 1934)
                expect_equal(nrow(read_df()[["cadcm"]]), 3685)
+
+               session$setInputs(glimpse = TRUE)
+               expect_false(is.null(output$print_dat))
+               expect_type(output$print_dat, "character")
              })
 })
 

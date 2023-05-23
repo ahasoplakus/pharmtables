@@ -31,13 +31,13 @@ mod_data_read_ui <- function(id) {
         capture = NULL
       )
     )),
-    fluidRow(column(width = 2, uiOutput(
+    fluidRow(column(width = 1, uiOutput(
       ns("glimpse_dat")
     )),
     column(
-      width = 2,
+      width = 3,
       div(actionButton(ns("apply"), "Run Application"),
-          style = "padding-bottom: 30px; padding-left: 60px;")
+          style = "padding-bottom: 30px; text-align: right;")
     )),
     box(
       id = ns("box_preview"),
