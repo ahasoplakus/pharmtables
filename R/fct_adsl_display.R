@@ -35,7 +35,7 @@ build_adsl <- function(title = "x.x: Study Subject Data",
                        split_cols_by = "ARM",
                        split_rows_by = NULL,
                        summ_vars = c("AGE", "SEX", "COUNTRY")) {
-  if (not_null(split_rows_by) && split_rows_by != "") {
+  if (!is.null(split_rows_by) && split_rows_by != "") {
     lyt <- basic_table(
       title = title,
       subtitles = subtitle,

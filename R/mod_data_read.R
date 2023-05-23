@@ -18,7 +18,8 @@ mod_data_read_ui <- function(id) {
         value = FALSE,
         status = "info",
         inline = TRUE,
-        fill = TRUE
+        fill = TRUE,
+        slim = TRUE
       ),
       fileInput(
         ns("upload"),
@@ -137,7 +138,8 @@ mod_data_read_server <- function(id) {
         value = TRUE,
         status = "info",
         inline = TRUE,
-        fill = TRUE
+        fill = TRUE,
+        slim = TRUE
       )
     })
 
