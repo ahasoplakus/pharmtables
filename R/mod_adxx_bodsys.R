@@ -56,7 +56,7 @@ mod_adxx_bodsys_ui <-
           fill = TRUE,
           slim = TRUE
         ),
-        mod_dt_table_ui(ns("dt_table_bodsys"))
+        div(mod_dt_table_ui(ns("dt_table_bodsys")), style = "overflow-x: scroll;")
       )
     )
   }

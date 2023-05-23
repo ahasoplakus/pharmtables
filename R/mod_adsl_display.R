@@ -30,7 +30,7 @@ mod_adsl_display_ui <- function(id) {
           "Split Rows by",
           choices = NULL,
           selected = NULL,
-          width = 300,
+          width = 200,
           options = list(maxItems = 1)
         ),
         selectInput(
@@ -47,7 +47,7 @@ mod_adsl_display_ui <- function(id) {
       maximizable = TRUE,
       width = 12,
       height = "800px",
-      mod_dt_table_ui(ns("dt_table_1"))
+      div(mod_dt_table_ui(ns("dt_table_1")), style = "overflow-x: scroll;")
     )
   )
 }

@@ -61,7 +61,7 @@ mod_adae_sev_tox_ui <- function(id) {
         fill = TRUE,
         slim = TRUE
       ),
-      mod_dt_table_ui(ns("dt_table_2"))
+      div(mod_dt_table_ui(ns("dt_table_2")), style = "overflow-x: scroll;")
     )
   )
 }
