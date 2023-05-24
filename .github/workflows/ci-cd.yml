@@ -1,7 +1,3 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
-
-# Name of the workflow => usethis::use_github_actions_badge("CI-CD-renv")
 name: CI-CD-renv
 
 on:
@@ -50,7 +46,7 @@ jobs:
           while read -r cmd
           do
             eval sudo $cmd
-          done < <(Rscript -e 'writeLines(with(distro::distro(), remotes::system_requirements(id, short_version)))')
+          done <<(Rscript -e 'writeLines(with(distro::distro(), remotes::system_requirements(id, short_version)))')
 
       - name: Activate renv and restore packages with cache
         uses: r-lib/actions/setup-renv@v2
