@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://codecov.io/gh/ahasoplakus/clinTables)
-[![CI-CD](https://github.com/ahasoplakus/clinTables/actions/workflows/CI-CD.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/CI-CD.yaml)
+[![CI-CD](https://github.com/ahasoplakus/clinTables/actions/workflows/CI-CD.yml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/CI-CD.yml)
 <!-- badges: end -->
 
 `clinTables` is a shiny application to visualize standard tables used in <b>Clinical Trials</b>
