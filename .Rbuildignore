@@ -23,3 +23,4 @@ $run_dev.*
 ^codecov\.yml$
 ^rsconnect$
 ^manifest.json
+^deploy$
