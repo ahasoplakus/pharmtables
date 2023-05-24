@@ -4,7 +4,7 @@
     "Repositories": [
       {
         "Name": "RSPM",
-        "URL": "https://packagemanager.rstudio.com/all/latest"
+        "URL": "https://packagemanager.posit.co/cran/latest"
       }
     ]
   },
@@ -33,7 +33,7 @@
     },
     "Matrix": {
       "Package": "Matrix",
-      "Version": "1.5-4",
+      "Version": "1.5-4.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
@@ -45,7 +45,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "e779c7d9f35cc364438578f334cffee2"
+      "Hash": "38082d362d317745fb932e13956dccbb"
     },
     "MatrixModels": {
       "Package": "MatrixModels",
@@ -737,9 +737,14 @@
     },
     "formatters": {
       "Package": "formatters",
-      "Version": "0.4.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
+      "Version": "0.5.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "insightsengineering",
+      "RemoteRepo": "formatters",
+      "RemoteRef": "main",
+      "RemoteSha": "7ae3f0f14e008cc118b2ed0778d3a5af67b16215",
       "Requirements": [
         "R",
         "checkmate",
@@ -747,7 +752,7 @@
         "htmltools",
         "methods"
       ],
-      "Hash": "1f8ccfd28099307fc1cb8980ad2ef3ca"
+      "Hash": "000fa08a7f6f9793009d55edfc35cf02"
     },
     "fresh": {
       "Package": "fresh",
@@ -1593,14 +1598,14 @@
     },
     "random.cdisc.data": {
       "Package": "random.cdisc.data",
-      "Version": "0.3.13.9058",
+      "Version": "0.3.13.9060",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "random.cdisc.data",
       "RemoteUsername": "insightsengineering",
+      "RemoteRepo": "random.cdisc.data",
       "RemoteRef": "main",
-      "RemoteSha": "cbf3ae1f52faedeb43577b5aeaafea1372c6cbfe",
+      "RemoteSha": "df423fcf7c2f47ca28518fa3ebee837e01d5115d",
       "Requirements": [
         "R",
         "checkmate",
@@ -1614,7 +1619,7 @@
         "tidyr",
         "yaml"
       ],
-      "Hash": "d471de7cba1f92e304f6fb3ca14a154d"
+      "Hash": "02d1f865b41b24a303968b26c3cd5268"
     },
     "rappdirs": {
       "Package": "rappdirs",
@@ -1870,9 +1875,14 @@
     },
     "rtables": {
       "Package": "rtables",
-      "Version": "0.6.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "0.6.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "insightsengineering",
+      "RemoteRepo": "rtables",
+      "RemoteRef": "main",
+      "RemoteSha": "3e0a0d791cf4e30c98afed875a998054fca17c00",
       "Requirements": [
         "R",
         "formatters",
@@ -1882,7 +1892,7 @@
         "methods",
         "stats"
       ],
-      "Hash": "545dc8346a08776dac56bdbf818b707d"
+      "Hash": "ae481338f7ff9b1479794e124d7fb897"
     },
     "rversions": {
       "Package": "rversions",
@@ -2083,10 +2093,10 @@
     },
     "sys": {
       "Package": "sys",
-      "Version": "3.4.1",
+      "Version": "3.4.2",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "34c16f1ef796057bfa06d3f4ff818a5d"
+      "Repository": "RSPM",
+      "Hash": "3a1be13d68d47a8cd0bfd74739ca1555"
     },
     "systemfonts": {
       "Package": "systemfonts",
@@ -2101,14 +2111,14 @@
     },
     "tern": {
       "Package": "tern",
-      "Version": "0.8.1.9005",
+      "Version": "0.8.2",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "tern",
       "RemoteUsername": "insightsengineering",
+      "RemoteRepo": "tern",
       "RemoteRef": "main",
-      "RemoteSha": "aa8075dd9c6a4373553be542f720e3304c86c2e8",
+      "RemoteSha": "dff6ff158178d8e0f19e5a64c4a5fdfb65243029",
       "Requirements": [
         "R",
         "Rdpack",
@@ -2137,7 +2147,7 @@
         "tidyr",
         "utils"
       ],
-      "Hash": "9e22c9c7d26c043fe50ae7a168de3de4"
+      "Hash": "81ed3ddd5895a828b1d7b2a87699da25"
     },
     "testthat": {
       "Package": "testthat",
