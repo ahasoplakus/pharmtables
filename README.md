@@ -10,6 +10,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://codecov.io/gh/ahasoplakus/clinTables)
 [![CI-CD](https://github.com/ahasoplakus/clinTables/actions/workflows/CI-CD.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml)
+[![CI-CD](https://github.com/ahasoplakus/clinTables/actions/workflows/CI-CD.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/CI-CD.yaml)
 <!-- badges: end -->
 
 `clinTables` is a shiny application to visualize standard tables used in
