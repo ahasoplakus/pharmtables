@@ -47,6 +47,12 @@ jobs:
         with:
           upload-snapshots: true
 
+      - name: Install rsconnect
+        if: github.ref == 'refs/heads/devel' || github.ref == 'refs/heads/master'
+        run: |
+          install.packages("rsconnect", type = "binary")
+        shell: Rscript {0}
+
       - name: Push to shiny.io
         if: github.ref == 'refs/heads/devel' || github.ref == 'refs/heads/master'
         env:
