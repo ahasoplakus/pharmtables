@@ -47,19 +47,14 @@ jobs:
         with:
           upload-snapshots: true
 
-      - name: Install rsconnect
-        if: github.ref == 'refs/heads/devel' || github.ref == 'refs/heads/master'
-        run: |
-          install.packages("rsconnect", type = "binary")
-        shell: Rscript {0}
-
       - name: Push to shiny.io
-        if: github.ref == 'refs/heads/devel' || github.ref == 'refs/heads/master'
+        if: ${{ matrix.config.os }} == 'ubuntu-latest' && ${{ matrix.config.r }} == 'oldrel-1'
         env:
           SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
           SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
         run: |
+          Rscript -e "install.packages('rsconnect')"
           Rscript -e "rsconnect::setAccountInfo(Sys.getenv('SHINYAPPS_ACCOUNT'), Sys.getenv('SHINYAPPS_TOKEN'), Sys.getenv('SHINYAPPS_SECRET'))"
           Rscript -e "rsconnect::deployApp(appName = 'clinTables')"
 
