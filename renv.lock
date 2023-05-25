@@ -737,14 +737,9 @@
     },
     "formatters": {
       "Package": "formatters",
-      "Version": "0.5.0",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "insightsengineering",
-      "RemoteRepo": "formatters",
-      "RemoteRef": "main",
-      "RemoteSha": "7ae3f0f14e008cc118b2ed0778d3a5af67b16215",
+      "Version": "0.4.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "checkmate",
@@ -752,7 +747,7 @@
         "htmltools",
         "methods"
       ],
-      "Hash": "000fa08a7f6f9793009d55edfc35cf02"
+      "Hash": "1f8ccfd28099307fc1cb8980ad2ef3ca"
     },
     "fresh": {
       "Package": "fresh",
@@ -1875,14 +1870,9 @@
     },
     "rtables": {
       "Package": "rtables",
-      "Version": "0.6.1",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "insightsengineering",
-      "RemoteRepo": "rtables",
-      "RemoteRef": "main",
-      "RemoteSha": "3e0a0d791cf4e30c98afed875a998054fca17c00",
+      "Version": "0.6.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "formatters",
@@ -1892,7 +1882,7 @@
         "methods",
         "stats"
       ],
-      "Hash": "ae481338f7ff9b1479794e124d7fb897"
+      "Hash": "545dc8346a08776dac56bdbf818b707d"
     },
     "rversions": {
       "Package": "rversions",
@@ -2111,14 +2101,14 @@
     },
     "tern": {
       "Package": "tern",
-      "Version": "0.8.2",
+      "Version": "0.8.1.9003",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteUsername": "insightsengineering",
       "RemoteRepo": "tern",
-      "RemoteRef": "main",
-      "RemoteSha": "dff6ff158178d8e0f19e5a64c4a5fdfb65243029",
+      "RemoteUsername": "insightsengineering",
+      "RemoteRef": "e222a2b829ffd647bc7632dc4c57ef14ae01f525",
+      "RemoteSha": "e222a2b829ffd647bc7632dc4c57ef14ae01f525",
       "Requirements": [
         "R",
         "Rdpack",
@@ -2147,7 +2137,7 @@
         "tidyr",
         "utils"
       ],
-      "Hash": "81ed3ddd5895a828b1d7b2a87699da25"
+      "Hash": "9d495bf0b69410bf94cad8a1cbe011ed"
     },
     "testthat": {
       "Package": "testthat",

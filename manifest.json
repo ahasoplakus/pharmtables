@@ -12,7 +12,7 @@
   "packages": {
     "BH": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -38,7 +38,7 @@
     },
     "MASS": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -72,44 +72,44 @@
     },
     "Matrix": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
       "GithubSha1": null,
       "description": {
         "Package": "Matrix",
-        "Version": "1.5-4",
-        "Date": "2023-04-02",
+        "Version": "1.5-4.1",
+        "Date": "2023-05-16",
         "Priority": "recommended",
         "Title": "Sparse and Dense Matrix Classes and Methods",
+        "Description": "A rich hierarchy of sparse and dense matrix classes,\n    including general, triangular, symmetric, and diagonal matrices\n    with numeric, logical, or pattern entries.  Efficient methods for\n    operating on such matrices, often wrapping the 'BLAS', 'LAPACK',\n    and 'SuiteSparse' libraries.",
+        "License": "GPL (>= 2) | file LICENCE",
+        "URL": "https://Matrix.R-forge.R-project.org",
+        "BugReports": "https://R-forge.R-project.org/tracker/?atid=294&group_id=61",
         "Contact": "Matrix-authors@R-project.org",
-        "Maintainer": "Martin Maechler <mmaechler+Matrix@gmail.com>",
-        "Authors@R": "c(person(\"Douglas\", \"Bates\", role = \"aut\")\n , person(\"Martin\", \"Maechler\", role = c(\"aut\", \"cre\"),\n          email = \"mmaechler+Matrix@gmail.com\",\n          comment = c(ORCID = \"0000-0002-8685-9910\"))\n , person(\"Mikael\", \"Jagan\", role = \"aut\",\n          comment = c(ORCID = \"0000-0002-3542-2938\"))\n , person(\"Timothy A.\", \"Davis\", role = \"ctb\",\n          comment = c(\"SuiteSparse and 'cs' C libraries, notably CHOLMOD and AMD\",\n\t              \"collaborators listed in dir(pattern=\\\"^[A-Z]+[.]txt$\\\", full.names=TRUE, system.file(\\\"doc\\\", \\\"SuiteSparse\\\", package=\\\"Matrix\\\"))\"))\n , person(\"Jens\", \"Oehlschlägel\", role = \"ctb\",\n          comment = \"initial nearPD()\")\n , person(\"Jason\", \"Riedy\", role = \"ctb\",\n          comment = c(\"condest() and onenormest() for octave\",\n \t  \t      \"Copyright: Regents of the University of California\"))\n , person(\"R Core Team\", role = \"ctb\",\n          comment = \"base R matrix implementation\")\n )",
-        "Description": "A rich hierarchy of matrix classes, including triangular,\n   symmetric, and diagonal matrices, both dense and sparse and with\n   pattern, logical and numeric entries.   Numerous methods for and\n   operations on these matrices, using 'LAPACK' and 'SuiteSparse' libraries.",
+        "Authors@R": "c(person(\"Douglas\", \"Bates\", role = \"aut\",\n             comment = c(ORCID = \"0000-0001-8316-9503\"))\n , person(\"Martin\", \"Maechler\", role = c(\"aut\", \"cre\"),\n          email = \"mmaechler+Matrix@gmail.com\",\n          comment = c(ORCID = \"0000-0002-8685-9910\"))\n , person(\"Mikael\", \"Jagan\", role = \"aut\",\n          comment = c(ORCID = \"0000-0002-3542-2938\"))\n , person(\"Timothy A.\", \"Davis\", role = \"ctb\",\n          comment = c(ORCID = \"0000-0001-7614-6899\",\n                      \"SuiteSparse libraries, notably CHOLMOD and AMD\",\n\t              \"collaborators listed in dir(pattern=\\\"^[A-Z]+[.]txt$\\\", full.names=TRUE, system.file(\\\"doc\\\", \\\"SuiteSparse\\\", package=\\\"Matrix\\\"))\"))\n , person(\"Jens\", \"Oehlschlägel\", role = \"ctb\",\n          comment = \"initial nearPD()\")\n , person(\"Jason\", \"Riedy\", role = \"ctb\",\n          comment = c(ORCID = \"0000-0002-4345-4200\",\n                      \"GNU Octave's condest() and onenormest()\",\n \t  \t      \"Copyright: Regents of the University of California\"))\n , person(\"R Core Team\", role = \"ctb\",\n          comment = \"base R's matrix implementation\"))",
         "Depends": "R (>= 3.5.0), methods",
         "Imports": "graphics, grid, lattice, stats, utils",
-        "Suggests": "expm, MASS",
-        "Enhances": "MatrixModels, graph, SparseM, sfsmisc, igraph, maptools, sp,\nspdep",
-        "EnhancesNote": "line 2: for \"Rd xrefs\"",
-        "Encoding": "UTF-8",
+        "Suggests": "MASS, expm",
+        "Enhances": "MatrixModels, SparseM, graph, igraph, maptools, sfsmisc, sp,\nspdep",
+        "EnhancesNote": "igraph, maptools, sp, spdep for Rd xrefs",
         "LazyData": "no",
-        "LazyDataNote": "not possible, since we use data/*.R *and* our classes",
+        "LazyDataNote": "not possible, since we use data/*.R and our S4 classes",
         "BuildResaveData": "no",
-        "License": "GPL (>= 2) | file LICENCE",
-        "URL": "https://Matrix.R-forge.R-project.org/,\nhttps://Matrix.R-forge.R-project.org/doxygen/",
-        "BugReports": "https://R-forge.R-project.org/tracker/?atid=294&group_id=61",
+        "Encoding": "UTF-8",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-04-03 09:54:24 UTC; maechler",
-        "Author": "Douglas Bates [aut],\n  Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>),\n  Mikael Jagan [aut] (<https://orcid.org/0000-0002-3542-2938>),\n  Timothy A. Davis [ctb] (SuiteSparse and 'cs' C libraries, notably\n    CHOLMOD and AMD, collaborators listed in\n    dir(pattern=\"^[A-Z]+[.]txt$\", full.names=TRUE, system.file(\"doc\",\n    \"SuiteSparse\", package=\"Matrix\"))),\n  Jens Oehlschlägel [ctb] (initial nearPD()),\n  Jason Riedy [ctb] (condest() and onenormest() for octave, Copyright:\n    Regents of the University of California),\n  R Core Team [ctb] (base R matrix implementation)",
+        "Packaged": "2023-05-17 11:35:52 UTC; maechler",
+        "Author": "Douglas Bates [aut] (<https://orcid.org/0000-0001-8316-9503>),\n  Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>),\n  Mikael Jagan [aut] (<https://orcid.org/0000-0002-3542-2938>),\n  Timothy A. Davis [ctb] (<https://orcid.org/0000-0001-7614-6899>,\n    SuiteSparse libraries, notably CHOLMOD and AMD, collaborators\n    listed in dir(pattern=\"^[A-Z]+[.]txt$\", full.names=TRUE,\n    system.file(\"doc\", \"SuiteSparse\", package=\"Matrix\"))),\n  Jens Oehlschlägel [ctb] (initial nearPD()),\n  Jason Riedy [ctb] (<https://orcid.org/0000-0002-4345-4200>, GNU\n    Octave's condest() and onenormest(), Copyright: Regents of the\n    University of California),\n  R Core Team [ctb] (base R's matrix implementation)",
+        "Maintainer": "Martin Maechler <mmaechler+Matrix@gmail.com>",
         "Repository": "RSPM",
-        "Date/Publication": "2023-04-04 08:20:06 UTC",
-        "Built": "R 4.1.0; x86_64-w64-mingw32; 2023-04-05 11:18:18 UTC; windows"
+        "Date/Publication": "2023-05-18 08:02:19 UTC",
+        "Built": "R 4.1.0; x86_64-w64-mingw32; 2023-05-19 11:22:29 UTC; windows"
       }
     },
     "MatrixModels": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -139,7 +139,7 @@
     },
     "R6": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -167,7 +167,7 @@
     },
     "RColorBrewer": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -192,7 +192,7 @@
     },
     "Rcpp": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -221,7 +221,7 @@
     },
     "RcppEigen": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -253,7 +253,7 @@
     },
     "Rdpack": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -284,7 +284,7 @@
     },
     "SparseM": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -310,7 +310,7 @@
     },
     "abind": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -335,7 +335,7 @@
     },
     "anytime": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -367,7 +367,7 @@
     },
     "askpass": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -399,7 +399,7 @@
     },
     "attempt": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -429,7 +429,7 @@
     },
     "backports": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -459,7 +459,7 @@
     },
     "base64enc": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -484,7 +484,7 @@
     },
     "boot": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -514,7 +514,7 @@
     },
     "brio": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -542,7 +542,7 @@
     },
     "broom": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -577,7 +577,7 @@
     },
     "bs4Dash": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -610,7 +610,7 @@
     },
     "bslib": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -645,7 +645,7 @@
     },
     "cachem": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -676,7 +676,7 @@
     },
     "callr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -709,7 +709,7 @@
     },
     "car": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -743,7 +743,7 @@
     },
     "carData": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -775,7 +775,7 @@
     },
     "checkmate": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -810,7 +810,7 @@
     },
     "cli": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -842,7 +842,7 @@
     },
     "colorspace": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -875,7 +875,7 @@
     },
     "commonmark": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -905,7 +905,7 @@
     },
     "config": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -937,7 +937,7 @@
     },
     "covr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -968,7 +968,7 @@
     },
     "cowplot": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1001,7 +1001,7 @@
     },
     "cpp11": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1034,7 +1034,7 @@
     },
     "crayon": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1064,7 +1064,7 @@
     },
     "curl": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1097,7 +1097,7 @@
     },
     "desc": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1131,7 +1131,7 @@
     },
     "diffobj": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1164,7 +1164,7 @@
     },
     "digest": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1193,7 +1193,7 @@
     },
     "dplyr": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1228,7 +1228,7 @@
     },
     "ellipsis": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1258,7 +1258,7 @@
     },
     "emmeans": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1294,7 +1294,7 @@
     },
     "estimability": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1321,7 +1321,7 @@
     },
     "evaluate": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1353,7 +1353,7 @@
     },
     "fansi": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1385,7 +1385,7 @@
     },
     "farver": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1416,7 +1416,7 @@
     },
     "fastmap": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1444,7 +1444,7 @@
     },
     "fontawesome": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1477,7 +1477,7 @@
     },
     "forcats": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1511,7 +1511,7 @@
     },
     "formatters": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1547,7 +1547,7 @@
     },
     "fresh": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1578,7 +1578,7 @@
     },
     "fs": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1615,7 +1615,7 @@
     },
     "generics": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1647,7 +1647,7 @@
     },
     "ggplot2": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1683,7 +1683,7 @@
     },
     "glue": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1717,7 +1717,7 @@
     },
     "golem": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1750,7 +1750,7 @@
     },
     "gridExtra": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1778,7 +1778,7 @@
     },
     "gtable": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1811,7 +1811,7 @@
     },
     "here": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1844,7 +1844,7 @@
     },
     "highr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1876,7 +1876,7 @@
     },
     "htmltools": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1910,7 +1910,7 @@
     },
     "htmlwidgets": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1942,7 +1942,7 @@
     },
     "httpuv": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1975,7 +1975,7 @@
     },
     "httr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2007,7 +2007,7 @@
     },
     "hunspell": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2047,7 +2047,7 @@
     },
     "isoband": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2080,7 +2080,7 @@
     },
     "jquerylib": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2108,7 +2108,7 @@
     },
     "jsonlite": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2138,7 +2138,7 @@
     },
     "knitr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2172,7 +2172,7 @@
     },
     "labeling": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2198,7 +2198,7 @@
     },
     "later": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2230,7 +2230,7 @@
     },
     "lattice": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2264,7 +2264,7 @@
     },
     "lazyeval": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2292,7 +2292,7 @@
     },
     "lifecycle": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2325,7 +2325,7 @@
     },
     "lme4": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2357,7 +2357,7 @@
     },
     "logger": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2390,7 +2390,7 @@
     },
     "lubridate": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2428,7 +2428,7 @@
     },
     "magrittr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2461,7 +2461,7 @@
     },
     "memoise": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2490,7 +2490,7 @@
     },
     "mgcv": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2518,7 +2518,7 @@
     },
     "mime": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2547,7 +2547,7 @@
     },
     "minqa": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2574,7 +2574,7 @@
     },
     "munsell": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2601,7 +2601,7 @@
     },
     "mvtnorm": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2628,7 +2628,7 @@
     },
     "nlme": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2662,7 +2662,7 @@
     },
     "nloptr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2696,7 +2696,7 @@
     },
     "nnet": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2726,7 +2726,7 @@
     },
     "numDeriv": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2753,7 +2753,7 @@
     },
     "openssl": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2783,9 +2783,47 @@
         "Built": "R 4.1.3; x86_64-w64-mingw32; 2023-03-30 18:29:37 UTC; windows"
       }
     },
+    "packrat": {
+      "Source": "CRAN",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Type": "Package",
+        "Package": "packrat",
+        "Title": "A Dependency Management System for Projects and their R Package\nDependencies",
+        "Version": "0.9.1",
+        "Authors@R": "c(\n    person(\"Aron\", \"Atkins\", , \"aron@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Toph\", \"Allen\", role = \"aut\"),\n    person(\"Kevin\", \"Ushey\", role = \"aut\"),\n    person(\"Jonathan\", \"McPherson\", role = \"aut\"),\n    person(\"Joe\", \"Cheng\", role = \"aut\"),\n    person(\"JJ\", \"Allaire\", role = \"aut\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Description": "Manage the R packages your project depends on in an isolated,\n    portable, and reproducible way.",
+        "License": "GPL-2",
+        "URL": "https://github.com/rstudio/packrat/",
+        "BugReports": "https://github.com/rstudio/packrat/issues",
+        "Depends": "R (>= 3.0.0)",
+        "Imports": "tools, utils",
+        "Suggests": "devtools, httr, knitr, mockery, rmarkdown, testthat (>=\n3.0.0)",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.2.1",
+        "NeedsCompilation": "no",
+        "Packaged": "2023-02-27 18:08:33 UTC; aron",
+        "Author": "Aron Atkins [aut, cre],\n  Toph Allen [aut],\n  Kevin Ushey [aut],\n  Jonathan McPherson [aut],\n  Joe Cheng [aut],\n  JJ Allaire [aut],\n  Posit Software, PBC [cph, fnd]",
+        "Maintainer": "Aron Atkins <aron@posit.co>",
+        "Repository": "CRAN",
+        "Date/Publication": "2023-02-27 18:52:29 UTC",
+        "Built": "R 4.1.3; ; 2023-03-30 16:58:08 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "packrat",
+        "RemoteRef": "packrat",
+        "RemoteRepos": "https://cran.rstudio.com/",
+        "RemotePkgPlatform": "i386+x86_64-w64-mingw32",
+        "RemoteSha": "0.9.1"
+      }
+    },
     "pbkrtest": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2817,7 +2855,7 @@
     },
     "pillar": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2854,7 +2892,7 @@
     },
     "pkgconfig": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2882,7 +2920,7 @@
     },
     "pkgload": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2914,7 +2952,7 @@
     },
     "praise": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2941,7 +2979,7 @@
     },
     "processx": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2973,7 +3011,7 @@
     },
     "promises": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3007,7 +3045,7 @@
     },
     "ps": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3040,7 +3078,7 @@
     },
     "purrr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3075,7 +3113,7 @@
     },
     "quantreg": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3108,19 +3146,19 @@
       "GithubRepo": "random.cdisc.data",
       "GithubUsername": "insightsengineering",
       "GithubRef": "main",
-      "GithubSha1": "cbf3ae1f52faedeb43577b5aeaafea1372c6cbfe",
+      "GithubSha1": "df423fcf7c2f47ca28518fa3ebee837e01d5115d",
       "description": {
         "Type": "Package",
         "Package": "random.cdisc.data",
         "Title": "Create Random SDTM and ADAM Datasets",
-        "Version": "0.3.13.9058",
-        "Date": "2023-04-12",
+        "Version": "0.3.13.9060",
+        "Date": "2023-04-20",
         "Authors@R": "c(\n    person(\"Pawel\", \"Rucki\", , \"pawel.rucki@roche.com\", role = c(\"aut\", \"cre\")),\n    person(\"Nick\", \"Paszty\", , \"npaszty@gene.com\", role = \"aut\"),\n    person(\"Jana\", \"Stoilova\", , \"jana.stoilova@roche.com\", role = \"aut\"),\n    person(\"Joe\", \"Zhu\", , \"joe.zhu@roche.com\", role = \"aut\"),\n    person(\"Christopher\", \"DiPietrantonio\", role = \"aut\"),\n    person(\"Adrian\", \"Waddell\", , \"adrian.waddell@gene.com\", role = \"aut\"),\n    person(\"F. Hoffmann-La Roche AG\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "Create random CDISC data.",
         "License": "Apache License 2.0 | file LICENSE",
         "Depends": "R (>= 3.6)",
-        "Imports": "checkmate, dplyr, lifecycle, lubridate, magrittr, rlang,\nstringr, tibble, tidyr, yaml",
-        "Suggests": "diffdf, knitr, rmarkdown, testthat (>= 3.0)",
+        "Imports": "checkmate,\ndplyr (>= 1.1.2),\nlifecycle,\nlubridate,\nmagrittr,\nrlang,\nstringr,\ntibble,\ntidyr,\nyaml",
+        "Suggests": "diffdf,\nknitr,\nrmarkdown,\ntestthat (>= 3.0)",
         "VignetteBuilder": "knitr",
         "RdMacros": "lifecycle",
         "Config/Needs/website": "insightsengineering/nesttemplate",
@@ -3130,26 +3168,25 @@
         "LazyData": "true",
         "Roxygen": "list(markdown = TRUE)",
         "RoxygenNote": "7.2.3",
+        "Author": "Pawel Rucki [aut, cre],\n  Nick Paszty [aut],\n  Jana Stoilova [aut],\n  Joe Zhu [aut],\n  Christopher DiPietrantonio [aut],\n  Adrian Waddell [aut],\n  F. Hoffmann-La Roche AG [cph, fnd]",
+        "Maintainer": "Pawel Rucki <pawel.rucki@roche.com>",
+        "Built": "R 4.1.0; ; 2023-05-24 19:33:23 UTC; windows",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
-        "RemoteRepo": "random.cdisc.data",
         "RemoteUsername": "insightsengineering",
+        "RemoteRepo": "random.cdisc.data",
         "RemoteRef": "main",
-        "RemoteSha": "cbf3ae1f52faedeb43577b5aeaafea1372c6cbfe",
+        "RemoteSha": "df423fcf7c2f47ca28518fa3ebee837e01d5115d",
+        "GithubHost": "api.github.com",
         "GithubRepo": "random.cdisc.data",
         "GithubUsername": "insightsengineering",
         "GithubRef": "main",
-        "GithubSHA1": "cbf3ae1f52faedeb43577b5aeaafea1372c6cbfe",
-        "NeedsCompilation": "no",
-        "Packaged": "2023-04-14 20:10:47 UTC; SAHAS56",
-        "Author": "Pawel Rucki [aut, cre],\n  Nick Paszty [aut],\n  Jana Stoilova [aut],\n  Joe Zhu [aut],\n  Christopher DiPietrantonio [aut],\n  Adrian Waddell [aut],\n  F. Hoffmann-La Roche AG [cph, fnd]",
-        "Maintainer": "Pawel Rucki <pawel.rucki@roche.com>",
-        "Built": "R 4.1.0; ; 2023-04-14 20:10:49 UTC; windows"
+        "GithubSHA1": "df423fcf7c2f47ca28518fa3ebee837e01d5115d"
       }
     },
     "rappdirs": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3181,7 +3218,7 @@
     },
     "rbibutils": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3212,7 +3249,7 @@
     },
     "reactR": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3245,7 +3282,7 @@
     },
     "reactable": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3277,7 +3314,7 @@
     },
     "rematch2": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3307,7 +3344,7 @@
     },
     "rex": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3339,7 +3376,7 @@
     },
     "rlang": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3374,7 +3411,7 @@
     },
     "rmarkdown": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3408,7 +3445,7 @@
     },
     "rprojroot": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3437,9 +3474,46 @@
         "Built": "R 4.1.3; ; 2023-03-30 16:33:29 UTC; windows"
       }
     },
+    "rsconnect": {
+      "Source": "CRAN",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "rsconnect",
+        "Type": "Package",
+        "Title": "Deployment Interface for R Markdown Documents and Shiny\nApplications",
+        "Version": "0.8.29",
+        "Authors@R": "c(\n    person(\"Aron\", \"Atkins\", role = c(\"aut\", \"cre\"), email = \"aron@posit.co\"),\n    person(\"Jonathan\", \"McPherson\", role = \"aut\", email = \"jonathan@posit.co\"),\n    person(\"JJ\", \"Allaire\", role = \"aut\"),\n    person(\"Posit Software\", role = c(\"cph\", \"fnd\"))\n    )",
+        "Description": "Programmatic deployment interface for 'RPubs', 'shinyapps.io', and\n    'Posit Connect'. Supported content types include R Markdown documents,\n    Shiny applications, Plumber APIs, plots, and static web content.",
+        "Depends": "R (>= 3.0.0)",
+        "Imports": "curl, digest, jsonlite, openssl (>= 2.0.0), packrat (>= 0.6),\nrstudioapi (>= 0.5), tools, yaml (>= 2.1.5)",
+        "Suggests": "MASS, RCurl, callr, httpuv, knitr, plumber (>= 0.3.2),\nreticulate, rmarkdown (>= 1.1), shiny, sourcetools, testthat,\nxtable",
+        "License": "GPL-2",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.2.1",
+        "URL": "https://github.com/rstudio/rsconnect",
+        "BugReports": "https://github.com/rstudio/rsconnect/issues",
+        "NeedsCompilation": "no",
+        "Packaged": "2023-01-09 19:03:45 UTC; aron",
+        "Author": "Aron Atkins [aut, cre],\n  Jonathan McPherson [aut],\n  JJ Allaire [aut],\n  Posit Software [cph, fnd]",
+        "Maintainer": "Aron Atkins <aron@posit.co>",
+        "Repository": "CRAN",
+        "Date/Publication": "2023-01-09 22:50:10 UTC",
+        "Built": "R 4.1.3; ; 2023-03-30 18:59:25 UTC; windows",
+        "RemoteType": "standard",
+        "RemotePkgRef": "rsconnect",
+        "RemoteRef": "rsconnect",
+        "RemoteRepos": "https://cran.rstudio.com/",
+        "RemotePkgPlatform": "i386+x86_64-w64-mingw32",
+        "RemoteSha": "0.8.29"
+      }
+    },
     "rstudioapi": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3468,7 +3542,7 @@
     },
     "rtables": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3502,7 +3576,7 @@
     },
     "sass": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3535,7 +3609,7 @@
     },
     "scales": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3568,7 +3642,7 @@
     },
     "shiny": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3603,7 +3677,7 @@
     },
     "shinyWidgets": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3632,9 +3706,40 @@
         "Built": "R 4.1.3; ; 2023-04-03 20:51:13 UTC; windows"
       }
     },
+    "shinyjs": {
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "shinyjs",
+        "Title": "Easily Improve the User Experience of Your Shiny Apps in Seconds",
+        "Version": "2.1.0",
+        "Authors@R": "person(\"Dean\", \"Attali\", \n    email = \"daattali@gmail.com\",\n    role = c(\"aut\", \"cre\"),\n    comment= c(ORCID=\"0000-0002-5645-3493\"))",
+        "Description": "Perform common useful JavaScript operations in Shiny apps that will\n    greatly improve your apps without having to know any JavaScript. Examples\n    include: hiding an element, disabling an input, resetting an input back to\n    its original value, delaying code execution by a few seconds, and many more\n    useful functions for both the end user and the developer. 'shinyjs' can also\n    be used to easily call your own custom JavaScript functions from R.",
+        "URL": "https://deanattali.com/shinyjs/",
+        "BugReports": "https://github.com/daattali/shinyjs/issues",
+        "Depends": "R (>= 3.1.0)",
+        "Imports": "digest (>= 0.6.8), jsonlite, shiny (>= 1.0.0)",
+        "Suggests": "htmltools (>= 0.2.9), knitr (>= 1.7), rmarkdown, shinyAce,\nshinydisconnect, testthat (>= 0.9.1)",
+        "License": "MIT + file LICENSE",
+        "VignetteBuilder": "knitr",
+        "RoxygenNote": "7.1.1",
+        "Encoding": "UTF-8",
+        "NeedsCompilation": "no",
+        "Packaged": "2021-12-21 11:32:22 UTC; Dean-X1C",
+        "Author": "Dean Attali [aut, cre] (<https://orcid.org/0000-0002-5645-3493>)",
+        "Maintainer": "Dean Attali <daattali@gmail.com>",
+        "Repository": "RSPM",
+        "Date/Publication": "2021-12-23 10:10:02 UTC",
+        "Built": "R 4.1.0; ; 2021-12-24 11:11:03 UTC; windows"
+      }
+    },
     "sourcetools": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3662,7 +3767,7 @@
     },
     "spelling": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3698,7 +3803,7 @@
     },
     "stringi": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3731,7 +3836,7 @@
     },
     "stringr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3765,7 +3870,7 @@
     },
     "survival": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3795,8 +3900,8 @@
       }
     },
     "sys": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3805,23 +3910,23 @@
         "Package": "sys",
         "Type": "Package",
         "Title": "Powerful and Reliable Tools for Running System Commands in R",
-        "Version": "3.4.1",
+        "Version": "3.4.2",
         "Authors@R": "c(person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), \n      email = \"jeroen@berkeley.edu\", comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = \"ctb\"))",
         "Description": "Drop-in replacements for the base system2() function with fine control\n    and consistent behavior across platforms. Supports clean interruption, timeout, \n    background tasks, and streaming STDIN / STDOUT / STDERR over binary or text \n    connections. Arguments on Windows automatically get encoded and quoted to work \n    on different locales.",
         "License": "MIT + file LICENSE",
-        "URL": "https://github.com/jeroen/sys",
+        "URL": "https://jeroen.r-universe.dev/sys",
         "BugReports": "https://github.com/jeroen/sys/issues",
         "Encoding": "UTF-8",
         "RoxygenNote": "7.1.1",
         "Suggests": "unix (>= 1.4), spelling, testthat",
         "Language": "en-US",
         "NeedsCompilation": "yes",
-        "Packaged": "2022-10-18 09:37:11 UTC; jeroen",
+        "Packaged": "2023-05-22 21:45:03 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Gábor Csárdi [ctb]",
         "Maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
-        "Repository": "CRAN",
-        "Date/Publication": "2022-10-18 12:40:02 UTC",
-        "Built": "R 4.1.3; x86_64-w64-mingw32; 2023-03-30 16:33:31 UTC; windows"
+        "Repository": "RSPM",
+        "Date/Publication": "2023-05-23 07:50:02 UTC",
+        "Built": "R 4.1.0; x86_64-w64-mingw32; 2023-05-24 11:21:12 UTC; windows"
       }
     },
     "tern": {
@@ -3829,13 +3934,13 @@
       "Repository": null,
       "GithubRepo": "tern",
       "GithubUsername": "insightsengineering",
-      "GithubRef": "main",
-      "GithubSha1": "aa8075dd9c6a4373553be542f720e3304c86c2e8",
+      "GithubRef": "e222a2b829ffd647bc7632dc4c57ef14ae01f525",
+      "GithubSha1": "e222a2b829ffd647bc7632dc4c57ef14ae01f525",
       "description": {
         "Package": "tern",
         "Title": "Create Common TLGs Used in Clinical Trials",
-        "Version": "0.8.1.9005",
-        "Date": "2023-04-13",
+        "Version": "0.8.1.9003",
+        "Date": "2023-04-02",
         "Authors@R": "c(\n    person(\"Joe\", \"Zhu\", , \"joe.zhu@roche.com\", role = c(\"aut\", \"cre\")),\n    person(\"Daniel\", \"Sabanés Bové\", , \"daniel.sabanes_bove@roche.com\", role = \"aut\"),\n    person(\"Jana\", \"Stoilova\", , \"jana.stoilova@roche.com\", role = \"aut\"),\n    person(\"Heng\", \"Wang\", , \"wang.heng@gene.com\", role = \"aut\"),\n    person(\"Francois\", \"Collin\", role = \"aut\"),\n    person(\"Adrian\", \"Waddell\", , \"adrian.waddell@gene.com\", role = \"aut\"),\n    person(\"Pawel\", \"Rucki\", , \"pawel.rucki@roche.com\", role = \"aut\"),\n    person(\"Chendi\", \"Liao\", , \"chendi.liao@roche.com\", role = \"aut\"),\n    person(\"Jennifer\", \"Li\", , \"li.jing@gene.com\", role = \"aut\"),\n    person(\"F. Hoffmann-La Roche AG\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "Table, Listings, and Graphs (TLG) library for common outputs\n    used in clinical trials.",
         "License": "Apache License 2.0 | file LICENSE",
@@ -3858,22 +3963,22 @@
         "RemoteHost": "api.github.com",
         "RemoteRepo": "tern",
         "RemoteUsername": "insightsengineering",
-        "RemoteRef": "main",
-        "RemoteSha": "aa8075dd9c6a4373553be542f720e3304c86c2e8",
+        "RemoteRef": "e222a2b829ffd647bc7632dc4c57ef14ae01f525",
+        "RemoteSha": "e222a2b829ffd647bc7632dc4c57ef14ae01f525",
         "GithubRepo": "tern",
         "GithubUsername": "insightsengineering",
-        "GithubRef": "main",
-        "GithubSHA1": "aa8075dd9c6a4373553be542f720e3304c86c2e8",
+        "GithubRef": "e222a2b829ffd647bc7632dc4c57ef14ae01f525",
+        "GithubSHA1": "e222a2b829ffd647bc7632dc4c57ef14ae01f525",
         "NeedsCompilation": "no",
-        "Packaged": "2023-04-14 20:06:56 UTC; SAHAS56",
+        "Packaged": "2023-05-25 07:17:04 UTC; SAHAS56",
         "Author": "Joe Zhu [aut, cre],\n  Daniel Sabanés Bové [aut],\n  Jana Stoilova [aut],\n  Heng Wang [aut],\n  Francois Collin [aut],\n  Adrian Waddell [aut],\n  Pawel Rucki [aut],\n  Chendi Liao [aut],\n  Jennifer Li [aut],\n  F. Hoffmann-La Roche AG [cph, fnd]",
         "Maintainer": "Joe Zhu <joe.zhu@roche.com>",
-        "Built": "R 4.1.0; ; 2023-04-14 20:07:02 UTC; windows"
+        "Built": "R 4.1.0; ; 2023-05-25 07:17:07 UTC; windows"
       }
     },
     "testthat": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3907,7 +4012,7 @@
     },
     "tibble": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3945,7 +4050,7 @@
     },
     "tidyr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3981,7 +4086,7 @@
     },
     "tidyselect": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4015,7 +4120,7 @@
     },
     "timechange": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4046,7 +4151,7 @@
     },
     "tinytex": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4076,7 +4181,7 @@
     },
     "utf8": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4107,7 +4212,7 @@
     },
     "vctrs": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4141,7 +4246,7 @@
     },
     "viridisLite": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4172,7 +4277,7 @@
     },
     "waiter": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4203,7 +4308,7 @@
     },
     "waldo": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4234,7 +4339,7 @@
     },
     "withr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4268,7 +4373,7 @@
     },
     "xfun": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4299,7 +4404,7 @@
     },
     "xml2": {
       "Source": "RSPM",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4333,7 +4438,7 @@
     },
     "xtable": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4362,7 +4467,7 @@
     },
     "yaml": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/centos7/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -4392,47 +4497,53 @@
     ".github/.gitignore": {
       "checksum": "f0fe2c0d9b1be69ea90b71cc2f5ec31f"
     },
+    ".github/workflows/ci-cd.yml": {
+      "checksum": "6086c23492c96d93cdfe91da4b781221"
+    },
     ".github/workflows/lint.yaml": {
-      "checksum": "c9e7b12ea1c2b2ead47e78e13ff940f6"
+      "checksum": "1ca523e203cc4b21d54a3f2d82e1c2a6"
     },
     ".github/workflows/pr-commands.yaml": {
       "checksum": "dec04c2b8ae8073c3185eacd812ba448"
     },
     ".github/workflows/R-CMD-check.yaml": {
-      "checksum": "ecbb2edaa40809544ff3e67e8d8c2742"
+      "checksum": "252097a1e34688c51d82690d3e674b06"
     },
     ".github/workflows/test-coverage.yaml": {
-      "checksum": "81503eeeb2ca134ce7a6833aa90d0fc2"
+      "checksum": "6b4b4dcf36ffe6d6f70d9173fa0e419f"
     },
     ".here": {
       "checksum": "d41d8cd98f00b204e9800998ecf8427e"
     },
     ".lintr": {
-      "checksum": "a64e47c27b7eacc6637d6cb35182180f"
+      "checksum": "49fcd635d9856ba98d14f62db892652a"
     },
     ".Rbuildignore": {
-      "checksum": "9e3e5f3963f348f788c02d4705347f59"
+      "checksum": "b62318e01f2bae563c4a7770b8a43949"
     },
     ".Renviron": {
       "checksum": "1c784557ab7a0b3e6e81a859272f4a15"
     },
     ".Rprofile": {
-      "checksum": "45575b916b45180b954bf3882274cee7"
+      "checksum": "e710a4bd745711b2afbfaca5c7e44dbd"
     },
     "_pkgdown.yml": {
-      "checksum": "0fa40690cbe2e24af5818c2e68798829"
+      "checksum": "0d73331ef52d16d4017673e2de2ad4e3"
     },
     "app.R": {
-      "checksum": "6bb030c331e59bda777c873fe5466b5b"
+      "checksum": "188a434792f9e15dc68ea6d6ae54f83c"
     },
     "CODE_OF_CONDUCT.md": {
       "checksum": "683727d31517c9f3ce356321b0fdf97e"
     },
     "codecov.yml": {
-      "checksum": "3df907b50c4f00bc26ee6d988e0c849f"
+      "checksum": "e20df979617a9f8c55da8b1506da4078"
+    },
+    "deploy/deploy-clinTables.R": {
+      "checksum": "4f5170f56ccb2221026112007445a0b0"
     },
     "DESCRIPTION": {
-      "checksum": "cbcb72f6b280fee42d06c3bd94a6492e"
+      "checksum": "8eda33de1b5d9d23958b428122c31281"
     },
     "dev/01_start.R": {
       "checksum": "522b8ad096b235d8bce8e8577a50d3aa"
@@ -4465,7 +4576,7 @@
       "checksum": "1078fa20651c2bfa2837d2538bd9ca2c"
     },
     "docs/404.html": {
-      "checksum": "72b6958892c0000c4b4752f4cce6f471"
+      "checksum": "9cac6af5029a44010ca217090c362c73"
     },
     "docs/apple-touch-icon-120x120.png": {
       "checksum": "e2f33f74bf693950896dc9822e7bf41d"
@@ -4486,31 +4597,31 @@
       "checksum": "30fba7245e970a62239a664acb1a7295"
     },
     "docs/articles/clinTables.html": {
-      "checksum": "dbe2ca1d6f252a7714b48a009fc734ef"
+      "checksum": "7e63b9f666a0deaa8463c14ebcbbf34e"
     },
     "docs/articles/index.html": {
-      "checksum": "53ea75354db5c10f9aad9d2d12ae18cd"
+      "checksum": "ff6be8d24cc4e08f254e1a6a2124e6be"
     },
     "docs/articles/tests_and_coverage.html": {
-      "checksum": "344d197db807a35aa89ab5a744f19112"
+      "checksum": "1cc9de50b7935923e9e92bbe35eb4e8f"
     },
     "docs/authors.html": {
-      "checksum": "daf8b38ec068e0e8a8c4852f260bf3d8"
+      "checksum": "0b0738ac7a85092cb604d9df1798b64c"
     },
     "docs/CODE_OF_CONDUCT.html": {
-      "checksum": "d42665102a8148a99a3debe821a11c2a"
+      "checksum": "70d793297e99d940e199b15d67e0d210"
     },
     "docs/deps/bootstrap-5.2.2/bootstrap.bundle.min.js": {
-      "checksum": "d2b0d31f74e62440ea1a557f126d0c64"
+      "checksum": "dc757df9e9699ab0a588ec67a711b75a"
     },
     "docs/deps/bootstrap-5.2.2/bootstrap.bundle.min.js.map": {
       "checksum": "458916405b5ef70e2e5ee10e85b09acb"
     },
     "docs/deps/bootstrap-5.2.2/bootstrap.min.css": {
-      "checksum": "d001f3098ae69d92620536fa9f8cb461"
+      "checksum": "1f33ce7cf6df347dea597733cae2b70f"
     },
     "docs/deps/bootstrap-5.2.2/font.css": {
-      "checksum": "587c705288d7be3926a5eca06e0ae02c"
+      "checksum": "6981bca262fd4c36bfadbe2f0f02419d"
     },
     "docs/deps/bootstrap-5.2.2/fonts/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVs9pbCIPrc.woff": {
       "checksum": "b0d4cab8bb7b2c2bef2146d0c2e4503d"
@@ -4693,13 +4804,13 @@
       "checksum": "5ab6781bd56bcac3a3bf9a7ff2b1c0e4"
     },
     "docs/deps/data-deps.txt": {
-      "checksum": "c9a98b0e9d0f50ce721da38f2c1bed38"
+      "checksum": "208884314bf716f847997204b92a3bcb"
     },
     "docs/deps/jquery-3.6.0/jquery-3.6.0.js": {
-      "checksum": "2849239b95f5a9a2aea3f6ed9420bb88"
+      "checksum": "8a750b5e10f34fe9be3d2b152dd12aa4"
     },
     "docs/deps/jquery-3.6.0/jquery-3.6.0.min.js": {
-      "checksum": "8fb8fee4fcc3cc86ff6c724154c49c42"
+      "checksum": "0732e3eabbf8aa7ce7f69eedbd07dfdd"
     },
     "docs/deps/jquery-3.6.0/jquery-3.6.0.min.map": {
       "checksum": "6efc5d663aaacac2024153fa0d4bafcd"
@@ -4710,16 +4821,34 @@
     "docs/deps/Poltawski_Nowy-0.4.5/font.css": {
       "checksum": "ef8e8c45b50afd3819e30017c627db6f"
     },
+    "docs/deps/Poltawski_Nowy-0.4.6/flUsRq6ww480U1xsUpFXD-iDBNlSAOLkKCLnWq8KqCWnDg.woff": {
+      "checksum": "7a0934dcc64d9c887328462258b2471e"
+    },
+    "docs/deps/Poltawski_Nowy-0.4.6/font.css": {
+      "checksum": "ef8e8c45b50afd3819e30017c627db6f"
+    },
     "docs/deps/Roboto-0.4.5/font.css": {
       "checksum": "965dd2ea62583137a3133fb745bd54c8"
     },
     "docs/deps/Roboto-0.4.5/KFOmCnqEu92Fr1Me5g.woff": {
       "checksum": "62b936e168110e58e89e70ec82e22755"
     },
+    "docs/deps/Roboto-0.4.6/font.css": {
+      "checksum": "965dd2ea62583137a3133fb745bd54c8"
+    },
+    "docs/deps/Roboto-0.4.6/KFOmCnqEu92Fr1Me5g.woff": {
+      "checksum": "62b936e168110e58e89e70ec82e22755"
+    },
     "docs/deps/Roboto_Slab-0.4.5/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjojISWaw.woff": {
       "checksum": "61644633b5e93131fd61be5cf91759db"
     },
     "docs/deps/Roboto_Slab-0.4.5/font.css": {
+      "checksum": "7cf583482ee55db54a7a5eaca33bd8c4"
+    },
+    "docs/deps/Roboto_Slab-0.4.6/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjojISWaw.woff": {
+      "checksum": "61644633b5e93131fd61be5cf91759db"
+    },
+    "docs/deps/Roboto_Slab-0.4.6/font.css": {
       "checksum": "7cf583482ee55db54a7a5eaca33bd8c4"
     },
     "docs/favicon-16x16.png": {
@@ -4732,37 +4861,37 @@
       "checksum": "c944dcf587340c7f841069e622e97662"
     },
     "docs/index.html": {
-      "checksum": "e8c8a97070233f64cec09d53fe5bf78b"
+      "checksum": "60950fb4e2720c4e083be990ea767c77"
     },
     "docs/LICENSE.html": {
-      "checksum": "0982ae82d7cd1ff3c21321c8112f19eb"
+      "checksum": "abfcdc63f3d0f5d96eca8c7333aeace3"
     },
     "docs/link.svg": {
-      "checksum": "4759f31f8a585e9af173fc579d730265"
+      "checksum": "7826afa46b34c81c449023d4b2357062"
     },
     "docs/logo.png": {
       "checksum": "69652788451b9ccde8be29761b3a1aa6"
     },
     "docs/news/index.html": {
-      "checksum": "d8bb52e2d2446dc7f1db23a2c5f5a928"
+      "checksum": "374d1e34155f2a0296826aa029017809"
     },
     "docs/pkgdown.js": {
-      "checksum": "9c627b6b2c41322b8f362fac07a2ae5a"
+      "checksum": "4c793d2e947bdf07fd16eb2e5cafcc46"
     },
     "docs/pkgdown.yml": {
-      "checksum": "fb05b995807e1972b00559142a075508"
+      "checksum": "060534843b23b3ebe37043b0d21e2753"
     },
     "docs/reference/adae_by_sev_tox.html": {
-      "checksum": "b2e965ad39240c7d7eeeea1c61876bbf"
+      "checksum": "d2f256fe6d0cefb07acec09706ad28d0"
     },
     "docs/reference/adae_sev_tox.html": {
       "checksum": "22a8a1975f70d673ccac0419fd68a0aa"
     },
     "docs/reference/build_adsl.html": {
-      "checksum": "c5a18caaf72b1246f6456f55b3ef8630"
+      "checksum": "df01a0906a4afbee834f2615cd6c92ab"
     },
     "docs/reference/clinTables-package.html": {
-      "checksum": "4b7c4a8c8d6e307f91ec6d2800a56aa8"
+      "checksum": "70a5b1feaa2cbd23ed3afcf025575091"
     },
     "docs/reference/figures/logo.png": {
       "checksum": "69652788451b9ccde8be29761b3a1aa6"
@@ -4774,22 +4903,22 @@
       "checksum": "4b7d5d1e2a381159d6dc83941b23336e"
     },
     "docs/reference/index.html": {
-      "checksum": "0f715f60e45d450c7472b7ddd733f751"
+      "checksum": "f58d72754c5d324a40073d6b650821c6"
     },
     "docs/reference/Rplot001.png": {
       "checksum": "9b7a75eb2a0170ac2c15ab46a66f862b"
     },
     "docs/reference/run_app.html": {
-      "checksum": "c6a435c109678940e834e5f0de873dcf"
+      "checksum": "fca99a563ab3d462f7514fbf624d0c7e"
     },
     "docs/search.json": {
       "checksum": "30289f0ab7f94099c75110d24b49aaa0"
     },
     "docs/sitemap.xml": {
-      "checksum": "f967a5d24af34b408b42db3d17d16a73"
+      "checksum": "0a636b2dd9df185b84ff97ed836ee1f5"
     },
     "inst/app/www/custom.css": {
-      "checksum": "c6d6c2241e04a5da2aaadf299624dfd2"
+      "checksum": "02316c5b88608931963c4e78a130a686"
     },
     "inst/app/www/favicon.ico": {
       "checksum": "336fd37ac7ec0bbacefe40473f53f452"
@@ -4818,6 +4947,9 @@
     "inst/golem-config.yml": {
       "checksum": "fc5147208d528a225c8d3d9b6186c217"
     },
+    "inst/test_objects/glob_filt_ui_obj.Rdata": {
+      "checksum": "a252c96c6c1ee1a65dd808aa17b47c24"
+    },
     "inst/WORDLIST": {
       "checksum": "2050ccd32a1edfaf29f1c90ca29b6d03"
     },
@@ -4828,13 +4960,13 @@
       "checksum": "205f1fc2852de2f41607fa4938665ec1"
     },
     "man/adae_by_sev_tox.Rd": {
-      "checksum": "f7ba51c2c71d75a1986e93652b4ef67a"
+      "checksum": "9a54e77c33ded3e2c75e466e8ed48553"
     },
     "man/build_adsl.Rd": {
       "checksum": "98b7aeecfa4a08400a9ecfa15026e71d"
     },
     "man/clinTables-package.Rd": {
-      "checksum": "91cd050fb03fafa68163992c278bed8b"
+      "checksum": "ccb705b5a794e9541886c0bafc4b0aaf"
     },
     "man/figures/logo.png": {
       "checksum": "69652788451b9ccde8be29761b3a1aa6"
@@ -4849,7 +4981,7 @@
       "checksum": "2214a778bf0c148d90848ee21855aa4a"
     },
     "NAMESPACE": {
-      "checksum": "1b11d328f2b67a3f16217450adb86375"
+      "checksum": "64423dd5f7035da41d51aca11c0288b4"
     },
     "NEWS.md": {
       "checksum": "c4b07949cf84ac2315f7a072d9cf56d4"
@@ -4882,64 +5014,58 @@
       "checksum": "c944dcf587340c7f841069e622e97662"
     },
     "R/adae_by_sev_tox.R": {
-      "checksum": "bee52edd51abf25c2d33cfc601f18fec"
+      "checksum": "8e70ceb26d800f0f701ce6e4ba3d67ab"
     },
     "R/app_config.R": {
       "checksum": "ef3a7aa21d42a0ae33f5f286408af4fe"
     },
     "R/app_server.R": {
-      "checksum": "2372e32763cb3a7dc5ad109c2e3b9fff"
+      "checksum": "f6ba676ee9a4efabd03060fc6c9d6c23"
     },
     "R/app_ui.R": {
-      "checksum": "1d69d10d7a12076d5f07f20f980b806b"
+      "checksum": "eebb6f9ddbcb4379e6c8afefb53e1160"
     },
     "R/clinTables-package.R": {
-      "checksum": "5119a833611d49b977f9e19304a2663c"
+      "checksum": "22c2bfe145bfa85ca9446c1c11dad552"
     },
     "R/fct_adsl_display.R": {
-      "checksum": "6f65c8704d06f512cde76f76b2e404b7"
+      "checksum": "684149b4188637a58fb8c957bafd613a"
     },
     "R/global.R": {
-      "checksum": "e04650246e4ab3d534f0f63c2e5f26e0"
-    },
-    "R/golem_utils_server.R": {
-      "checksum": "841dc752543b2c07498c236b740bf6ab"
-    },
-    "R/golem_utils_ui.R": {
-      "checksum": "33321781a1c428ecde176940589b17e2"
-    },
-    "R/mod_adae_display.R": {
-      "checksum": "4a12cc59ba00352e2d1b19472051658f"
+      "checksum": "805cda277282e90d6b58c00621c35609"
     },
     "R/mod_adae_global.R": {
-      "checksum": "e8a60baf5d50eec43c1b0ad6f3f9db8c"
+      "checksum": "43c77392509e3812e9b78eb0a8d98c98"
+    },
+    "R/mod_adae_sev_tox.R": {
+      "checksum": "d8dbaf854d589e3e8f013e9f2ef699c0"
     },
     "R/mod_adae_summary.R": {
-      "checksum": "f127c4679b1731a539ea17d394fc5899"
+      "checksum": "3771f04c2b259b3055fc63bb5343b856"
     },
     "R/mod_adsl_display.R": {
-      "checksum": "a2bc33a4d2a68eb1fc8ac168f0a2b685"
+      "checksum": "78cb778fdc27822e82b02cc703678d62"
     },
     "R/mod_adxx_bodsys.R": {
-      "checksum": "fe1fc670b3e59096bf0fb98ea62aedb1"
+      "checksum": "0f74e0504b2d2160573879230c357eff"
     },
     "R/mod_data_read.R": {
-      "checksum": "7afc3d743c265baef2cddee3e3f60f6e"
+      "checksum": "77dcd8067ceebbea92874c9231fc0f75"
     },
     "R/mod_dt_table.R": {
-      "checksum": "85c75ecfb071b04bbdbd70dc015c4284"
+      "checksum": "cb6619a021d5ed797ad186cf186c9fae"
     },
     "R/mod_global_filters.R": {
-      "checksum": "282cb8402e261eaa0f6f1a365a6fde29"
+      "checksum": "a3f26c3fd395a15d18cbabcdde6f6809"
     },
     "R/mod_process_adsl.R": {
-      "checksum": "4482cd49e2217fe69625c87fd6684fef"
+      "checksum": "c2a00dec8887a869c208cd4f79fe64d9"
     },
     "R/run_app.R": {
-      "checksum": "926eae7153efe9f62beaa5057c83b127"
+      "checksum": "9e2ffae4e43237ed90835365d89b3c58"
     },
     "R/utils_helpers.R": {
-      "checksum": "30e226bac0b9cb5c59ff70e1a7838e05"
+      "checksum": "0bfce20ed08cda4ce47f22a370acb758"
     },
     "README.md": {
       "checksum": "9e04a00310c022f92f91488467f6f203"
@@ -4948,7 +5074,7 @@
       "checksum": "bd031e4d8e6a017666bd398673f0cb3c"
     },
     "tests/README.md": {
-      "checksum": "863e6be822eb969df253587aee64dd90"
+      "checksum": "87d0a196000b84caa891b91d6288c40a"
     },
     "tests/spelling.R": {
       "checksum": "9566921a96ff55c1a51b6eb898d25884"
@@ -4957,46 +5083,40 @@
       "checksum": "fb7efb10af8ffd2bd25c7eb8ed3127dc"
     },
     "tests/testthat/test-adae_by_sev_tox.R": {
-      "checksum": "7579064fce2fc5dcff94b960db50ffb9"
+      "checksum": "bf27daf3db77462b60603ee1f7463750"
     },
     "tests/testthat/test-fct_adsl_display.R": {
-      "checksum": "39561dff5bd6cff07cd59984a7a03226"
+      "checksum": "9ffafa5d806ad2261364acd3782fda7f"
     },
     "tests/testthat/test-golem-recommended.R": {
-      "checksum": "ca9f4b8eab95dcdaace6196ce25b3ee9"
-    },
-    "tests/testthat/test-golem_utils_server.R": {
-      "checksum": "3ed6ce54be2b28b9455f84914c16012a"
-    },
-    "tests/testthat/test-golem_utils_ui.R": {
-      "checksum": "2ef87c1229b3c6053ff45e236349c70f"
-    },
-    "tests/testthat/test-mod_adae_display.R": {
-      "checksum": "0f168ab5baf81f39b4567761455b46e7"
+      "checksum": "689ea2374156341105803804b5711d77"
     },
     "tests/testthat/test-mod_adae_global.R": {
-      "checksum": "014c904cd1a3d8dcd600271f62b946fb"
+      "checksum": "33fffea2c708814b3f6e5ba337ace242"
+    },
+    "tests/testthat/test-mod_adae_sev_tox.R": {
+      "checksum": "00ecc43ad1aaa4605c57f17f5c68e735"
     },
     "tests/testthat/test-mod_adae_summary.R": {
-      "checksum": "914a031c6880b80423ca3b1a25a9f2c8"
+      "checksum": "fda951e0d1eecef99408acae4f312bf8"
     },
     "tests/testthat/test-mod_adsl_display.R": {
-      "checksum": "7e93db888d85b7f7eedc2aae62a5b62a"
+      "checksum": "d3cba507fb6f6d7a2f7e3a4b6fbd7319"
     },
     "tests/testthat/test-mod_adxx_bodsys.R": {
-      "checksum": "42bf4660e93eb479af20976ab275b906"
+      "checksum": "5a50f31544ada8d0f2e113fbc4fdf3d4"
     },
     "tests/testthat/test-mod_data_read.R": {
-      "checksum": "d23c38f43348411629864489c9b9546e"
+      "checksum": "f145f29754955e799a8669b42816e2eb"
     },
     "tests/testthat/test-mod_dt_table.R": {
-      "checksum": "360d62658962bb55a6611c8478248dcb"
+      "checksum": "690a220e8b13c5e6efb8a6b591bbc53d"
     },
     "tests/testthat/test-mod_global_filters.R": {
-      "checksum": "8efa84058e2e63e45b26a02760076b53"
+      "checksum": "771fb590476ab05cd6e33cf5d4c82214"
     },
     "tests/testthat/test-mod_process_adsl.R": {
-      "checksum": "347dfeea5697cb1f248637885b90780e"
+      "checksum": "548afe5bcee35789c87ff26029c97a3a"
     },
     "tests/testthat/test-utils_helpers.R": {
       "checksum": "d34d57f82ae1e156fb594850d28fc2ff"
@@ -5005,10 +5125,10 @@
       "checksum": "607d07f72740b12d031bca87a68503cb"
     },
     "vignettes/clinTables.Rmd": {
-      "checksum": "9d7d167ef4eed76e00779a4b7e191087"
+      "checksum": "c7ca116f17c3a9e3cdd182c341f59d8c"
     },
     "vignettes/tests_and_coverage.Rmd": {
-      "checksum": "1078fa20651c2bfa2837d2538bd9ca2c"
+      "checksum": "edd71cc4ab6fea7174bc72972b431e20"
     }
   },
   "users": null
