@@ -48,7 +48,12 @@ jobs:
           upload-snapshots: true
 
       - name: Push to shiny.io
+        if: github.ref == 'refs/heads/devel' || github.ref == 'refs/heads/master'
+        env:
+          SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
+          SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
+          SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
         run: |
-          Rscript -e "rsconnect::setAccountInfo(name=${{ secrets.SHINYAPPS_ACCOUNT }}, token=${{secrets.SHINYAPPS_TOKEN}}, secret=${{secrets.SHINYAPPS_SECRET}})"
+          Rscript -e "rsconnect::setAccountInfo(Sys.getenv('SHINYAPPS_ACCOUNT'), Sys.getenv('SHINYAPPS_TOKEN'), Sys.getenv('SHINYAPPS_SECRET'))"
           Rscript -e "rsconnect::deployApp(appName = 'clinTables')"
 
