@@ -42,6 +42,7 @@ jobs:
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
         run: |
           Rscript -e "install.packages('rsconnect')"
+          Rscript -e "options(rsconnect.check.certificate = FALSE)"
           Rscript -e "rsconnect::setAccountInfo(Sys.getenv('SHINYAPPS_ACCOUNT'), Sys.getenv('SHINYAPPS_TOKEN'), Sys.getenv('SHINYAPPS_SECRET'))"
           Rscript -e "rsconnect::deployApp(appName = 'clinTables')"
 
