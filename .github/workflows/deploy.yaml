@@ -9,7 +9,7 @@ on:
 name: deploy-app
 
 jobs:
-  R-CMD-check:
+  deploy-app:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
