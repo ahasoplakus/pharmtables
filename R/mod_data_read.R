@@ -46,7 +46,7 @@ mod_data_read_ui <- function(id) {
       maximizable = TRUE,
       collapsible = TRUE,
       collapsed = FALSE,
-      div(reactable::reactableOutput(ns("print_dat")),
+      div(withSpinner(reactable::reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
           style = "overflow-x: scroll; overflow-y: scroll;")
     )
   )
@@ -193,7 +193,7 @@ mod_data_read_server <- function(id) {
         return(NULL)
       }
       req(rv$upload_state == "stale")
-      if (is.null(rv$df)) {
+      if (is.null(rv$df) && rv$trig_reset > 1) {
         show_toast(
           title = "No data to display",
           text = "Please upload data",

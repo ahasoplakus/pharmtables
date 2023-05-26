@@ -35,6 +35,7 @@
 #' @importFrom rtables cbind_rtables
 #' @importFrom rtables drop_split_levels
 #' @importFrom rtables remove_split_levels
+#' @importFrom shinycssloaders withSpinner
 #' @importFrom shinyWidgets show_toast
 #' @importFrom stringr str_remove_all
 #' @importFrom stringr str_to_title
@@ -42,5 +43,6 @@
 #' @importFrom tern count_occurrences
 #' @importFrom tern summarize_num_patients
 #' @importFrom tidyr replace_na
+#' @importFrom waiter spin_ball
 ## usethis namespace: end
 NULL

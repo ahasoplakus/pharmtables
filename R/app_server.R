@@ -6,6 +6,7 @@
 #' @noRd
 app_server <- function(input, output, session) {
   # Your application server logic
+  Sys.sleep(2)
   load_data <- mod_data_read_server("data_read_1")
 
   observe({

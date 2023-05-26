@@ -64,7 +64,6 @@ testServer(app_server, {
 test_that(
   "app launches",
   {
-    run_app()
     golem::expect_running(sleep = 5)
   }
 )

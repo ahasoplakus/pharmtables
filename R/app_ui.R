@@ -62,7 +62,8 @@ app_ui <- function(request) {
           )
         )
       ),
-      dark = NULL
+      dark = NULL,
+      preloader =  list(html = spin_ball(), color = "#fff")
     )
   )
 }
