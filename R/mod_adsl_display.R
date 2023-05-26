@@ -123,6 +123,7 @@ mod_adsl_display_server <- function(id, adsl) {
         lyt = lyt
       ))
     }) |>
+      bindCache(list(input$split_col, input$split_row, input$summ_var)) |>
       bindEvent(list(adsl(), rv$trig_report, input$run))
 
     mod_dt_table_server("dt_table_1",

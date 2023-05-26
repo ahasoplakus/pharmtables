@@ -2,7 +2,7 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: [devel, master]
+    branches: [devel]
 
 name: deploy-app
 
@@ -32,17 +32,17 @@ jobs:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: true
 
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rsconnect
+
       - name: Push to shinyapps.io
-        if: github.ref == 'refs/heads/devel' || github.ref == 'refs/heads/master'
         env:
           SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
           SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
         run: |
-          Rscript -e "install.packages('devtools')"
-          Rscript -e "devtools::install_github('insightsengineering/random.cdisc.data')"
-          Rscript -e "devtools::install_github('insightsengineering/tern@e222a2b829ffd647bc7632dc4c57ef14ae01f525')"
-          Rscript -e "install.packages(c('rsconnect','BH', 'MASS', 'anytime', 'attempt', 'bs4Dash', 'config', 'covr', 'fresh', 'golem', 'here', 'hunspell', 'logger', 'reactR', 'reactable', 'shinyWidgets', 'shinyjs', 'spelling', 'waiter', 'shinycssloaders'), repos = 'https://packagemanager.posit.co/cran/__linux__/centos7/latest')"
+          Rscript -e "install.packages(c('BH', 'RcppEigen', 'cpp11', 'MASS'), repos = 'https://packagemanager.posit.co/cran/__linux__/centos7/latest')"
           Rscript -e "rsconnect::setAccountInfo(Sys.getenv('SHINYAPPS_ACCOUNT'), Sys.getenv('SHINYAPPS_TOKEN'), Sys.getenv('SHINYAPPS_SECRET'))"
           Rscript -e "rsconnect::deployApp(appName = 'clinTables')"
 
