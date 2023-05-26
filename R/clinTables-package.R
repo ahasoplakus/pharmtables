@@ -43,5 +43,6 @@
 #' @importFrom tern count_occurrences
 #' @importFrom tern summarize_num_patients
 #' @importFrom tidyr replace_na
+#' @importFrom waiter spin_ball
 ## usethis namespace: end
 NULL

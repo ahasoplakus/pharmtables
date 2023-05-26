@@ -26,7 +26,8 @@ Imports:
     stringr (>= 1.5.0),
     tern (>= 0.8.1.9003),
     tibble (>= 3.2.1),
-    tidyr (>= 1.3.0)
+    tidyr (>= 1.3.0),
+    waiter
 Suggests: 
     covr,
     knitr,

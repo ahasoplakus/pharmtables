@@ -63,7 +63,7 @@ app_ui <- function(request) {
         )
       ),
       dark = NULL,
-      preloader =  list(html = waiter::spin_ball(), color = "#fff")
+      preloader =  list(html = spin_ball(), color = "#fff")
     )
   )
 }
