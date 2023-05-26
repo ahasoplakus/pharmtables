@@ -20,6 +20,7 @@ Imports:
     rlang (>= 1.1.0),
     rtables (>= 0.6.0),
     shiny (>= 1.7.4),
+    shinycssloaders (>= 1.0.0),
     shinyjs (>= 2.1.0),
     shinyWidgets (>= 0.7.6),
     stringr (>= 1.5.0),

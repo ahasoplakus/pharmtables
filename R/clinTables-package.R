@@ -35,6 +35,7 @@
 #' @importFrom rtables cbind_rtables
 #' @importFrom rtables drop_split_levels
 #' @importFrom rtables remove_split_levels
+#' @importFrom shinycssloaders withSpinner
 #' @importFrom shinyWidgets show_toast
 #' @importFrom stringr str_remove_all
 #' @importFrom stringr str_to_title
