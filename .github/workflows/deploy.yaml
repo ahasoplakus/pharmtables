@@ -41,11 +41,10 @@ jobs:
           SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
         run: |
-          Rscript -e "install.packages('rsconnect')"
           Rscript -e "install.packages('devtools')"
           Rscript -e "devtools::install_github('insightsengineering/random.cdisc.data')"
           Rscript -e "devtools::install_github('insightsengineering/tern@e222a2b829ffd647bc7632dc4c57ef14ae01f525')"
-          Rscript -e "install.packages(c('BH', 'MASS', 'anytime', 'attempt', 'bs4Dash', 'config', 'covr', 'fresh', 'golem', 'here', 'hunspell', 'logger', 'reactR', 'reactable', 'shinyWidgets', 'shinyjs', 'spelling'), repos = 'https://packagemanager.posit.co/cran/__linux__/centos7/latest')"
+          Rscript -e "install.packages(c('rsconnect','BH', 'MASS', 'anytime', 'attempt', 'bs4Dash', 'config', 'covr', 'fresh', 'golem', 'here', 'hunspell', 'logger', 'reactR', 'reactable', 'shinyWidgets', 'shinyjs', 'spelling'), repos = 'https://packagemanager.posit.co/cran/__linux__/centos7/latest')"
           Rscript -e "rsconnect::setAccountInfo(Sys.getenv('SHINYAPPS_ACCOUNT'), Sys.getenv('SHINYAPPS_TOKEN'), Sys.getenv('SHINYAPPS_SECRET'))"
           Rscript -e "rsconnect::deployApp(appName = 'clinTables')"
 
