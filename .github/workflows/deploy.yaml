@@ -39,15 +39,11 @@ jobs:
           extra-packages: any::rsconnect
 
       - name: Push to shinyapps.io
-        if: github.ref == 'refs/heads/devel' || github.ref == 'refs/heads/master'
         env:
           SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
           SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
         run: |
-          Rscript -e "install.packages('devtools')"
-          Rscript -e "devtools::install_github('insightsengineering/random.cdisc.data')"
-          Rscript -e "devtools::install_github('insightsengineering/tern@e222a2b829ffd647bc7632dc4c57ef14ae01f525')"
           Rscript -e "rsconnect::setAccountInfo(Sys.getenv('SHINYAPPS_ACCOUNT'), Sys.getenv('SHINYAPPS_TOKEN'), Sys.getenv('SHINYAPPS_SECRET'))"
           Rscript -e "rsconnect::deployApp(appName = 'clinTables')"
 
