@@ -177,6 +177,7 @@ mod_adxx_bodsys_server <- function(id,
         lyt = lyt
       ))
     }) |>
+      bindCache(list(input$split_col, input$class, input$term, input$aeser)) |>
       bindEvent(list(adsl(), rv$trig_report, input$run, input$aeser))
 
     mod_dt_table_server("dt_table_bodsys",
