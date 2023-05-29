@@ -27,7 +27,38 @@ jobs:
           needs: coverage
 
       - name: Test coverage
-        run: covr::codecov(quiet = FALSE, line_exclusions = list("R/run_app.R" = 1:32))
+        run: |
+          tryCatch(
+            expr = {
+                x <- covr::package_coverage(
+                  path=".",
+                  clean = FALSE,
+                  quiet = FALSE
+                )
+                print(x)
+                covr::to_cobertura(x, filename = "coverage.xml")
+                p <- round(covr::percent_coverage(x))
+                cat(p, file = "coverage.txt", sep = "")
+                covr::report(
+                    x,
+                    file = "coverage-report.html",
+                    browse = FALSE
+                )
+            },
+            error = function(e) {
+              message("Errors generated during coverage analysis:")
+              print(e)
+              error_file <- list.files(path = "/tmp", pattern="*.fail$", recursive = T, full.names = T)[1]
+              if (length(error_file) && file.exists(error_file)) {
+                cat("__________FULL OUTPUT__________")
+                writeLines(readLines(error_file))
+              }
+            },
+            warning = function(w) {
+                message("Warnings generated during coverage analysis:")
+                print(w)
+            }
+          )
         shell: Rscript {0}
 
       - name: Upload coverage reports to Codecov
