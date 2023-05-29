@@ -15,6 +15,8 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     outputs:
       coverage-percent: ${{ steps.set-coverage-percentage.outputs.coverage-percentage }}
+    permissions:
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v3
