@@ -117,9 +117,14 @@ adae_by_sev_tox <- function(adsl,
 
         lyt <- basic_table() |>
           split_cols_by(colsby, labels_var = "colsby_lab") |>
-          split_rows_by(class_val) |>
+          split_rows_by(class_val,
+            indent_mod = 1L,
+            label_pos = "topleft",
+            split_label = obj_label(df_adae[[class_val]])
+          ) |>
           split_cols_by(grade_val, split_fun = remove_split_levels("Missing")) |>
           count_occurrences(term_val) |>
+          append_varlabels(df_adae, term_val, indent = 2L) |>
           build_table(df, alt_counts_df = df_adsl)
         cbind_rtables(lyt1, lyt)
       })
@@ -136,14 +141,16 @@ adae_by_sev_tox <- function(adsl,
         class_val,
         child_labels = "visible",
         nested = TRUE,
-        indent_mod = 1,
+        label_pos = "topleft",
+        split_label = obj_label(df_adae[[class_val]]),
         split_fun = drop_split_levels
       ) |>
       split_rows_by(
         term_val,
         child_labels = "visible",
         nested = TRUE,
-        indent_mod = 2,
+        label_pos = "topleft",
+        split_label = obj_label(df_adae[[term_val]]),
         split_fun = drop_split_levels
       ) |>
       summarize_occurrences_by_grade(grade_val)

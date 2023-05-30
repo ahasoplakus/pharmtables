@@ -41,13 +41,15 @@ test_that("mod_adae_sev_tox_server works", {
         split_rows_by("AESOC",
           child_labels = "visible",
           nested = TRUE,
-          indent_mod = 1,
+          label_pos = "topleft",
+          split_label = obj_label(df_out()[[dataset]][["AESOC"]]),
           split_fun = drop_split_levels
         ) |>
         split_rows_by("AETERM",
           child_labels = "visible",
           nested = TRUE,
-          indent_mod = 2,
+          label_pos = "topleft",
+          split_label = obj_label(df_out()[[dataset]][["AETERM"]]),
           split_fun = drop_split_levels
         ) |>
         summarize_occurrences_by_grade("AETOXGR")
