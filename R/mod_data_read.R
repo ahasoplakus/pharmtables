@@ -121,14 +121,14 @@ mod_data_read_server <- function(id) {
             ))) |>
             set_names(rv$data_list)
           logger::log_info(
-            "mod_data_read_server: data read complete from system folder with {nrow(rv$df[[1]])} rows"
+            "mod_data_read_server: data read complete from system folder with {nrow(rv$df[[1]])} rows" # nolint
           )
         } else {
           rv$data_list <- str_remove_all(rv$upload$name, ".RDS")
           if (!identical(rv$data_list, character(0))) {
             rv$df <- map(rv$upload$datapath, readRDS) |>
               set_names(rv$data_list)
-            logger::log_info("mod_data_read_server: data read complete with {nrow(rv$df[[1]])} rows")
+            logger::log_info("mod_data_read_server: data read complete with {nrow(rv$df[[1]])} rows") # nolint
           } else {
             rv$df <- NULL
             rv$trig_reset <- rv$trig_reset + 1
