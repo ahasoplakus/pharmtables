@@ -16,9 +16,9 @@
 #'
 #' @examples
 #' lyt <- build_adsl(
-#' split_cols_by = "ARM",
-#' split_rows_by = "SEX",
-#' summ_vars = c("AGE", "RACE")
+#'   split_cols_by = "ARM",
+#'   split_rows_by = "SEX",
+#'   summ_vars = c("AGE", "RACE")
 #' )
 #'
 #' ## Use the tabletree object to within build_table
@@ -46,14 +46,19 @@ build_adsl <- function(title = "x.x: Study Subject Data",
       split_rows_by(split_rows_by) |>
       add_overall_col("All Patients") |>
       summarize_vars(summ_vars,
-                     .stats = c("n", "mean_sd", "se", "median", "range",
-                                "quantiles", "count_fraction"),
-                     .labels = c(n = "n",
-                                 mean_sd = "Mean, SD",
-                                 se = "Standard Error",
-                                 median = "Median",
-                                 range = "Min-Max",
-                                 quantiles = c("IQR")))
+        .stats = c(
+          "n", "mean_sd", "se", "median", "range",
+          "quantiles", "count_fraction"
+        ),
+        .labels = c(
+          n = "n",
+          mean_sd = "Mean, SD",
+          se = "Standard Error",
+          median = "Median",
+          range = "Min-Max",
+          quantiles = c("IQR")
+        )
+      )
   } else {
     lyt <- basic_table(
       title = title,
@@ -64,14 +69,19 @@ build_adsl <- function(title = "x.x: Study Subject Data",
       split_cols_by(split_cols_by) |>
       add_overall_col("All Patients") |>
       summarize_vars(summ_vars,
-                     .stats = c("n", "mean_sd", "se", "median", "range",
-                                "quantiles", "count_fraction"),
-                     .labels = c(n = "n",
-                                 mean_sd = "Mean, SD",
-                                 se = "Standard Error",
-                                 median = "Median",
-                                 range = "Min-Max",
-                                 quantiles = c("IQR")))
+        .stats = c(
+          "n", "mean_sd", "se", "median", "range",
+          "quantiles", "count_fraction"
+        ),
+        .labels = c(
+          n = "n",
+          mean_sd = "Mean, SD",
+          se = "Standard Error",
+          median = "Median",
+          range = "Min-Max",
+          quantiles = c("IQR")
+        )
+      )
   }
   lyt
 }

@@ -42,13 +42,15 @@ mod_adsl_display_ui <- function(id) {
           width = 300
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
-                            class = "side_apply")
+          class = "side_apply"
+        )
       ),
       maximizable = TRUE,
       width = 12,
       height = "800px",
       div(withSpinner(mod_dt_table_ui(ns("dt_table_1")), type = 6, color = "#3BACB6"),
-          style = "overflow-x: scroll;")
+        style = "overflow-x: scroll;"
+      )
     )
   )
 }
@@ -77,20 +79,23 @@ mod_adsl_display_server <- function(id, adsl) {
         names(discard(adsl(), is.character))
 
       updateSelectInput(session,
-                        "split_col",
-                        choices = trt_choices,
-                        selected = trt_choices[1])
+        "split_col",
+        choices = trt_choices,
+        selected = trt_choices[1]
+      )
 
       updateSelectizeInput(session,
-                        "split_row",
-                        choices = c("", rowgrp_choices),
-                        selected = "",
-                        options = list(maxItems = 1))
+        "split_row",
+        choices = c("", rowgrp_choices),
+        selected = "",
+        options = list(maxItems = 1)
+      )
 
       updateSelectInput(session,
-                        "summ_var",
-                        choices = summ_vars,
-                        selected = summ_vars[1])
+        "summ_var",
+        choices = summ_vars,
+        selected = summ_vars[1]
+      )
     }) |>
       bindEvent(adsl())
 
@@ -127,6 +132,7 @@ mod_adsl_display_server <- function(id, adsl) {
       bindEvent(list(adsl(), rv$trig_report, input$run))
 
     mod_dt_table_server("dt_table_1",
-                        display_df = disp_df)
+      display_df = disp_df
+    )
   })
 }

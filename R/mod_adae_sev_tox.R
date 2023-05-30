@@ -47,7 +47,8 @@ mod_adae_sev_tox_ui <- function(id) {
           width = 300
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
-                            class = "side_apply")
+          class = "side_apply"
+        )
       ),
       maximizable = TRUE,
       width = 12,
@@ -62,7 +63,8 @@ mod_adae_sev_tox_ui <- function(id) {
         slim = TRUE
       ),
       div(withSpinner(mod_dt_table_ui(ns("dt_table_2")), type = 6, color = "#3BACB6"),
-          style = "overflow-x: scroll;")
+        style = "overflow-x: scroll;"
+      )
     )
   )
 }
@@ -105,24 +107,28 @@ mod_adae_sev_tox_server <- function(id,
         names(select(df, ends_with(c("SEV", "TOXGR"))))
 
       updateSelectInput(session,
-                        "split_col",
-                        choices = trt_choices,
-                        selected = trt_choices[1])
+        "split_col",
+        choices = trt_choices,
+        selected = trt_choices[1]
+      )
 
       updateSelectInput(session,
-                        "class",
-                        choices = class_choices,
-                        selected = class_choices[1])
+        "class",
+        choices = class_choices,
+        selected = class_choices[1]
+      )
 
       updateSelectInput(session,
-                        "term",
-                        choices = term_choices,
-                        selected = term_choices[1])
+        "term",
+        choices = term_choices,
+        selected = term_choices[1]
+      )
 
       updateSelectInput(session,
-                        "summ_var",
-                        choices = summ_var,
-                        selected = summ_var[1])
+        "summ_var",
+        choices = summ_var,
+        selected = summ_var[1]
+      )
     }) |>
       bindEvent(adsl())
 
@@ -175,6 +181,7 @@ mod_adae_sev_tox_server <- function(id,
       bindEvent(list(adsl(), rv$trig_report, input$run, input$view))
 
     mod_dt_table_server("dt_table_2",
-                        display_df = ae_explore)
+      display_df = ae_explore
+    )
   })
 }

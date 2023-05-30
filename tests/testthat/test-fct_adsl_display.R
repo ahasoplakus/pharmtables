@@ -11,14 +11,19 @@ test_that("build_adsl works with split_rows_by as NULL", {
     split_cols_by("ARM") |>
     add_overall_col("All Patients") |>
     summarize_vars(c("AGE", "RACE"),
-                   .stats = c("n", "mean_sd", "se", "median", "range",
-                              "quantiles", "count_fraction"),
-                   .labels = c(n = "n",
-                               mean_sd = "Mean, SD",
-                               se = "Standard Error",
-                               median = "Median",
-                               range = "Min-Max",
-                               quantiles = c("IQR")))
+      .stats = c(
+        "n", "mean_sd", "se", "median", "range",
+        "quantiles", "count_fraction"
+      ),
+      .labels = c(
+        n = "n",
+        mean_sd = "Mean, SD",
+        se = "Standard Error",
+        median = "Median",
+        range = "Min-Max",
+        quantiles = c("IQR")
+      )
+    )
 
   out_lyt <- build_adsl(
     split_cols_by = "ARM",
@@ -42,14 +47,19 @@ test_that("build_adsl works when split_rows_by is present", {
     split_rows_by("SEX") |>
     add_overall_col("All Patients") |>
     summarize_vars(c("AGE", "RACE"),
-                   .stats = c("n", "mean_sd", "se", "median", "range",
-                              "quantiles", "count_fraction"),
-                   .labels = c(n = "n",
-                               mean_sd = "Mean, SD",
-                               se = "Standard Error",
-                               median = "Median",
-                               range = "Min-Max",
-                               quantiles = c("IQR")))
+      .stats = c(
+        "n", "mean_sd", "se", "median", "range",
+        "quantiles", "count_fraction"
+      ),
+      .labels = c(
+        n = "n",
+        mean_sd = "Mean, SD",
+        se = "Standard Error",
+        median = "Median",
+        range = "Min-Max",
+        quantiles = c("IQR")
+      )
+    )
 
   out_lyt <- build_adsl(
     split_cols_by = "ARM",

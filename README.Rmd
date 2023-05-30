@@ -38,6 +38,6 @@ remotes::install_github("ahasoplakus/clinTables")
 Run `library(clinTables)` to access all the exported functions from `clinTables` that help in reproducing analysis performed in the app. Or, you can run the application locally using:
 
 ```{r, eval=FALSE}
-# Launch the application 
+# Launch the application
 run_app()
 ```

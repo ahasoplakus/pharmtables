@@ -42,7 +42,8 @@ mod_adxx_bodsys_ui <-
             width = 300
           ),
           tagAppendAttributes(actionButton(ns("run"), "Update"),
-                              class = "side_apply")
+            class = "side_apply"
+          )
         ),
         maximizable = TRUE,
         width = 12,
@@ -57,7 +58,8 @@ mod_adxx_bodsys_ui <-
           slim = TRUE
         ),
         div(withSpinner(mod_dt_table_ui(ns("dt_table_bodsys")), type = 6, color = "#3BACB6"),
-            style = "overflow-x: scroll;")
+          style = "overflow-x: scroll;"
+        )
       )
     )
   }
@@ -100,19 +102,22 @@ mod_adxx_bodsys_server <- function(id,
         ))))
 
       updateSelectInput(session,
-                        "split_col",
-                        choices = trt_choices,
-                        selected = trt_choices[1])
+        "split_col",
+        choices = trt_choices,
+        selected = trt_choices[1]
+      )
 
       updateSelectInput(session,
-                        "class",
-                        choices = class_choices,
-                        selected = class_choices[1])
+        "class",
+        choices = class_choices,
+        selected = class_choices[1]
+      )
 
       updateSelectInput(session,
-                        "term",
-                        choices = term_choices,
-                        selected = term_choices[1])
+        "term",
+        choices = term_choices,
+        selected = term_choices[1]
+      )
     }) |>
       bindEvent(adsl())
 
@@ -156,8 +161,10 @@ mod_adxx_bodsys_server <- function(id,
           summarize_num_patients(
             var = "USUBJID",
             .stats = c("unique", "nonunique"),
-            .labels = c(unique = "Total number of patients with at least one event",
-                        nonunique = "Total number of events")
+            .labels = c(
+              unique = "Total number of patients with at least one event",
+              nonunique = "Total number of events"
+            )
           )
       }
 
@@ -181,6 +188,7 @@ mod_adxx_bodsys_server <- function(id,
       bindEvent(list(adsl(), rv$trig_report, input$run, input$aeser))
 
     mod_dt_table_server("dt_table_bodsys",
-                        display_df = xx_bodsys)
+      display_df = xx_bodsys
+    )
   })
 }

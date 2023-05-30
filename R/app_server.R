@@ -17,8 +17,9 @@ app_server <- function(input, output, session) {
 
   study_filters <-
     mod_global_filters_server("global_filters_1",
-                              dataset = "cadsl",
-                              load_data = load_data$df_read)
+      dataset = "cadsl",
+      load_data = load_data$df_read
+    )
 
   processed_adsl <-
     mod_process_adsl_server(
@@ -30,7 +31,8 @@ app_server <- function(input, output, session) {
     )
 
   mod_adsl_display_server("adsl_display_1",
-                          adsl = processed_adsl)
+    adsl = processed_adsl
+  )
 
   mod_adae_global_server(
     "adae_global_1",
@@ -52,5 +54,4 @@ app_server <- function(input, output, session) {
     df_out = load_data$df_read,
     adsl = processed_adsl
   )
-
 }

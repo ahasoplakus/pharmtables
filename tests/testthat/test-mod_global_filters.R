@@ -5,9 +5,8 @@ test_that("mod_global_filters_server works", {
     args = list(
       id = "global_filters_abc",
       dataset = "cadsl",
-      load_data = reactive(list(cadsl =random.cdisc.data::cadsl))
-    )
-    ,
+      load_data = reactive(list(cadsl = random.cdisc.data::cadsl))
+    ),
     {
       ns <- session$ns
       expect_true(inherits(ns, "function"))

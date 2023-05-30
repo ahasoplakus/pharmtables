@@ -6,12 +6,13 @@ test_that("mod_adxx_bodsys_server works", {
       id = "adxx_bodsys_abc",
       dataset = "cadae",
       df_out = reactive(
-        list(cadsl = random.cdisc.data::cadsl,
-             cadae = random.cdisc.data::cadae)
+        list(
+          cadsl = random.cdisc.data::cadsl,
+          cadae = random.cdisc.data::cadae
+        )
       ),
       adsl = reactive(random.cdisc.data::cadsl)
-    )
-    ,
+    ),
     {
       ns <- session$ns
       expect_true(inherits(ns, "function"))
@@ -25,8 +26,10 @@ test_that("mod_adxx_bodsys_server works", {
         summarize_num_patients(
           var = "USUBJID",
           .stats = c("unique", "nonunique"),
-          .labels = c(unique = "Total number of patients with at least one event",
-                      nonunique = "Total number of events")
+          .labels = c(
+            unique = "Total number of patients with at least one event",
+            nonunique = "Total number of events"
+          )
         ) |>
         split_rows_by(
           "AEBODSYS",

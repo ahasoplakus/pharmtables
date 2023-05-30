@@ -32,14 +32,17 @@ mod_data_read_ui <- function(id) {
         capture = NULL
       )
     )),
-    fluidRow(column(width = 1, uiOutput(
-      ns("glimpse_dat")
-    )),
-    column(
-      width = 3,
-      div(actionButton(ns("apply"), "Run Application"),
-          style = "padding-bottom: 30px; text-align: right;")
-    )),
+    fluidRow(
+      column(width = 1, uiOutput(
+        ns("glimpse_dat")
+      )),
+      column(
+        width = 3,
+        div(actionButton(ns("apply"), "Run Application"),
+          style = "padding-bottom: 30px; text-align: right;"
+        )
+      )
+    ),
     box(
       id = ns("box_preview"),
       width = 12,
@@ -47,7 +50,8 @@ mod_data_read_ui <- function(id) {
       collapsible = TRUE,
       collapsed = FALSE,
       div(withSpinner(reactable::reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
-          style = "overflow-x: scroll; overflow-y: scroll;")
+        style = "overflow-x: scroll; overflow-y: scroll;"
+      )
     )
   )
 }
@@ -66,31 +70,34 @@ mod_data_read_server <- function(id) {
       upload_state = "stale"
     )
 
-    observe({
-      shinyjs::enable("upload")
-      shinyjs::runjs(
-        "$('#data_read_1-upload').parent().removeClass('btn-disabled').addClass('btn-default');"
-      )
-      req(isTRUE(input$def_data))
-      logger::log_info("mod_data_read_server: reset fileinput")
-      shinyjs::reset("upload")
-      shinyjs::disable("upload")
-      shinyjs::runjs(
-        "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
-      )
-      show_toast(
-        title = "Data uploaded from package system folder",
-        text = "Default datasets have been loaded from random.cdisc.data",
-        type = "success",
-        position = "center",
-        width = "600px"
-      )
-      if (!is.null(input$upload)) {
-        rv$upload <- purrr::list_assign(input$upload, name = NULL)
-      }
-      rv$upload_state <- "refresh"
-      rv$trig_reset <- rv$trig_reset + 1
-    }, priority = 1000) |>
+    observe(
+      {
+        shinyjs::enable("upload")
+        shinyjs::runjs(
+          "$('#data_read_1-upload').parent().removeClass('btn-disabled').addClass('btn-default');"
+        )
+        req(isTRUE(input$def_data))
+        logger::log_info("mod_data_read_server: reset fileinput")
+        shinyjs::reset("upload")
+        shinyjs::disable("upload")
+        shinyjs::runjs(
+          "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
+        )
+        show_toast(
+          title = "Data uploaded from package system folder",
+          text = "Default datasets have been loaded from random.cdisc.data",
+          type = "success",
+          position = "center",
+          width = "600px"
+        )
+        if (!is.null(input$upload)) {
+          rv$upload <- purrr::list_assign(input$upload, name = NULL)
+        }
+        rv$upload_state <- "refresh"
+        rv$trig_reset <- rv$trig_reset + 1
+      },
+      priority = 1000
+    ) |>
       bindEvent(input$def_data)
 
     observe({
@@ -101,33 +108,36 @@ mod_data_read_server <- function(id) {
     }) |>
       bindEvent(input$upload)
 
-    observe({
-      logger::log_info("mod_data_read_server: data_list")
+    observe(
+      {
+        logger::log_info("mod_data_read_server: data_list")
 
-      if (isTRUE(input$def_data)) {
-        rv$data_list <-
-          str_remove_all(list.files(app_sys("extdata")), ".RDS")
-        rv$df <- rv$data_list |>
-          map(\(x) readRDS(paste0(
-            app_sys("extdata"), "/", x, ".RDS"
-          ))) |>
-          set_names(rv$data_list)
-        logger::log_info(
-          "mod_data_read_server: data read complete from system folder with {nrow(rv$df[[1]])} rows"
-        )
-      } else {
-        rv$data_list <- str_remove_all(rv$upload$name, ".RDS")
-        if (!identical(rv$data_list, character(0))) {
-          rv$df <- map(rv$upload$datapath, readRDS) |>
+        if (isTRUE(input$def_data)) {
+          rv$data_list <-
+            str_remove_all(list.files(app_sys("extdata")), ".RDS")
+          rv$df <- rv$data_list |>
+            map(\(x) readRDS(paste0(
+              app_sys("extdata"), "/", x, ".RDS"
+            ))) |>
             set_names(rv$data_list)
-          logger::log_info("mod_data_read_server: data read complete with {nrow(rv$df[[1]])} rows")
+          logger::log_info(
+            "mod_data_read_server: data read complete from system folder with {nrow(rv$df[[1]])} rows"
+          )
         } else {
-          rv$df <- NULL
-          rv$trig_reset <- rv$trig_reset + 1
-          logger::log_info("mod_data_read_server: no data has been read yet")
+          rv$data_list <- str_remove_all(rv$upload$name, ".RDS")
+          if (!identical(rv$data_list, character(0))) {
+            rv$df <- map(rv$upload$datapath, readRDS) |>
+              set_names(rv$data_list)
+            logger::log_info("mod_data_read_server: data read complete with {nrow(rv$df[[1]])} rows")
+          } else {
+            rv$df <- NULL
+            rv$trig_reset <- rv$trig_reset + 1
+            logger::log_info("mod_data_read_server: no data has been read yet")
+          }
         }
-      }
-    }, priority = 999) |>
+      },
+      priority = 999
+    ) |>
       bindEvent(list(rv$upload, input$def_data))
 
     output$glimpse_dat <- renderUI({
@@ -147,8 +157,9 @@ mod_data_read_server <- function(id) {
       req(rv$df)
       req(isTRUE(input$glimpse))
       source <- "Local"
-      if (is.null(rv$upload$name))
+      if (is.null(rv$upload$name)) {
         source <- "random.cdisc.data"
+      }
       df <- tibble::tibble(
         `Name` = names(rv$df),
         `N_Rows` = map(rv$df, \(x) nrow(x)),
