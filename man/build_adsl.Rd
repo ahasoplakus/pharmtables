@@ -35,9 +35,9 @@ A function to build the demographic table full set
 }
 \examples{
 lyt <- build_adsl(
-split_cols_by = "ARM",
-split_rows_by = "SEX",
-summ_vars = c("AGE", "RACE")
+  split_cols_by = "ARM",
+  split_rows_by = "SEX",
+  summ_vars = c("AGE", "RACE")
 )
 
 ## Use the tabletree object to within build_table

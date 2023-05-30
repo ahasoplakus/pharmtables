@@ -41,13 +41,13 @@ adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae
 
 ae_by_sev_tox_table <- adae_by_sev_tox(
-adsl = adsl,
-df_adae = adae,
-colsby = "ARM",
-grade_val = "AESEV",
-class_val = "AESOC",
-term_val = "AEDECOD",
-default_view = TRUE
+  adsl = adsl,
+  df_adae = adae,
+  colsby = "ARM",
+  grade_val = "AESEV",
+  class_val = "AESOC",
+  term_val = "AEDECOD",
+  default_view = TRUE
 )
 
 }
