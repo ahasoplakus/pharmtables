@@ -10,8 +10,7 @@ test_that("mod_process_adsl_server works", {
       df_out = reactive(list(cadsl = random.cdisc.data::cadsl)),
       global_filters = gf,
       apply = trigger
-    )
-    ,
+    ),
     {
       ns <- session$ns
       expect_true(inherits(ns, "function"))

@@ -30,6 +30,6 @@ Run `library(clinTables)` to access all the exported functions from
 you can run the application locally using:
 
 ``` r
-# Launch the application 
+# Launch the application
 run_app()
 ```

@@ -36,13 +36,15 @@ mod_adae_summary_ui <- function(id) {
           shape = "curve"
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
-                            class = "side_apply")
+          class = "side_apply"
+        )
       ),
       maximizable = TRUE,
       width = 12,
       height = "800px",
       div(withSpinner(mod_dt_table_ui(ns("dt_table_ae_summ")), type = 6, color = "#3BACB6"),
-          style = "overflow-x: scroll;")
+        style = "overflow-x: scroll;"
+      )
     )
   )
 }
@@ -120,15 +122,18 @@ mod_adae_summary_server <- function(id,
         choiceNames = labs,
         choiceValues = choices,
         selected = selected,
-        prettyOptions = list(animation = "pulse",
-                             status = "info",
-                             shape = "curve")
+        prettyOptions = list(
+          animation = "pulse",
+          status = "info",
+          shape = "curve"
+        )
       )
 
       updateSelectInput(session,
-                        "split_col",
-                        choices = trt_choices,
-                        selected = trt_choices[1])
+        "split_col",
+        choices = trt_choices,
+        selected = trt_choices[1]
+      )
     }) |>
       bindEvent(ae_summ_init())
 
@@ -146,8 +151,9 @@ mod_adae_summary_server <- function(id,
         rtables::add_overall_col(label = "All Patients") |>
         rtables::add_colcounts() |>
         tern::count_patients_with_flags("USUBJID",
-                                        flag_variables =
-                                          var_labels(ae_summ_init()$out_df[, disp_eve]))
+          flag_variables =
+            var_labels(ae_summ_init()$out_df[, disp_eve])
+        )
 
       return(list(
         out_df = ae_summ_init()$out_df,
@@ -159,6 +165,7 @@ mod_adae_summary_server <- function(id,
       bindEvent(list(ae_summ_init(), input$run))
 
     mod_dt_table_server("dt_table_ae_summ",
-                        display_df = ae_summ)
+      display_df = ae_summ
+    )
   })
 }

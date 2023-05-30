@@ -6,12 +6,13 @@ test_that("mod_adae_summary_server works", {
       id = "adae_summary_abc",
       dataset = "cadae",
       df_out = reactive(
-        list(cadsl = random.cdisc.data::cadsl,
-             cadae = random.cdisc.data::cadae)
+        list(
+          cadsl = random.cdisc.data::cadsl,
+          cadae = random.cdisc.data::cadae
+        )
       ),
       adsl = reactive(random.cdisc.data::cadsl)
-    )
-    ,
+    ),
     {
       ns <- session$ns
       expect_true(inherits(ns, "function"))
@@ -46,14 +47,19 @@ test_that("mod_adae_summary_server works", {
         rtables::add_overall_col(label = "All Patients") |>
         rtables::add_colcounts() |>
         tern::count_patients_with_flags("USUBJID",
-                                        flag_variables =
-                                          formatters::var_labels(df[,
-                                                                    c("fl1",
-                                                                      "fl2",
-                                                                      "fl3",
-                                                                      "fl4",
-                                                                      "fl5",
-                                                                      "fl6")]))
+          flag_variables =
+            formatters::var_labels(df[
+              ,
+              c(
+                "fl1",
+                "fl2",
+                "fl3",
+                "fl4",
+                "fl5",
+                "fl6"
+              )
+            ])
+        )
 
       exp_lyt1 <- basic_table() |>
         split_cols_by(var = "ARM") |>
@@ -61,11 +67,16 @@ test_that("mod_adae_summary_server works", {
         rtables::add_overall_col(label = "All Patients") |>
         rtables::add_colcounts() |>
         tern::count_patients_with_flags("USUBJID",
-                                        flag_variables =
-                                          formatters::var_labels(df[,
-                                                                    c("fl4",
-                                                                      "fl5",
-                                                                      "fl6")]))
+          flag_variables =
+            formatters::var_labels(df[
+              ,
+              c(
+                "fl4",
+                "fl5",
+                "fl6"
+              )
+            ])
+        )
 
       session$setInputs(split_col = "ARM")
       session$setInputs(events = names(select(df, starts_with("fl"))))
