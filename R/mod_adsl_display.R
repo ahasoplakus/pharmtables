@@ -74,9 +74,12 @@ mod_adsl_display_server <- function(id, adsl) {
       trt_choices <-
         names(select(adsl(), setdiff(starts_with(c("ARM", "TRT0")), ends_with("DTM"))))
       rowgrp_choices <-
-        names(discard(adsl(), is.numeric))
+        sort(names(discard(adsl(), is.numeric)))
       summ_vars <-
-        names(discard(adsl(), is.character))
+        c(
+          sort(names(keep(adsl(), is.numeric))),
+          sort(names(keep(adsl(), is.factor)))
+        )
 
       updateSelectInput(session,
         "split_col",

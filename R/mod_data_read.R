@@ -226,7 +226,7 @@ mod_data_read_server <- function(id) {
       req(!is.null(rv$df[["cadsl"]]))
       logger::log_info("mod_data_read_server: sending data")
 
-      rv$df
+      map(rv$df, \(x) df_explicit_na(x))
     }) |>
       bindEvent(list(input$apply, rv$trig_reset), ignoreNULL = TRUE)
 
