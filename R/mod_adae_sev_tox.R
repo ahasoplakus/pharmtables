@@ -177,7 +177,8 @@ mod_adae_sev_tox_server <- function(id,
         lyt = NULL
       ))
     }) |>
-      bindCache(list(adsl(), input$split_col, input$class, input$term, input$summ_var, input$view)) |>
+      bindCache(
+        list(adsl(), input$split_col, input$class, input$term, input$summ_var, input$view)) |>
       bindEvent(list(adsl(), rv$trig_report, input$run, input$view))
 
     mod_dt_table_server("dt_table_2",
