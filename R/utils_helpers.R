@@ -20,8 +20,7 @@ create_widget <- function(filter_list, df, dataset, namespace) {
       unique(pull(df[[dataset]], x))
     })
 
-  filter_list |>
-    set_names() |>
+  filters <- filter_list |>
     map(\(x)
     if (isTRUE(is.numeric(filter_values[[x]]))) {
       sliderInput(
@@ -68,6 +67,7 @@ create_widget <- function(filter_list, df, dataset, namespace) {
         shape = "curve"
       )
     })
+  do.call(tagList, filters)
 }
 
 #' Population Flag widget
@@ -89,48 +89,3 @@ create_flag_widget <- function(flags, namespace) {
     shape = "curve"
   )
 }
-
-
-#' Filter adsl by Study Filters
-#'
-#' @param df adsl dataset
-#' @param pop Population flag
-#' @param sex Sex
-#' @param race Race
-#' @param ethnic Ethnicity
-#' @param country Country
-#' @param age Age
-#' @param siteid Site
-#' @param usubjid Subject Identifier
-#'
-#' @return Filtered adsl
-#' @noRd
-filter_adsl <-
-  function(df,
-           pop,
-           sex,
-           race,
-           ethnic,
-           country,
-           age,
-           siteid,
-           usubjid) {
-    if (pop == "SAFFL") {
-      adsl <- df |>
-        filter(SAFFL == "Y")
-    } else {
-      adsl <- df |>
-        filter(ITTFL == "Y")
-    }
-
-    adsl <- adsl |>
-      filter(
-        SEX %in% sex,
-        RACE %in% race,
-        ETHNIC %in% ethnic,
-        COUNTRY %in% country,
-        AGE <= age,
-        SITEID %in% siteid,
-        USUBJID %in% usubjid
-      )
-  }

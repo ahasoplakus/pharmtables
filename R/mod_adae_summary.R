@@ -73,34 +73,49 @@ mod_adae_summary_server <- function(id,
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID)) |>
         mutate(
-          fl1 = TRUE,
-          fl2 = TRTEMFL == "Y",
-          fl21 = TRTEMFL == "Y" & AESER == "Y",
-          fl3 = TRTEMFL == "Y" & AEOUT == "FATAL",
-          fl4 = TRTEMFL == "Y" & AEOUT == "FATAL" & AEREL == "Y",
-          fl5 = TRTEMFL == "Y" & AEACN == "DRUG WITHDRAWN",
-          fl6 = TRTEMFL == "Y" & DCSREAS == "ADVERSE EVENT"
+          FATAL = AESDTH == "Y",
+          SER = AESER == "Y",
+          SERWD = AESER == "Y" & AEACN == "DRUG WITHDRAWN",
+          SERDSM = AESER == "Y" & AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
+          RELSER = AESER == "Y" & AEREL == "Y",
+          WD = AEACN == "DRUG WITHDRAWN",
+          DSM = AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
+          REL = AEREL == "Y",
+          RELWD = AEREL == "Y" & AEACN == "DRUG WITHDRAWN",
+          RELDSM = AEREL == "Y" & AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
+          CTC35 = AETOXGR %in% c("3", "4", "5"),
+          CTC45 = AETOXGR %in% c("4", "5")
+        ) |>
+        var_relabel(
+          FATAL = "AE with fatal outcome",
+          SER = "Serious AE",
+          SERWD = "Serious AE leading to withdrawal from treatment",
+          SERDSM = "Serious AE leading to dose modification/interruption",
+          RELSER = "Related Serious AE",
+          WD = "AE leading to withdrawal from treatment",
+          DSM = "AE leading to dose modification/interruption",
+          REL = "Related AE",
+          RELWD = "Related AE leading to withdrawal from treatment",
+          RELDSM = "Related AE leading to dose modification/interruption",
+          CTC35 = "Grade 3-5 AE",
+          CTC45 = "Grade 4/5 AE"
         )
 
       logger::log_info("mod_adae_summary_server: adae has
                          {nrow(df)} rows")
 
-      labels <- c(
-        "fl1" = "Total AEs",
-        "fl2" = "Total number of patients with at least one adverse event",
-        "fl21" = "Total number of patients with at least one serious adverse event",
-        "fl3" = "Total number of patients with fatal AEs",
-        "fl4" = "Total number of patients with related fatal AEs",
-        "fl5" = "Total number of patients with drug withdrawn due to AEs",
-        "fl6" = "Total number of patients discontinued due to AEs"
+      aesi_vars <- c(
+        "FATAL", "SER", "SERWD", "SERDSM", "RELSER", "WD",
+        "DSM", "REL", "RELWD", "RELDSM", "CTC35", "CTC45"
       )
 
-      formatters::var_labels(df)[names(labels)] <- labels
+      labels <- var_labels(df[, aesi_vars])
 
       return(list(
         out_df = df,
         alt_df = df_adsl,
-        labs = labels
+        labs = labels,
+        aesi_vars = aesi_vars
       ))
     }) |>
       bindEvent(list(adsl()))
@@ -110,7 +125,7 @@ mod_adae_summary_server <- function(id,
       logger::log_info("mod_adae_summary_server: update show/hide events")
 
       df <- ae_summ_init()$out_df
-      choices <- names(select(df, starts_with("fl")))
+      choices <- names(select(df, ae_summ_init()$aesi_vars))
       selected <- choices
       labs <- as.character(ae_summ_init()$labs)
       trt_choices <-
@@ -142,15 +157,15 @@ mod_adae_summary_server <- function(id,
       req(input$split_col != "")
       req(input$events)
 
-      disp_eve <- c("fl1", "fl2", "fl21", "fl3", "fl4", "fl5", "fl6")
+      disp_eve <- ae_summ_init()$aesi_vars
       disp_eve <- disp_eve[disp_eve %in% input$events]
 
       lyt <- basic_table() |>
         split_cols_by(var = input$split_col) |>
-        rtables::add_colcounts() |>
-        rtables::add_overall_col(label = "All Patients") |>
-        rtables::add_colcounts() |>
-        tern::count_patients_with_flags("USUBJID",
+        add_colcounts() |>
+        add_overall_col(label = "All Patients") |>
+        add_colcounts() |>
+        count_patients_with_flags("USUBJID",
           flag_variables =
             var_labels(ae_summ_init()$out_df[, disp_eve])
         )
