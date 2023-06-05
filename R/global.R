@@ -24,6 +24,7 @@ utils::globalVariables(
     "AESER",
     ":=",
     "spin_ball",
-    "AESDTH"
+    "AESDTH",
+    "app_sys"
   )
 )
