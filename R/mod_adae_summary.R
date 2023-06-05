@@ -76,13 +76,15 @@ mod_adae_summary_server <- function(id,
           FATAL = AESDTH == "Y",
           SER = AESER == "Y",
           SERWD = AESER == "Y" & AEACN == "DRUG WITHDRAWN",
-          SERDSM = AESER == "Y" & AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
+          SERDSM = AESER == "Y" & AEACN %in% c("DRUG INTERRUPTED",
+                                               "DOSE INCREASED", "DOSE REDUCED"),
           RELSER = AESER == "Y" & AEREL == "Y",
           WD = AEACN == "DRUG WITHDRAWN",
           DSM = AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
           REL = AEREL == "Y",
           RELWD = AEREL == "Y" & AEACN == "DRUG WITHDRAWN",
-          RELDSM = AEREL == "Y" & AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
+          RELDSM = AEREL == "Y" & AEACN %in% c("DRUG INTERRUPTED",
+                                               "DOSE INCREASED", "DOSE REDUCED"),
           CTC35 = AETOXGR %in% c("3", "4", "5"),
           CTC45 = AETOXGR %in% c("4", "5")
         ) |>
@@ -125,7 +127,7 @@ mod_adae_summary_server <- function(id,
       logger::log_info("mod_adae_summary_server: update show/hide events")
 
       df <- ae_summ_init()$out_df
-      choices <- names(select(df, ae_summ_init()$aesi_vars))
+      choices <- names(select(df, all_of(ae_summ_init()$aesi_vars)))
       selected <- choices
       labs <- as.character(ae_summ_init()$labs)
       trt_choices <-
@@ -160,14 +162,27 @@ mod_adae_summary_server <- function(id,
       disp_eve <- ae_summ_init()$aesi_vars
       disp_eve <- disp_eve[disp_eve %in% input$events]
 
-      lyt <- basic_table() |>
+      lyt <- basic_table(show_colcounts = TRUE) |>
         split_cols_by(var = input$split_col) |>
-        add_colcounts() |>
         add_overall_col(label = "All Patients") |>
-        add_colcounts() |>
+        count_patients_with_event(
+          vars = "USUBJID",
+          filters = c("STUDYID" = as.character(unique(ae_summ_init()$out_df[["STUDYID"]]))),
+          denom = "N_col",
+          .labels = c(count_fraction = "Total number of patients with at least one adverse event")
+        ) |>
+        count_values(
+          "STUDYID",
+          values = as.character(unique(ae_summ_init()$out_df[["STUDYID"]])),
+          .stats = "count",
+          .labels = c(count = "Total AEs"),
+          table_names = "total_aes"
+        ) |>
         count_patients_with_flags("USUBJID",
-          flag_variables =
-            var_labels(ae_summ_init()$out_df[, disp_eve])
+          flag_variables = var_labels(ae_summ_init()$out_df[, disp_eve]),
+          denom = "N_col",
+          var_labels = "Total number of patients with at least one",
+          show_labels = "visible"
         )
 
       return(list(

@@ -2,6 +2,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @import rlang
 #' @importFrom dplyr add_count
 #' @importFrom dplyr all_of
 #' @importFrom dplyr arrange
@@ -31,9 +32,6 @@
 #' @importFrom purrr modify_if
 #' @importFrom purrr reduce
 #' @importFrom purrr set_names
-#' @importFrom rlang parse_expr
-#' @importFrom rlang parse_exprs
-#' @importFrom rlang sym
 #' @importFrom rtables add_colcounts
 #' @importFrom rtables add_overall_col
 #' @importFrom rtables cbind_rtables
@@ -48,7 +46,9 @@
 #' @importFrom stringr str_trunc
 #' @importFrom tern append_varlabels
 #' @importFrom tern count_occurrences
+#' @importFrom tern count_patients_with_event
 #' @importFrom tern count_patients_with_flags
+#' @importFrom tern count_values
 #' @importFrom tern df_explicit_na
 #' @importFrom tern summarize_num_patients
 #' @importFrom tidyr replace_na

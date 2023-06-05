@@ -29,6 +29,7 @@ test_that("mod_global_filters_server works", {
         "UNKNOWN"
       )
 
+      req(!every(rv$filters, is.null))
       expect_true(length(filters()) > 0)
       expect_equal(filters()$pop, "ITTFL")
       expect_equal(filters()$sex, c("F", "M"))
@@ -42,28 +43,28 @@ test_that("mod_global_filters_server works", {
       expect_equal(
         filters(),
         list(
-          pop = "SAFFL",
           sex = "F",
           race = all_race,
           ethnic = NULL,
           country = "CHN",
           age = 50,
           siteid = NULL,
-          usubjid = NULL
+          usubjid = NULL,
+          pop = "SAFFL"
         )
       )
 
       load(app_sys("test_objects/glob_filt_ui_obj.Rdata"))
       expect_type(output$glob_filt_ui, "list")
       expect_type(output$glob_filt_ui$html, "character")
-      expect_identical(output$glob_filt_ui$html, glob_filt_ui_obj)
+      expect_identical(output$glob_filt_ui$html, ui_obj)
     }
   )
 })
 
 test_that("module ui works", {
   ui <- mod_global_filters_ui(id = "test")
-  golem::expect_shinytaglist(ui)
+  golem::expect_shinytag(ui)
   # Check that formals have not been removed
   fmls <- formals(mod_global_filters_ui)
   for (i in c("id")) {

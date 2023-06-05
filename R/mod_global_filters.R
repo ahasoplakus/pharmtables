@@ -42,12 +42,8 @@ mod_global_filters_server <- function(id, dataset, load_data) {
     })
 
     observe({
-      rv$filters <- c(
-        "SEX", "RACE", "ETHNIC", "COUNTRY",
-        "AGE", "SITEID", "USUBJID"
-      ) |>
-        tolower() |>
-        set_names() |>
+      rv$filters <-
+        set_names(tolower(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"))) |>
         map(\(x) input[[x]])
     })
 
