@@ -29,18 +29,25 @@ mod_process_adsl_server <- function(id,
       logger::log_info("mod_process_adsl_server: loaded adsl has
                          {nrow(df_out()[[dataset]])} rows")
 
-      df <- filter_adsl(
-        df_out()[[dataset]],
-        global_filters()$pop,
-        global_filters()$sex,
-        global_filters()$race,
-        global_filters()$ethnic,
-        global_filters()$country,
-        global_filters()$age,
-        global_filters()$siteid,
-        global_filters()$usubjid
-      )
-      return(df)
+      study_filters <- map(names(global_filters()), \(x) {
+        if (!is.numeric(global_filters()[[x]])) {
+          if (x != "pop") {
+            vals <- paste0(global_filters()[[x]], collapse = "','")
+            vals <- str_glue("{toupper(x)} %in% c('{vals}')")
+          } else {
+            vals <- global_filters()[[x]]
+            vals <- str_glue("{vals} == 'Y'")
+          }
+        } else {
+          vals <- global_filters()[[x]]
+          vals <- str_glue("{toupper(x)} <= {vals}")
+        }
+      })
+
+      filter_cond <- reduce(study_filters, paste, sep = " & ")
+
+      df <- df_out()[[dataset]] |>
+        filter(!!!parse_exprs(filter_cond))
     }) |>
       bindEvent(list(apply(), df_out()))
   })

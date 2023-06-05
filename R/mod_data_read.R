@@ -145,7 +145,7 @@ mod_data_read_server <- function(id) {
       shinyWidgets::prettySwitch(
         ns("glimpse"),
         label = "Preview data",
-        value = TRUE,
+        value = FALSE,
         status = "info",
         inline = TRUE,
         fill = TRUE,

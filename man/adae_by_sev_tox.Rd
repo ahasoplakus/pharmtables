@@ -27,7 +27,7 @@ adae_by_sev_tox(
 
 \item{term_val}{Dictionary Derived Term}
 
-\item{default_view}{Logical `TRUE` or `FALSE`}
+\item{default_view}{Logical \code{TRUE} or \code{FALSE}}
 }
 \value{
 An rtable object

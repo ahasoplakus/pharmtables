@@ -30,8 +30,7 @@ app_ui <- function(request) {
         skin = "light",
         status = "info",
         sidebarMenu(
-          id = "sidebarmenu",
-          # add global filters module ui here
+          menuItem(text = "Study Filters"),
           mod_global_filters_ui("global_filters_1")
         )
       ),

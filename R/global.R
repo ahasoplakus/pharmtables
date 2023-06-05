@@ -23,6 +23,8 @@ utils::globalVariables(
     "AESEVN",
     "AESER",
     ":=",
-    "spin_ball"
+    "spin_ball",
+    "AESDTH",
+    "app_sys"
   )
 )

@@ -10,7 +10,7 @@
 #' @importFrom shinyWidgets pickerInput updatePickerInput
 mod_global_filters_ui <- function(id) {
   ns <- NS(id)
-  tagList(menuItemOutput(ns("glob_filt_ui")))
+  uiOutput(ns("glob_filt_ui"))
 }
 
 #' global_filters Server Functions
@@ -20,11 +20,14 @@ mod_global_filters_server <- function(id, dataset, load_data) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    output$glob_filt_ui <- renderMenu({
+    rv <- reactiveValues(filters = NULL)
+
+    output$glob_filt_ui <- renderUI({
       req(load_data()[[dataset]])
       logger::log_info("mod_global_filters_server: update filters")
 
-      make_widget <-
+      tagList(
+        create_flag_widget(c("SAFFL", "ITTFL"), ns),
         create_widget(
           c(
             "SEX", "RACE", "ETHNIC", "COUNTRY",
@@ -33,34 +36,22 @@ mod_global_filters_server <- function(id, dataset, load_data) {
           load_data(),
           dataset,
           ns
-        )
-
-      menuItem(
-        text = "Study Filters",
-        create_flag_widget(c("SAFFL", "ITTFL"), ns),
-        make_widget[["SEX"]],
-        make_widget[["RACE"]],
-        make_widget[["ETHNIC"]],
-        make_widget[["COUNTRY"]],
-        make_widget[["AGE"]],
-        make_widget[["SITEID"]],
-        make_widget[["USUBJID"]],
+        ),
         actionButton(ns("apply"), "Update")
       )
     })
 
+    observe({
+      rv$filters <-
+        set_names(tolower(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"))) |>
+        map(\(x) input[[x]])
+    })
+
     filters <- reactive({
+      req(!every(rv$filters, is.null))
       logger::log_info("mod_global_filters_server: store filters")
-      list(
-        pop = input$pop,
-        sex = input$sex,
-        race = input$race,
-        ethnic = input$ethnic,
-        country = input$country,
-        age = input$age,
-        siteid = input$siteid,
-        usubjid = input$usubjid
-      )
+      rv$filters[["pop"]] <- input$pop
+      rv$filters
     })
 
     return(list(

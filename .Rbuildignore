@@ -24,3 +24,5 @@ $run_dev.*
 ^rsconnect$
 ^manifest.json
 ^deploy$
+^tests$
+^R/app_config\.R$
