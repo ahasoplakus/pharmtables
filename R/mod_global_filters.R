@@ -42,17 +42,20 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
 
     outputOptions(output, "glob_filt_ui", priority = 975, suspendWhenHidden = FALSE)
 
-    observe({
-      req(load_data()[[dataset]])
-      req(filter_list())
-      filters <-
-        set_names(tolower(filter_list())) |>
-        map(\(x) input[[x]])
-      filters[["pop"]] <- input$pop
-      req(none(filters, is.null))
-      logger::log_info("mod_global_filters_server: update study filters")
-      rv$filters <- filters
-    }, priority = 950)
+    observe(
+      {
+        req(load_data()[[dataset]])
+        req(filter_list())
+        filters <-
+          set_names(tolower(filter_list())) |>
+          map(\(x) input[[x]])
+        filters[["pop"]] <- input$pop
+        req(none(filters, is.null))
+        logger::log_info("mod_global_filters_server: update study filters")
+        rv$filters <- filters
+      },
+      priority = 950
+    )
 
     return(list(
       filters = eventReactive(rv$filters, rv$filters),

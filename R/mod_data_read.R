@@ -55,7 +55,7 @@ mod_data_read_ui <- function(id) {
       tabPanel(
         "Preview Data",
         div(withSpinner(reactable::reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
-            style = "overflow-x: scroll; overflow-y: scroll;"
+          style = "overflow-x: scroll; overflow-y: scroll;"
         )
       )
     )
@@ -205,14 +205,17 @@ mod_data_read_server <- function(id) {
       )
     })
 
-    observe({
-      req(!is.null(rv$df[["cadsl"]]))
+    observe(
+      {
+        req(!is.null(rv$df[["cadsl"]]))
 
-      rv$setup_filters <- mod_setup_filters_server(
-        "setup_filters_1",
-        rv$df
-      )
-    }, priority = 990) |>
+        rv$setup_filters <- mod_setup_filters_server(
+          "setup_filters_1",
+          rv$df
+        )
+      },
+      priority = 990
+    ) |>
       bindEvent(rv$df)
 
     read_df <- reactive({
@@ -247,8 +250,12 @@ mod_data_read_server <- function(id) {
     }) |>
       bindEvent(list(input$apply, rv$trig_reset), ignoreNULL = TRUE)
 
-    return(list(df_read = read_df,
-                study_filters = eventReactive(input$apply,
-                                              rv$setup_filters$adsl_filt())))
+    return(list(
+      df_read = read_df,
+      study_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$adsl_filt()
+      )
+    ))
   })
 }

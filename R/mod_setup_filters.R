@@ -87,7 +87,9 @@ mod_setup_filters_server <- function(id, load_data) {
       )
     })
 
-    return(list(adsl_filt = reactive(input$adsl_var),
-                adae_filt = reactive(input$adae_var)))
+    return(list(
+      adsl_filt = reactive(input$adsl_var),
+      adae_filt = reactive(input$adae_var)
+    ))
   })
 }
