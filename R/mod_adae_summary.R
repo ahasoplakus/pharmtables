@@ -76,15 +76,19 @@ mod_adae_summary_server <- function(id,
           FATAL = AESDTH == "Y",
           SER = AESER == "Y",
           SERWD = AESER == "Y" & AEACN == "DRUG WITHDRAWN",
-          SERDSM = AESER == "Y" & AEACN %in% c("DRUG INTERRUPTED",
-                                               "DOSE INCREASED", "DOSE REDUCED"),
+          SERDSM = AESER == "Y" & AEACN %in% c(
+            "DRUG INTERRUPTED",
+            "DOSE INCREASED", "DOSE REDUCED"
+          ),
           RELSER = AESER == "Y" & AEREL == "Y",
           WD = AEACN == "DRUG WITHDRAWN",
           DSM = AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
           REL = AEREL == "Y",
           RELWD = AEREL == "Y" & AEACN == "DRUG WITHDRAWN",
-          RELDSM = AEREL == "Y" & AEACN %in% c("DRUG INTERRUPTED",
-                                               "DOSE INCREASED", "DOSE REDUCED"),
+          RELDSM = AEREL == "Y" & AEACN %in% c(
+            "DRUG INTERRUPTED",
+            "DOSE INCREASED", "DOSE REDUCED"
+          ),
           CTC35 = AETOXGR %in% c("3", "4", "5"),
           CTC45 = AETOXGR %in% c("4", "5")
         ) |>
