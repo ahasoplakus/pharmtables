@@ -43,14 +43,20 @@ mod_data_read_ui <- function(id) {
         )
       )
     ),
-    box(
+    tabBox(
       id = ns("box_preview"),
+      type = "pills",
       width = 12,
-      maximizable = TRUE,
-      collapsible = TRUE,
-      collapsed = FALSE,
-      div(withSpinner(reactable::reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
-        style = "overflow-x: scroll; overflow-y: scroll;"
+      collapsible = FALSE,
+      tabPanel(
+        "Setup Filters",
+        mod_setup_filters_ui(ns("setup_filters_1"))
+      ),
+      tabPanel(
+        "Preview Data",
+        div(withSpinner(reactable::reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
+            style = "overflow-x: scroll; overflow-y: scroll;"
+        )
       )
     )
   )
@@ -67,7 +73,8 @@ mod_data_read_server <- function(id) {
       data_list = character(0),
       df = NULL,
       trig_reset = 0,
-      upload_state = "stale"
+      upload_state = "stale",
+      setup_filters = NULL
     )
 
     observe(
@@ -198,6 +205,16 @@ mod_data_read_server <- function(id) {
       )
     })
 
+    observe({
+      req(!is.null(rv$df[["cadsl"]]))
+
+      rv$setup_filters <- mod_setup_filters_server(
+        "setup_filters_1",
+        rv$df
+      )
+    }, priority = 990) |>
+      bindEvent(rv$df)
+
     read_df <- reactive({
       if (!is.null(rv$df) && rv$upload_state == "refresh") {
         rv$upload_state <- "stale"
@@ -230,6 +247,8 @@ mod_data_read_server <- function(id) {
     }) |>
       bindEvent(list(input$apply, rv$trig_reset), ignoreNULL = TRUE)
 
-    return(list(df_read = read_df))
+    return(list(df_read = read_df,
+                study_filters = eventReactive(input$apply,
+                                              rv$setup_filters$adsl_filt())))
   })
 }

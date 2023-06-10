@@ -30,6 +30,7 @@
 #' @importFrom purrr list_assign
 #' @importFrom purrr map
 #' @importFrom purrr modify_if
+#' @importFrom purrr none
 #' @importFrom purrr reduce
 #' @importFrom purrr set_names
 #' @importFrom rtables add_colcounts

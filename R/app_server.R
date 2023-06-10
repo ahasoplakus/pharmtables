@@ -18,7 +18,8 @@ app_server <- function(input, output, session) {
   study_filters <-
     mod_global_filters_server("global_filters_1",
       dataset = "cadsl",
-      load_data = load_data$df_read
+      load_data = load_data$df_read,
+      filter_list = load_data$study_filters
     )
 
   processed_adsl <-

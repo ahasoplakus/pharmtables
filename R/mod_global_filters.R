@@ -16,7 +16,7 @@ mod_global_filters_ui <- function(id) {
 #' global_filters Server Functions
 #'
 #' @noRd
-mod_global_filters_server <- function(id, dataset, load_data) {
+mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -24,15 +24,14 @@ mod_global_filters_server <- function(id, dataset, load_data) {
 
     output$glob_filt_ui <- renderUI({
       req(load_data()[[dataset]])
-      logger::log_info("mod_global_filters_server: update filters")
+      req(filter_list())
+
+      logger::log_info("mod_global_filters_server: initialise study filters")
 
       tagList(
         create_flag_widget(c("SAFFL", "ITTFL"), ns),
         create_widget(
-          c(
-            "SEX", "RACE", "ETHNIC", "COUNTRY",
-            "AGE", "SITEID", "USUBJID"
-          ),
+          filter_list(),
           load_data(),
           dataset,
           ns
@@ -41,21 +40,22 @@ mod_global_filters_server <- function(id, dataset, load_data) {
       )
     })
 
-    observe({
-      rv$filters <-
-        set_names(tolower(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"))) |>
-        map(\(x) input[[x]])
-    })
+    outputOptions(output, "glob_filt_ui", priority = 975, suspendWhenHidden = FALSE)
 
-    filters <- reactive({
-      req(!every(rv$filters, is.null))
-      logger::log_info("mod_global_filters_server: store filters")
-      rv$filters[["pop"]] <- input$pop
-      rv$filters
-    })
+    observe({
+      req(load_data()[[dataset]])
+      req(filter_list())
+      filters <-
+        set_names(tolower(filter_list())) |>
+        map(\(x) input[[x]])
+      filters[["pop"]] <- input$pop
+      req(none(filters, is.null))
+      logger::log_info("mod_global_filters_server: update study filters")
+      rv$filters <- filters
+    }, priority = 950)
 
     return(list(
-      filters = filters,
+      filters = eventReactive(rv$filters, rv$filters),
       apply = reactive(input$apply)
     ))
   })
