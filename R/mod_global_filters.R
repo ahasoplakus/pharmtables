@@ -20,7 +20,10 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    rv <- reactiveValues(filters = NULL)
+    rv <- reactiveValues(
+      filters = NULL,
+      cached_filters = NULL
+    )
 
     output$glob_filt_ui <- renderUI({
       req(load_data()[[dataset]])
@@ -40,25 +43,47 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
       )
     })
 
-    outputOptions(output, "glob_filt_ui", priority = 975, suspendWhenHidden = FALSE)
+    outputOptions(output, "glob_filt_ui", priority = 975)
+
+    filters <- reactive({
+      req(load_data()[[dataset]])
+      req(filter_list())
+      req(length(reactiveValuesToList(input)) > 0)
+
+      filters <-
+        set_names(tolower(filter_list())) |>
+        map(\(x) input[[x]])
+    })
 
     observe(
       {
-        req(load_data()[[dataset]])
-        req(filter_list())
-        filters <-
-          set_names(tolower(filter_list())) |>
-          map(\(x) input[[x]])
-        filters[["pop"]] <- input$pop
-        req(none(filters, is.null))
+        req(filters())
+        req(none(filters(), is.null))
+        req(!identical(filters(), rv$cached_filters))
         logger::log_info("mod_global_filters_server: update study filters")
-        rv$filters <- filters
+        rv$filters <- filters()
+        rv$filters$pop <- input$pop
+        init <- reactiveValuesToList(input)
+        rv$cached_filters <-
+          union(names(rv$filters), names(init)) |>
+          set_names() |>
+          map(\(x) {
+            if (!toupper(x) %in% names(load_data()[[dataset]])) {
+              init[[x]] <- NULL
+            }
+            init[[x]]
+          }) |>
+          discard(is.null)
       },
       priority = 950
-    )
+    ) |>
+      bindEvent(filters())
 
     return(list(
-      filters = eventReactive(rv$filters, rv$filters),
+      filters = reactive({
+        req(rv$filters)
+        rv$filters
+      }),
       apply = reactive(input$apply)
     ))
   })
