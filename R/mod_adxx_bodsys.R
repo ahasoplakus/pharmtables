@@ -101,46 +101,64 @@ mod_adxx_bodsys_server <- function(id,
 
     outputOptions(output, "xx_filt_ui", priority = 925)
 
-    observe({
-      req(df_out()[[dataset]])
-      req(filters)
-      req(length(reactiveValuesToList(input)) > 0)
+    observe(
+      {
+        req(df_out()[[dataset]])
+        req(filters)
+        req(length(reactiveValuesToList(input)) > 0)
 
-      rv$filters <-
-        set_names(tolower(filters())) |>
-        map(\(x) input[[x]])
-      req(none(rv$filters, is.null))
-      req(!identical(rv$filters, rv$cached_filters))
+        rv$filters <-
+          set_names(tolower(filters())) |>
+          map(\(x) input[[x]])
+        req(none(rv$filters, is.null))
+        req(!identical(rv$filters, rv$cached_filters))
 
-      logger::log_info("mod_adxx_bodsys_server: update {dataset} filter condtion")
-      domain_filters <- map(names(rv$filters), \(x) {
-        if (!is.numeric(rv$filters[[x]])) {
-          vals <- paste0(rv$filters[[x]], collapse = "','")
-          vals <- str_glue("{toupper(x)} %in% c('{vals}')")
-        } else {
-          vals <- rv$filters[[x]]
-          vals <- str_glue("{toupper(x)} <= {vals}")
-        }
-      })
+        logger::log_info("mod_adxx_bodsys_server: update {dataset} filter condtion")
+        domain_filters <- map(names(rv$filters), \(x) {
+          if (!is.numeric(rv$filters[[x]])) {
+            vals <- paste0(rv$filters[[x]], collapse = "','")
+            vals <- str_glue("{toupper(x)} %in% c('{vals}')")
+          } else {
+            vals <- rv$filters[[x]]
+            vals <- str_glue("{toupper(x)} <= {vals}")
+          }
+        })
 
-      rv$filter_cond <- reduce(domain_filters, paste, sep = " & ")
-    }, priority = 920)
+        rv$filter_cond <- reduce(domain_filters, paste, sep = " & ")
+      },
+      priority = 920
+    )
 
     observe({
       req(rv$filters)
       req(rv$filter_cond)
 
+      filt_update <- isTRUE(unique(map_lgl(
+        names(rv$filters),
+        \(x) identical(rv$filters[[x]], levels(unique(df_out()[[dataset]][[toupper(x)]])))
+      )))
+
       if (!is.null(rv$cached_filters) &&
-          length(rv$filters) > length(rv$cached_filters)) {
+        length(rv$filters) > length(rv$cached_filters)) {
+        req(filt_update)
         logger::log_info("mod_adxx_bodsys_server: triggering report")
         rv$trig_report <- rv$trig_report + 1
       } else if (!is.null(rv$cached_filters) &&
-                 length(rv$filters) < length(rv$cached_filters)) {
-        trig_stop <- isTRUE(unique(map_lgl(
-          seq_along(rv$filters),
-          \(x) identical(rv$filters[[x]], rv$cached_filters[[x]])
-        )))
+        length(rv$filters) < length(rv$cached_filters)) {
+        if (isTRUE(filt_update)) {
+          trig_stop <- FALSE
+        } else {
+          trig_stop <- isTRUE(unique(map_lgl(
+            seq_along(rv$filters),
+            \(x) identical(rv$filters[[x]], rv$cached_filters[[x]])
+          )))
+        }
         req(!trig_stop)
+        logger::log_info("mod_adxx_bodsys_server: triggering report")
+        rv$trig_report <- rv$trig_report + 1
+      } else if (!is.null(rv$cached_filters) &&
+        length(rv$filters) == length(rv$cached_filters) &&
+        !identical(names(rv$filters), names(rv$cached_filters))) {
         logger::log_info("mod_adxx_bodsys_server: triggering report")
         rv$trig_report <- rv$trig_report + 1
       }

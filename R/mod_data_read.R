@@ -253,8 +253,10 @@ mod_data_read_server <- function(id) {
     observe({
       req(rv$setup_filters$adsl_filt())
       req(rv$setup_filters$adae_filt())
-      rv$all_filt <- list(rv$setup_filters$adsl_filt(),
-                          rv$setup_filters$adae_filt())
+      rv$all_filt <- list(
+        rv$setup_filters$adsl_filt(),
+        rv$setup_filters$adae_filt()
+      )
     }) |> bindEvent(input$apply)
 
     observe({
@@ -263,8 +265,10 @@ mod_data_read_server <- function(id) {
       req(rv$setup_filters$adae_filt())
       req(rv$all_filt)
 
-      if(identical(list(rv$setup_filters$adsl_filt(), rv$setup_filters$adae_filt()),
-                   rv$all_filt)) {
+      if (identical(
+        list(rv$setup_filters$adsl_filt(), rv$setup_filters$adae_filt()),
+        rv$all_filt
+      )) {
         shinyjs::disable("apply")
       } else {
         shinyjs::enable("apply")

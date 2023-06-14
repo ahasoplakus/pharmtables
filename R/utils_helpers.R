@@ -41,7 +41,7 @@ create_widget <- function(filter_list, df, dataset, namespace) {
           options = list(`actions-box` = TRUE, size = 10),
           choicesOpt =
             list(content = str_trunc(filter_values[[x]],
-                                     width = 20
+              width = 20
             ))
         )
       } else {
