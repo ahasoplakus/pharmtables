@@ -39,7 +39,8 @@ app_server <- function(input, output, session) {
     "adae_global_1",
     dataset = "cadae",
     df_out = load_data$df_read,
-    adsl = processed_adsl
+    adsl = processed_adsl,
+    filters = reactive(load_data$adae_filters)
   )
 
   mod_adxx_bodsys_server(

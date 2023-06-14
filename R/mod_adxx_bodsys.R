@@ -20,6 +20,7 @@ mod_adxx_bodsys_ui <-
           background = "#EFF5F5",
           width = 25,
           h2("Table Options"),
+          div(uiOutput(ns("xx_filt_ui")), style = "width: 200px; overflow-x: scroll;"),
           selectInput(
             ns("split_col"),
             "Split Cols by",
@@ -70,16 +71,83 @@ mod_adxx_bodsys_ui <-
 mod_adxx_bodsys_server <- function(id,
                                    dataset,
                                    df_out,
-                                   adsl) {
+                                   adsl,
+                                   filters = NULL) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    rv <- reactiveValues(trig_report = FALSE)
+    rv <- reactiveValues(trig_report = 0)
 
     observe({
       req(dataset != "cadae")
       shinyjs::hide("aeser")
     })
+
+    output$xx_filt_ui <- renderUI({
+      req(df_out()[[dataset]])
+      req(filters)
+
+      logger::log_info("mod_adxx_bodsys_server: initialise {dataset} filters")
+
+      tagList(
+        create_widget(
+          filters(),
+          df_out(),
+          dataset,
+          ns
+        )
+      )
+    })
+
+    outputOptions(output, "xx_filt_ui", priority = 925)
+
+    observe({
+      req(df_out()[[dataset]])
+      req(filters)
+      req(length(reactiveValuesToList(input)) > 0)
+
+      rv$filters <-
+        set_names(tolower(filters())) |>
+        map(\(x) input[[x]])
+      req(none(rv$filters, is.null))
+      req(!identical(rv$filters, rv$cached_filters))
+
+      logger::log_info("mod_adxx_bodsys_server: update {dataset} filter condtion")
+      domain_filters <- map(names(rv$filters), \(x) {
+        if (!is.numeric(rv$filters[[x]])) {
+          vals <- paste0(rv$filters[[x]], collapse = "','")
+          vals <- str_glue("{toupper(x)} %in% c('{vals}')")
+        } else {
+          vals <- rv$filters[[x]]
+          vals <- str_glue("{toupper(x)} <= {vals}")
+        }
+      })
+
+      rv$filter_cond <- reduce(domain_filters, paste, sep = " & ")
+    }, priority = 920)
+
+    observe({
+      req(rv$filters)
+      req(rv$filter_cond)
+
+      if (!is.null(rv$cached_filters) &&
+          length(rv$filters) > length(rv$cached_filters)) {
+        logger::log_info("mod_adxx_bodsys_server: triggering report")
+        rv$trig_report <- rv$trig_report + 1
+      } else if (!is.null(rv$cached_filters) &&
+                 length(rv$filters) < length(rv$cached_filters)) {
+        trig_stop <- isTRUE(unique(map_lgl(
+          seq_along(rv$filters),
+          \(x) identical(rv$filters[[x]], rv$cached_filters[[x]])
+        )))
+        req(!trig_stop)
+        logger::log_info("mod_adxx_bodsys_server: triggering report")
+        rv$trig_report <- rv$trig_report + 1
+      }
+
+      rv$cached_filters <- rv$filters
+    }) |>
+      bindEvent(rv$filter_cond)
 
     observe({
       req(adsl())
@@ -121,13 +189,6 @@ mod_adxx_bodsys_server <- function(id,
     }) |>
       bindEvent(adsl())
 
-    observe({
-      req(input$split_col != "")
-      req(input$class != "")
-      req(input$term != "")
-      rv$trig_report <- TRUE
-    })
-
     xx_bodsys <- reactive({
       req(df_out()[[dataset]])
       req(adsl())
@@ -143,6 +204,11 @@ mod_adxx_bodsys_server <- function(id,
 
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
+
+      if (!is.null(rv$filter_cond)) {
+        df <- df |>
+          filter(!!!parse_exprs(rv$filter_cond))
+      }
 
       if (isTRUE(input$aeser)) {
         df <- df |>
@@ -187,7 +253,7 @@ mod_adxx_bodsys_server <- function(id,
         lyt = lyt
       ))
     }) |>
-      bindCache(list(adsl(), input$split_col, input$class, input$term, input$aeser)) |>
+      bindCache(list(adsl(), input$split_col, input$class, input$term, input$aeser, rv$filter_cond)) |>
       bindEvent(list(adsl(), rv$trig_report, input$run, input$aeser))
 
     mod_dt_table_server("dt_table_bodsys",

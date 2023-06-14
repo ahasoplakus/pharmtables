@@ -250,11 +250,36 @@ mod_data_read_server <- function(id) {
     }) |>
       bindEvent(list(input$apply, rv$trig_reset), ignoreNULL = TRUE)
 
+    observe({
+      req(rv$setup_filters$adsl_filt())
+      req(rv$setup_filters$adae_filt())
+      rv$all_filt <- list(rv$setup_filters$adsl_filt(),
+                          rv$setup_filters$adae_filt())
+    }) |> bindEvent(input$apply)
+
+    observe({
+      req(read_df())
+      req(rv$setup_filters$adsl_filt())
+      req(rv$setup_filters$adae_filt())
+      req(rv$all_filt)
+
+      if(identical(list(rv$setup_filters$adsl_filt(), rv$setup_filters$adae_filt()),
+                   rv$all_filt)) {
+        shinyjs::disable("apply")
+      } else {
+        shinyjs::enable("apply")
+      }
+    })
+
     return(list(
       df_read = read_df,
       study_filters = eventReactive(
         input$apply,
         rv$setup_filters$adsl_filt()
+      ),
+      adae_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$adae_filt()
       )
     ))
   })

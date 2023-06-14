@@ -21,51 +21,41 @@ create_widget <- function(filter_list, df, dataset, namespace) {
     })
 
   filters <- filter_list |>
-    map(\(x)
-    if (isTRUE(is.numeric(filter_values[[x]]))) {
-      sliderInput(
-        namespace(tolower(x)),
-        label = str_to_title(x),
-        min = min(filter_values[[x]], na.rm = TRUE),
-        max = max(filter_values[[x]], na.rm = TRUE),
-        value = max(filter_values[[x]], na.rm = TRUE)
-      )
-    } else if (length(filter_values[[x]]) > 5) {
-      pickerInput(
-        namespace(tolower(x)),
-        label = case_match(
-          str_to_title(x),
-          "Ethnic" ~ "Ethnicity",
-          "Siteid" ~ "Site",
-          "Usubjid" ~ "Subject ID(s)",
-          .default = str_to_title(x)
-        ),
-        choices = filter_values[[x]],
-        selected = filter_values[[x]],
-        multiple = TRUE,
-        options = list(`actions-box` = TRUE, size = 10),
-        choicesOpt =
-          list(content = str_trunc(filter_values[[x]],
-            width = 20
-          ))
-      )
-    } else {
-      shinyWidgets::prettyCheckboxGroup(
-        namespace(tolower(x)),
-        label = case_match(
-          str_to_title(x),
-          "Ethnic" ~ "Ethnicity",
-          "Siteid" ~ "Site",
-          "Usubjid" ~ "Subject ID(s)",
-          .default = str_to_title(x)
-        ),
-        choices = filter_values[[x]],
-        selected = filter_values[[x]],
-        outline = TRUE,
-        animation = "pulse",
-        status = "info",
-        shape = "curve"
-      )
+    map(\(x) {
+      labs <- attr(df[[dataset]][[x]], "label")
+      if (isTRUE(is.numeric(filter_values[[x]]))) {
+        sliderInput(
+          namespace(tolower(x)),
+          label = labs,
+          min = min(filter_values[[x]], na.rm = TRUE),
+          max = max(filter_values[[x]], na.rm = TRUE),
+          value = max(filter_values[[x]], na.rm = TRUE)
+        )
+      } else if (length(filter_values[[x]]) > 5) {
+        pickerInput(
+          namespace(tolower(x)),
+          label = labs,
+          choices = filter_values[[x]],
+          selected = filter_values[[x]],
+          multiple = TRUE,
+          options = list(`actions-box` = TRUE, size = 10),
+          choicesOpt =
+            list(content = str_trunc(filter_values[[x]],
+                                     width = 20
+            ))
+        )
+      } else {
+        shinyWidgets::prettyCheckboxGroup(
+          namespace(tolower(x)),
+          label = labs,
+          choices = filter_values[[x]],
+          selected = filter_values[[x]],
+          outline = TRUE,
+          animation = "pulse",
+          status = "info",
+          shape = "curve"
+        )
+      }
     })
   do.call(tagList, filters)
 }
