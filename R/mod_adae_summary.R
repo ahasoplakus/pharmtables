@@ -25,7 +25,7 @@ mod_adae_summary_ui <- function(id) {
           selected = NULL,
           width = 300
         ),
-        shinyWidgets::prettyCheckboxGroup(
+        prettyCheckboxGroup(
           ns("events"),
           label = NULL,
           choiceNames = NULL,
@@ -137,7 +137,7 @@ mod_adae_summary_server <- function(id,
       trt_choices <-
         names(select(adsl(), setdiff(starts_with(c("ARM", "TRT0")), ends_with("DTM"))))
 
-      shinyWidgets::updatePrettyCheckboxGroup(
+      updatePrettyCheckboxGroup(
         inputId = "events",
         label = "Show/Hide Events",
         choiceNames = labs,

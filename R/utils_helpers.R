@@ -45,7 +45,7 @@ create_widget <- function(filter_list, df, dataset, namespace) {
             ))
         )
       } else {
-        shinyWidgets::prettyCheckboxGroup(
+        prettyCheckboxGroup(
           namespace(tolower(x)),
           label = labs,
           choices = filter_values[[x]],
@@ -69,7 +69,7 @@ create_widget <- function(filter_list, df, dataset, namespace) {
 #'
 #' @noRd
 create_flag_widget <- function(flags, namespace) {
-  shinyWidgets::prettyRadioButtons(
+  prettyRadioButtons(
     namespace("pop"),
     label = "Population",
     choices = flags,
