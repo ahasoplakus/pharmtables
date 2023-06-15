@@ -18,6 +18,11 @@ mod_adae_sev_tox_ui <- function(id) {
         background = "#EFF5F5",
         width = 25,
         h2("Table Options"),
+        div(
+          id = ns("domain_filters"),
+          uiOutput(ns("xx_filt_ui")),
+          style = "width: 200px; overflow-x: scroll;"
+        ),
         selectInput(
           ns("split_col"),
           "Split Cols by",
@@ -78,11 +83,100 @@ mod_adae_sev_tox_ui <- function(id) {
 mod_adae_sev_tox_server <- function(id,
                                     dataset,
                                     df_out,
-                                    adsl) {
+                                    adsl,
+                                    filters = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    rv <- reactiveValues(trig_report = FALSE)
+    rv <- reactiveValues(trig_report = 0)
+
+    observe({
+      req(df_out()[[dataset]])
+      if (is.null(filters())) hide("domain_filters") else show("domain_filters")
+    })
+
+    output$xx_filt_ui <- renderUI({
+      req(df_out()[[dataset]])
+      req(filters())
+
+      logger::log_info("mod_adae_sev_tox_server: initialise {dataset} filters")
+
+      tagList(
+        create_widget(
+          filters(),
+          df_out(),
+          dataset,
+          ns
+        )
+      )
+    })
+
+    outputOptions(output, "xx_filt_ui", priority = 925)
+
+    observe(
+      {
+        req(df_out()[[dataset]])
+        req(filters())
+        req(length(reactiveValuesToList(input)) > 0)
+
+        rv$filters <-
+          set_names(tolower(filters())) |>
+          map(\(x) input[[x]])
+        req(none(rv$filters, is.null))
+        req(!identical(rv$filters, rv$cached_filters))
+
+        logger::log_info("mod_adae_sev_tox_server: update {dataset} filter condtion")
+        domain_filters <- map(names(rv$filters), \(x) {
+          if (!is.numeric(rv$filters[[x]])) {
+            vals <- paste0(rv$filters[[x]], collapse = "','")
+            vals <- str_glue("{toupper(x)} %in% c('{vals}')")
+          } else {
+            vals <- rv$filters[[x]]
+            vals <- str_glue("{toupper(x)} <= {vals}")
+          }
+        })
+        req(length(domain_filters) > 0)
+        rv$filter_cond <- reduce(domain_filters, paste, sep = " & ")
+      },
+      priority = 920
+    )
+
+    observe({
+      req(rv$filters)
+      req(rv$filter_cond)
+
+      filt_update <- isTRUE(unique(map_lgl(
+        names(rv$filters),
+        \(x) identical(rv$filters[[x]], levels(unique(df_out()[[dataset]][[toupper(x)]])))
+      )))
+
+      if (!is.null(rv$cached_filters) &&
+        length(rv$filters) > length(rv$cached_filters)) {
+        req(filt_update)
+        logger::log_info("mod_adae_sev_tox_server: triggering report")
+        rv$trig_report <- rv$trig_report + 1
+      } else if (!is.null(rv$cached_filters) &&
+        length(rv$filters) < length(rv$cached_filters)) {
+        if (isTRUE(filt_update)) {
+          trig_stop <- FALSE
+        } else {
+          trig_stop <- any(unique(map_lgl(
+            names(rv$filters), \(x) identical(rv$filters[[x]], rv$cached_filters[[x]])
+          )))
+        }
+        req(!trig_stop)
+        logger::log_info("mod_adae_sev_tox_server: triggering report")
+        rv$trig_report <- rv$trig_report + 1
+      } else if (!is.null(rv$cached_filters) &&
+        !identical(names(rv$filters), names(rv$cached_filters))) {
+        req(filt_update)
+        logger::log_info("mod_adae_sev_tox_server: triggering report")
+        rv$trig_report <- rv$trig_report + 1
+      }
+
+      rv$cached_filters <- rv$filters
+    }) |>
+      bindEvent(rv$filter_cond)
 
     observe({
       req(adsl())
@@ -132,14 +226,6 @@ mod_adae_sev_tox_server <- function(id,
     }) |>
       bindEvent(adsl())
 
-    observe({
-      req(input$split_col != "")
-      req(input$class != "")
-      req(input$term != "")
-      req(input$summ_var != "")
-      rv$trig_report <- TRUE
-    })
-
     ae_explore <- reactive({
       req(df_out()[[dataset]])
       req(adsl())
@@ -157,6 +243,11 @@ mod_adae_sev_tox_server <- function(id,
 
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
+
+      if (!is.null(rv$filter_cond)) {
+        df <- df |>
+          filter(!!!parse_exprs(rv$filter_cond))
+      }
 
       logger::log_info("mod_adae_sev_tox_server: adae has
                          {nrow(df)} rows")
@@ -178,7 +269,10 @@ mod_adae_sev_tox_server <- function(id,
       ))
     }) |>
       bindCache(
-        list(adsl(), input$split_col, input$class, input$term, input$summ_var, input$view)
+        list(
+          adsl(), input$split_col, input$class, input$term,
+          input$summ_var, input$view, rv$filter_cond
+        )
       ) |>
       bindEvent(list(adsl(), rv$trig_report, input$run, input$view))
 
