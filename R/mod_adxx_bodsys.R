@@ -20,7 +20,11 @@ mod_adxx_bodsys_ui <-
           background = "#EFF5F5",
           width = 25,
           h2("Table Options"),
-          div(uiOutput(ns("xx_filt_ui")), style = "width: 200px; overflow-x: scroll;"),
+          div(
+            id = ns("domain_filters"),
+            uiOutput(ns("xx_filt_ui")),
+            style = "width: 200px; overflow-x: scroll;"
+          ),
           selectInput(
             ns("split_col"),
             "Split Cols by",
@@ -49,16 +53,10 @@ mod_adxx_bodsys_ui <-
         maximizable = TRUE,
         width = 12,
         height = "800px",
-        shinyWidgets::prettySwitch(
-          ns("aeser"),
-          label = "Only Serious Adverse Events",
-          value = FALSE,
-          status = "info",
-          inline = TRUE,
-          fill = TRUE,
-          slim = TRUE
-        ),
-        div(withSpinner(mod_dt_table_ui(ns("dt_table_bodsys")), type = 6, color = "#3BACB6"),
+        div(
+          withSpinner(mod_dt_table_ui(ns("dt_table_bodsys")),
+            type = 6, color = "#3BACB6"
+          ),
           style = "overflow-x: scroll;"
         )
       )
@@ -72,20 +70,20 @@ mod_adxx_bodsys_server <- function(id,
                                    dataset,
                                    df_out,
                                    adsl,
-                                   filters = NULL) {
+                                   filters = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
     rv <- reactiveValues(trig_report = 0)
 
     observe({
-      req(dataset != "cadae")
-      shinyjs::hide("aeser")
+      req(df_out()[[dataset]])
+      if (is.null(filters())) hide("domain_filters") else show("domain_filters")
     })
 
     output$xx_filt_ui <- renderUI({
       req(df_out()[[dataset]])
-      req(filters)
+      req(filters())
 
       logger::log_info("mod_adxx_bodsys_server: initialise {dataset} filters")
 
@@ -104,7 +102,7 @@ mod_adxx_bodsys_server <- function(id,
     observe(
       {
         req(df_out()[[dataset]])
-        req(filters)
+        req(filters())
         req(length(reactiveValuesToList(input)) > 0)
 
         rv$filters <-
@@ -123,7 +121,7 @@ mod_adxx_bodsys_server <- function(id,
             vals <- str_glue("{toupper(x)} <= {vals}")
           }
         })
-
+        req(length(domain_filters) > 0)
         rv$filter_cond <- reduce(domain_filters, paste, sep = " & ")
       },
       priority = 920
@@ -148,17 +146,16 @@ mod_adxx_bodsys_server <- function(id,
         if (isTRUE(filt_update)) {
           trig_stop <- FALSE
         } else {
-          trig_stop <- isTRUE(unique(map_lgl(
-            seq_along(rv$filters),
-            \(x) identical(rv$filters[[x]], rv$cached_filters[[x]])
+          trig_stop <- any(unique(map_lgl(
+            names(rv$filters), \(x) identical(rv$filters[[x]], rv$cached_filters[[x]])
           )))
         }
         req(!trig_stop)
         logger::log_info("mod_adxx_bodsys_server: triggering report")
         rv$trig_report <- rv$trig_report + 1
       } else if (!is.null(rv$cached_filters) &&
-        length(rv$filters) == length(rv$cached_filters) &&
         !identical(names(rv$filters), names(rv$cached_filters))) {
+        req(filt_update)
         logger::log_info("mod_adxx_bodsys_server: triggering report")
         rv$trig_report <- rv$trig_report + 1
       }
@@ -228,11 +225,6 @@ mod_adxx_bodsys_server <- function(id,
           filter(!!!parse_exprs(rv$filter_cond))
       }
 
-      if (isTRUE(input$aeser)) {
-        df <- df |>
-          filter(AESER == "Y")
-      }
-
       logger::log_info("mod_adxx_bodsys_server: {dataset} has {nrow(df)} rows")
 
       lyt <- basic_table() |>
@@ -271,8 +263,8 @@ mod_adxx_bodsys_server <- function(id,
         lyt = lyt
       ))
     }) |>
-      bindCache(list(adsl(), input$split_col, input$class, input$term, input$aeser, rv$filter_cond)) |>
-      bindEvent(list(adsl(), rv$trig_report, input$run, input$aeser))
+      bindCache(list(adsl(), input$split_col, input$class, input$term, rv$filter_cond)) |>
+      bindEvent(list(adsl(), rv$trig_report, input$run))
 
     mod_dt_table_server("dt_table_bodsys",
       display_df = xx_bodsys

@@ -47,13 +47,15 @@ app_server <- function(input, output, session) {
     "admh_bodsys_1",
     dataset = "cadmh",
     df_out = load_data$df_read,
-    adsl = processed_adsl
+    adsl = processed_adsl,
+    filters = load_data$admh_filters
   )
 
   mod_adxx_bodsys_server(
     "adcm_bodsys_1",
     dataset = "cadcm",
     df_out = load_data$df_read,
-    adsl = processed_adsl
+    adsl = processed_adsl,
+    filters = load_data$adcm_filters
   )
 }

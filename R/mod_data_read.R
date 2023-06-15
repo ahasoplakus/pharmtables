@@ -12,7 +12,7 @@ mod_data_read_ui <- function(id) {
   tagList(
     fluidRow(column(
       width = 4,
-      shinyWidgets::prettySwitch(
+      prettySwitch(
         ns("def_data"),
         label = "Load Default Data (random.cdisc.data)",
         value = FALSE,
@@ -54,7 +54,7 @@ mod_data_read_ui <- function(id) {
       ),
       tabPanel(
         "Preview Data",
-        div(withSpinner(reactable::reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
+        div(withSpinner(reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
           style = "overflow-x: scroll; overflow-y: scroll;"
         )
       )
@@ -79,15 +79,15 @@ mod_data_read_server <- function(id) {
 
     observe(
       {
-        shinyjs::enable("upload")
-        shinyjs::runjs(
+        enable("upload")
+        runjs(
           "$('#data_read_1-upload').parent().removeClass('btn-disabled').addClass('btn-default');"
         )
         req(isTRUE(input$def_data))
         logger::log_info("mod_data_read_server: reset fileinput")
-        shinyjs::reset("upload")
-        shinyjs::disable("upload")
-        shinyjs::runjs(
+        reset("upload")
+        disable("upload")
+        runjs(
           "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
         )
         show_toast(
@@ -98,7 +98,7 @@ mod_data_read_server <- function(id) {
           width = "600px"
         )
         if (!is.null(input$upload)) {
-          rv$upload <- purrr::list_assign(input$upload, name = NULL)
+          rv$upload <- list_assign(input$upload, name = NULL)
         }
         rv$upload_state <- "refresh"
         rv$trig_reset <- rv$trig_reset + 1
@@ -149,7 +149,7 @@ mod_data_read_server <- function(id) {
 
     output$glimpse_dat <- renderUI({
       req(rv$df)
-      shinyWidgets::prettySwitch(
+      prettySwitch(
         ns("glimpse"),
         label = "Preview data",
         value = FALSE,
@@ -160,41 +160,38 @@ mod_data_read_server <- function(id) {
       )
     })
 
-    output$print_dat <- reactable::renderReactable({
+    output$print_dat <- renderReactable({
       req(rv$df)
       req(isTRUE(input$glimpse))
       source <- "Local"
       if (is.null(rv$upload$name)) {
         source <- "random.cdisc.data"
       }
-      df <- tibble::tibble(
+      df <- tibble(
         `Name` = names(rv$df),
         `N_Rows` = map(rv$df, \(x) nrow(x)),
         `Colnames` = map(rv$df, \(x) names(x)),
         `Source` = source
       )
-      reactable::reactable(
+      reactable(
         df,
         filterable = TRUE,
         bordered = TRUE,
         striped = TRUE,
         highlight = TRUE,
         columns = list(
-          `Name` = reactable::colDef(minWidth = 50),
-          # 50% width, 200px minimum
-          `N_Rows` = reactable::colDef(minWidth = 50),
-          # 25% width, 100px minimum
-          `Colnames` = reactable::colDef(minWidth = 250),
-          # 25% width, 100px minimum
-          `Source` = reactable::colDef(minWidth = 50)
+          `Name` = colDef(minWidth = 50),
+          `N_Rows` = colDef(minWidth = 50),
+          `Colnames` = colDef(minWidth = 250),
+          `Source` = colDef(minWidth = 50)
         ),
         details = function(rowNum) {
           sub_df <- rv$df[[rowNum]]
           div(
             style = "padding: 1rem",
-            reactable::reactable(
+            reactable(
               sub_df,
-              columns = list(USUBJID = reactable::colDef(sticky = "left")),
+              columns = list(USUBJID = colDef(sticky = "left")),
               filterable = TRUE,
               bordered = TRUE,
               striped = TRUE,
@@ -252,28 +249,38 @@ mod_data_read_server <- function(id) {
 
     observe({
       req(rv$setup_filters$adsl_filt())
-      req(rv$setup_filters$adae_filt())
       rv$all_filt <- list(
         rv$setup_filters$adsl_filt(),
-        rv$setup_filters$adae_filt()
+        rv$setup_filters$adae_filt(),
+        rv$setup_filters$admh_filt(),
+        rv$setup_filters$adcm_filt()
       )
     }) |> bindEvent(input$apply)
 
     observe({
       req(read_df())
       req(rv$setup_filters$adsl_filt())
-      req(rv$setup_filters$adae_filt())
-      req(rv$all_filt)
 
       if (identical(
-        list(rv$setup_filters$adsl_filt(), rv$setup_filters$adae_filt()),
+        list(
+          rv$setup_filters$adsl_filt(),
+          rv$setup_filters$adae_filt(),
+          rv$setup_filters$admh_filt(),
+          rv$setup_filters$adcm_filt()
+        ),
         rv$all_filt
       )) {
-        shinyjs::disable("apply")
+        disable("apply")
       } else {
-        shinyjs::enable("apply")
+        enable("apply")
       }
     })
+
+    observe({
+      req(read_df())
+      updateActionButton(session, "apply", label = "Reload Application")
+    }) |>
+      bindEvent(input$apply, once = TRUE)
 
     return(list(
       df_read = read_df,
@@ -284,6 +291,14 @@ mod_data_read_server <- function(id) {
       adae_filters = eventReactive(
         input$apply,
         rv$setup_filters$adae_filt()
+      ),
+      admh_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$admh_filt()
+      ),
+      adcm_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$adcm_filt()
       )
     ))
   })
