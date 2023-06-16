@@ -76,7 +76,8 @@ mod_setup_filters_server <- function(id, load_data) {
       choices <-
         names(select(load_data$cadsl, !ends_with("FL")))
       selected <-
-        intersect(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"), choices)
+        intersect(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"),
+                  choices)
 
       updateSelectizeInput(
         session,
@@ -96,7 +97,13 @@ mod_setup_filters_server <- function(id, load_data) {
         "mod_setup_filters_server: setup adae filters"
       )
 
-      choices <- setdiff(names(load_data$cadae), names(load_data$cadsl))
+      choices <- setdiff(
+        names(select(
+          load_data$cadae,
+          !ends_with(c("FL", "DTM"))
+        )),
+        names(load_data$cadsl)
+      )
       selected <- NULL
 
       updateSelectizeInput(
@@ -117,7 +124,10 @@ mod_setup_filters_server <- function(id, load_data) {
         "mod_setup_filters_server: setup admh filters"
       )
 
-      choices <- setdiff(names(load_data$cadmh), names(load_data$cadsl))
+      choices <- setdiff(
+        names(select(load_data$cadmh, !ends_with(c("FL", "DTM")))),
+        names(load_data$cadsl)
+      )
       selected <- NULL
 
       updateSelectizeInput(
@@ -138,7 +148,10 @@ mod_setup_filters_server <- function(id, load_data) {
         "mod_setup_filters_server: setup adcm filters"
       )
 
-      choices <- setdiff(names(load_data$cadcm), names(load_data$cadsl))
+      choices <- setdiff(
+        names(select(load_data$cadcm, !ends_with(c("FL", "DTM")))),
+        names(load_data$cadsl)
+      )
       selected <- NULL
 
       updateSelectizeInput(

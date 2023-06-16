@@ -118,6 +118,7 @@ mod_adae_sev_tox_server <- function(id,
         req(df_out()[[dataset]])
         req(filters())
         req(length(reactiveValuesToList(input)) > 0)
+        req(input$split_col != "")
 
         rv$filters <-
           set_names(tolower(filters())) |>
@@ -224,7 +225,7 @@ mod_adae_sev_tox_server <- function(id,
         selected = summ_var[1]
       )
     }) |>
-      bindEvent(adsl())
+      bindEvent(list(adsl(), df_out()[[dataset]]))
 
     ae_explore <- reactive({
       req(df_out()[[dataset]])

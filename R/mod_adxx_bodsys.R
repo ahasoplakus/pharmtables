@@ -104,6 +104,7 @@ mod_adxx_bodsys_server <- function(id,
         req(df_out()[[dataset]])
         req(filters())
         req(length(reactiveValuesToList(input)) > 0)
+        req(input$split_col != "")
 
         rv$filters <-
           set_names(tolower(filters())) |>
@@ -202,7 +203,7 @@ mod_adxx_bodsys_server <- function(id,
         selected = term_choices[1]
       )
     }) |>
-      bindEvent(adsl())
+      bindEvent(list(adsl(), df_out()[[dataset]]))
 
     xx_bodsys <- reactive({
       req(df_out()[[dataset]])

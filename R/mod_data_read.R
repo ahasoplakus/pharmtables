@@ -38,7 +38,7 @@ mod_data_read_ui <- function(id) {
       )),
       column(
         width = 3,
-        div(actionButton(ns("apply"), "Run Application"),
+        div(actionButton(ns("apply"), "Run"),
           style = "padding-bottom: 30px; text-align: right;"
         )
       )
@@ -278,7 +278,7 @@ mod_data_read_server <- function(id) {
 
     observe({
       req(read_df())
-      updateActionButton(session, "apply", label = "Reload Application")
+      updateActionButton(session, "apply", label = "Reload")
     }) |>
       bindEvent(input$apply, once = TRUE)
 
