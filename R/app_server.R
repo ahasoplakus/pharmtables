@@ -12,11 +12,12 @@ app_server <- function(input, output, session) {
   observe({
     req(load_data$df_read())
     domain <- c("cadsl", "cadae", "cadmh", "cadcm")
-    walk(seq_along(domain) + 1, function(x)
+    walk(seq_along(domain) + 1, function(x) {
       toggleState(
-        selector = str_glue('#tabcard > li:nth-child({x}) > a'),
+        selector = str_glue("#tabcard > li:nth-child({x}) > a"),
         condition = domain[x - 1] %in% names(load_data$df_read())
-      ))
+      )
+    })
     updateTabsetPanel(session, inputId = "tabcard", "Demographics")
   }) |>
     bindEvent(load_data$df_read())

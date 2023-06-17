@@ -113,17 +113,7 @@ mod_adxx_bodsys_server <- function(id,
         req(!identical(rv$filters, rv$cached_filters))
 
         logger::log_info("mod_adxx_bodsys_server: update {dataset} filter condtion")
-        domain_filters <- map(names(rv$filters), \(x) {
-          if (!is.numeric(rv$filters[[x]])) {
-            vals <- paste0(rv$filters[[x]], collapse = "','")
-            vals <- str_glue("{toupper(x)} %in% c('{vals}')")
-          } else {
-            vals <- rv$filters[[x]]
-            vals <- str_glue("{toupper(x)} <= {vals}")
-          }
-        })
-        req(length(domain_filters) > 0)
-        rv$filter_cond <- reduce(domain_filters, paste, sep = " & ")
+        rv$filter_cond <- filters_to_cond(rv$filters)
       },
       priority = 920
     )

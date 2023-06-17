@@ -79,3 +79,76 @@ create_flag_widget <- function(flags, namespace) {
     shape = "curve"
   )
 }
+
+#' Create filtering condition based on filters
+#'
+#' @param filter_list Named list of filter values
+#'
+#' @return The Filtering condition
+#'
+filters_to_cond <- function(filter_list) {
+  study_filters <- map(names(filter_list), \(x) {
+    if (!is.numeric(filter_list[[x]])) {
+      if (x != "pop") {
+        vals <- paste0(filter_list[[x]], collapse = "','")
+        if (str_sub(x, start = -3) == "dtm") {
+          vals <- str_glue("as.character({toupper(x)}) %in% c('{vals}')")
+        } else {
+          vals <- str_glue("{toupper(x)} %in% c('{vals}')")
+        }
+      } else {
+        vals <- filter_list[[x]]
+        vals <- str_glue("{vals} == 'Y'")
+      }
+    } else {
+      vals <- filter_list[[x]]
+      vals <- str_glue("{toupper(x)} <= {vals}")
+    }
+  })
+
+  filter_cond <- reduce(study_filters, paste, sep = " & ")
+}
+
+#' Add Flags to ADAE
+#'
+#' @param df `ADAE` dataset
+#'
+#' @return `ADAE` dataset with added flags
+#'
+add_adae_flags <- function(df) {
+  df <- df |>
+    mutate(
+      FATAL = AESDTH == "Y",
+      SER = AESER == "Y",
+      SERWD = AESER == "Y" & AEACN == "DRUG WITHDRAWN",
+      SERDSM = AESER == "Y" & AEACN %in% c(
+        "DRUG INTERRUPTED",
+        "DOSE INCREASED", "DOSE REDUCED"
+      ),
+      RELSER = AESER == "Y" & AEREL == "Y",
+      WD = AEACN == "DRUG WITHDRAWN",
+      DSM = AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
+      REL = AEREL == "Y",
+      RELWD = AEREL == "Y" & AEACN == "DRUG WITHDRAWN",
+      RELDSM = AEREL == "Y" & AEACN %in% c(
+        "DRUG INTERRUPTED",
+        "DOSE INCREASED", "DOSE REDUCED"
+      ),
+      CTC35 = AETOXGR %in% c("3", "4", "5"),
+      CTC45 = AETOXGR %in% c("4", "5")
+    ) |>
+    var_relabel(
+      FATAL = "AE with fatal outcome",
+      SER = "Serious AE",
+      SERWD = "Serious AE leading to withdrawal from treatment",
+      SERDSM = "Serious AE leading to dose modification/interruption",
+      RELSER = "Related Serious AE",
+      WD = "AE leading to withdrawal from treatment",
+      DSM = "AE leading to dose modification/interruption",
+      REL = "Related AE",
+      RELWD = "Related AE leading to withdrawal from treatment",
+      RELDSM = "Related AE leading to dose modification/interruption",
+      CTC35 = "Grade 3-5 AE",
+      CTC45 = "Grade 4/5 AE"
+    )
+}

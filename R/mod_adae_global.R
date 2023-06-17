@@ -41,7 +41,8 @@ mod_adae_global_server <- function(id, dataset, df_out, adsl, filters) {
       "adae_summary_1",
       dataset = dataset,
       df_out = df_out,
-      adsl = adsl
+      adsl = adsl,
+      filters = filters()
     )
 
     mod_adxx_bodsys_server(

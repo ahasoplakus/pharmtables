@@ -40,22 +40,7 @@ mod_process_adsl_server <- function(id,
         logger::log_info("mod_process_adsl_server: loaded adsl has
                          {nrow(df_out()[[dataset]])} rows")
 
-        study_filters <- map(names(global_filters()), \(x) {
-          if (!is.numeric(global_filters()[[x]])) {
-            if (x != "pop") {
-              vals <- paste0(global_filters()[[x]], collapse = "','")
-              vals <- str_glue("{toupper(x)} %in% c('{vals}')")
-            } else {
-              vals <- global_filters()[[x]]
-              vals <- str_glue("{vals} == 'Y'")
-            }
-          } else {
-            vals <- global_filters()[[x]]
-            vals <- str_glue("{toupper(x)} <= {vals}")
-          }
-        })
-
-        filter_cond <- reduce(study_filters, paste, sep = " & ")
+        filter_cond <- filters_to_cond(global_filters())
         rv$cached_df <- df_out()[[dataset]]
         rv$cached_filters <- global_filters()
 

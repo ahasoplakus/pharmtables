@@ -109,7 +109,8 @@ div.sidebar .shiny-input-container {
 }
 
 .nav-link.disabled {
-    background-color: #E1E5EA !important;
+    background-color: #F6F1F1 !important;
+    color: #9DB2BF !important;
     pointer-events: none;
     cursor: default;
     margin-right: 5px !important;

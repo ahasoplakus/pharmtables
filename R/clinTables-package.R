@@ -3,6 +3,7 @@
 
 ## usethis namespace: start
 #' @import rlang
+#' @importFrom dplyr across
 #' @importFrom dplyr add_count
 #' @importFrom dplyr all_of
 #' @importFrom dplyr arrange
@@ -62,6 +63,7 @@
 #' @importFrom stringr str_detect
 #' @importFrom stringr str_glue
 #' @importFrom stringr str_remove_all
+#' @importFrom stringr str_sub
 #' @importFrom stringr str_to_title
 #' @importFrom stringr str_trunc
 #' @importFrom tern append_varlabels

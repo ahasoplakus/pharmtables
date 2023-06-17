@@ -76,8 +76,10 @@ mod_setup_filters_server <- function(id, load_data) {
       choices <-
         names(select(load_data$cadsl, !ends_with("FL")))
       selected <-
-        intersect(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"),
-                  choices)
+        intersect(
+          c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"),
+          choices
+        )
 
       updateSelectizeInput(
         session,
@@ -100,7 +102,7 @@ mod_setup_filters_server <- function(id, load_data) {
       choices <- setdiff(
         names(select(
           load_data$cadae,
-          !ends_with(c("FL", "DTM"))
+          !ends_with("FL")
         )),
         names(load_data$cadsl)
       )
@@ -125,7 +127,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data$cadmh, !ends_with(c("FL", "DTM")))),
+        names(select(load_data$cadmh, !ends_with("FL"))),
         names(load_data$cadsl)
       )
       selected <- NULL
@@ -149,7 +151,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data$cadcm, !ends_with(c("FL", "DTM")))),
+        names(select(load_data$cadcm, !ends_with("FL"))),
         names(load_data$cadsl)
       )
       selected <- NULL
