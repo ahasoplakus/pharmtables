@@ -28,6 +28,8 @@
 #'   default_view = TRUE
 #' )
 #'
+#' ae_by_sev_tox_table
+#'
 adae_by_sev_tox <- function(adsl,
                             df_adae,
                             colsby = "ARM",

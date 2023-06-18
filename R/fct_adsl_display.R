@@ -21,10 +21,9 @@
 #'   summ_vars = c("AGE", "RACE")
 #' )
 #'
+#'
 #' ## Use the tabletree object to within build_table
-#' \dontrun{
 #' rtables::build_table(lyt, random.cdisc.data::cadsl)
-#' }
 #'
 build_adsl <- function(title = "x.x: Study Subject Data",
                        subtitle = c(

@@ -50,6 +50,8 @@ ae_by_sev_tox_table <- adae_by_sev_tox(
   default_view = TRUE
 )
 
+ae_by_sev_tox_table
+
 }
 \seealso{
 Other helpers: 
