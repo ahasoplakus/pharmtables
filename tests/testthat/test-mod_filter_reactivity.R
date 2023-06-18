@@ -51,11 +51,17 @@ test_that("mod_filter_reactivity_server works", {
       expect_equal(length(rv$filters), 2)
       expect_false(identical(rv$filters, rv$cached_filters))
 
-      session$setInputs(aeser = c("N", "Y"), aesev = c("MILD", "MODERATE", "SEVERE"))
+      session$setInputs(
+        aeser = c("N", "Y"),
+        aesev = c("MILD", "MODERATE", "SEVERE")
+      )
 
       expect_true(identical(rv$filters, rv$cached_filters))
       expect_equal(rv$trig_report, 2)
-      expect_equal(rv$filter_cond, "AESER %in% c('N','Y') & AESEV %in% c('MILD','MODERATE','SEVERE')")
+      expect_equal(
+        rv$filter_cond,
+        "AESER %in% c('N','Y') & AESEV %in% c('MILD','MODERATE','SEVERE')"
+      )
 
       filt("AESEV")
       session$flushReact()
