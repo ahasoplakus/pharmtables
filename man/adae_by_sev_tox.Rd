@@ -53,7 +53,8 @@ ae_by_sev_tox_table <- adae_by_sev_tox(
 }
 \seealso{
 Other helpers: 
-\code{\link{build_adsl}()}
+\code{\link{build_adsl}()},
+\code{\link{filters_to_cond}()}
 }
 \concept{helpers}
 \keyword{helpers}

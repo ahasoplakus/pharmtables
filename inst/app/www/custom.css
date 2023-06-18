@@ -108,6 +108,15 @@ div.sidebar .shiny-input-container {
     border: 2px solid #293B5F !important;
 }
 
+.nav-link.disabled {
+    background-color: #F6F1F1 !important;
+    color: #9DB2BF !important;
+    pointer-events: none;
+    cursor: default;
+    margin-right: 5px !important;
+    border: 2px solid grey !important;
+}
+
 .os-theme-dark>.os-scrollbar, .os-theme-light>.os-scrollbar {
     padding: 2px;
     box-sizing: border-box;

@@ -12,7 +12,7 @@ mod_data_read_ui <- function(id) {
   tagList(
     fluidRow(column(
       width = 4,
-      shinyWidgets::prettySwitch(
+      prettySwitch(
         ns("def_data"),
         label = "Load Default Data (random.cdisc.data)",
         value = FALSE,
@@ -33,24 +33,26 @@ mod_data_read_ui <- function(id) {
       )
     )),
     fluidRow(
-      column(width = 1, uiOutput(
-        ns("glimpse_dat")
-      )),
+      column(width = 1),
       column(
         width = 3,
-        div(actionButton(ns("apply"), "Run Application"),
+        div(actionButton(ns("apply"), "Run"),
           style = "padding-bottom: 30px; text-align: right;"
         )
       )
     ),
-    box(
+    tabBox(
       id = ns("box_preview"),
+      type = "pills",
       width = 12,
-      maximizable = TRUE,
-      collapsible = TRUE,
-      collapsed = FALSE,
-      div(withSpinner(reactable::reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
-        style = "overflow-x: scroll; overflow-y: scroll;"
+      collapsible = FALSE,
+      tabPanel(
+        "Preview Data",
+        mod_data_preview_ui(ns("data_preview_1"))
+      ),
+      tabPanel(
+        "Setup Filters",
+        mod_setup_filters_ui(ns("setup_filters_1"))
       )
     )
   )
@@ -67,20 +69,21 @@ mod_data_read_server <- function(id) {
       data_list = character(0),
       df = NULL,
       trig_reset = 0,
-      upload_state = "stale"
+      upload_state = "stale",
+      setup_filters = NULL
     )
 
     observe(
       {
-        shinyjs::enable("upload")
-        shinyjs::runjs(
+        enable("upload")
+        runjs(
           "$('#data_read_1-upload').parent().removeClass('btn-disabled').addClass('btn-default');"
         )
         req(isTRUE(input$def_data))
         logger::log_info("mod_data_read_server: reset fileinput")
-        shinyjs::reset("upload")
-        shinyjs::disable("upload")
-        shinyjs::runjs(
+        reset("upload")
+        disable("upload")
+        runjs(
           "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
         )
         show_toast(
@@ -91,7 +94,7 @@ mod_data_read_server <- function(id) {
           width = "600px"
         )
         if (!is.null(input$upload)) {
-          rv$upload <- purrr::list_assign(input$upload, name = NULL)
+          rv$upload <- list_assign(input$upload, name = NULL)
         }
         rv$upload_state <- "refresh"
         rv$trig_reset <- rv$trig_reset + 1
@@ -140,63 +143,22 @@ mod_data_read_server <- function(id) {
     ) |>
       bindEvent(list(rv$upload, input$def_data))
 
-    output$glimpse_dat <- renderUI({
-      req(rv$df)
-      shinyWidgets::prettySwitch(
-        ns("glimpse"),
-        label = "Preview data",
-        value = FALSE,
-        status = "info",
-        inline = TRUE,
-        fill = TRUE,
-        slim = TRUE
-      )
-    })
+    mod_data_preview_server(
+      "data_preview_1",
+      eventReactive(rv$df, rv$df)
+    )
 
-    output$print_dat <- reactable::renderReactable({
-      req(rv$df)
-      req(isTRUE(input$glimpse))
-      source <- "Local"
-      if (is.null(rv$upload$name)) {
-        source <- "random.cdisc.data"
-      }
-      df <- tibble::tibble(
-        `Name` = names(rv$df),
-        `N_Rows` = map(rv$df, \(x) nrow(x)),
-        `Colnames` = map(rv$df, \(x) names(x)),
-        `Source` = source
-      )
-      reactable::reactable(
-        df,
-        filterable = TRUE,
-        bordered = TRUE,
-        striped = TRUE,
-        highlight = TRUE,
-        columns = list(
-          `Name` = reactable::colDef(minWidth = 50),
-          # 50% width, 200px minimum
-          `N_Rows` = reactable::colDef(minWidth = 50),
-          # 25% width, 100px minimum
-          `Colnames` = reactable::colDef(minWidth = 250),
-          # 25% width, 100px minimum
-          `Source` = reactable::colDef(minWidth = 50)
-        ),
-        details = function(rowNum) {
-          sub_df <- rv$df[[rowNum]]
-          div(
-            style = "padding: 1rem",
-            reactable::reactable(
-              sub_df,
-              columns = list(USUBJID = reactable::colDef(sticky = "left")),
-              filterable = TRUE,
-              bordered = TRUE,
-              striped = TRUE,
-              highlight = TRUE
-            )
-          )
-        }
-      )
-    })
+    observe(
+      {
+        req(!is.null(rv$df[["cadsl"]]))
+        rv$setup_filters <- mod_setup_filters_server(
+          "setup_filters_1",
+          rv$df
+        )
+      },
+      priority = 990
+    ) |>
+      bindEvent(rv$df)
 
     read_df <- reactive({
       if (!is.null(rv$df) && rv$upload_state == "refresh") {
@@ -230,6 +192,59 @@ mod_data_read_server <- function(id) {
     }) |>
       bindEvent(list(input$apply, rv$trig_reset), ignoreNULL = TRUE)
 
-    return(list(df_read = read_df))
+    observe({
+      req(rv$setup_filters$adsl_filt())
+      rv$all_filt <- list(
+        rv$setup_filters$adsl_filt(),
+        rv$setup_filters$adae_filt(),
+        rv$setup_filters$admh_filt(),
+        rv$setup_filters$adcm_filt()
+      )
+    }) |> bindEvent(input$apply)
+
+    observe({
+      req(read_df())
+      req(rv$setup_filters$adsl_filt())
+
+      if (identical(
+        list(
+          rv$setup_filters$adsl_filt(),
+          rv$setup_filters$adae_filt(),
+          rv$setup_filters$admh_filt(),
+          rv$setup_filters$adcm_filt()
+        ),
+        rv$all_filt
+      )) {
+        disable("apply")
+      } else {
+        enable("apply")
+      }
+    })
+
+    observe({
+      req(read_df())
+      updateActionButton(session, "apply", label = "Reload")
+    }) |>
+      bindEvent(input$apply, once = TRUE)
+
+    return(list(
+      df_read = read_df,
+      study_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$adsl_filt()
+      ),
+      adae_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$adae_filt()
+      ),
+      admh_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$admh_filt()
+      ),
+      adcm_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$adcm_filt()
+      )
+    ))
   })
 }

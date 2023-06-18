@@ -95,6 +95,6 @@ golem_add_external_resources <- function() {
       path = app_sys("app/www"),
       app_title = "clinTables"
     ),
-    shinyjs::useShinyjs()
+    useShinyjs()
   )
 }

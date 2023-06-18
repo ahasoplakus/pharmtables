@@ -48,7 +48,8 @@ rtables::build_table(lyt, random.cdisc.data::cadsl)
 }
 \seealso{
 Other helpers: 
-\code{\link{adae_by_sev_tox}()}
+\code{\link{adae_by_sev_tox}()},
+\code{\link{filters_to_cond}()}
 }
 \concept{helpers}
 \keyword{helpers}

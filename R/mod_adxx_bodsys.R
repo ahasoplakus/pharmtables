@@ -20,6 +20,7 @@ mod_adxx_bodsys_ui <-
           background = "#EFF5F5",
           width = 25,
           h2("Table Options"),
+          mod_filter_reactivity_ui(ns("filter_reactivity_1")),
           selectInput(
             ns("split_col"),
             "Split Cols by",
@@ -48,16 +49,13 @@ mod_adxx_bodsys_ui <-
         maximizable = TRUE,
         width = 12,
         height = "800px",
-        shinyWidgets::prettySwitch(
-          ns("aeser"),
-          label = "Only Serious Adverse Events",
-          value = FALSE,
-          status = "info",
-          inline = TRUE,
-          fill = TRUE,
-          slim = TRUE
-        ),
-        div(withSpinner(mod_dt_table_ui(ns("dt_table_bodsys")), type = 6, color = "#3BACB6"),
+        div(
+          withSpinner(
+            mod_dt_table_ui(ns(
+              "dt_table_bodsys"
+            )),
+            type = 6, color = "#3BACB6"
+          ),
           style = "overflow-x: scroll;"
         )
       )
@@ -70,15 +68,18 @@ mod_adxx_bodsys_ui <-
 mod_adxx_bodsys_server <- function(id,
                                    dataset,
                                    df_out,
-                                   adsl) {
+                                   adsl,
+                                   filters = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    rv <- reactiveValues(trig_report = FALSE)
-
     observe({
-      req(dataset != "cadae")
-      shinyjs::hide("aeser")
+      req(df_out()[[dataset]])
+      if (is.null(filters())) {
+        hide("filter_reactivity_1-domain_filters")
+      } else {
+        show("filter_reactivity_1-domain_filters")
+      }
     })
 
     observe({
@@ -93,9 +94,11 @@ mod_adxx_bodsys_server <- function(id,
           c("ARM", "TRT0")
         ), ends_with("DTM"))))
       class_choices <-
-        sort(names(select(df, union(ends_with(
-          c("SOC", "BODSYS")
-        ), starts_with("ATC")))))
+        sort(names(select(
+          df, union(ends_with(c(
+            "SOC", "BODSYS"
+          )), starts_with("ATC"))
+        )))
       term_choices <-
         names(select(df, ends_with(c(
           "TERM", "DECOD"
@@ -119,14 +122,22 @@ mod_adxx_bodsys_server <- function(id,
         selected = term_choices[1]
       )
     }) |>
-      bindEvent(adsl())
+      bindEvent(list(adsl(), df_out()[[dataset]]))
 
-    observe({
-      req(input$split_col != "")
-      req(input$class != "")
-      req(input$term != "")
-      rv$trig_report <- TRUE
-    })
+    filt_react <-
+      mod_filter_reactivity_server(
+        "filter_reactivity_1",
+        df = reactive({
+          req(df_out()[[dataset]])
+          df_out()
+        }),
+        dataset = dataset,
+        filters = reactive({
+          req(filters())
+          filters()
+        }),
+        trt_var = input$split_col
+      )
 
     xx_bodsys <- reactive({
       req(df_out()[[dataset]])
@@ -144,9 +155,9 @@ mod_adxx_bodsys_server <- function(id,
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      if (isTRUE(input$aeser)) {
+      if (!is.null(filt_react$filter_cond())) {
         df <- df |>
-          filter(AESER == "Y")
+          filter(!!!parse_exprs(filt_react$filter_cond()))
       }
 
       logger::log_info("mod_adxx_bodsys_server: {dataset} has {nrow(df)} rows")
@@ -187,8 +198,14 @@ mod_adxx_bodsys_server <- function(id,
         lyt = lyt
       ))
     }) |>
-      bindCache(list(adsl(), input$split_col, input$class, input$term, input$aeser)) |>
-      bindEvent(list(adsl(), rv$trig_report, input$run, input$aeser))
+      bindCache(list(
+        adsl(),
+        input$split_col,
+        input$class,
+        input$term,
+        filt_react$filter_cond()
+      )) |>
+      bindEvent(list(adsl(), filt_react$trig_report(), input$run))
 
     mod_dt_table_server("dt_table_bodsys",
       display_df = xx_bodsys

@@ -34,28 +34,31 @@ mod_adae_global_ui <- function(id) {
 #' adae_global Server Functions
 #'
 #' @noRd
-mod_adae_global_server <- function(id, dataset, df_out, adsl) {
+mod_adae_global_server <- function(id, dataset, df_out, adsl, filters) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     mod_adae_summary_server(
       "adae_summary_1",
       dataset = dataset,
       df_out = df_out,
-      adsl = adsl
+      adsl = adsl,
+      filters = filters()
     )
 
     mod_adxx_bodsys_server(
       "adae_bodsys_1",
       dataset = dataset,
       df_out = df_out,
-      adsl = adsl
+      adsl = adsl,
+      filters = filters()
     )
 
     mod_adae_sev_tox_server(
       "adae_sev_tox_1",
       dataset = dataset,
       df_out = df_out,
-      adsl = adsl
+      adsl = adsl,
+      filters = filters()
     )
   })
 }

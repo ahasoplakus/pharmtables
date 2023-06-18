@@ -16,23 +16,25 @@ mod_global_filters_ui <- function(id) {
 #' global_filters Server Functions
 #'
 #' @noRd
-mod_global_filters_server <- function(id, dataset, load_data) {
+mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    rv <- reactiveValues(filters = NULL)
+    rv <- reactiveValues(
+      filters = NULL,
+      cached_filters = NULL
+    )
 
     output$glob_filt_ui <- renderUI({
       req(load_data()[[dataset]])
-      logger::log_info("mod_global_filters_server: update filters")
+      req(filter_list())
+
+      logger::log_info("mod_global_filters_server: initialise study filters")
 
       tagList(
         create_flag_widget(c("SAFFL", "ITTFL"), ns),
         create_widget(
-          c(
-            "SEX", "RACE", "ETHNIC", "COUNTRY",
-            "AGE", "SITEID", "USUBJID"
-          ),
+          filter_list(),
           load_data(),
           dataset,
           ns
@@ -41,21 +43,47 @@ mod_global_filters_server <- function(id, dataset, load_data) {
       )
     })
 
-    observe({
-      rv$filters <-
-        set_names(tolower(c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"))) |>
+    outputOptions(output, "glob_filt_ui", priority = 975)
+
+    filters <- reactive({
+      req(load_data()[[dataset]])
+      req(filter_list())
+      req(length(reactiveValuesToList(input)) > 0)
+      logger::log_info("mod_global_filters_server: create study filters")
+      filters <-
+        set_names(tolower(filter_list())) |>
         map(\(x) input[[x]])
     })
 
-    filters <- reactive({
-      req(!every(rv$filters, is.null))
-      logger::log_info("mod_global_filters_server: store filters")
-      rv$filters[["pop"]] <- input$pop
-      rv$filters
-    })
+    observe(
+      {
+        req(filters())
+        req(none(filters(), is.null))
+        req(!identical(filters(), rv$cached_filters))
+        logger::log_info("mod_global_filters_server: update study filters")
+        rv$filters <- filters()
+        rv$filters$pop <- input$pop
+        init <- reactiveValuesToList(input)
+        rv$cached_filters <-
+          union(names(rv$filters), names(init)) |>
+          set_names() |>
+          map(\(x) {
+            if (!toupper(x) %in% names(load_data()[[dataset]])) {
+              init[[x]] <- NULL
+            }
+            init[[x]]
+          }) |>
+          discard(is.null)
+      },
+      priority = 950
+    ) |>
+      bindEvent(filters())
 
     return(list(
-      filters = filters,
+      filters = reactive({
+        req(rv$filters)
+        rv$filters
+      }),
       apply = reactive(input$apply)
     ))
   })
