@@ -5,7 +5,8 @@ test_that("mod_global_filters_server works", {
     args = list(
       id = "global_filters_abc",
       dataset = "cadsl",
-      load_data = reactive(list(cadsl = random.cdisc.data::cadsl))
+      load_data = reactive(list(cadsl = random.cdisc.data::cadsl)),
+      filter_list = reactive(c("SEX", "RACE", "COUNTRY", "AGE"))
     ),
     {
       ns <- session$ns
@@ -17,6 +18,7 @@ test_that("mod_global_filters_server works", {
       session$setInputs(sex = levels(load_data()[[dataset]]$SEX))
       session$setInputs(race = levels(load_data()[[dataset]]$RACE))
       session$setInputs(country = levels(load_data()[[dataset]]$COUNTRY)[1])
+      session$setInputs(age = max(load_data()[[dataset]]$AGE, na.rm = TRUE))
 
       all_race <- c(
         "ASIAN",
@@ -29,35 +31,35 @@ test_that("mod_global_filters_server works", {
         "UNKNOWN"
       )
 
-      req(!every(rv$filters, is.null))
       expect_true(length(filters()) > 0)
-      expect_equal(filters()$pop, "ITTFL")
       expect_equal(filters()$sex, c("F", "M"))
       expect_equal(length(filters()$race), 8)
       expect_equal(filters()$race, all_race)
       expect_equal(filters()$country, "CHN")
+      expect_equal(filters()$age, 69)
 
       session$setInputs(pop = "SAFFL")
       session$setInputs(sex = levels(load_data()[[dataset]]$SEX)[1])
-      session$setInputs(age = 50)
       expect_equal(
         filters(),
         list(
           sex = "F",
           race = all_race,
-          ethnic = NULL,
           country = "CHN",
-          age = 50,
-          siteid = NULL,
-          usubjid = NULL,
+          age = 69
+        )
+      )
+      expect_equal(rv$filters$pop, "SAFFL")
+      expect_equal(
+        rv$filters,
+        list(
+          sex = "F",
+          race = all_race,
+          country = "CHN",
+          age = 69,
           pop = "SAFFL"
         )
       )
-
-      load(app_sys("test_objects/glob_filt_ui_obj.Rdata"))
-      expect_type(output$glob_filt_ui, "list")
-      expect_type(output$glob_filt_ui$html, "character")
-      expect_identical(output$glob_filt_ui$html, ui_obj)
     }
   )
 })

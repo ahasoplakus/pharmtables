@@ -37,33 +37,34 @@ test_that("mod_process_adsl_server works", {
         )
       )
       session$flushReact()
-      expect_equal(nrow(adsl()), 120)
-      expect_equal(unique(as.character(adsl()$SEX)), "F")
-      expect_equal(unique(as.character(adsl()$RACE)), "ASIAN")
+
+      expect_equal(nrow(rv$adsl_filtered), 120)
+      expect_equal(unique(as.character(rv$adsl_filtered$SEX)), "F")
+      expect_equal(unique(as.character(rv$adsl_filtered$RACE)), "ASIAN")
 
       # check adsl gets filtered when global_filters update and apply is clicked
       trigger(2)
       gf(list_assign(gf(), sex = "M"))
       session$flushReact()
 
-      expect_equal(nrow(adsl()), 88)
-      expect_equal(unique(as.character(adsl()$SEX)), "M")
+      expect_equal(nrow(rv$adsl_filtered), 88)
+      expect_equal(unique(as.character(rv$adsl_filtered$SEX)), "M")
 
       # check adsl does not update if global filters update but apply is not clicked
       gf(list_assign(gf(), age = 40))
       session$flushReact()
 
-      expect_equal(nrow(adsl()), 88)
-      expect_true(max(adsl()$AGE, na.rm = TRUE) > 40)
-      expect_equal(unique(as.character(adsl()$SEX)), "M")
+      expect_equal(nrow(rv$adsl_filtered), 88)
+      expect_true(max(rv$adsl_filtered$AGE, na.rm = TRUE) > 40)
+      expect_equal(unique(as.character(rv$adsl_filtered$SEX)), "M")
 
       # check adsl updates when apply is clicked with most recent global filters
       trigger(3)
       session$flushReact()
 
-      expect_equal(nrow(adsl()), 65)
-      expect_true(max(adsl()$AGE, na.rm = TRUE) <= 40)
-      expect_equal(unique(as.character(adsl()$SEX)), "M")
+      expect_equal(nrow(rv$adsl_filtered), 65)
+      expect_true(max(rv$adsl_filtered$AGE, na.rm = TRUE) <= 40)
+      expect_equal(unique(as.character(rv$adsl_filtered$SEX)), "M")
     }
   )
 })

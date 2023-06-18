@@ -33,9 +33,7 @@ mod_data_read_ui <- function(id) {
       )
     )),
     fluidRow(
-      column(width = 1, uiOutput(
-        ns("glimpse_dat")
-      )),
+      column(width = 1),
       column(
         width = 3,
         div(actionButton(ns("apply"), "Run"),
@@ -49,14 +47,12 @@ mod_data_read_ui <- function(id) {
       width = 12,
       collapsible = FALSE,
       tabPanel(
-        "Setup Filters",
-        mod_setup_filters_ui(ns("setup_filters_1"))
+        "Preview Data",
+        mod_data_preview_ui(ns("data_preview_1"))
       ),
       tabPanel(
-        "Preview Data",
-        div(withSpinner(reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
-          style = "overflow-x: scroll; overflow-y: scroll;"
-        )
+        "Setup Filters",
+        mod_setup_filters_ui(ns("setup_filters_1"))
       )
     )
   )
@@ -147,65 +143,14 @@ mod_data_read_server <- function(id) {
     ) |>
       bindEvent(list(rv$upload, input$def_data))
 
-    output$glimpse_dat <- renderUI({
-      req(rv$df)
-      prettySwitch(
-        ns("glimpse"),
-        label = "Preview data",
-        value = FALSE,
-        status = "info",
-        inline = TRUE,
-        fill = TRUE,
-        slim = TRUE
-      )
-    })
-
-    output$print_dat <- renderReactable({
-      req(rv$df)
-      req(isTRUE(input$glimpse))
-      source <- "Local"
-      if (is.null(rv$upload$name)) {
-        source <- "random.cdisc.data"
-      }
-      df <- tibble(
-        `Name` = names(rv$df),
-        `N_Rows` = map(rv$df, \(x) nrow(x)),
-        `Colnames` = map(rv$df, \(x) names(x)),
-        `Source` = source
-      )
-      reactable(
-        df,
-        filterable = TRUE,
-        bordered = TRUE,
-        striped = TRUE,
-        highlight = TRUE,
-        columns = list(
-          `Name` = colDef(minWidth = 50),
-          `N_Rows` = colDef(minWidth = 50),
-          `Colnames` = colDef(minWidth = 250),
-          `Source` = colDef(minWidth = 50)
-        ),
-        details = function(rowNum) {
-          sub_df <- rv$df[[rowNum]]
-          div(
-            style = "padding: 1rem",
-            reactable(
-              sub_df,
-              columns = list(USUBJID = colDef(sticky = "left")),
-              filterable = TRUE,
-              bordered = TRUE,
-              striped = TRUE,
-              highlight = TRUE
-            )
-          )
-        }
-      )
-    })
+    mod_data_preview_server(
+      "data_preview_1",
+      eventReactive(rv$df, rv$df)
+    )
 
     observe(
       {
         req(!is.null(rv$df[["cadsl"]]))
-
         rv$setup_filters <- mod_setup_filters_server(
           "setup_filters_1",
           rv$df

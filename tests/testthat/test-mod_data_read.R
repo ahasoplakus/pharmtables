@@ -13,7 +13,6 @@ test_that("mod_data_read_server works", {
         datapath = app_sys("extdata/cadsl.RDS")
       )
 
-      session$setInputs(glimpse = FALSE)
       session$setInputs(def_data = FALSE)
       session$setInputs(upload = df)
       session$setInputs(apply = 1)
@@ -21,7 +20,7 @@ test_that("mod_data_read_server works", {
       expect_equal(length(rv$df), 1)
       expect_equal(nrow(rv$df[["cadsl"]]), 400)
       expect_equal(rv$upload_state, "stale")
-      expect_equal(rv$trig_reset, 2)
+      expect_equal(rv$trig_reset, 1)
       expect_equal(nrow(read_df()[["cadsl"]]), 400)
 
       session$setInputs(def_data = TRUE)
@@ -29,14 +28,11 @@ test_that("mod_data_read_server works", {
 
       session$setInputs(apply = 2)
       expect_true(length(read_df()) > 0)
+      expect_equal(rv$trig_reset, 2)
       expect_equal(nrow(read_df()[["cadsl"]]), 400)
       expect_equal(nrow(read_df()[["cadmh"]]), 1934)
       expect_equal(nrow(read_df()[["cadae"]]), 1934)
       expect_equal(nrow(read_df()[["cadcm"]]), 3685)
-
-      session$setInputs(glimpse = TRUE)
-      expect_false(is.null(output$print_dat))
-      expect_type(output$print_dat, "character")
     }
   )
 })

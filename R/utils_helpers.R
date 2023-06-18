@@ -86,6 +86,15 @@ create_flag_widget <- function(flags, namespace) {
 #'
 #' @return The Filtering condition
 #'
+#' @family helpers
+#' @keywords helpers
+#' @export
+#'
+#' @examples
+#'
+#' filter_list <- list(SEX = c("F", "M"))
+#' filters_to_cond(filter_list)
+#'
 filters_to_cond <- function(filter_list) {
   study_filters <- map(names(filter_list), \(x) {
     if (!is.numeric(filter_list[[x]])) {
@@ -107,6 +116,7 @@ filters_to_cond <- function(filter_list) {
   })
 
   filter_cond <- reduce(study_filters, paste, sep = " & ")
+  return(filter_cond)
 }
 
 #' Add Flags to ADAE
@@ -115,6 +125,7 @@ filters_to_cond <- function(filter_list) {
 #'
 #' @return `ADAE` dataset with added flags
 #'
+#' @noRd
 add_adae_flags <- function(df) {
   df <- df |>
     mutate(

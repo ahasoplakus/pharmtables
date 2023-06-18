@@ -49,7 +49,7 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
       req(load_data()[[dataset]])
       req(filter_list())
       req(length(reactiveValuesToList(input)) > 0)
-
+      logger::log_info("mod_global_filters_server: create study filters")
       filters <-
         set_names(tolower(filter_list())) |>
         map(\(x) input[[x]])
