@@ -1,4 +1,5 @@
 test_that("mod_adae_sev_tox_server works", {
+  filt <- reactiveVal()
   testServer(
     mod_adae_sev_tox_server,
     # Add here your module params
@@ -11,7 +12,8 @@ test_that("mod_adae_sev_tox_server works", {
           cadae = random.cdisc.data::cadae
         )
       ),
-      adsl = reactive(random.cdisc.data::cadsl)
+      adsl = reactive(random.cdisc.data::cadsl),
+      filters = filt
     ),
     {
       ns <- session$ns
@@ -63,6 +65,12 @@ test_that("mod_adae_sev_tox_server works", {
       expect_identical(ae_explore()$out_df, exp_df)
       expect_equal(nrow(ae_explore()$alt_df), NULL)
       expect_identical(ae_explore()$lyt, NULL)
+
+      filt("AESER")
+      session$flushReact()
+
+      expect_identical(ae_explore()$out_df, exp_df)
+      expect_equal(nrow(ae_explore()$alt_df), NULL)
     }
   )
 })

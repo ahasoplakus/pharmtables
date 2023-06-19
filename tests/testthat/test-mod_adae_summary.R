@@ -1,4 +1,5 @@
 test_that("mod_adae_summary_server works", {
+  filt <- reactiveVal()
   testServer(
     mod_adae_summary_server,
     # Add here your module params
@@ -11,7 +12,8 @@ test_that("mod_adae_summary_server works", {
           cadae = random.cdisc.data::cadae
         )
       ),
-      adsl = reactive(random.cdisc.data::cadsl)
+      adsl = reactive(random.cdisc.data::cadsl),
+      filters = filt
     ),
     {
       ns <- session$ns
@@ -115,6 +117,12 @@ test_that("mod_adae_summary_server works", {
       session$setInputs(run = 2)
 
       expect_identical(ae_summ()$lyt, exp_lyt1)
+
+      filt("AESER")
+      session$flushReact()
+
+      expect_equal(nrow(ae_summ()$out_df), 1934)
+      expect_equal(nrow(ae_summ()$alt_df), 400)
     }
   )
 })
