@@ -55,3 +55,28 @@ test_that("adae_by_sev_tox works with alternate view", {
   expect_identical(names(val_obj_clB), c("A: Drug X", "B: Placebo", "C: Combination", "All Patients"))
   expect_identical(round(unlist(val_obj_clB[["A: Drug X"]]), 4), c(47, 0.3507))
 })
+
+test_that("adae_by_sev_tox works with AETOXGR", {
+  out_df <- adae_by_sev_tox(
+    adsl = adsl,
+    df_adae = adae,
+    colsby = "ARM",
+    grade_val = "AETOXGR",
+    class_val = "AESOC",
+    term_val = "AEDECOD",
+    default_view = TRUE
+  )
+
+  expect_equal(class(out_df)[1], "TableTree")
+
+  obj_clA <-
+    out_df@children[["cl A"]]@children[["AEDECOD"]]@children[["dcd A.1.1.1.1"]]@leaf_value
+  obj_clB <-
+    out_df@children[["cl B"]]@children[["AEDECOD"]]@children[["dcd B.1.1.1.1"]]@leaf_value
+
+  expect_equal(length(obj_clA), 18)
+  expect_equal(length(obj_clB), 18)
+
+  expect_identical(round(unlist(obj_clA[[1]]), 4), c(50, 0.3731))
+  expect_identical(round(unlist(obj_clB[[1]]), 4), c(47, 0.3507))
+})

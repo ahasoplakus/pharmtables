@@ -1,4 +1,5 @@
 test_that("mod_adxx_bodsys_server works", {
+  filt <- reactiveVal()
   testServer(
     mod_adxx_bodsys_server,
     # Add here your module params
@@ -11,7 +12,8 @@ test_that("mod_adxx_bodsys_server works", {
           cadae = random.cdisc.data::cadae
         )
       ),
-      adsl = reactive(random.cdisc.data::cadsl)
+      adsl = reactive(random.cdisc.data::cadsl),
+      filters = filt
     ),
     {
       ns <- session$ns
@@ -49,6 +51,12 @@ test_that("mod_adxx_bodsys_server works", {
       session$setInputs(run = 1)
 
       expect_identical(xx_bodsys()$lyt, exp_lyt)
+      expect_equal(nrow(xx_bodsys()$out_df), 1934)
+      expect_equal(nrow(xx_bodsys()$alt_df), 400)
+
+      filt("AESER")
+      session$flushReact()
+
       expect_equal(nrow(xx_bodsys()$out_df), 1934)
       expect_equal(nrow(xx_bodsys()$alt_df), 400)
     }
