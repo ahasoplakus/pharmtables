@@ -5,6 +5,10 @@
       {
         "Name": "RSPM",
         "URL": "https://packagemanager.posit.co/cran/latest"
+      },
+      {
+        "Name": "CRAN",
+        "URL": "https://cloud.r-project.org"
       }
     ]
   },
@@ -1848,7 +1852,7 @@
       "Package": "rtables",
       "Version": "0.6.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "formatters",
@@ -2091,14 +2095,9 @@
     },
     "tern": {
       "Package": "tern",
-      "Version": "0.8.2.9001",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "insightsengineering",
-      "RemoteRepo": "tern",
-      "RemoteRef": "main",
-      "RemoteSha": "f5986fa2785e78b6ef846adb506a1d8980b9a0fd",
+      "Version": "0.8.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "Rdpack",
@@ -2127,7 +2126,7 @@
         "tidyr",
         "utils"
       ],
-      "Hash": "6c0ad746aac536e424f1f53bd52a1724"
+      "Hash": "45283efdef57b1bd3b0f141706b6c86b"
     },
     "testthat": {
       "Package": "testthat",
