@@ -743,7 +743,7 @@
       "Package": "formatters",
       "Version": "0.5.0",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "checkmate",
