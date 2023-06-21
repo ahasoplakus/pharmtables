@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# clinTables <a href='https://ahasoplakus.github.io/clinTables/'><img src="man/figures/logo.png" width="170" height="170" align="right"/></a>
+# clinTables <a href='https://ahasoplakus.github.io/clinTables/'><img src="man/figures/logo.png" width="200" height="200" align="right"/></a>
 
 <!-- badges: start -->
 
