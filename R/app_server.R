@@ -15,7 +15,7 @@ app_server <- function(input, output, session) {
     walk(seq_along(domain) + 1, function(x) {
       toggleState(
         selector = str_glue("#tabcard > li:nth-child({x}) > a"),
-        condition = domain[x - 1] %in% names(load_data$df_read())
+        condition = all(c(domain[x - 1], domain[1]) %in% names(load_data$df_read()))
       )
     })
     updateTabsetPanel(session, inputId = "tabcard", "Demographics")

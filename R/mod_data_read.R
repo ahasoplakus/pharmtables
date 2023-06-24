@@ -10,50 +10,55 @@
 mod_data_read_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    fluidRow(column(
-      width = 4,
-      prettySwitch(
-        ns("def_data"),
-        label = "Load Default Data (random.cdisc.data)",
-        value = FALSE,
-        status = "info",
-        inline = TRUE,
-        fill = TRUE,
-        slim = TRUE
-      ),
-      fileInput(
-        ns("upload"),
-        "",
-        multiple = TRUE,
-        accept = ".RDS",
-        width = NULL,
-        buttonLabel = "Upload...",
-        placeholder = "No file selected",
-        capture = NULL
-      )
-    )),
     fluidRow(
-      column(width = 1),
-      column(
-        width = 3,
-        div(actionButton(ns("apply"), "Run"),
-          style = "padding-bottom: 30px; text-align: right;"
+      bs4Card(
+        title = "Start Up",
+        width = 6,
+        fluidRow(
+          prettySwitch(
+            ns("def_data"),
+            label = "Load Default Data (random.cdisc.data)",
+            value = FALSE,
+            status = "info",
+            inline = TRUE,
+            fill = TRUE,
+            slim = TRUE,
+            width = 6
+          )
+        ),
+        fluidRow(
+          fileInput(
+            ns("upload"),
+            "",
+            multiple = TRUE,
+            accept = ".RDS",
+            width = "150%",
+            buttonLabel = "Upload...",
+            placeholder = "No file selected",
+            capture = NULL
+          )
+        ),
+        fluidRow(
+          div(actionButton(ns("apply"), "Run"), style = "text-align: right; margin-left: auto;")
         )
-      )
-    ),
-    tabBox(
-      id = ns("box_preview"),
-      type = "pills",
-      width = 12,
-      collapsible = FALSE,
-      tabPanel(
-        "Preview Data",
-        mod_data_preview_ui(ns("data_preview_1"))
       ),
-      tabPanel(
-        "Setup Filters",
+      bs4Card(
+        title = "Setup Filters",
+        width = 6,
+        collapsed = TRUE,
+        maximizable = TRUE,
         mod_setup_filters_ui(ns("setup_filters_1"))
       )
+    ),
+    box(
+      id = ns("box_preview"),
+      title = "Preview Data",
+      type = "pills",
+      width = 12,
+      collapsible = TRUE,
+      collapsed = TRUE,
+      maximizable = TRUE,
+      mod_data_preview_ui(ns("data_preview_1"))
     )
   )
 }
@@ -148,17 +153,10 @@ mod_data_read_server <- function(id) {
       eventReactive(rv$df, rv$df)
     )
 
-    observe(
-      {
-        req(!is.null(rv$df[["cadsl"]]))
-        rv$setup_filters <- mod_setup_filters_server(
-          "setup_filters_1",
-          rv$df
-        )
-      },
-      priority = 990
-    ) |>
-      bindEvent(rv$df)
+    rv$setup_filters <- mod_setup_filters_server(
+      "setup_filters_1",
+      eventReactive(rv$df, rv$df)
+    )
 
     read_df <- reactive({
       if (!is.null(rv$df) && rv$upload_state == "refresh") {
@@ -175,8 +173,8 @@ mod_data_read_server <- function(id) {
           width = "600px"
         )
       }
-      req(!is.null(rv$df))
-      if (is.null(rv$df[["cadsl"]])) {
+
+      if (!is.null(rv$df) && is.null(rv$df[["cadsl"]])) {
         show_toast(
           title = "ADSL dataset is required",
           text = "Please upload ADSL data",
@@ -185,7 +183,6 @@ mod_data_read_server <- function(id) {
           width = "600px"
         )
       }
-      req(!is.null(rv$df[["cadsl"]]))
       logger::log_info("mod_data_read_server: sending data")
 
       map(rv$df, \(x) df_explicit_na(x))
@@ -198,9 +195,10 @@ mod_data_read_server <- function(id) {
         rv$setup_filters$adsl_filt(),
         rv$setup_filters$adae_filt(),
         rv$setup_filters$admh_filt(),
-        rv$setup_filters$adcm_filt()
+        rv$setup_filters$adcm_filt(),
+        rv$df
       )
-    }) |> bindEvent(input$apply)
+    }) |> bindEvent(list(input$apply, rv$df), ignoreNULL = FALSE)
 
     observe({
       req(read_df())
@@ -211,7 +209,8 @@ mod_data_read_server <- function(id) {
           rv$setup_filters$adsl_filt(),
           rv$setup_filters$adae_filt(),
           rv$setup_filters$admh_filt(),
-          rv$setup_filters$adcm_filt()
+          rv$setup_filters$adcm_filt(),
+          rv$df
         ),
         rv$all_filt
       )) {

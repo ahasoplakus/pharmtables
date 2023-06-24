@@ -29,9 +29,15 @@ app_ui <- function(request) {
       sidebar = dashboardSidebar(
         skin = "light",
         status = "info",
-        sidebarMenu(
-          menuItem(text = "Study Filters"),
-          mod_global_filters_ui("global_filters_1")
+        width = "275px",
+        fixed = TRUE,
+        accordion(
+          id = "acc_st_filt",
+          accordionItem(
+            title = "Study Filters",
+            collapsed = FALSE,
+            mod_global_filters_ui("global_filters_1")
+          )
         )
       ),
       body = dashboardBody(
