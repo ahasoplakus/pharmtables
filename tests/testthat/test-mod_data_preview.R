@@ -1,7 +1,13 @@
 testServer(
   mod_data_preview_server,
   # Add here your module params
-  args = list(),
+  args = list(
+    id = "data_preview_123",
+    df = reactive(list(
+      cadae = random.cdisc.data::cadae,
+      cadsl = random.cdisc.data::cadsl
+    ))
+  ),
   {
     ns <- session$ns
     expect_true(
@@ -13,6 +19,8 @@ testServer(
     expect_true(
       grepl("test", ns("test"))
     )
+    expect_true(length(prev_data()) > 0)
+    expect_equal(prev_data()[[1]]$class, "reactR_markup")
   }
 )
 

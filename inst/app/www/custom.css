@@ -14,11 +14,31 @@
 }
 
 #logo-id {
-    width: 250px;
+    width: 275px;
     color: #fff;
     background-color: #27374D;
     font-size: x-large;
     padding: 6px;
+}
+
+b, strong {
+    font-weight: bolder;
+    color: #27374D;
+}
+
+.fas {
+    font-weight: 900;
+    color: #27374D;
+}
+
+.far {
+    font-weight: 400;
+    color: #27374D;
+}
+
+.card {
+    box-shadow: 1px 1px 5px #9AC5F4, 1px 1px 5px #27374D;
+    margin-bottom: 1rem;
 }
 
 img {
@@ -39,7 +59,6 @@ label {
 }
 
 div.sidebar .shiny-input-container {
-    padding: 12px 100px 0px 15px;
     white-space: normal;
 }
 
@@ -84,37 +103,33 @@ div.sidebar .shiny-input-container {
     border: 2px solid grey;
 }
 
-[class*=sidebar-light-] .nav-sidebar>.nav-item:hover>.nav-link.active {
-    background-color: #526D82;
-    color: #fff;
-    width: 225px;
-}
-
-[class*=sidebar-light-] .nav-sidebar>.nav-item>.nav-link.active {
-    box-shadow: 0 3px 4px rgba(0,0,0,.12), 0 3px 4px rgba(0,0,0,.24);
-    width: 225px;
-}
-
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
     background-color: #3BACB6;
     margin-right: 5px !important;
     border: 2px solid #293B5F !important;
+    font-weight: 400 !important;
 }
 
 .nav-item>a:hover {
     color: #fff !important;
     background-color: #526D82 !important;
     border: 2px solid #293B5F !important;
+    border-radius: 4px !important;
 }
 
 .nav-link.disabled {
-    background-color: #F6F1F1 !important;
-    color: #9DB2BF !important;
     pointer-events: none;
     cursor: default;
     margin-right: 5px !important;
-    border: 2px solid grey !important;
+}
+
+#acc_st_filt > div > div.card-header > h4 {
+  pointer-events: none;
+}
+
+#collapse_acc_st_filt_1.collapse.show>.card-body {
+  padding: 1px;
 }
 
 .os-theme-dark>.os-scrollbar, .os-theme-light>.os-scrollbar {
@@ -139,6 +154,19 @@ div.sidebar .shiny-input-container {
     border-bottom-left-radius: 30px;
     border-bottom-width: thick;
     height: fit-content !important;
+}
+
+.accordion>.card>.card-header {
+    border-radius: 4px;
+    border-color: #3BACB6 !important;
+    margin-bottom: 0;
+    background-color: #ffffff !important;
+}
+
+.d-block, .d-block:hover {
+    display: block!important;
+    color: #3BACB6;
+    text-align: center;
 }
 
 #adsl_display_1-box_adsl .card-header {

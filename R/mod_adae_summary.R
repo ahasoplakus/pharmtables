@@ -12,7 +12,7 @@ mod_adae_summary_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adae_summ"),
-      title = "Summary of Adverse Events",
+      title = tags$strong("Summary of Adverse Events"),
       sidebar = boxSidebar(
         id = ns("adae_summ_side"),
         background = "#EFF5F5",

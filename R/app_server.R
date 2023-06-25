@@ -12,15 +12,20 @@ app_server <- function(input, output, session) {
   observe({
     req(load_data$df_read())
     domain <- c("cadsl", "cadae", "cadmh", "cadcm")
-    walk(seq_along(domain) + 1, function(x) {
+    walk(seq_along(domain) + 2, function(x) {
       toggleState(
-        selector = str_glue("#tabcard > li:nth-child({x}) > a"),
-        condition = domain[x - 1] %in% names(load_data$df_read())
+        selector = str_glue("#tab-Tab{x}"),
+        condition = all(c(domain[x - 2], domain[1]) %in% names(load_data$df_read()))
       )
     })
-    updateTabsetPanel(session, inputId = "tabcard", "Demographics")
+    updateNavbarTabs(session, inputId = "navmenu", "Tab3")
   }) |>
     bindEvent(load_data$df_read())
+
+  mod_data_preview_server(
+    "data_preview_1",
+    load_data$prev_data
+  )
 
   study_filters <-
     mod_global_filters_server("global_filters_1",

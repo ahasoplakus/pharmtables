@@ -37,7 +37,7 @@ jobs:
                   path=".",
                   clean = FALSE,
                   quiet = FALSE,
-                  line_exclusions = list("R/app_server.R" = 12:22, "R/run_app.R" = 1:32, "R/mod_data_read.R" = c(169:187, 195:203, 205:222), "R/mod_global_filters.R" = 84:85, "R/mod_adxx_bodsys.R" = 158:161, "R/mod_adae_summary.R" = 162:165, "R/mod_adae_sev_tox.R" = 177:180)
+                  line_exclusions = list("R/app_server.R" = 12:22, "R/run_app.R", "R/mod_data_read.R" = c(154:172, 179:188, 190:208), "R/mod_global_filters.R" = 84:85, "R/mod_adxx_bodsys.R" = 158:161, "R/mod_adae_summary.R" = 162:165, "R/mod_adae_sev_tox.R" = 177:180, "R/mod_data_preview.R" = 63:66)
                 )
                 print(x)
                 covr::to_cobertura(x, filename = "coverage.xml")

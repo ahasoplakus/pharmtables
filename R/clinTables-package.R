@@ -3,6 +3,14 @@
 
 ## usethis namespace: start
 #' @import rlang
+#' @importFrom bs4Dash accordion
+#' @importFrom bs4Dash accordionItem
+#' @importFrom bs4Dash bs4Card
+#' @importFrom bs4Dash navbarTab
+#' @importFrom bs4Dash sortable
+#' @importFrom bs4Dash tabItem
+#' @importFrom bs4Dash tabItems
+#' @importFrom bs4Dash updateNavbarTabs
 #' @importFrom dplyr across
 #' @importFrom dplyr add_count
 #' @importFrom dplyr all_of

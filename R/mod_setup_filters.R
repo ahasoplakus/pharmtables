@@ -11,48 +11,47 @@ mod_setup_filters_ui <- function(id) {
   ns <- NS(id)
   tagList(
     fluidRow(
-      column(
-        width = 3,
-        selectizeInput(
-          ns("adsl_var"),
-          "Study Filters",
-          choices = NULL,
-          selected = NULL,
-          width = 300,
-          options = list(maxItems = 8)
-        )
-      ),
-      column(
-        width = 3,
-        selectizeInput(
-          ns("adae_var"),
-          "Adverse Events",
-          choices = NULL,
-          selected = NULL,
-          width = 300,
-          options = list(maxItems = 4)
-        )
-      ),
-      column(
-        width = 3,
-        selectizeInput(
-          ns("admh_var"),
-          "Medical History",
-          choices = NULL,
-          selected = NULL,
-          width = 300,
-          options = list(maxItems = 4)
-        )
-      ),
-      column(
-        width = 3,
-        selectizeInput(
-          ns("adcm_var"),
-          "Concomitant Medications",
-          choices = NULL,
-          selected = NULL,
-          width = 300,
-          options = list(maxItems = 4)
+      accordion(
+        id = ns("acc_study_setup"),
+        accordionItem(
+          title = "Study Filters",
+          selectizeInput(
+            ns("adsl_var"),
+            "",
+            choices = NULL,
+            selected = NULL,
+            options = list(maxItems = 8)
+          )
+        ),
+        accordionItem(
+          title = "Adverse Events",
+          selectizeInput(
+            ns("adae_var"),
+            "",
+            choices = NULL,
+            selected = NULL,
+            options = list(maxItems = 4)
+          )
+        ),
+        accordionItem(
+          title = "Medical History",
+          selectizeInput(
+            ns("admh_var"),
+            "",
+            choices = NULL,
+            selected = NULL,
+            options = list(maxItems = 4)
+          )
+        ),
+        accordionItem(
+          title = "Concomitant Medications",
+          selectizeInput(
+            ns("adcm_var"),
+            "",
+            choices = NULL,
+            selected = NULL,
+            options = list(maxItems = 4)
+          )
         )
       )
     )
@@ -67,14 +66,14 @@ mod_setup_filters_server <- function(id, load_data) {
     ns <- session$ns
 
     observe({
-      req(load_data$cadsl)
+      req(load_data()$cadsl)
 
       logger::log_info(
         "mod_setup_filters_server: setup adsl filters"
       )
 
       choices <-
-        names(select(load_data$cadsl, !ends_with("FL")))
+        names(select(load_data()$cadsl, !ends_with("FL")))
       selected <-
         intersect(
           c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"),
@@ -84,7 +83,7 @@ mod_setup_filters_server <- function(id, load_data) {
       updateSelectizeInput(
         session,
         "adsl_var",
-        "Study Filters",
+        "",
         choices = choices,
         selected = selected,
         options = list(maxItems = 8)
@@ -92,8 +91,8 @@ mod_setup_filters_server <- function(id, load_data) {
     })
 
     observe({
-      req(load_data$cadsl)
-      req(load_data$cadae)
+      req(load_data()$cadsl)
+      req(load_data()$cadae)
 
       logger::log_info(
         "mod_setup_filters_server: setup adae filters"
@@ -101,17 +100,17 @@ mod_setup_filters_server <- function(id, load_data) {
 
       choices <- setdiff(
         names(select(
-          load_data$cadae,
+          load_data()$cadae,
           !ends_with("FL")
         )),
-        names(load_data$cadsl)
+        names(load_data()$cadsl)
       )
       selected <- NULL
 
       updateSelectizeInput(
         session,
         "adae_var",
-        "Adverse Events",
+        "",
         choices = choices,
         selected = selected,
         options = list(maxItems = 4)
@@ -119,23 +118,23 @@ mod_setup_filters_server <- function(id, load_data) {
     })
 
     observe({
-      req(load_data$cadsl)
-      req(load_data$cadmh)
+      req(load_data()$cadsl)
+      req(load_data()$cadmh)
 
       logger::log_info(
         "mod_setup_filters_server: setup admh filters"
       )
 
       choices <- setdiff(
-        names(select(load_data$cadmh, !ends_with("FL"))),
-        names(load_data$cadsl)
+        names(select(load_data()$cadmh, !ends_with("FL"))),
+        names(load_data()$cadsl)
       )
       selected <- NULL
 
       updateSelectizeInput(
         session,
         "admh_var",
-        "Medical History",
+        "",
         choices = choices,
         selected = selected,
         options = list(maxItems = 4)
@@ -143,23 +142,23 @@ mod_setup_filters_server <- function(id, load_data) {
     })
 
     observe({
-      req(load_data$cadsl)
-      req(load_data$cadcm)
+      req(load_data()$cadsl)
+      req(load_data()$cadcm)
 
       logger::log_info(
         "mod_setup_filters_server: setup adcm filters"
       )
 
       choices <- setdiff(
-        names(select(load_data$cadcm, !ends_with("FL"))),
-        names(load_data$cadsl)
+        names(select(load_data()$cadcm, !ends_with("FL"))),
+        names(load_data()$cadsl)
       )
       selected <- NULL
 
       updateSelectizeInput(
         session,
         "adcm_var",
-        "Concomitant Medications",
+        "",
         choices = choices,
         selected = selected,
         options = list(maxItems = 4)
