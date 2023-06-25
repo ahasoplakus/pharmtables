@@ -35,20 +35,20 @@ A function to build the demographic table full set
 }
 \examples{
 lyt <- build_adsl(
-split_cols_by = "ARM",
-split_rows_by = "SEX",
-summ_vars = c("AGE", "RACE")
+  split_cols_by = "ARM",
+  split_rows_by = "SEX",
+  summ_vars = c("AGE", "RACE")
 )
 
+
 ## Use the tabletree object to within build_table
-\dontrun{
 rtables::build_table(lyt, random.cdisc.data::cadsl)
-}
 
 }
 \seealso{
 Other helpers: 
-\code{\link{adae_by_sev_tox}()}
+\code{\link{adae_by_sev_tox}()},
+\code{\link{filters_to_cond}()}
 }
 \concept{helpers}
 \keyword{helpers}

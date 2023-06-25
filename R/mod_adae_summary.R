@@ -12,12 +12,13 @@ mod_adae_summary_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adae_summ"),
-      title = "Summary of Adverse Events",
+      title = tags$strong("Summary of Adverse Events"),
       sidebar = boxSidebar(
         id = ns("adae_summ_side"),
         background = "#EFF5F5",
         width = 35,
         h2("Table Options"),
+        mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         selectInput(
           ns("split_col"),
           "Split Cols by",
@@ -25,7 +26,7 @@ mod_adae_summary_ui <- function(id) {
           selected = NULL,
           width = 300
         ),
-        shinyWidgets::prettyCheckboxGroup(
+        prettyCheckboxGroup(
           ns("events"),
           label = NULL,
           choiceNames = NULL,
@@ -36,12 +37,15 @@ mod_adae_summary_ui <- function(id) {
           shape = "curve"
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
-                            class = "side_apply")
+          class = "side_apply"
+        )
       ),
       maximizable = TRUE,
       width = 12,
       height = "800px",
-      div(mod_dt_table_ui(ns("dt_table_ae_summ")), style = "overflow-x: scroll;")
+      div(withSpinner(mod_dt_table_ui(ns("dt_table_ae_summ")), type = 6, color = "#3BACB6"),
+        style = "overflow-x: scroll;"
+      )
     )
   )
 }
@@ -52,9 +56,19 @@ mod_adae_summary_ui <- function(id) {
 mod_adae_summary_server <- function(id,
                                     dataset,
                                     df_out,
-                                    adsl) {
+                                    adsl,
+                                    filters = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+
+    observe({
+      req(df_out()[[dataset]])
+      if (is.null(filters())) {
+        hide("filter_reactivity_1-domain_filters")
+      } else {
+        show("filter_reactivity_1-domain_filters")
+      }
+    })
 
     ae_summ_init <- reactive({
       req(df_out()[[dataset]])
@@ -68,95 +82,125 @@ mod_adae_summary_server <- function(id,
                          {nrow(df_adsl)} rows")
 
       df <- df_out()[[dataset]] |>
-        filter(USUBJID %in% unique(df_adsl$USUBJID)) |>
-        mutate(
-          fl1 = TRUE,
-          fl2 = TRTEMFL == "Y",
-          fl21 = TRTEMFL == "Y" & AESER == "Y",
-          fl3 = TRTEMFL == "Y" & AEOUT == "FATAL",
-          fl4 = TRTEMFL == "Y" & AEOUT == "FATAL" & AEREL == "Y",
-          fl5 = TRTEMFL == "Y" & AEACN == "DRUG WITHDRAWN",
-          fl6 = TRTEMFL == "Y" & DCSREAS == "ADVERSE EVENT"
-        )
+        filter(USUBJID %in% unique(df_adsl$USUBJID))
+
+      df <- add_adae_flags(df)
 
       logger::log_info("mod_adae_summary_server: adae has
                          {nrow(df)} rows")
 
-      labels <- c(
-        "fl1" = "Total AEs",
-        "fl2" = "Total number of patients with at least one adverse event",
-        "fl21" = "Total number of patients with at least one serious adverse event",
-        "fl3" = "Total number of patients with fatal AEs",
-        "fl4" = "Total number of patients with related fatal AEs",
-        "fl5" = "Total number of patients with drug withdrawn due to AEs",
-        "fl6" = "Total number of patients discontinued due to AEs"
+      aesi_vars <- c(
+        "FATAL", "SER", "SERWD", "SERDSM", "RELSER", "WD",
+        "DSM", "REL", "RELWD", "RELDSM", "CTC35", "CTC45"
       )
 
-      formatters::var_labels(df)[names(labels)] <- labels
+      labels <- var_labels(df[, aesi_vars])
 
       return(list(
         out_df = df,
         alt_df = df_adsl,
-        labs = labels
+        labs = labels,
+        aesi_vars = aesi_vars
       ))
     }) |>
-      bindEvent(list(adsl()))
+      bindEvent(list(adsl(), df_out()[[dataset]]))
 
     observe({
       req(ae_summ_init())
       logger::log_info("mod_adae_summary_server: update show/hide events")
 
       df <- ae_summ_init()$out_df
-      choices <- names(select(df, starts_with("fl")))
+      choices <- names(select(df, all_of(ae_summ_init()$aesi_vars)))
       selected <- choices
       labs <- as.character(ae_summ_init()$labs)
       trt_choices <-
         names(select(adsl(), setdiff(starts_with(c("ARM", "TRT0")), ends_with("DTM"))))
 
-      shinyWidgets::updatePrettyCheckboxGroup(
+      updatePrettyCheckboxGroup(
         inputId = "events",
         label = "Show/Hide Events",
         choiceNames = labs,
         choiceValues = choices,
         selected = selected,
-        prettyOptions = list(animation = "pulse",
-                             status = "info",
-                             shape = "curve")
+        prettyOptions = list(
+          animation = "pulse",
+          status = "info",
+          shape = "curve"
+        )
       )
 
       updateSelectInput(session,
-                        "split_col",
-                        choices = trt_choices,
-                        selected = trt_choices[1])
+        "split_col",
+        choices = trt_choices,
+        selected = trt_choices[1]
+      )
     }) |>
       bindEvent(ae_summ_init())
+
+    filt_react <-
+      mod_filter_reactivity_server(
+        "filter_reactivity_1",
+        df = reactive({
+          req(df_out()[[dataset]])
+          df_out()
+        }),
+        dataset = dataset,
+        filters = reactive({
+          req(filters())
+          filters()
+        }),
+        trt_var = input$split_col
+      )
 
     ae_summ <- reactive({
       req(ae_summ_init())
       req(input$split_col != "")
       req(input$events)
 
-      disp_eve <- c("fl1", "fl2", "fl21", "fl3", "fl4", "fl5", "fl6")
+      df <- ae_summ_init()$out_df
+
+      if (!is.null(filt_react$filter_cond())) {
+        df <- df |>
+          filter(!!!parse_exprs(filt_react$filter_cond()))
+      }
+
+      disp_eve <- ae_summ_init()$aesi_vars
       disp_eve <- disp_eve[disp_eve %in% input$events]
 
-      lyt <- basic_table() |>
+      lyt <- basic_table(show_colcounts = TRUE) |>
         split_cols_by(var = input$split_col) |>
-        rtables::add_colcounts() |>
-        rtables::add_overall_col(label = "All Patients") |>
-        rtables::add_colcounts() |>
-        tern::count_patients_with_flags("USUBJID",
-                                        flag_variables =
-                                          var_labels(ae_summ_init()$out_df[, disp_eve]))
+        add_overall_col(label = "All Patients") |>
+        count_patients_with_event(
+          vars = "USUBJID",
+          filters = c("STUDYID" = as.character(unique(ae_summ_init()$out_df[["STUDYID"]]))),
+          denom = "N_col",
+          .labels = c(count_fraction = "Total number of patients with at least one adverse event")
+        ) |>
+        count_values(
+          "STUDYID",
+          values = as.character(unique(ae_summ_init()$out_df[["STUDYID"]])),
+          .stats = "count",
+          .labels = c(count = "Total AEs"),
+          table_names = "total_aes"
+        ) |>
+        count_patients_with_flags("USUBJID",
+          flag_variables = var_labels(ae_summ_init()$out_df[, disp_eve]),
+          denom = "N_col",
+          var_labels = "Total number of patients with at least one",
+          show_labels = "visible"
+        )
 
       return(list(
-        out_df = ae_summ_init()$out_df,
+        out_df = df,
         alt_df = ae_summ_init()$alt_df,
         lyt = lyt
       ))
     }) |>
-      bindEvent(list(ae_summ_init(), input$run))
+      bindCache(list(ae_summ_init(), input$split_col, input$events, filt_react$filter_cond())) |>
+      bindEvent(list(ae_summ_init(), input$run, filt_react$trig_report()))
 
     mod_dt_table_server("dt_table_ae_summ",
-                        display_df = ae_summ)
+      display_df = ae_summ
+    )
   })
 }

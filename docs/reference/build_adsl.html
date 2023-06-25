@@ -24,12 +24,6 @@
 <li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/tests_and_coverage.html">Tests and Coverage</a>
-  </div>
-</li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -118,21 +112,68 @@
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other helpers: 
-<code><a href="adae_by_sev_tox.html">adae_by_sev_tox</a>()</code></p></div>
+<code><a href="adae_by_sev_tox.html">adae_by_sev_tox</a>()</code>,
+<code><a href="filters_to_cond.html">filters_to_cond</a>()</code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lyt</span> <span class="op">&lt;-</span> <span class="fu">build_adsl</span><span class="op">(</span></span></span>
-<span class="r-in"><span>split_cols_by <span class="op">=</span> <span class="st">"ARM"</span>,</span></span>
-<span class="r-in"><span>split_rows_by <span class="op">=</span> <span class="st">"SEX"</span>,</span></span>
-<span class="r-in"><span>summ_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AGE"</span>, <span class="st">"RACE"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  split_cols_by <span class="op">=</span> <span class="st">"ARM"</span>,</span></span>
+<span class="r-in"><span>  split_rows_by <span class="op">=</span> <span class="st">"SEX"</span>,</span></span>
+<span class="r-in"><span>  summ_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AGE"</span>, <span class="st">"RACE"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Use the tabletree object to within build_table</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rtables/man/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">lyt</span>, <span class="fu">random.cdisc.data</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/random.cdisc.data/man/cadsl.html" class="external-link">cadsl</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x.x: Study Subject Data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x.x.x: Demographic Characteristics</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table x.x.x.x: Demographic Characteristics - Full Analysis Set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                  A: Drug X    B: Placebo    C: Combination   All Patients</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                   (N=134)       (N=134)        (N=132)         (N=400)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> F                                                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   AGE                                                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     n                                               79            82              70             231     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Mean, SD                                    32.8 (6.1)    34.2 (7.0)      35.2 (7.4)      34.0 (6.9) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Standard Error                                  0.7           0.8            0.9             0.5     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Median                                         32.0          32.0            35.0            34.0    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Min-Max                                     21.0 - 47.0   23.0 - 58.0    21.0 - 64.0     21.0 - 64.0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     IQR                                         28.0 - 37.0   29.0 - 38.0    31.0 - 38.0     29.0 - 38.0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   RACE                                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     n                                               79            82              70             231     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ASIAN                                       41 (51.9%)    40 (48.8%)      39 (55.7%)     120 (51.9%) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     BLACK OR AFRICAN AMERICAN                   18 (22.8%)    16 (19.5%)      16 (22.9%)      50 (21.6%) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     WHITE                                       17 (21.5%)     18 (22%)       11 (15.7%)      46 (19.9%) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     AMERICAN INDIAN OR ALASKA NATIVE             3 (3.8%)      7 (8.5%)        4 (5.7%)       14 (6.1%)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     MULTIPLE                                         0             0              0               0      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER        0         1 (1.2%)           0            1 (0.4%)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     OTHER                                            0             0              0               0      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     UNKNOWN                                          0             0              0               0      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> M                                                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   AGE                                                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     n                                               55            52              62             169     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Mean, SD                                    35.2 (7.0)    37.3 (8.9)      35.7 (8.2)      36.0 (8.0) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Standard Error                                  0.9           1.2            1.0             0.6     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Median                                         34.0          36.0            35.0            36.0    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Min-Max                                     23.0 - 50.0   21.0 - 62.0    20.0 - 69.0     20.0 - 69.0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     IQR                                         29.0 - 40.0   31.0 - 42.0    30.0 - 40.0     30.0 - 41.0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   RACE                                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     n                                               55            52              62             169     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ASIAN                                       27 (49.1%)    27 (51.9%)      34 (54.8%)      88 (52.1%) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     BLACK OR AFRICAN AMERICAN                   13 (23.6%)    12 (23.1%)      16 (25.8%)      41 (24.3%) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     WHITE                                       10 (18.2%)     8 (15.4%)      10 (16.1%)      28 (16.6%) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     AMERICAN INDIAN OR ALASKA NATIVE             5 (9.1%)      4 (7.7%)        2 (3.2%)       11 (6.5%)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     MULTIPLE                                         0         1 (1.9%)           0            1 (0.6%)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER        0             0              0               0      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     OTHER                                            0             0              0               0      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     UNKNOWN                                          0             0              0               0      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------------------------------------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Source: ADSL DDMMYYYY hh:mm; Listing x.xx; SDTM package: DDMMYYYY</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

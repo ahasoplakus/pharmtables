@@ -22,6 +22,9 @@ utils::globalVariables(
     "AETOXGR",
     "AESEVN",
     "AESER",
-    ":="
+    ":=",
+    "spin_ball",
+    "AESDTH",
+    "app_sys"
   )
 )

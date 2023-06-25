@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# clinTables <a href='https://ahasoplakus.github.io/clinTables/'><img src="man/figures/logo.png" width="170" height="170" align="right"/></a>
+# clinTables <img src="man/figures/logo.png" align="right" width="200" style="margin-left:50px;"/>
 
 <!-- badges: start -->
 
@@ -30,6 +30,6 @@ Run `library(clinTables)` to access all the exported functions from
 you can run the application locally using:
 
 ``` r
-# Launch the application 
+# Launch the application
 run_app()
 ```

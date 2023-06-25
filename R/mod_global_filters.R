@@ -10,55 +10,81 @@
 #' @importFrom shinyWidgets pickerInput updatePickerInput
 mod_global_filters_ui <- function(id) {
   ns <- NS(id)
-  tagList(menuItemOutput(ns("glob_filt_ui")))
+  uiOutput(ns("glob_filt_ui"))
 }
 
 #' global_filters Server Functions
 #'
 #' @noRd
-mod_global_filters_server <- function(id, dataset, load_data) {
+mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    output$glob_filt_ui <- renderMenu({
+    rv <- reactiveValues(
+      filters = NULL,
+      cached_filters = NULL
+    )
+
+    output$glob_filt_ui <- renderUI({
       req(load_data()[[dataset]])
-      logger::log_info("mod_global_filters_server: update filters")
+      req(filter_list())
 
-      make_widget <-
-        create_widget(c("SEX", "RACE", "ETHNIC", "COUNTRY",
-                        "AGE", "SITEID", "USUBJID"),
-                  load_data(),
-                  dataset,
-                  ns)
+      logger::log_info("mod_global_filters_server: initialise study filters")
 
-      menuItem(
-        text = "Study Filters",
+      tagList(
         create_flag_widget(c("SAFFL", "ITTFL"), ns),
-        make_widget[["SEX"]],
-        make_widget[["RACE"]],
-        make_widget[["ETHNIC"]],
-        make_widget[["COUNTRY"]],
-        make_widget[["AGE"]],
-        make_widget[["SITEID"]],
-        make_widget[["USUBJID"]],
+        create_widget(
+          filter_list(),
+          load_data(),
+          dataset,
+          ns
+        ),
         actionButton(ns("apply"), "Update")
       )
     })
 
+    outputOptions(output, "glob_filt_ui", priority = 975)
+
     filters <- reactive({
-      logger::log_info("mod_global_filters_server: store filters")
-      list(pop = input$pop,
-           sex = input$sex,
-           race = input$race,
-           ethnic = input$ethnic,
-           country = input$country,
-           age = input$age,
-           siteid = input$siteid,
-           usubjid = input$usubjid)
+      req(load_data()[[dataset]])
+      req(filter_list())
+      req(length(reactiveValuesToList(input)) > 0)
+      logger::log_info("mod_global_filters_server: create study filters")
+      filters <-
+        set_names(tolower(filter_list())) |>
+        map(\(x) input[[x]])
     })
 
-    return(list(filters = filters,
-                apply = reactive(input$apply)))
+    observe(
+      {
+        req(filters())
+        req(none(filters(), is.null))
+        req(!identical(filters(), rv$cached_filters))
+        logger::log_info("mod_global_filters_server: update study filters")
+        rv$filters <- filters()
+        rv$filters$pop <- input$pop
+        init <- reactiveValuesToList(input)
+        rv$cached_filters <-
+          union(names(rv$filters), names(init)) |>
+          set_names() |>
+          map(\(x) {
+            if (!toupper(x) %in% names(load_data()[[dataset]])) {
+              init[[x]] <- NULL
+            }
+            init[[x]]
+          }) |>
+          discard(is.null)
+      },
+      priority = 950
+    ) |>
+      bindEvent(filters())
 
+    return(list(
+      filters = reactive({
+        req(rv$filters)
+        rv$filters
+      }),
+      apply = reactive(input$apply)
+    ))
   })
 }

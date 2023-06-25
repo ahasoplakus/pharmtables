@@ -14,12 +14,13 @@ mod_adxx_bodsys_ui <-
     tagList(
       box(
         id = ns("box_adxx_bodsys"),
-        title = title,
+        title = tags$strong(title),
         sidebar = boxSidebar(
           id = ns("adxx_side_bodsys"),
           background = "#EFF5F5",
           width = 25,
           h2("Table Options"),
+          mod_filter_reactivity_ui(ns("filter_reactivity_1")),
           selectInput(
             ns("split_col"),
             "Split Cols by",
@@ -42,21 +43,21 @@ mod_adxx_bodsys_ui <-
             width = 300
           ),
           tagAppendAttributes(actionButton(ns("run"), "Update"),
-                              class = "side_apply")
+            class = "side_apply"
+          )
         ),
         maximizable = TRUE,
         width = 12,
         height = "800px",
-        shinyWidgets::prettySwitch(
-          ns("aeser"),
-          label = "Only Serious Adverse Events",
-          value = FALSE,
-          status = "info",
-          inline = TRUE,
-          fill = TRUE,
-          slim = TRUE
-        ),
-        div(mod_dt_table_ui(ns("dt_table_bodsys")), style = "overflow-x: scroll;")
+        div(
+          withSpinner(
+            mod_dt_table_ui(ns(
+              "dt_table_bodsys"
+            )),
+            type = 6, color = "#3BACB6"
+          ),
+          style = "overflow-x: scroll;"
+        )
       )
     )
   }
@@ -67,15 +68,18 @@ mod_adxx_bodsys_ui <-
 mod_adxx_bodsys_server <- function(id,
                                    dataset,
                                    df_out,
-                                   adsl) {
+                                   adsl,
+                                   filters = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    rv <- reactiveValues(trig_report = FALSE)
-
     observe({
-      req(dataset != "cadae")
-      shinyjs::hide("aeser")
+      req(df_out()[[dataset]])
+      if (is.null(filters())) {
+        hide("filter_reactivity_1-domain_filters")
+      } else {
+        show("filter_reactivity_1-domain_filters")
+      }
     })
 
     observe({
@@ -90,37 +94,50 @@ mod_adxx_bodsys_server <- function(id,
           c("ARM", "TRT0")
         ), ends_with("DTM"))))
       class_choices <-
-        sort(names(select(df, union(ends_with(
-          c("SOC", "BODSYS")
-        ), starts_with("ATC")))))
+        sort(names(select(
+          df, union(ends_with(c(
+            "SOC", "BODSYS"
+          )), starts_with("ATC"))
+        )))
       term_choices <-
         names(select(df, ends_with(c(
           "TERM", "DECOD"
         ))))
 
       updateSelectInput(session,
-                        "split_col",
-                        choices = trt_choices,
-                        selected = trt_choices[1])
+        "split_col",
+        choices = trt_choices,
+        selected = trt_choices[1]
+      )
 
       updateSelectInput(session,
-                        "class",
-                        choices = class_choices,
-                        selected = class_choices[1])
+        "class",
+        choices = class_choices,
+        selected = class_choices[1]
+      )
 
       updateSelectInput(session,
-                        "term",
-                        choices = term_choices,
-                        selected = term_choices[1])
+        "term",
+        choices = term_choices,
+        selected = term_choices[1]
+      )
     }) |>
-      bindEvent(adsl())
+      bindEvent(list(adsl(), df_out()[[dataset]]))
 
-    observe({
-      req(input$split_col != "")
-      req(input$class != "")
-      req(input$term != "")
-      rv$trig_report <- TRUE
-    })
+    filt_react <-
+      mod_filter_reactivity_server(
+        "filter_reactivity_1",
+        df = reactive({
+          req(df_out()[[dataset]])
+          df_out()
+        }),
+        dataset = dataset,
+        filters = reactive({
+          req(filters())
+          filters()
+        }),
+        trt_var = input$split_col
+      )
 
     xx_bodsys <- reactive({
       req(df_out()[[dataset]])
@@ -138,9 +155,9 @@ mod_adxx_bodsys_server <- function(id,
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      if (isTRUE(input$aeser)) {
+      if (!is.null(filt_react$filter_cond())) {
         df <- df |>
-          filter(AESER == "Y")
+          filter(!!!parse_exprs(filt_react$filter_cond()))
       }
 
       logger::log_info("mod_adxx_bodsys_server: {dataset} has {nrow(df)} rows")
@@ -155,8 +172,10 @@ mod_adxx_bodsys_server <- function(id,
           summarize_num_patients(
             var = "USUBJID",
             .stats = c("unique", "nonunique"),
-            .labels = c(unique = "Total number of patients with at least one event",
-                        nonunique = "Total number of events")
+            .labels = c(
+              unique = "Total number of patients with at least one event",
+              nonunique = "Total number of events"
+            )
           )
       }
 
@@ -166,9 +185,12 @@ mod_adxx_bodsys_server <- function(id,
           child_labels = "visible",
           nested = FALSE,
           indent_mod = -1L,
+          label_pos = "topleft",
+          split_label = obj_label(df[[input$class]]),
           split_fun = drop_split_levels
         ) |>
-        count_occurrences(vars = input$term)
+        count_occurrences(vars = input$term, .indent_mods = -1L) |>
+        append_varlabels(df, input$term, indent = 1L)
 
       return(list(
         out_df = df,
@@ -176,9 +198,17 @@ mod_adxx_bodsys_server <- function(id,
         lyt = lyt
       ))
     }) |>
-      bindEvent(list(adsl(), rv$trig_report, input$run, input$aeser))
+      bindCache(list(
+        adsl(),
+        input$split_col,
+        input$class,
+        input$term,
+        filt_react$filter_cond()
+      )) |>
+      bindEvent(list(adsl(), filt_react$trig_report(), input$run))
 
     mod_dt_table_server("dt_table_bodsys",
-                        display_df = xx_bodsys)
+      display_df = xx_bodsys
+    )
   })
 }

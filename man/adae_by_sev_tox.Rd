@@ -27,7 +27,7 @@ adae_by_sev_tox(
 
 \item{term_val}{Dictionary Derived Term}
 
-\item{default_view}{Logical `TRUE` or `FALSE`}
+\item{default_view}{Logical \code{TRUE} or \code{FALSE}}
 }
 \value{
 An rtable object
@@ -41,19 +41,22 @@ adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae
 
 ae_by_sev_tox_table <- adae_by_sev_tox(
-adsl = adsl,
-df_adae = adae,
-colsby = "ARM",
-grade_val = "AESEV",
-class_val = "AESOC",
-term_val = "AEDECOD",
-default_view = TRUE
+  adsl = adsl,
+  df_adae = adae,
+  colsby = "ARM",
+  grade_val = "AESEV",
+  class_val = "AESOC",
+  term_val = "AEDECOD",
+  default_view = TRUE
 )
+
+ae_by_sev_tox_table
 
 }
 \seealso{
 Other helpers: 
-\code{\link{build_adsl}()}
+\code{\link{build_adsl}()},
+\code{\link{filters_to_cond}()}
 }
 \concept{helpers}
 \keyword{helpers}

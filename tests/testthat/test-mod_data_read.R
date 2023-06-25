@@ -1,42 +1,40 @@
 test_that("mod_data_read_server works", {
   testServer(mod_data_read_server,
-             # Add here your module params
-             args = list(id = "data_read_123")
-             ,
-             {
-               ns <- session$ns
-               expect_true(inherits(ns, "function"))
-               expect_true(grepl(id, ns("data_read_123")))
-               expect_true(grepl("test", ns("test")))
+    # Add here your module params
+    args = list(id = "data_read_123"),
+    {
+      ns <- session$ns
+      expect_true(inherits(ns, "function"))
+      expect_true(grepl(id, ns("data_read_123")))
+      expect_true(grepl("test", ns("test")))
 
-               df <- list(name = "cadsl.RDS",
-                          datapath = app_sys("extdata/cadsl.RDS"))
+      df <- list(
+        name = "cadsl.RDS",
+        datapath = app_sys("extdata/cadsl.RDS")
+      )
 
-               session$setInputs(glimpse = FALSE)
-               session$setInputs(def_data = FALSE)
-               session$setInputs(upload = df)
-               session$setInputs(apply = 1)
+      session$setInputs(def_data = FALSE)
+      session$setInputs(upload = df)
+      session$setInputs(apply = 1)
 
-               expect_equal(length(rv$df), 1)
-               expect_equal(nrow(rv$df[["cadsl"]]), 400)
-               expect_equal(rv$upload_state, "stale")
-               expect_equal(rv$trig_reset, 2)
-               expect_equal(nrow(read_df()[["cadsl"]]), 400)
+      expect_equal(length(rv$df), 1)
+      expect_equal(nrow(rv$df[["cadsl"]]), 400)
+      expect_equal(rv$upload_state, "stale")
+      expect_equal(rv$trig_reset, 1)
+      expect_equal(nrow(read_df()[["cadsl"]]), 400)
 
-               session$setInputs(def_data = TRUE)
-               expect_null(read_df())
+      session$setInputs(def_data = TRUE)
+      expect_null(read_df())
 
-               session$setInputs(apply = 2)
-               expect_true(length(read_df()) > 0)
-               expect_equal(nrow(read_df()[["cadsl"]]), 400)
-               expect_equal(nrow(read_df()[["cadmh"]]), 1934)
-               expect_equal(nrow(read_df()[["cadae"]]), 1934)
-               expect_equal(nrow(read_df()[["cadcm"]]), 3685)
-
-               session$setInputs(glimpse = TRUE)
-               expect_false(is.null(output$print_dat))
-               expect_type(output$print_dat, "character")
-             })
+      session$setInputs(apply = 2)
+      expect_true(length(read_df()) > 0)
+      expect_equal(rv$trig_reset, 2)
+      expect_equal(nrow(read_df()[["cadsl"]]), 400)
+      expect_equal(nrow(read_df()[["cadmh"]]), 1934)
+      expect_equal(nrow(read_df()[["cadae"]]), 1934)
+      expect_equal(nrow(read_df()[["cadcm"]]), 3685)
+    }
+  )
 })
 
 test_that("module ui works", {

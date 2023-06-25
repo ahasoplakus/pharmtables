@@ -3,8 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   clinTables: clinTables.html
-  tests_and_coverage: tests_and_coverage.html
-last_built: 2023-05-23T10:01Z
+last_built: 2023-06-21T09:44Z
 urls:
   reference: https://ahasoplakus.github.io/clinTables/reference
   article: https://ahasoplakus.github.io/clinTables/articles

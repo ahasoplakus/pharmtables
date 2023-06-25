@@ -19,14 +19,16 @@
 #' adae <- random.cdisc.data::cadae
 #'
 #' ae_by_sev_tox_table <- adae_by_sev_tox(
-#' adsl = adsl,
-#' df_adae = adae,
-#' colsby = "ARM",
-#' grade_val = "AESEV",
-#' class_val = "AESOC",
-#' term_val = "AEDECOD",
-#' default_view = TRUE
+#'   adsl = adsl,
+#'   df_adae = adae,
+#'   colsby = "ARM",
+#'   grade_val = "AESEV",
+#'   class_val = "AESOC",
+#'   term_val = "AEDECOD",
+#'   default_view = TRUE
 #' )
+#'
+#' ae_by_sev_tox_table
 #'
 adae_by_sev_tox <- function(adsl,
                             df_adae,
@@ -43,10 +45,14 @@ adae_by_sev_tox <- function(adsl,
 
     if (grade_val == "AESEV") {
       adae <- df_adae |>
-        mutate(AESEVN =
-                 case_when(.data[[grade_val]] == "MILD" ~ 1,
-                           .data[[grade_val]] == "MODERATE" ~ 2,
-                           TRUE ~ 3))
+        mutate(
+          AESEVN =
+            case_when(
+              .data[[grade_val]] == "MILD" ~ 1,
+              .data[[grade_val]] == "MODERATE" ~ 2,
+              TRUE ~ 3
+            )
+        )
     } else {
       adae <- df_adae |>
         mutate(AESEVN = as.numeric(AETOXGR))
@@ -96,23 +102,31 @@ adae_by_sev_tox <- function(adsl,
 
         lyt1 <- basic_table() |>
           split_cols_by(colsby,
-                        labels_var = "sp_labs",
-                        split_fun = remove_split_levels("Missing")) |>
+            labels_var = "sp_labs",
+            split_fun = remove_split_levels("Missing")
+          ) |>
           split_rows_by(class_val) |>
           count_occurrences(term_val) |>
-          build_table(mutate(
-            df,
-            !!colsby := ifelse(.data[[grade_val]] == "Missing", "Missing", !!sym(colsby)),
-            sp_labs = ifelse(.data[[grade_val]] == "Missing", "Missing", sp_labs)
-          ),
-          alt_counts_df = df_adsl1)
+          build_table(
+            mutate(
+              df,
+              !!colsby := ifelse(.data[[grade_val]] == "Missing", "Missing", !!sym(colsby)),
+              sp_labs = ifelse(.data[[grade_val]] == "Missing", "Missing", sp_labs)
+            ),
+            alt_counts_df = df_adsl1
+          )
 
 
         lyt <- basic_table() |>
           split_cols_by(colsby, labels_var = "colsby_lab") |>
-          split_rows_by(class_val) |>
+          split_rows_by(class_val,
+            indent_mod = 1L,
+            label_pos = "topleft",
+            split_label = obj_label(df_adae[[class_val]])
+          ) |>
           split_cols_by(grade_val, split_fun = remove_split_levels("Missing")) |>
           count_occurrences(term_val) |>
+          append_varlabels(df_adae, term_val, indent = 2L) |>
           build_table(df, alt_counts_df = df_adsl)
         cbind_rtables(lyt1, lyt)
       })
@@ -129,22 +143,26 @@ adae_by_sev_tox <- function(adsl,
         class_val,
         child_labels = "visible",
         nested = TRUE,
-        indent_mod = 1,
+        label_pos = "topleft",
+        split_label = obj_label(df_adae[[class_val]]),
         split_fun = drop_split_levels
       ) |>
       split_rows_by(
         term_val,
         child_labels = "visible",
         nested = TRUE,
-        indent_mod = 2,
+        label_pos = "topleft",
+        split_label = obj_label(df_adae[[term_val]]),
         split_fun = drop_split_levels
       ) |>
       summarize_occurrences_by_grade(grade_val)
 
     tab <-
-      build_table(df = df_adae,
-                  alt_counts_df = adsl,
-                  lyt = lyt)
+      build_table(
+        df = df_adae,
+        alt_counts_df = adsl,
+        lyt = lyt
+      )
   }
   return(tab)
 }

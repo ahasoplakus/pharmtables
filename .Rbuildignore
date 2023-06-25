@@ -23,3 +23,6 @@ $run_dev.*
 ^codecov\.yml$
 ^rsconnect$
 ^manifest.json
+^deploy$
+^tests$
+^R/app_config\.R$

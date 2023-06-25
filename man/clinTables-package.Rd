@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Shiny App to Clinical Trial Tables.
+Shiny Application for visualizing some of the standard tables used in Clinical Trials.
 }
 \seealso{
 Useful links:

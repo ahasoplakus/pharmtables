@@ -1,4 +1,5 @@
 test_that("mod_adae_sev_tox_server works", {
+  filt <- reactiveVal()
   testServer(
     mod_adae_sev_tox_server,
     # Add here your module params
@@ -6,12 +7,15 @@ test_that("mod_adae_sev_tox_server works", {
       id = "adae_display_abc",
       dataset = "cadae",
       df_out = reactive(
-        list(cadsl = random.cdisc.data::cadsl,
-             cadae = random.cdisc.data::cadae)
+        list(
+          cadsl = random.cdisc.data::cadsl,
+          cadae = random.cdisc.data::cadae
+        )
       ),
-      adsl = reactive(random.cdisc.data::cadsl)
-    )
-    , {
+      adsl = reactive(random.cdisc.data::cadsl),
+      filters = filt
+    ),
+    {
       ns <- session$ns
       expect_true(
         inherits(ns, "function")
@@ -37,25 +41,38 @@ test_that("mod_adae_sev_tox_server works", {
         add_colcounts() |>
         summarize_num_patients("USUBJID") |>
         split_rows_by("AESOC",
-                      child_labels = "visible",
-                      nested = TRUE,
-                      indent_mod = 1,
-                      split_fun = drop_split_levels) |>
+          child_labels = "visible",
+          nested = TRUE,
+          label_pos = "topleft",
+          split_label = obj_label(df_out()[[dataset]][["AESOC"]]),
+          split_fun = drop_split_levels
+        ) |>
         split_rows_by("AETERM",
-                      child_labels = "visible",
-                      nested = TRUE,
-                      indent_mod = 2,
-                      split_fun = drop_split_levels) |>
+          child_labels = "visible",
+          nested = TRUE,
+          label_pos = "topleft",
+          split_label = obj_label(df_out()[[dataset]][["AETERM"]]),
+          split_fun = drop_split_levels
+        ) |>
         summarize_occurrences_by_grade("AETOXGR")
 
-      exp_df <- build_table(lyt = exp_lyt,
-                            df = df_out()[[dataset]],
-                            alt_counts_df = adsl())
+      exp_df <- build_table(
+        lyt = exp_lyt,
+        df = df_out()[[dataset]],
+        alt_counts_df = adsl()
+      )
 
       expect_identical(ae_explore()$out_df, exp_df)
       expect_equal(nrow(ae_explore()$alt_df), NULL)
       expect_identical(ae_explore()$lyt, NULL)
-    })
+
+      filt("AESER")
+      session$flushReact()
+
+      expect_identical(ae_explore()$out_df, exp_df)
+      expect_equal(nrow(ae_explore()$alt_df), NULL)
+    }
+  )
 })
 
 test_that("module ui works", {
@@ -63,7 +80,7 @@ test_that("module ui works", {
   golem::expect_shinytaglist(ui)
   # Check that formals have not been removed
   fmls <- formals(mod_adae_sev_tox_ui)
-  for (i in c("id")){
+  for (i in c("id")) {
     expect_true(i %in% names(fmls))
   }
 })

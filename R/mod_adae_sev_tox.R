@@ -12,12 +12,15 @@ mod_adae_sev_tox_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adae"),
-      title = "Summary of Treatment-Emergent Adverse Events (TEAES) By Body System And Severity",
+      title =
+        tags$strong("Summary of Treatment-Emergent Adverse Events (TEAES) By
+                    Body System And Severity"),
       sidebar = boxSidebar(
         id = ns("adae_side"),
         background = "#EFF5F5",
         width = 25,
         h2("Table Options"),
+        mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         selectInput(
           ns("split_col"),
           "Split Cols by",
@@ -47,7 +50,8 @@ mod_adae_sev_tox_ui <- function(id) {
           width = 300
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
-                            class = "side_apply")
+          class = "side_apply"
+        )
       ),
       maximizable = TRUE,
       width = 12,
@@ -61,7 +65,9 @@ mod_adae_sev_tox_ui <- function(id) {
         fill = TRUE,
         slim = TRUE
       ),
-      div(mod_dt_table_ui(ns("dt_table_2")), style = "overflow-x: scroll;")
+      div(withSpinner(mod_dt_table_ui(ns("dt_table_2")), type = 6, color = "#3BACB6"),
+        style = "overflow-x: scroll;"
+      )
     )
   )
 }
@@ -75,11 +81,19 @@ mod_adae_sev_tox_ui <- function(id) {
 mod_adae_sev_tox_server <- function(id,
                                     dataset,
                                     df_out,
-                                    adsl) {
+                                    adsl,
+                                    filters = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    rv <- reactiveValues(trig_report = FALSE)
+    observe({
+      req(df_out()[[dataset]])
+      if (is.null(filters())) {
+        hide("filter_reactivity_1-domain_filters")
+      } else {
+        show("filter_reactivity_1-domain_filters")
+      }
+    })
 
     observe({
       req(adsl())
@@ -104,34 +118,45 @@ mod_adae_sev_tox_server <- function(id,
         names(select(df, ends_with(c("SEV", "TOXGR"))))
 
       updateSelectInput(session,
-                        "split_col",
-                        choices = trt_choices,
-                        selected = trt_choices[1])
+        "split_col",
+        choices = trt_choices,
+        selected = trt_choices[1]
+      )
 
       updateSelectInput(session,
-                        "class",
-                        choices = class_choices,
-                        selected = class_choices[1])
+        "class",
+        choices = class_choices,
+        selected = class_choices[1]
+      )
 
       updateSelectInput(session,
-                        "term",
-                        choices = term_choices,
-                        selected = term_choices[1])
+        "term",
+        choices = term_choices,
+        selected = term_choices[1]
+      )
 
       updateSelectInput(session,
-                        "summ_var",
-                        choices = summ_var,
-                        selected = summ_var[1])
+        "summ_var",
+        choices = summ_var,
+        selected = summ_var[1]
+      )
     }) |>
-      bindEvent(adsl())
+      bindEvent(list(adsl(), df_out()[[dataset]]))
 
-    observe({
-      req(input$split_col != "")
-      req(input$class != "")
-      req(input$term != "")
-      req(input$summ_var != "")
-      rv$trig_report <- TRUE
-    })
+    filt_react <-
+      mod_filter_reactivity_server(
+        "filter_reactivity_1",
+        df = reactive({
+          req(df_out()[[dataset]])
+          df_out()
+        }),
+        dataset = dataset,
+        filters = reactive({
+          req(filters())
+          filters()
+        }),
+        trt_var = input$split_col
+      )
 
     ae_explore <- reactive({
       req(df_out()[[dataset]])
@@ -150,6 +175,11 @@ mod_adae_sev_tox_server <- function(id,
 
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
+
+      if (!is.null(filt_react$filter_cond())) {
+        df <- df |>
+          filter(!!!parse_exprs(filt_react$filter_cond()))
+      }
 
       logger::log_info("mod_adae_sev_tox_server: adae has
                          {nrow(df)} rows")
@@ -170,9 +200,16 @@ mod_adae_sev_tox_server <- function(id,
         lyt = NULL
       ))
     }) |>
-      bindEvent(list(adsl(), rv$trig_report, input$run, input$view))
+      bindCache(
+        list(
+          adsl(), input$split_col, input$class, input$term,
+          input$summ_var, input$view, filt_react$filter_cond()
+        )
+      ) |>
+      bindEvent(list(adsl(), filt_react$trig_report(), input$run, input$view))
 
     mod_dt_table_server("dt_table_2",
-                        display_df = ae_explore)
+      display_df = ae_explore
+    )
   })
 }
