@@ -3,9 +3,11 @@ testServer(
   # Add here your module params
   args = list(
     id = "data_preview_123",
-    df = reactive(list(cadae = random.cdisc.data::cadae,
-                       cadsl = random.cdisc.data::cadsl))
-    ),
+    df = reactive(list(
+      cadae = random.cdisc.data::cadae,
+      cadsl = random.cdisc.data::cadsl
+    ))
+  ),
   {
     ns <- session$ns
     expect_true(

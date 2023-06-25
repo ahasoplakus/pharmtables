@@ -15,7 +15,7 @@ Imports:
     golem (>= 0.4.0),
     logger (>= 0.2.2),
     purrr (>= 1.0.1),
-    random.cdisc.data (>= 0.3.13.9058),
+    random.cdisc.data (>= 0.3.13.9060),
     reactable (>= 0.4.4),
     rlang (>= 1.1.0),
     rtables (>= 0.6.1),

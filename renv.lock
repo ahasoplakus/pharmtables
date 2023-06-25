@@ -281,7 +281,7 @@
     },
     "bs4Dash": {
       "Package": "bs4Dash",
-      "Version": "2.2.1",
+      "Version": "2.3.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
@@ -295,7 +295,7 @@
         "shiny",
         "waiter"
       ],
-      "Hash": "5bdfebde67149093342161c6e748ca0d"
+      "Hash": "441417a5a4ad8d5c20d75f409630b7e8"
     },
     "bslib": {
       "Package": "bslib",
