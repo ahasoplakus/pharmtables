@@ -25,7 +25,7 @@ app_ui <- function(request) {
         status = "white",
         border = TRUE,
         skin = "light",
-        navbarMenu(
+        bs4Dash::navbarMenu(
           id = "navmenu",
           navbarTab(
             tabName = "Tab1",

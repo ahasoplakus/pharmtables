@@ -6,7 +6,6 @@
 #' @importFrom bs4Dash accordion
 #' @importFrom bs4Dash accordionItem
 #' @importFrom bs4Dash bs4Card
-#' @importFrom bs4Dash navbarMenu
 #' @importFrom bs4Dash navbarTab
 #' @importFrom bs4Dash sortable
 #' @importFrom bs4Dash tabItem
