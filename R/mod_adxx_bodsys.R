@@ -14,7 +14,7 @@ mod_adxx_bodsys_ui <-
     tagList(
       box(
         id = ns("box_adxx_bodsys"),
-        title = title,
+        title = tags$strong(title),
         sidebar = boxSidebar(
           id = ns("adxx_side_bodsys"),
           background = "#EFF5F5",

@@ -12,7 +12,9 @@ mod_adae_sev_tox_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adae"),
-      title = "Summary of Treatment-Emergent Adverse Events (TEAES) By Body System And Severity",
+      title =
+        tags$strong("Summary of Treatment-Emergent Adverse Events (TEAES) By
+                    Body System And Severity"),
       sidebar = boxSidebar(
         id = ns("adae_side"),
         background = "#EFF5F5",

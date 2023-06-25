@@ -10,55 +10,47 @@
 mod_data_read_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    fluidRow(
-      bs4Card(
-        title = "Start Up",
-        width = 6,
-        fluidRow(
-          prettySwitch(
-            ns("def_data"),
-            label = "Load Default Data (random.cdisc.data)",
-            value = FALSE,
-            status = "info",
-            inline = TRUE,
-            fill = TRUE,
-            slim = TRUE,
-            width = 6
+    sortable(
+      fluidRow(
+        bs4Card(
+          title = tags$span(icon("database"), tags$strong("Load Data")),
+          width = 6,
+          fluidRow(
+            prettySwitch(
+              ns("def_data"),
+              label = "Load Default Data (random.cdisc.data)",
+              value = FALSE,
+              status = "info",
+              inline = TRUE,
+              fill = TRUE,
+              slim = TRUE,
+              width = 6
+            )
+          ),
+          fluidRow(
+            fileInput(
+              ns("upload"),
+              "",
+              multiple = TRUE,
+              accept = ".RDS",
+              width = "150%",
+              buttonLabel = "Upload...",
+              placeholder = "No file selected",
+              capture = NULL
+            )
+          ),
+          fluidRow(
+            div(actionButton(ns("apply"), "Run"), style = "text-align: right; margin-left: auto;")
           )
         ),
-        fluidRow(
-          fileInput(
-            ns("upload"),
-            "",
-            multiple = TRUE,
-            accept = ".RDS",
-            width = "150%",
-            buttonLabel = "Upload...",
-            placeholder = "No file selected",
-            capture = NULL
-          )
-        ),
-        fluidRow(
-          div(actionButton(ns("apply"), "Run"), style = "text-align: right; margin-left: auto;")
+        bs4Card(
+          title = tags$span(icon("gears"), tags$strong("Filters Setup")),
+          width = 6,
+          collapsed = FALSE,
+          maximizable = TRUE,
+          mod_setup_filters_ui(ns("setup_filters_1"))
         )
-      ),
-      bs4Card(
-        title = "Setup Filters",
-        width = 6,
-        collapsed = TRUE,
-        maximizable = TRUE,
-        mod_setup_filters_ui(ns("setup_filters_1"))
       )
-    ),
-    box(
-      id = ns("box_preview"),
-      title = "Preview Data",
-      type = "pills",
-      width = 12,
-      collapsible = TRUE,
-      collapsed = TRUE,
-      maximizable = TRUE,
-      mod_data_preview_ui(ns("data_preview_1"))
     )
   )
 }
@@ -148,11 +140,6 @@ mod_data_read_server <- function(id) {
     ) |>
       bindEvent(list(rv$upload, input$def_data))
 
-    mod_data_preview_server(
-      "data_preview_1",
-      eventReactive(rv$df, rv$df)
-    )
-
     rv$setup_filters <- mod_setup_filters_server(
       "setup_filters_1",
       eventReactive(rv$df, rv$df)
@@ -228,6 +215,7 @@ mod_data_read_server <- function(id) {
 
     return(list(
       df_read = read_df,
+      prev_data = eventReactive(rv$df, rv$df),
       study_filters = eventReactive(
         input$apply,
         rv$setup_filters$adsl_filt()
