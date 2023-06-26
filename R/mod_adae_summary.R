@@ -17,14 +17,14 @@ mod_adae_summary_ui <- function(id) {
         id = ns("adae_summ_side"),
         background = "#EFF5F5",
         width = 35,
-        h2("Table Options"),
         mod_filter_reactivity_ui(ns("filter_reactivity_1")),
+        h2(tags$strong("Table Options")),
         selectInput(
           ns("split_col"),
           "Split Cols by",
           choices = NULL,
           selected = NULL,
-          width = 300
+          width = 400
         ),
         prettyCheckboxGroup(
           ns("events"),

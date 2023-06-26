@@ -10,45 +10,51 @@
 mod_data_read_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    sortable(
-      fluidRow(
-        bs4Card(
-          title = tags$span(icon("database"), tags$strong("Load Data")),
-          width = 6,
-          fluidRow(
-            prettySwitch(
-              ns("def_data"),
-              label = "Load Default Data (random.cdisc.data)",
-              value = FALSE,
-              status = "info",
-              inline = TRUE,
-              fill = TRUE,
-              slim = TRUE,
-              width = 6
+    fluidRow(
+      column(width = 3),
+      column(
+        width = 9,
+        sortable(
+          bs4Card(
+            title = tags$span(icon("database"), tags$strong("Load Data")),
+            width = 8,
+            fluidRow(
+              prettySwitch(
+                ns("def_data"),
+                label = "Load Default Data (random.cdisc.data)",
+                value = FALSE,
+                status = "info",
+                inline = TRUE,
+                fill = TRUE,
+                slim = TRUE,
+                width = 6
+              )
+            ),
+            fluidRow(
+              fileInput(
+                ns("upload"),
+                HTML("&nbsp;&nbsp;&nbsp;&nbsp;Upload Files"),
+                multiple = TRUE,
+                accept = ".RDS",
+                width = "150%",
+                buttonLabel = tags$span(icon("upload")),
+                placeholder = "No file selected",
+                capture = NULL
+              )
+            ),
+            fluidRow(
+              div(actionButton(ns("apply"), "Run"), style = "text-align: right; margin-left: auto;")
             )
-          ),
-          fluidRow(
-            fileInput(
-              ns("upload"),
-              "",
-              multiple = TRUE,
-              accept = ".RDS",
-              width = "150%",
-              buttonLabel = "Upload...",
-              placeholder = "No file selected",
-              capture = NULL
-            )
-          ),
-          fluidRow(
-            div(actionButton(ns("apply"), "Run"), style = "text-align: right; margin-left: auto;")
           )
         ),
-        bs4Card(
-          title = tags$span(icon("gears"), tags$strong("Filters Setup")),
-          width = 6,
-          collapsed = FALSE,
-          maximizable = TRUE,
-          mod_setup_filters_ui(ns("setup_filters_1"))
+        sortable(
+          bs4Card(
+            title = tags$span(icon("gears"), tags$strong("Filters Setup")),
+            width = 8,
+            collapsed = FALSE,
+            maximizable = TRUE,
+            mod_setup_filters_ui(ns("setup_filters_1"))
+          )
         )
       )
     )

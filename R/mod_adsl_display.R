@@ -16,21 +16,21 @@ mod_adsl_display_ui <- function(id) {
       sidebar = boxSidebar(
         id = ns("demog_side"),
         background = "#EFF5F5",
-        width = 25,
-        h2("Table Options"),
+        width = 35,
+        h2(tags$strong("Table Options")),
         selectInput(
           ns("split_col"),
           "Split Cols by",
           choices = NULL,
           selected = NULL,
-          width = 300
+          width = 400
         ),
         selectizeInput(
           ns("split_row"),
           "Split Rows by",
           choices = NULL,
           selected = NULL,
-          width = 200,
+          width = 300,
           options = list(maxItems = 1)
         ),
         selectInput(
@@ -39,7 +39,7 @@ mod_adsl_display_ui <- function(id) {
           choices = NULL,
           selected = NULL,
           multiple = TRUE,
-          width = 300
+          width = 400
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
           class = "side_apply"

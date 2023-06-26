@@ -57,7 +57,7 @@ app_ui <- function(request) {
         skin = "light",
         status = "info",
         width = "275px",
-        fixed = TRUE,
+        minified = FALSE,
         accordion(
           id = "acc_st_filt",
           accordionItem(
@@ -91,20 +91,24 @@ app_ui <- function(request) {
           tabItem(
             tabName = "Tab5",
             mod_adxx_bodsys_ui("admh_bodsys_1",
-              title = "Summary of Medical History By Body System Class"
+              title = "Summary of Medical History By Body System Class",
+              domain = "ADMH"
             )
           ),
           tabItem(
             tabName = "Tab6",
             mod_adxx_bodsys_ui("adcm_bodsys_1",
-              title = "Summary of Concomitant Medications by Categories"
+              title = "Summary of Concomitant Medications by Categories",
+              domain = "ADCM"
             )
           )
         )
       ),
+      fullscreen = TRUE,
       dark = NULL,
       help = NULL,
-      preloader = list(html = spin_ball(), color = "#fff")
+      scrollToTop = TRUE,
+      preloader = list(html = tagList(spin_ball(), "Loading clinTables ..."), color = "#27374D")
     )
   )
 }

@@ -9,7 +9,8 @@
 #' @importFrom shiny NS tagList
 mod_adxx_bodsys_ui <-
   function(id,
-           title = "Summary of Treatment-Emergent Adverse Events (TEAES) By Body System Class") {
+           title = "Summary of Treatment-Emergent Adverse Events (TEAES) By Body System Class",
+           domain = "ADAE") {
     ns <- NS(id)
     tagList(
       box(
@@ -18,29 +19,29 @@ mod_adxx_bodsys_ui <-
         sidebar = boxSidebar(
           id = ns("adxx_side_bodsys"),
           background = "#EFF5F5",
-          width = 25,
-          h2("Table Options"),
-          mod_filter_reactivity_ui(ns("filter_reactivity_1")),
+          width = 35,
+          mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain),
+          h2(tags$strong("Table Options")),
           selectInput(
             ns("split_col"),
             "Split Cols by",
             choices = NULL,
             selected = NULL,
-            width = 300
+            width = 400
           ),
           selectInput(
             ns("class"),
             "Class",
             choices = NULL,
             selected = NULL,
-            width = 300
+            width = 400
           ),
           selectInput(
             ns("term"),
             "Term",
             choices = NULL,
             selected = NULL,
-            width = 300
+            width = 400
           ),
           tagAppendAttributes(actionButton(ns("run"), "Update"),
             class = "side_apply"
