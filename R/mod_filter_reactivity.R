@@ -3,17 +3,25 @@
 #' @description A shiny Module.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
+#' @param domain Name of domain or `ADaM` dataset
 #'
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_filter_reactivity_ui <- function(id) {
+mod_filter_reactivity_ui <- function(id, domain = "ADAE") {
   ns <- NS(id)
   tagList(
     div(
       id = ns("domain_filters"),
-      uiOutput(ns("xx_filt_ui")),
-      style = "width: 200px; overflow-x: scroll;"
+      accordion(
+        id = ns("acc_filt_react"),
+        accordionItem(
+          title = tags$strong(str_glue("{domain} Filters")),
+          collapsed = FALSE,
+          uiOutput(ns("xx_filt_ui"))
+        )
+      ),
+      style = "width: 300px;"
     )
   )
 }

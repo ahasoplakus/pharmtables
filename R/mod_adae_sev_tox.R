@@ -18,36 +18,36 @@ mod_adae_sev_tox_ui <- function(id) {
       sidebar = boxSidebar(
         id = ns("adae_side"),
         background = "#EFF5F5",
-        width = 25,
-        h2("Table Options"),
+        width = 35,
         mod_filter_reactivity_ui(ns("filter_reactivity_1")),
+        h2(tags$strong("Table Options")),
         selectInput(
           ns("split_col"),
           "Split Cols by",
           choices = NULL,
           selected = NULL,
-          width = 300
+          width = 400
         ),
         selectInput(
           ns("class"),
           "Class",
           choices = NULL,
           selected = NULL,
-          width = 300
+          width = 400
         ),
         selectInput(
           ns("term"),
           "Term",
           choices = NULL,
           selected = NULL,
-          width = 300
+          width = 400
         ),
         selectInput(
           ns("summ_var"),
           "Summarize",
           choices = NULL,
           selected = NULL,
-          width = 300
+          width = 400
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
           class = "side_apply"

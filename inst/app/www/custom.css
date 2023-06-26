@@ -36,6 +36,11 @@ b, strong {
     color: #27374D;
 }
 
+.fas.fa-upload {
+    font-weight: 900;
+    color: #fff;
+}
+
 .card {
     box-shadow: 1px 1px 5px #9AC5F4, 1px 1px 5px #27374D;
     margin-bottom: 1rem;
@@ -209,7 +214,7 @@ div.sidebar .shiny-input-container {
 }
 
 .h2, h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .pretty {
@@ -314,4 +319,20 @@ div.sidebar .shiny-input-container {
     border-left: 5.04px solid transparent;
     border-right: 5.04px solid transparent;
     border-top: 7px solid #3BACB6;
+}
+
+#collapse_adae_global_1-adae_summary_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_admh_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_adcm_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div {
+  padding: 0.5rem;
+}
+
+#adae_global_1-adae_summary_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#admh_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#adcm_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header {
+  pointer-events: none;
 }
