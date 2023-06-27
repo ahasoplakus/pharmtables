@@ -1,8 +1,8 @@
 adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae
 
-test_that("adae_by_sev_tox works with default view", {
-  out_df <- adae_by_sev_tox(
+test_that("build_adae_by_sev_tox works with default view", {
+  out_df <- build_adae_by_sev_tox(
     adsl = adsl,
     df_adae = adae,
     colsby = "ARM",
@@ -25,8 +25,8 @@ test_that("adae_by_sev_tox works with default view", {
   expect_identical(round(unlist(obj_clB[[1]]), 4), c(47, 0.3507))
 })
 
-test_that("adae_by_sev_tox works with alternate view", {
-  out_df <- adae_by_sev_tox(
+test_that("build_adae_by_sev_tox works with alternate view", {
+  out_df <- build_adae_by_sev_tox(
     adsl = adsl,
     df_adae = adae,
     colsby = "ARM",
@@ -56,8 +56,8 @@ test_that("adae_by_sev_tox works with alternate view", {
   expect_identical(round(unlist(val_obj_clB[["A: Drug X"]]), 4), c(47, 0.3507))
 })
 
-test_that("adae_by_sev_tox works with AETOXGR", {
-  out_df <- adae_by_sev_tox(
+test_that("build_adae_by_sev_tox works with AETOXGR", {
+  out_df <- build_adae_by_sev_tox(
     adsl = adsl,
     df_adae = adae,
     colsby = "ARM",

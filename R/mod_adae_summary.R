@@ -84,16 +84,11 @@ mod_adae_summary_server <- function(id,
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      df <- add_adae_flags(df)
-
       logger::log_info("mod_adae_summary_server: adae has
                          {nrow(df)} rows")
 
-      aesi_vars <- c(
-        "FATAL", "SER", "SERWD", "SERDSM", "RELSER", "WD",
-        "DSM", "REL", "RELWD", "RELDSM", "CTC35", "CTC45"
-      )
-
+      df <- add_adae_flags(df)
+      aesi_vars <- setdiff(names(df), names(df_out()[[dataset]]))
       labels <- var_labels(df[, aesi_vars])
 
       return(list(
@@ -157,43 +152,19 @@ mod_adae_summary_server <- function(id,
       req(input$split_col != "")
       req(input$events)
 
-      df <- ae_summ_init()$out_df
+      disp_eve <- ae_summ_init()$aesi_vars[ae_summ_init()$aesi_vars %in% input$events]
 
-      if (!is.null(filt_react$filter_cond())) {
-        df <- df |>
-          filter(!!!parse_exprs(filt_react$filter_cond()))
-      }
-
-      disp_eve <- ae_summ_init()$aesi_vars
-      disp_eve <- disp_eve[disp_eve %in% input$events]
-
-      lyt <- basic_table(show_colcounts = TRUE) |>
-        split_cols_by(var = input$split_col) |>
-        add_overall_col(label = "All Patients") |>
-        count_patients_with_event(
-          vars = "USUBJID",
-          filters = c("STUDYID" = as.character(unique(ae_summ_init()$out_df[["STUDYID"]]))),
-          denom = "N_col",
-          .labels = c(count_fraction = "Total number of patients with at least one adverse event")
-        ) |>
-        count_values(
-          "STUDYID",
-          values = as.character(unique(ae_summ_init()$out_df[["STUDYID"]])),
-          .stats = "count",
-          .labels = c(count = "Total AEs"),
-          table_names = "total_aes"
-        ) |>
-        count_patients_with_flags("USUBJID",
-          flag_variables = var_labels(ae_summ_init()$out_df[, disp_eve]),
-          denom = "N_col",
-          var_labels = "Total number of patients with at least one",
-          show_labels = "visible"
-        )
+      lyt <- build_adae_summary(
+        adae = ae_summ_init()$out_df,
+        filter_cond = filt_react$filter_cond(),
+        event_vars = disp_eve,
+        trt_var = input$split_col
+      )
 
       return(list(
-        out_df = df,
+        out_df = lyt$df_out,
         alt_df = ae_summ_init()$alt_df,
-        lyt = lyt
+        lyt = lyt$lyt
       ))
     }) |>
       bindCache(list(ae_summ_init(), input$split_col, input$events, filt_react$filter_cond())) |>

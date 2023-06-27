@@ -1,16 +1,133 @@
+#' Add Flags to ADAE
+#'
+#' @param df `ADAE` dataset
+#'
+#' @return `ADAE` dataset with added flags
+#'
+#' @family adae_utils
+#' @keywords adae_utils
+#'
+#' @export
+#' @examples
+#' library(dplyr)
+#' adsl <- random.cdisc.data::cadsl
+#' adae <- random.cdisc.data::cadae
+#' adae_ <- add_adae_flags(adae)
+#' select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
+#'
+add_adae_flags <- function(df) {
+  df <- df |>
+    mutate(
+      FATAL = AESDTH == "Y",
+      SER = AESER == "Y",
+      SERWD = AESER == "Y" & AEACN == "DRUG WITHDRAWN",
+      SERDSM = AESER == "Y" & AEACN %in% c(
+        "DRUG INTERRUPTED",
+        "DOSE INCREASED", "DOSE REDUCED"
+      ),
+      RELSER = AESER == "Y" & AEREL == "Y",
+      WD = AEACN == "DRUG WITHDRAWN",
+      DSM = AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
+      REL = AEREL == "Y",
+      RELWD = AEREL == "Y" & AEACN == "DRUG WITHDRAWN",
+      RELDSM = AEREL == "Y" & AEACN %in% c(
+        "DRUG INTERRUPTED",
+        "DOSE INCREASED", "DOSE REDUCED"
+      ),
+      CTC35 = AETOXGR %in% c("3", "4", "5"),
+      CTC45 = AETOXGR %in% c("4", "5")
+    ) |>
+    var_relabel(
+      FATAL = "AE with fatal outcome",
+      SER = "Serious AE",
+      SERWD = "Serious AE leading to withdrawal from treatment",
+      SERDSM = "Serious AE leading to dose modification/interruption",
+      RELSER = "Related Serious AE",
+      WD = "AE leading to withdrawal from treatment",
+      DSM = "AE leading to dose modification/interruption",
+      REL = "Related AE",
+      RELWD = "Related AE leading to withdrawal from treatment",
+      RELDSM = "Related AE leading to dose modification/interruption",
+      CTC35 = "Grade 3-5 AE",
+      CTC45 = "Grade 4/5 AE"
+    )
+}
+
+
+#' Create ADAE Summary Table
+#'
+#' @param adae Input `ADAE` dataset
+#' @param filter_cond filter condition
+#' @param event_vars Variables added to source `ADAE` by `add_adae_flags()`
+#' @param trt_var Treatment Variable eg. `ARM`
+#'
+#' @return List containing layout object of ADAE Summary Table and filtered ADAE data
+#' @export
+#'
+#' @family adae_utils
+#' @keywords adae_utils
+#'
+#' @examples
+#'
+#' library(rtables)
+#' adsl <- random.cdisc.data::cadsl
+#' adae <- random.cdisc.data::cadae
+#' adae_ <- add_adae_flags(adae)
+#' lyt <- build_adae_summary(
+#'   adae = adae_,
+#'   filter_cond = NULL,
+#'   event_vars = setdiff(names(adae_), names(adae)),
+#'   trt_var = "ARM"
+#' )
+#' build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+#'
+build_adae_summary <-
+  function(adae, filter_cond = NULL, event_vars, trt_var) {
+    df <- adae
+    if (!is.null(filter_cond)) {
+      df <- adae |>
+        filter(!!!parse_exprs(filter_cond))
+    }
+
+    lyt <- basic_table(show_colcounts = TRUE) |>
+      split_cols_by(var = trt_var) |>
+      add_overall_col(label = "All Patients") |>
+      count_patients_with_event(
+        vars = "USUBJID",
+        filters = c("STUDYID" = as.character(unique(adae[["STUDYID"]]))),
+        denom = "N_col",
+        .labels = c(count_fraction = "Total number of patients with at least one adverse event")
+      ) |>
+      count_values(
+        "STUDYID",
+        values = as.character(unique(adae[["STUDYID"]])),
+        .stats = "count",
+        .labels = c(count = "Total AEs"),
+        table_names = "total_aes"
+      ) |>
+      count_patients_with_flags(
+        "USUBJID",
+        flag_variables = var_labels(adae[, event_vars]),
+        denom = "N_col",
+        var_labels = "Total number of patients with at least one",
+        show_labels = "visible"
+      )
+    return(list(lyt = lyt, df_out = df))
+  }
+
 #' Adverse Events Table by Body System and Severity/Toxicity
 #'
-#' @param adsl adsl data
-#' @param df_adae adae data
-#' @param colsby split columns by (default: ARM)
-#' @param grade_val AE Severity or AE Toxicity Grade
-#' @param class_val Sytem Organ Class/Body System Class
-#' @param term_val Dictionary Derived Term
+#' @param adsl Input `ADSL` data
+#' @param df_adae Input `ADAE` data
+#' @param colsby Column Variable (default: `ARM`)
+#' @param grade_val AE Severity or AE Toxicity Grade i.e. `AESEV` or `AETOXGR`
+#' @param class_val Sytem Organ Class/Body System Class i.e. `AESOC` or `AEBODSYS`
+#' @param term_val Dictionary Derived Term i.e. `AEDECOD` or `AETERM`
 #' @param default_view Logical `TRUE` or `FALSE`
 #'
 #' @return An rtable object
-#' @family helpers
-#' @keywords helpers
+#' @family adae_utils
+#' @keywords adae_utils
 #' @export
 #'
 #' @examples
@@ -18,7 +135,7 @@
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
 #'
-#' ae_by_sev_tox_table <- adae_by_sev_tox(
+#' build_adae_by_sev_tox(
 #'   adsl = adsl,
 #'   df_adae = adae,
 #'   colsby = "ARM",
@@ -28,9 +145,8 @@
 #'   default_view = TRUE
 #' )
 #'
-#' ae_by_sev_tox_table
 #'
-adae_by_sev_tox <- function(adsl,
+build_adae_by_sev_tox <- function(adsl,
                             df_adae,
                             colsby = "ARM",
                             grade_val = "AESEV",
@@ -102,8 +218,8 @@ adae_by_sev_tox <- function(adsl,
 
         lyt1 <- basic_table() |>
           split_cols_by(colsby,
-            labels_var = "sp_labs",
-            split_fun = remove_split_levels("Missing")
+                        labels_var = "sp_labs",
+                        split_fun = remove_split_levels("Missing")
           ) |>
           split_rows_by(class_val) |>
           count_occurrences(term_val) |>
@@ -120,9 +236,9 @@ adae_by_sev_tox <- function(adsl,
         lyt <- basic_table() |>
           split_cols_by(colsby, labels_var = "colsby_lab") |>
           split_rows_by(class_val,
-            indent_mod = 1L,
-            label_pos = "topleft",
-            split_label = obj_label(df_adae[[class_val]])
+                        indent_mod = 1L,
+                        label_pos = "topleft",
+                        split_label = obj_label(df_adae[[class_val]])
           ) |>
           split_cols_by(grade_val, split_fun = remove_split_levels("Missing")) |>
           count_occurrences(term_val) |>
@@ -166,3 +282,4 @@ adae_by_sev_tox <- function(adsl,
   }
   return(tab)
 }
+

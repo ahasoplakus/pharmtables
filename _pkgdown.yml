@@ -25,9 +25,13 @@ reference:
   contents:
   - has_keyword("app_specific")
 
-- title: Helper Functions
+- title: General Helper Functions
   contents:
   - has_keyword("helpers")
+
+- title: Adverse Events
+  contents:
+  - has_keyword("adae_utils")
 
 navbar:
   bg: secondary

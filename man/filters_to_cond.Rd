@@ -23,7 +23,6 @@ filters_to_cond(filter_list)
 }
 \seealso{
 Other helpers: 
-\code{\link{adae_by_sev_tox}()},
 \code{\link{build_adsl}()}
 }
 \concept{helpers}
