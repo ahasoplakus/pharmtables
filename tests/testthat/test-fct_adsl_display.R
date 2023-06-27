@@ -23,7 +23,8 @@ test_that("build_adsl works with split_rows_by as NULL", {
         range = "Min-Max",
         quantiles = c("IQR")
       )
-    )
+    ) |>
+    append_topleft(c("", "Characteristic"))
 
   out_lyt <- build_adsl(
     split_cols_by = "ARM",
@@ -59,7 +60,8 @@ test_that("build_adsl works when split_rows_by is present", {
         range = "Min-Max",
         quantiles = c("IQR")
       )
-    )
+    )|>
+    append_topleft(c("", "Characteristic"))
 
   out_lyt <- build_adsl(
     split_cols_by = "ARM",
