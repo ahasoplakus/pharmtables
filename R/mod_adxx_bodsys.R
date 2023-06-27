@@ -156,49 +156,19 @@ mod_adxx_bodsys_server <- function(id,
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      if (!is.null(filt_react$filter_cond())) {
-        df <- df |>
-          filter(!!!parse_exprs(filt_react$filter_cond()))
-      }
-
-      logger::log_info("mod_adxx_bodsys_server: {dataset} has {nrow(df)} rows")
-
-      lyt <- basic_table() |>
-        split_cols_by(var = input$split_col) |>
-        add_colcounts() |>
-        add_overall_col(label = "All Patients")
-
-      if (dataset == "cadae") {
-        lyt <- lyt |>
-          summarize_num_patients(
-            var = "USUBJID",
-            .stats = c("unique", "nonunique"),
-            .labels = c(
-              unique = "Total number of patients with at least one event",
-              nonunique = "Total number of events"
-            )
-          )
-      }
-
-      lyt <- lyt |>
-        split_rows_by(
-          input$class,
-          label_pos = "topleft",
-          split_label = obj_label(df[[input$class]]),
-          split_fun = drop_split_levels
-        ) |>
-        summarize_num_patients(
-          var = "USUBJID",
-          .stats = "unique",
-          .labels = c(unique = NULL)
-        ) |>
-        count_occurrences(vars = input$term) |>
-        append_topleft(paste(" ", obj_label(df[[input$term]])))
+      lyt <- build_generic_occurrence_table(
+        occ_df = df,
+        filter_cond = filt_react$filter_cond(),
+        trt_var = input$split_col,
+        dataset = dataset,
+        class_var = input$class,
+        term_var = input$term
+      )
 
       return(list(
-        out_df = df,
+        out_df = lyt$df_out,
         alt_df = df_adsl,
-        lyt = lyt
+        lyt = lyt$lyt
       ))
     }) |>
       bindCache(list(

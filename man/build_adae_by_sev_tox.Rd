@@ -50,7 +50,6 @@ build_adae_by_sev_tox(
   default_view = TRUE
 )
 
-
 }
 \seealso{
 Other adae_utils: 

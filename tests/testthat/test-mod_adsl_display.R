@@ -9,25 +9,22 @@ test_that("mod_adsl_display_server works", {
       expect_true(grepl("test", ns("test")))
 
       session$setInputs(split_col = "ARM")
-      session$setInputs(split_row = "SEX")
       session$setInputs(summ_var = c("AGE", "SEX"))
       session$setInputs(run = 1)
 
-      exp_lyt <- build_adsl(
+      exp_lyt <- build_demog_characteristics_table(
         title = "",
         subtitle = "",
         footer = "",
         split_cols_by = "ARM",
-        split_rows_by = "SEX",
         summ_vars = c("AGE", "SEX")
       )
 
-      exp_lyt1 <- build_adsl(
+      exp_lyt1 <- build_demog_characteristics_table(
         title = "",
         subtitle = "",
         footer = "",
         split_cols_by = "ARM",
-        split_rows_by = "SEX",
         summ_vars = c("AGE", "SEX", "COUNTRY")
       )
 

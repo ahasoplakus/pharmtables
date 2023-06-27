@@ -146,14 +146,13 @@ build_adae_summary <-
 #'   default_view = TRUE
 #' )
 #'
-#'
 build_adae_by_sev_tox <- function(adsl,
-                            df_adae,
-                            colsby = "ARM",
-                            grade_val = "AESEV",
-                            class_val = "AESOC",
-                            term_val = "AEDECOD",
-                            default_view = TRUE) {
+                                  df_adae,
+                                  colsby = "ARM",
+                                  grade_val = "AESEV",
+                                  class_val = "AESOC",
+                                  term_val = "AEDECOD",
+                                  default_view = TRUE) {
   if (isTRUE(default_view)) {
     adsl <- adsl |>
       add_count(.data[[colsby]]) |>
@@ -219,8 +218,8 @@ build_adae_by_sev_tox <- function(adsl,
 
         lyt1 <- basic_table() |>
           split_cols_by(colsby,
-                        labels_var = "sp_labs",
-                        split_fun = remove_split_levels("Missing")
+            labels_var = "sp_labs",
+            split_fun = remove_split_levels("Missing")
           ) |>
           split_rows_by(class_val) |>
           count_occurrences(term_val) |>
@@ -237,9 +236,9 @@ build_adae_by_sev_tox <- function(adsl,
         lyt <- basic_table() |>
           split_cols_by(colsby, labels_var = "colsby_lab") |>
           split_rows_by(class_val,
-                        indent_mod = 1L,
-                        label_pos = "topleft",
-                        split_label = obj_label(df_adae[[class_val]])
+            indent_mod = 1L,
+            label_pos = "topleft",
+            split_label = obj_label(df_adae[[class_val]])
           ) |>
           split_cols_by(grade_val, split_fun = remove_split_levels("Missing")) |>
           count_occurrences(term_val) |>
@@ -283,4 +282,3 @@ build_adae_by_sev_tox <- function(adsl,
   }
   return(tab)
 }
-

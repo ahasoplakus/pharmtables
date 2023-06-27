@@ -21,9 +21,5 @@ filter_list <- list(SEX = c("F", "M"))
 filters_to_cond(filter_list)
 
 }
-\seealso{
-Other helpers: 
-\code{\link{build_adsl}()}
-}
 \concept{helpers}
 \keyword{helpers}
