@@ -82,5 +82,7 @@ build_adsl <- function(title = "x.x: Study Subject Data",
         )
       )
   }
-  lyt
+
+  lyt |>
+    append_topleft(c("", "Characteristic"))
 }

@@ -111,7 +111,8 @@ build_adae_summary <-
         denom = "N_col",
         var_labels = "Total number of patients with at least one",
         show_labels = "visible"
-      )
+      ) |>
+      append_topleft(c("", "Adverse Events"))
     return(list(lyt = lyt, df_out = df))
   }
 

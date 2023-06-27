@@ -50,6 +50,7 @@
 #' @importFrom reactable renderReactable
 #' @importFrom rtables add_colcounts
 #' @importFrom rtables add_overall_col
+#' @importFrom rtables append_topleft
 #' @importFrom rtables cbind_rtables
 #' @importFrom rtables drop_split_levels
 #' @importFrom rtables obj_label

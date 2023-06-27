@@ -4,11 +4,9 @@ template:
   bootstrap: 5
   params:
     noindex: false
-    bootswatch: journal
+    bootswatch: flatly
   theme: github-light
   bslib:
-    primary: "#65647C"
-    secondary: "#99A98F"
     base_font: {google: "Roboto"}
     heading_font: {google: "Roboto Slab"}
     code_font: {google: "Poltawski Nowy"}
@@ -34,7 +32,6 @@ reference:
   - has_keyword("adae_utils")
 
 navbar:
-  bg: secondary
   structure:
     right: [github, linkedin, twitter]
   components:

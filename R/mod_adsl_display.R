@@ -97,7 +97,7 @@ mod_adsl_display_server <- function(id, adsl) {
       updateSelectInput(session,
         "summ_var",
         choices = summ_vars,
-        selected = summ_vars[1]
+        selected = c("SEX", "AGE", "RACE", "ETHNIC")
       )
     }) |>
       bindEvent(adsl())

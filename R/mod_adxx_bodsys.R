@@ -183,15 +183,17 @@ mod_adxx_bodsys_server <- function(id,
       lyt <- lyt |>
         split_rows_by(
           input$class,
-          child_labels = "visible",
-          nested = FALSE,
-          indent_mod = -1L,
           label_pos = "topleft",
           split_label = obj_label(df[[input$class]]),
           split_fun = drop_split_levels
         ) |>
-        count_occurrences(vars = input$term, .indent_mods = -1L) |>
-        append_varlabels(df, input$term, indent = 1L)
+        summarize_num_patients(
+          var = "USUBJID",
+          .stats = "unique",
+          .labels = c(unique = NULL)
+        ) |>
+        count_occurrences(vars = input$term) |>
+        append_topleft(paste(" ", obj_label(df[[input$term]])))
 
       return(list(
         out_df = df,
