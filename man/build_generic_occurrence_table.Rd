@@ -56,7 +56,7 @@ build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
 }
 \seealso{
 Other generic: 
-\code{\link{build_demog_characteristics_table}()}
+\code{\link{build_adsl_chars_table}()}
 }
 \concept{generic}
 \keyword{generic}

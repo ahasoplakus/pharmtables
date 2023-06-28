@@ -1,5 +1,5 @@
-test_that("build_demog_characteristics_table works", {
-  lyt <- build_demog_characteristics_table(
+test_that("build_adsl_chars_table works", {
+  lyt <- build_adsl_chars_table(
     split_cols_by = "ARM",
     summ_vars = c("AGE", "RACE")
   )

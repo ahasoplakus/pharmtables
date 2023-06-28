@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' lyt <- build_demog_characteristics_table(
+#' lyt <- build_adsl_chars_table(
 #'   split_cols_by = "ARM",
 #'   summ_vars = c("AGE", "RACE")
 #' )
@@ -21,7 +21,7 @@
 #' ## Use the tabletree object to within build_table
 #' rtables::build_table(lyt, random.cdisc.data::cadsl)
 #'
-build_demog_characteristics_table <-
+build_adsl_chars_table <-
   function(title = "x.x: Study Subject Data",
            subtitle = c(
              "x.x.x: Demographic Characteristics",

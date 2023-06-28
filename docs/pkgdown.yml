@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   clinTables: clinTables.html
-last_built: 2023-06-28T12:36Z
+last_built: 2023-06-28T13:55Z
 urls:
   reference: https://ahasoplakus.github.io/clinTables/reference
   article: https://ahasoplakus.github.io/clinTables/articles

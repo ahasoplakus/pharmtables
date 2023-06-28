@@ -99,7 +99,7 @@ mod_adsl_display_server <- function(id, adsl) {
       req(input$summ_var)
       logger::log_info("mod_adsl_display_server: processed adsl has {nrow(adsl())} rows")
 
-      lyt <- build_demog_characteristics_table(
+      lyt <- build_adsl_chars_table(
         title = "",
         subtitle = "",
         footer = "",
