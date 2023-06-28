@@ -49,7 +49,6 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
       req(load_data()[[dataset]])
       req(filter_list())
       req(length(reactiveValuesToList(input)) > 0)
-      logger::log_info("mod_global_filters_server: create study filters")
       filters <-
         set_names(tolower(filter_list())) |>
         map(\(x) input[[x]])
@@ -68,7 +67,7 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
           union(names(rv$filters), names(init)) |>
           set_names() |>
           map(\(x) {
-            if (!toupper(x) %in% names(load_data()[[dataset]])) {
+            if (x != "pop" && !toupper(x) %in% names(load_data()[[dataset]])) {
               init[[x]] <- NULL
             }
             init[[x]]
@@ -77,7 +76,7 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
       },
       priority = 950
     ) |>
-      bindEvent(filters())
+      bindEvent(list(filters(), input$pop))
 
     return(list(
       filters = reactive({
