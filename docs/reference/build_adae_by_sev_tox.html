@@ -70,6 +70,7 @@
 <span>  <span class="va">adsl</span>,</span>
 <span>  <span class="va">df_adae</span>,</span>
 <span>  colsby <span class="op">=</span> <span class="st">"ARM"</span>,</span>
+<span>  filter_cond <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  grade_val <span class="op">=</span> <span class="st">"AESEV"</span>,</span>
 <span>  class_val <span class="op">=</span> <span class="st">"AESOC"</span>,</span>
 <span>  term_val <span class="op">=</span> <span class="st">"AEDECOD"</span>,</span>
@@ -80,31 +81,35 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>adsl</dt>
-<dd><p>Input <code>ADSL</code> data</p></dd>
+<dd><p>(<code>data.frame</code>)<br> ADSL dataset.</p></dd>
 
 
 <dt>df_adae</dt>
-<dd><p>Input <code>ADAE</code> data</p></dd>
+<dd><p>(<code>data.frame</code>)<br> ADAE dataset.</p></dd>
 
 
 <dt>colsby</dt>
-<dd><p>Column Variable (default: <code>ARM</code>)</p></dd>
+<dd><p>(<code>character</code>)<br> Variable used to split table into columns.</p></dd>
+
+
+<dt>filter_cond</dt>
+<dd><p>(<code>character</code>)<br> Filtering condition required for <code>df_adae</code>.</p></dd>
 
 
 <dt>grade_val</dt>
-<dd><p>AE Severity or AE Toxicity Grade i.e. <code>AESEV</code> or <code>AETOXGR</code></p></dd>
+<dd><p>(<code>character</code>)<br> AE Severity or AE Toxicity Grade i.e. <code>AESEV</code> or <code>AETOXGR</code></p></dd>
 
 
 <dt>class_val</dt>
-<dd><p>Sytem Organ Class/Body System Class i.e. <code>AESOC</code> or <code>AEBODSYS</code></p></dd>
+<dd><p>(<code>character</code>)<br> System Organ Class/Body System Class i.e. <code>AESOC</code> or <code>AEBODSYS</code></p></dd>
 
 
 <dt>term_val</dt>
-<dd><p>Dictionary Derived Term i.e. <code>AEDECOD</code> or <code>AETERM</code></p></dd>
+<dd><p>(<code>character</code>)<br> Dictionary Derived Term i.e. <code>AEDECOD</code> or <code>AETERM</code></p></dd>
 
 
 <dt>default_view</dt>
-<dd><p>Logical <code>TRUE</code> or <code>FALSE</code></p></dd>
+<dd><p>(<code>logical</code>)<br><code>TRUE</code> displays values of <code>grade_val</code> into columns.</p></dd>
 
 </dl></div>
     <div class="section level2">

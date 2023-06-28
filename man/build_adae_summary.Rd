@@ -7,13 +7,14 @@
 build_adae_summary(adae, filter_cond = NULL, event_vars, trt_var)
 }
 \arguments{
-\item{adae}{Input \code{ADAE} dataset}
+\item{adae}{(\code{data.frame})\cr ADAE dataset.}
 
-\item{filter_cond}{filter condition}
+\item{filter_cond}{(\code{character})\cr Filtering condition required for \code{adae}.}
 
-\item{event_vars}{Variables added to source \code{ADAE} by \code{add_adae_flags()}}
+\item{event_vars}{(\verb{vector of character})\cr Variables added to source \code{ADAE}
+by \code{add_adae_flags()}.}
 
-\item{trt_var}{Treatment Variable eg. \code{ARM}}
+\item{trt_var}{(\code{character})\cr Arm variable used to split table into columns.}
 }
 \value{
 List containing layout object of ADAE Summary Table and filtered ADAE data

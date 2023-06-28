@@ -82,7 +82,7 @@ create_flag_widget <- function(flags, namespace) {
 
 #' Create filtering condition based on filters
 #'
-#' @param filter_list Named list of filter values
+#' @param filter_list (`list`)\cr Named list of filter values
 #'
 #' @return The Filtering condition
 #'

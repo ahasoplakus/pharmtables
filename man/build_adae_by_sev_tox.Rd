@@ -8,6 +8,7 @@ build_adae_by_sev_tox(
   adsl,
   df_adae,
   colsby = "ARM",
+  filter_cond = NULL,
   grade_val = "AESEV",
   class_val = "AESOC",
   term_val = "AEDECOD",
@@ -15,19 +16,21 @@ build_adae_by_sev_tox(
 )
 }
 \arguments{
-\item{adsl}{Input \code{ADSL} data}
+\item{adsl}{(\code{data.frame})\cr ADSL dataset.}
 
-\item{df_adae}{Input \code{ADAE} data}
+\item{df_adae}{(\code{data.frame})\cr ADAE dataset.}
 
-\item{colsby}{Column Variable (default: \code{ARM})}
+\item{colsby}{(\code{character})\cr Variable used to split table into columns.}
 
-\item{grade_val}{AE Severity or AE Toxicity Grade i.e. \code{AESEV} or \code{AETOXGR}}
+\item{filter_cond}{(\code{character})\cr Filtering condition required for \code{df_adae}.}
 
-\item{class_val}{Sytem Organ Class/Body System Class i.e. \code{AESOC} or \code{AEBODSYS}}
+\item{grade_val}{(\code{character})\cr AE Severity or AE Toxicity Grade i.e. \code{AESEV} or \code{AETOXGR}}
 
-\item{term_val}{Dictionary Derived Term i.e. \code{AEDECOD} or \code{AETERM}}
+\item{class_val}{(\code{character})\cr System Organ Class/Body System Class i.e. \code{AESOC} or \code{AEBODSYS}}
 
-\item{default_view}{Logical \code{TRUE} or \code{FALSE}}
+\item{term_val}{(\code{character})\cr Dictionary Derived Term i.e. \code{AEDECOD} or \code{AETERM}}
+
+\item{default_view}{(\code{logical})\cr \code{TRUE} displays values of \code{grade_val} into columns.}
 }
 \value{
 An rtable object

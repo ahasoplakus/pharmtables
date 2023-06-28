@@ -1,6 +1,6 @@
 #' Add Flags to ADAE
 #'
-#' @param df `ADAE` dataset
+#' @param df (`data.frame`)\cr ADAE dataset.
 #'
 #' @return `ADAE` dataset with added flags
 #'
@@ -56,10 +56,11 @@ add_adae_flags <- function(df) {
 
 #' Create ADAE Summary Table
 #'
-#' @param adae Input `ADAE` dataset
-#' @param filter_cond filter condition
-#' @param event_vars Variables added to source `ADAE` by `add_adae_flags()`
-#' @param trt_var Treatment Variable eg. `ARM`
+#' @param adae (`data.frame`)\cr ADAE dataset.
+#' @param filter_cond (`character`)\cr Filtering condition required for `adae`.
+#' @param event_vars (`vector of character`)\cr Variables added to source `ADAE`
+#' by `add_adae_flags()`.
+#' @param trt_var (`character`)\cr Arm variable used to split table into columns.
 #'
 #' @return List containing layout object of ADAE Summary Table and filtered ADAE data
 #' @export
@@ -118,13 +119,14 @@ build_adae_summary <-
 
 #' Adverse Events Table by Body System and Severity/Toxicity
 #'
-#' @param adsl Input `ADSL` data
-#' @param df_adae Input `ADAE` data
-#' @param colsby Column Variable (default: `ARM`)
-#' @param grade_val AE Severity or AE Toxicity Grade i.e. `AESEV` or `AETOXGR`
-#' @param class_val Sytem Organ Class/Body System Class i.e. `AESOC` or `AEBODSYS`
-#' @param term_val Dictionary Derived Term i.e. `AEDECOD` or `AETERM`
-#' @param default_view Logical `TRUE` or `FALSE`
+#' @param adsl (`data.frame`)\cr ADSL dataset.
+#' @param df_adae (`data.frame`)\cr ADAE dataset.
+#' @param colsby (`character`)\cr Variable used to split table into columns.
+#' @param filter_cond (`character`)\cr Filtering condition required for `df_adae`.
+#' @param grade_val (`character`)\cr AE Severity or AE Toxicity Grade i.e. `AESEV` or `AETOXGR`
+#' @param class_val (`character`)\cr System Organ Class/Body System Class i.e. `AESOC` or `AEBODSYS`
+#' @param term_val (`character`)\cr Dictionary Derived Term i.e. `AEDECOD` or `AETERM`
+#' @param default_view (`logical`)\cr `TRUE` displays values of `grade_val` into columns.
 #'
 #' @return An rtable object
 #' @family adae_utils
@@ -149,10 +151,18 @@ build_adae_summary <-
 build_adae_by_sev_tox <- function(adsl,
                                   df_adae,
                                   colsby = "ARM",
+                                  filter_cond = NULL,
                                   grade_val = "AESEV",
                                   class_val = "AESOC",
                                   term_val = "AEDECOD",
                                   default_view = TRUE) {
+  if (!is.null(filter_cond)) {
+    df_adae <- df_adae |>
+      filter(!!!parse_exprs(filter_cond))
+  } else {
+    df_adae <- df_adae
+  }
+
   if (isTRUE(default_view)) {
     adsl <- adsl |>
       add_count(.data[[colsby]]) |>

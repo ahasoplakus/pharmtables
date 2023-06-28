@@ -7,7 +7,7 @@
 add_adae_flags(df)
 }
 \arguments{
-\item{df}{\code{ADAE} dataset}
+\item{df}{(\code{data.frame})\cr ADAE dataset.}
 }
 \value{
 \code{ADAE} dataset with added flags
