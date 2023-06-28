@@ -58,7 +58,6 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
       {
         req(filters())
         req(none(filters(), is.null))
-        req(!identical(filters(), rv$cached_filters))
         logger::log_info("mod_global_filters_server: update study filters")
         rv$filters <- filters()
         rv$filters$pop <- input$pop

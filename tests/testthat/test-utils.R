@@ -13,7 +13,7 @@ test_that("build_adsl_chars_table works", {
     prov_footer = "Source: ADSL DDMMYYYY hh:mm; Listing x.xx; SDTM package: DDMMYYYY",
     show_colcounts = TRUE
   ) |>
-    split_cols_by("ARM") |>
+    split_cols_by("ARM", split_fun = drop_split_levels) |>
     add_overall_col("All Patients") |>
     summarize_vars(
       c("AGE", "RACE"),
@@ -55,7 +55,7 @@ test_that("build_generic_occurrence_table works", {
   )
 
   exp_lyt <- basic_table() |>
-    split_cols_by(var = "ARM") |>
+    split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
     add_colcounts() |>
     add_overall_col(label = "All Patients") |>
     summarize_num_patients(
@@ -94,7 +94,7 @@ test_that("build_generic_occurrence_table works", {
   adae_ <- filter(adae, SEX == "F")
 
   exp_lyt_ <- basic_table() |>
-    split_cols_by(var = "ARM") |>
+    split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
     add_colcounts() |>
     add_overall_col(label = "All Patients") |>
     summarize_num_patients(

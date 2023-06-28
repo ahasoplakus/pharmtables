@@ -60,7 +60,7 @@ test_that("mod_adae_summary_server works", {
       disp_eve1 <- c("FATAL", "SER", "SERWD")
 
       exp_lyt <- basic_table(show_colcounts = TRUE) |>
-        split_cols_by(var = "ARM") |>
+        split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
         add_overall_col(label = "All Patients") |>
         count_patients_with_event(
           vars = "USUBJID",
@@ -84,7 +84,7 @@ test_that("mod_adae_summary_server works", {
         append_topleft(c("", "Adverse Events"))
 
       exp_lyt1 <- basic_table(show_colcounts = TRUE) |>
-        split_cols_by(var = "ARM") |>
+        split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
         add_overall_col(label = "All Patients") |>
         count_patients_with_event(
           vars = "USUBJID",

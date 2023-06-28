@@ -35,7 +35,7 @@ test_that("build_adae_summary works", {
   )
 
   exp_lyt <- basic_table(show_colcounts = TRUE) |>
-    split_cols_by(var = "ARM") |>
+    split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
     add_overall_col(label = "All Patients") |>
     count_patients_with_event(
       vars = "USUBJID",
@@ -76,7 +76,7 @@ test_that("build_adae_summary works with filter condition", {
     filter(SEX == "F")
 
   exp_lyt <- basic_table(show_colcounts = TRUE) |>
-    split_cols_by(var = "ARM") |>
+    split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
     add_overall_col(label = "All Patients") |>
     count_patients_with_event(
       vars = "USUBJID",

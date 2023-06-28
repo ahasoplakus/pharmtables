@@ -91,7 +91,7 @@ build_adae_summary <-
     }
 
     lyt <- basic_table(show_colcounts = TRUE) |>
-      split_cols_by(var = trt_var) |>
+      split_cols_by(var = trt_var, split_fun = drop_split_levels) |>
       add_overall_col(label = "All Patients") |>
       count_patients_with_event(
         vars = "USUBJID",
@@ -210,7 +210,7 @@ build_adae_by_sev_tox <- function(adsl,
     dummy_sev <- data.frame(x = unique(adae[[grade_val]]))
     names(dummy_sev) <- grade_val
 
-    l1 <- levels(adsl[[colsby]]) |>
+    l1 <- levels(adae[[colsby]]) |>
       map(~ {
         df <- adae |>
           filter(.data[[colsby]] == .x) |>
@@ -260,7 +260,7 @@ build_adae_by_sev_tox <- function(adsl,
     tab <- reduce(l1, cbind_rtables)
   } else {
     lyt <- basic_table() |>
-      split_cols_by(var = colsby) |>
+      split_cols_by(var = colsby, split_fun = drop_split_levels) |>
       add_colcounts() |>
       add_overall_col(label = "All Patients") |>
       add_colcounts() |>

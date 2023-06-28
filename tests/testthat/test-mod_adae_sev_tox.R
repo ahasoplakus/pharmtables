@@ -35,7 +35,7 @@ test_that("mod_adae_sev_tox_server works", {
       session$setInputs(run = 1)
 
       exp_lyt <- basic_table() |>
-        split_cols_by(var = "ARM") |>
+        split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
         add_colcounts() |>
         add_overall_col(label = "All Patients") |>
         add_colcounts() |>

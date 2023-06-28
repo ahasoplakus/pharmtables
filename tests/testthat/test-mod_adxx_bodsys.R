@@ -22,7 +22,7 @@ test_that("mod_adxx_bodsys_server works", {
       expect_true(grepl("test", ns("test")))
 
       exp_lyt <- basic_table() |>
-        split_cols_by(var = "ACTARM") |>
+        split_cols_by(var = "ACTARM", split_fun = drop_split_levels) |>
         add_colcounts() |>
         add_overall_col(label = "All Patients") |>
         summarize_num_patients(

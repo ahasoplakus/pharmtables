@@ -36,7 +36,7 @@ build_adsl_chars_table <-
       prov_footer = footer,
       show_colcounts = TRUE
     ) |>
-      split_cols_by(split_cols_by) |>
+      split_cols_by(split_cols_by, split_fun = drop_split_levels) |>
       add_overall_col("All Patients") |>
       summarize_vars(
         summ_vars,
@@ -112,7 +112,7 @@ build_generic_occurrence_table <-
     }
 
     lyt <- basic_table() |>
-      split_cols_by(var = trt_var) |>
+      split_cols_by(var = trt_var, split_fun = drop_split_levels) |>
       add_colcounts() |>
       add_overall_col(label = "All Patients")
 
