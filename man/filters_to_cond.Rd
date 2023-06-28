@@ -7,7 +7,7 @@
 filters_to_cond(filter_list)
 }
 \arguments{
-\item{filter_list}{Named list of filter values}
+\item{filter_list}{(\code{list})\cr Named list of filter values}
 }
 \value{
 The Filtering condition
@@ -20,11 +20,6 @@ Create filtering condition based on filters
 filter_list <- list(SEX = c("F", "M"))
 filters_to_cond(filter_list)
 
-}
-\seealso{
-Other helpers: 
-\code{\link{adae_by_sev_tox}()},
-\code{\link{build_adsl}()}
 }
 \concept{helpers}
 \keyword{helpers}

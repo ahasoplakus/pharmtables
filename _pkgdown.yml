@@ -4,11 +4,9 @@ template:
   bootstrap: 5
   params:
     noindex: false
-    bootswatch: journal
+    bootswatch: flatly
   theme: github-light
   bslib:
-    primary: "#65647C"
-    secondary: "#99A98F"
     base_font: {google: "Roboto"}
     heading_font: {google: "Roboto Slab"}
     code_font: {google: "Poltawski Nowy"}
@@ -25,12 +23,19 @@ reference:
   contents:
   - has_keyword("app_specific")
 
+- title: Generic Functions
+  contents:
+  - has_keyword("generic")
+
+- title: Adverse Events
+  contents:
+  - has_keyword("adae_utils")
+
 - title: Helper Functions
   contents:
   - has_keyword("helpers")
 
 navbar:
-  bg: secondary
   structure:
     right: [github, linkedin, twitter]
   components:

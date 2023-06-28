@@ -25,14 +25,6 @@ mod_adsl_display_ui <- function(id) {
           selected = NULL,
           width = 400
         ),
-        selectizeInput(
-          ns("split_row"),
-          "Split Rows by",
-          choices = NULL,
-          selected = NULL,
-          width = 300,
-          options = list(maxItems = 1)
-        ),
         selectInput(
           ns("summ_var"),
           "Summarize",
@@ -87,17 +79,10 @@ mod_adsl_display_server <- function(id, adsl) {
         selected = trt_choices[1]
       )
 
-      updateSelectizeInput(session,
-        "split_row",
-        choices = c("", rowgrp_choices),
-        selected = "",
-        options = list(maxItems = 1)
-      )
-
       updateSelectInput(session,
         "summ_var",
         choices = summ_vars,
-        selected = summ_vars[1]
+        selected = c("SEX", "AGE", "RACE", "ETHNIC")
       )
     }) |>
       bindEvent(adsl())
@@ -114,12 +99,11 @@ mod_adsl_display_server <- function(id, adsl) {
       req(input$summ_var)
       logger::log_info("mod_adsl_display_server: processed adsl has {nrow(adsl())} rows")
 
-      lyt <- build_adsl(
+      lyt <- build_adsl_chars_table(
         title = "",
         subtitle = "",
         footer = "",
         split_cols_by = input$split_col,
-        split_rows_by = input$split_row,
         summ_vars = input$summ_var
       )
 
@@ -131,7 +115,7 @@ mod_adsl_display_server <- function(id, adsl) {
         lyt = lyt
       ))
     }) |>
-      bindCache(list(adsl(), input$split_col, input$split_row, input$summ_var)) |>
+      bindCache(list(adsl(), input$split_col, input$summ_var)) |>
       bindEvent(list(adsl(), rv$trig_report, input$run))
 
     mod_dt_table_server("dt_table_1",

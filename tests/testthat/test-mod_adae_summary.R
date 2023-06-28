@@ -80,7 +80,8 @@ test_that("mod_adae_summary_server works", {
           denom = "N_col",
           var_labels = "Total number of patients with at least one",
           show_labels = "visible"
-        )
+        ) |>
+        append_topleft(c("", "Adverse Events"))
 
       exp_lyt1 <- basic_table(show_colcounts = TRUE) |>
         split_cols_by(var = "ARM") |>
@@ -103,7 +104,8 @@ test_that("mod_adae_summary_server works", {
           denom = "N_col",
           var_labels = "Total number of patients with at least one",
           show_labels = "visible"
-        )
+        ) |>
+        append_topleft(c("", "Adverse Events"))
 
       session$setInputs(split_col = "ARM")
       session$setInputs(events = names(select(df, all_of(disp_eve))))

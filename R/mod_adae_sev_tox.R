@@ -176,18 +176,11 @@ mod_adae_sev_tox_server <- function(id,
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      if (!is.null(filt_react$filter_cond())) {
-        df <- df |>
-          filter(!!!parse_exprs(filt_react$filter_cond()))
-      }
-
-      logger::log_info("mod_adae_sev_tox_server: adae has
-                         {nrow(df)} rows")
-
-      out_df <- adae_by_sev_tox(
+      out_df <- build_adae_by_sev_tox(
         adsl = df_adsl,
         df_adae = df,
         colsby = input$split_col,
+        filter_cond = filt_react$filter_cond(),
         grade_val = input$summ_var,
         class_val = input$class,
         term_val = input$term,

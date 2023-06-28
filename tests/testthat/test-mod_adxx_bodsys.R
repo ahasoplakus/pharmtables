@@ -35,15 +35,17 @@ test_that("mod_adxx_bodsys_server works", {
         ) |>
         split_rows_by(
           "AEBODSYS",
-          child_labels = "visible",
-          nested = FALSE,
-          indent_mod = -1L,
           label_pos = "topleft",
           split_label = obj_label(df_out()[[dataset]][["AEBODSYS"]]),
           split_fun = drop_split_levels
         ) |>
-        count_occurrences(vars = "AEDECOD", .indent_mods = -1L) |>
-        append_varlabels(df_out()[[dataset]], "AEDECOD", indent = 1L)
+        summarize_num_patients(
+          var = "USUBJID",
+          .stats = "unique",
+          .labels = c(unique = NULL)
+        ) |>
+        count_occurrences(vars = "AEDECOD") |>
+        append_topleft(paste(" ", obj_label(df_out()[[dataset]][["AEDECOD"]])))
 
       session$setInputs(split_col = "ACTARM")
       session$setInputs(class = "AEBODSYS")
