@@ -10,7 +10,8 @@ build_adsl_chars_table(
     "Table x.x.x.x: Demographic Characteristics - Full Analysis Set"),
   footer = "Source: ADSL DDMMYYYY hh:mm; Listing x.xx; SDTM package: DDMMYYYY",
   split_cols_by = "ARM",
-  summ_vars = c("AGE", "SEX", "COUNTRY")
+  summ_vars = c("AGE", "SEX", "COUNTRY"),
+  disp_stat = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction")
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ build_adsl_chars_table(
 \item{split_cols_by}{(\code{character})\cr Arm variable used to split table into columns.}
 
 \item{summ_vars}{(\verb{vector of character})\cr Variables from df to include in the table.}
+
+\item{disp_stat}{(\verb{vector of character})\cr Statistics to display.}
 }
 \value{
 A tabletree object.
@@ -35,10 +38,8 @@ lyt <- build_adsl_chars_table(
   split_cols_by = "ARM",
   summ_vars = c("AGE", "RACE")
 )
-
-
-## Use the tabletree object to within build_table
-rtables::build_table(lyt, random.cdisc.data::cadsl)
+tbl <- rtables::build_table(lyt, random.cdisc.data::cadsl)
+tbl
 
 }
 \seealso{

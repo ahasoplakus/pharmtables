@@ -21,9 +21,8 @@ mod_dt_table_server <- function(id, display_df) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    output$out_data <- renderPrint({
+    df_out <- reactive({
       req(display_df()$out_df)
-      logger::log_info("mod_dt_table_server: display data")
       if (is.data.frame(display_df()$out_df)) {
         df <- as_html(
           build_table(
@@ -36,6 +35,12 @@ mod_dt_table_server <- function(id, display_df) {
         df <- as_html(display_df()$out_df)
       }
       df
+    }) |> bindEvent(display_df())
+
+    output$out_data <- renderPrint({
+      req(df_out())
+      logger::log_info("mod_dt_table_server: display data")
+      df_out()
     })
   })
 }

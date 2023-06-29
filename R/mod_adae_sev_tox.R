@@ -23,21 +23,21 @@ mod_adae_sev_tox_ui <- function(id) {
         h2(tags$strong("Table Options")),
         selectInput(
           ns("split_col"),
-          "Split Cols by",
+          "Treatment Variable",
           choices = NULL,
           selected = NULL,
           width = 400
         ),
         selectInput(
           ns("class"),
-          "Class",
+          "Higher Level Term",
           choices = NULL,
           selected = NULL,
           width = 400
         ),
         selectInput(
           ns("term"),
-          "Term",
+          "Lower Level Term",
           choices = NULL,
           selected = NULL,
           width = 400

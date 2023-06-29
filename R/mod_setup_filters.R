@@ -14,7 +14,7 @@ mod_setup_filters_ui <- function(id) {
       accordion(
         id = ns("acc_study_setup"),
         accordionItem(
-          title = "Study Filters",
+          title = "ADSL Filters",
           selectizeInput(
             ns("adsl_var"),
             "",
@@ -24,7 +24,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ),
         accordionItem(
-          title = "Adverse Events",
+          title = "ADAE Filters",
           selectizeInput(
             ns("adae_var"),
             "",
@@ -34,7 +34,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ),
         accordionItem(
-          title = "Medical History",
+          title = "ADMH Filters",
           selectizeInput(
             ns("admh_var"),
             "",
@@ -44,7 +44,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ),
         accordionItem(
-          title = "Concomitant Medications",
+          title = "ADCM Filters",
           selectizeInput(
             ns("adcm_var"),
             "",

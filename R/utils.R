@@ -5,6 +5,7 @@
 #' @param footer (`character`)\cr Footer of the demographic table.
 #' @param split_cols_by (`character`)\cr Arm variable used to split table into columns.
 #' @param summ_vars (`vector of character`)\cr Variables from df to include in the table.
+#' @param disp_stat (`vector of character`)\cr Statistics to display.
 #'
 #' @return A tabletree object.
 #' @family generic
@@ -16,10 +17,8 @@
 #'   split_cols_by = "ARM",
 #'   summ_vars = c("AGE", "RACE")
 #' )
-#'
-#'
-#' ## Use the tabletree object to within build_table
-#' rtables::build_table(lyt, random.cdisc.data::cadsl)
+#' tbl <- rtables::build_table(lyt, random.cdisc.data::cadsl)
+#' tbl
 #'
 build_adsl_chars_table <-
   function(title = "x.x: Study Subject Data",
@@ -29,7 +28,8 @@ build_adsl_chars_table <-
            ),
            footer = "Source: ADSL DDMMYYYY hh:mm; Listing x.xx; SDTM package: DDMMYYYY",
            split_cols_by = "ARM",
-           summ_vars = c("AGE", "SEX", "COUNTRY")) {
+           summ_vars = c("AGE", "SEX", "COUNTRY"),
+           disp_stat = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction")) {
     lyt <- basic_table(
       title = title,
       subtitles = subtitle,
@@ -40,15 +40,7 @@ build_adsl_chars_table <-
       add_overall_col("All Patients") |>
       summarize_vars(
         summ_vars,
-        .stats = c(
-          "n",
-          "mean_sd",
-          "se",
-          "median",
-          "range",
-          "quantiles",
-          "count_fraction"
-        ),
+        .stats = disp_stat,
         .labels = c(
           n = "n",
           mean_sd = "Mean, SD",
@@ -111,24 +103,26 @@ build_generic_occurrence_table <-
         filter(!!!parse_exprs(filter_cond))
     }
 
+    if (dataset == "cadae") {
+      text <- "event"
+    } else if (dataset == "cadmh") {
+      text <- "condition"
+    } else {
+      text <- "treatment"
+    }
+
     lyt <- basic_table() |>
       split_cols_by(var = trt_var, split_fun = drop_split_levels) |>
       add_colcounts() |>
-      add_overall_col(label = "All Patients")
-
-    if (dataset == "cadae") {
-      lyt <- lyt |>
-        summarize_num_patients(
-          var = "USUBJID",
-          .stats = c("unique", "nonunique"),
-          .labels = c(
-            unique = "Total number of patients with at least one event",
-            nonunique = "Total number of events"
-          )
+      add_overall_col(label = "All Patients") |>
+      summarize_num_patients(
+        var = "USUBJID",
+        .stats = c("unique", "nonunique"),
+        .labels = c(
+          unique = str_glue("Total number of patients with at least one {text}"),
+          nonunique = str_glue("Total number of {text}s")
         )
-    }
-
-    lyt <- lyt |>
+      ) |>
       split_rows_by(
         class_var,
         label_pos = "topleft",
@@ -142,5 +136,6 @@ build_generic_occurrence_table <-
       ) |>
       count_occurrences(vars = term_var) |>
       append_topleft(paste(" ", obj_label(df[[term_var]])))
+
     return(list(lyt = lyt, df_out = df))
   }

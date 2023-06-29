@@ -61,7 +61,7 @@ app_ui <- function(request) {
         accordion(
           id = "acc_st_filt",
           accordionItem(
-            title = tags$span(icon("user-gear"), tags$strong("Study Filters")),
+            title = tags$span(icon("user-gear"), tags$strong("ADSL Filters")),
             collapsed = FALSE,
             mod_global_filters_ui("global_filters_1")
           )
