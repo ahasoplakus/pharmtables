@@ -2,3 +2,8 @@
     --bs-text-opacity: 1;
     color: #bcb118 !important;
 }
+
+.template-home img.logo {
+    width: 200px;
+    height: 225px;
+}
