@@ -10,6 +10,18 @@ test_that("mod_adsl_display_server works", {
 
       session$setInputs(split_col = "ARM")
       session$setInputs(summ_var = c("AGE", "SEX"))
+      session$setInputs(
+        stats =
+          c(
+            "n",
+            "mean_sd",
+            "se",
+            "median",
+            "range",
+            "quantiles",
+            "count_fraction"
+          )
+      )
       session$setInputs(run = 1)
 
       exp_lyt <- build_adsl_chars_table(

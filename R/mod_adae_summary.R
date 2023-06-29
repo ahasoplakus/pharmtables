@@ -21,7 +21,7 @@ mod_adae_summary_ui <- function(id) {
         h2(tags$strong("Table Options")),
         selectInput(
           ns("split_col"),
-          "Split Cols by",
+          "Treatment Variable",
           choices = NULL,
           selected = NULL,
           width = 400
