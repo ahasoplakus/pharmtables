@@ -9,8 +9,6 @@ name: deploy-app
 jobs:
   deploy-app:
     runs-on: ${{ matrix.config.os }}
-    if: >
-      !contains(github.event.commits[0].message, '[skip deploy]')
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 

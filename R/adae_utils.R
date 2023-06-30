@@ -15,8 +15,7 @@
 #' adae_ <- add_adae_flags(adae)
 #'
 #' tbl <- select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
-#'
-#' flextable::flextable(slice_head(tbl, n = 5))
+#' slice_head(tbl, n = 5)
 #'
 add_adae_flags <- function(df) {
   df <- df |>
@@ -85,7 +84,7 @@ add_adae_flags <- function(df) {
 #' )
 #' tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
 #'
-#' rtables::tt_to_flextable(tbl)
+#' tbl
 #'
 build_adae_summary <-
   function(adae, filter_cond = NULL, event_vars, trt_var) {
@@ -153,7 +152,7 @@ build_adae_summary <-
 #'   default_view = TRUE
 #' )
 #'
-#' rtables::tt_to_flextable(tbl)
+#' tbl
 #'
 build_adae_by_sev_tox <- function(adsl,
                                   df_adae,

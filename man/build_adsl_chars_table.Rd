@@ -40,7 +40,7 @@ lyt <- build_adsl_chars_table(
 )
 tbl <- rtables::build_table(lyt, random.cdisc.data::cadsl)
 
-rtables::tt_to_flextable(tbl)
+tbl
 
 }
 \seealso{
