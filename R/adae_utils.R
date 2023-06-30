@@ -13,7 +13,10 @@
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
 #' adae_ <- add_adae_flags(adae)
-#' select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
+#'
+#' tbl <- select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
+#'
+#' flextable::flextable(slice_head(tbl, n = 5))
 #'
 add_adae_flags <- function(df) {
   df <- df |>
@@ -80,7 +83,9 @@ add_adae_flags <- function(df) {
 #'   event_vars = setdiff(names(adae_), names(adae)),
 #'   trt_var = "ARM"
 #' )
-#' build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+#' tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+#'
+#' rtables::tt_to_flextable(tbl)
 #'
 build_adae_summary <-
   function(adae, filter_cond = NULL, event_vars, trt_var) {
@@ -138,7 +143,7 @@ build_adae_summary <-
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
 #'
-#' build_adae_by_sev_tox(
+#' tbl <- build_adae_by_sev_tox(
 #'   adsl = adsl,
 #'   df_adae = adae,
 #'   colsby = "ARM",
@@ -147,6 +152,8 @@ build_adae_summary <-
 #'   term_val = "AEDECOD",
 #'   default_view = TRUE
 #' )
+#'
+#' rtables::tt_to_flextable(tbl)
 #'
 build_adae_by_sev_tox <- function(adsl,
                                   df_adae,

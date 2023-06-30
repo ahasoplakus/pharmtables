@@ -18,7 +18,8 @@
 #'   summ_vars = c("AGE", "RACE")
 #' )
 #' tbl <- rtables::build_table(lyt, random.cdisc.data::cadsl)
-#' tbl
+#'
+#' rtables::tt_to_flextable(tbl)
 #'
 build_adsl_chars_table <-
   function(title = "x.x: Study Subject Data",
@@ -88,7 +89,9 @@ build_adsl_chars_table <-
 #'   class_var = "AESOC",
 #'   term_var = "AEDECOD"
 #' )
-#' build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+#' tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+#'
+#' rtables::tt_to_flextable(tbl)
 #'
 build_generic_occurrence_table <-
   function(occ_df,

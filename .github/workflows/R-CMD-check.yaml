@@ -43,6 +43,8 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v2
         with:
+          extra-packages: any::flextable
+          needs: flextable
           upload-snapshots: true
 
 

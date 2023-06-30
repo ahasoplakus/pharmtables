@@ -31,6 +31,7 @@ Suggests:
     cli,
     config,
     covr,
+    flextable,
     glue,
     knitr,
     lifecycle,

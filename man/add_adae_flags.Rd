@@ -20,7 +20,10 @@ library(dplyr)
 adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae
 adae_ <- add_adae_flags(adae)
-select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
+
+tbl <- select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
+
+flextable::flextable(slice_head(tbl, n = 5))
 
 }
 \seealso{

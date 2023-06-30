@@ -39,7 +39,8 @@ lyt <- build_adsl_chars_table(
   summ_vars = c("AGE", "RACE")
 )
 tbl <- rtables::build_table(lyt, random.cdisc.data::cadsl)
-tbl
+
+rtables::tt_to_flextable(tbl)
 
 }
 \seealso{

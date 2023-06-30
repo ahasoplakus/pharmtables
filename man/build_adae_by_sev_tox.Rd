@@ -43,7 +43,7 @@ Adverse Events Table by Body System and Severity/Toxicity
 adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae
 
-build_adae_by_sev_tox(
+tbl <- build_adae_by_sev_tox(
   adsl = adsl,
   df_adae = adae,
   colsby = "ARM",
@@ -52,6 +52,8 @@ build_adae_by_sev_tox(
   term_val = "AEDECOD",
   default_view = TRUE
 )
+
+rtables::tt_to_flextable(tbl)
 
 }
 \seealso{
