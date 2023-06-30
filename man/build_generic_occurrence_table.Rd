@@ -51,7 +51,9 @@ lyt <- build_generic_occurrence_table(
   class_var = "AESOC",
   term_var = "AEDECOD"
 )
-build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+
+rtables::tt_to_flextable(tbl)
 
 }
 \seealso{

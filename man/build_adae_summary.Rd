@@ -34,7 +34,9 @@ lyt <- build_adae_summary(
   event_vars = setdiff(names(adae_), names(adae)),
   trt_var = "ARM"
 )
-build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+
+rtables::tt_to_flextable(tbl)
 
 }
 \seealso{
