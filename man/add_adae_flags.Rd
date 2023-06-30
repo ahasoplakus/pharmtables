@@ -16,14 +16,12 @@ add_adae_flags(df)
 Add Flags to ADAE
 }
 \examples{
-library(dplyr)
 adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae
 adae_ <- add_adae_flags(adae)
 
-tbl <- select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
-
-flextable::flextable(slice_head(tbl, n = 5))
+tbl <- dplyr::select(adae_, setdiff(names(adae_), names(adae)))
+reactable::reactable(dplyr::slice_head(tbl, n = 10))
 
 }
 \seealso{
