@@ -2,17 +2,15 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: [devel, master]
+    branches: [devel, main]
   pull_request:
-    branches: [devel, master]
+    branches: [devel, main]
 
 name: R-CMD-check
 
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-    if: >
-      !contains(github.event.commits[0].message, '[skip cmd]')
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
@@ -21,9 +19,7 @@ jobs:
       matrix:
         config:
           - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest, r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest, r: 'release'}
-          - {os: ubuntu-latest, r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
