@@ -53,7 +53,7 @@ tbl <- build_adae_by_sev_tox(
   default_view = TRUE
 )
 
-rtables::tt_to_flextable(tbl)
+tbl
 
 }
 \seealso{

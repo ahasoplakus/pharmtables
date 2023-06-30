@@ -19,7 +19,7 @@
 #' )
 #' tbl <- rtables::build_table(lyt, random.cdisc.data::cadsl)
 #'
-#' rtables::tt_to_flextable(tbl)
+#' tbl
 #'
 build_adsl_chars_table <-
   function(title = "x.x: Study Subject Data",
@@ -91,7 +91,7 @@ build_adsl_chars_table <-
 #' )
 #' tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
 #'
-#' rtables::tt_to_flextable(tbl)
+#' tbl
 #'
 build_generic_occurrence_table <-
   function(occ_df,
