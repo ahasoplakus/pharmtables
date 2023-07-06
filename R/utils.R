@@ -55,10 +55,9 @@ build_adsl_chars_table <-
   }
 
 
-#' Create Generic Occurrence Table
+#' Create Generic Occurrence Summary Table
 #'
 #' @param occ_df (`data.frame`)\cr Occurrence dataset (typically ADAE, ADMH etc)
-#' required to build table.
 #' @param filter_cond (`character`)\cr Filtering condition required for `occ_df`.
 #' @param trt_var (`character`)\cr Arm variable used to split table into columns.
 #' @param dataset (`character`)\cr Name of the dataset eg. `"cadae"`.
@@ -139,6 +138,71 @@ build_generic_occurrence_table <-
       ) |>
       count_occurrences(vars = term_var) |>
       append_topleft(paste(" ", obj_label(df[[term_var]])))
+
+    return(list(lyt = lyt, df_out = df))
+  }
+
+#' Create generic BDS Summary table
+#'
+#' @param bds_df (`data.frame`)\cr BDS dataset (typically ADVS, ADLB etc)
+#' @param filter_cond (`character`)\cr Filtering condition required for `bds_df`.
+#' @param param (`character`)\cr BDS parameter value from `PARAM`
+#' @param trt_var (`character`)\cr Arm variable used to split table into columns.
+#' @param visit (`character`)\cr Visit variable name eg. `AVISIT`
+#' @param disp_vars (`vector of characters`)\cr Variables to summarize
+#'
+#' @return List containing Generic BDS table layout and filtered BDS data
+#' @export
+#'
+#' @family generic
+#' @keywords generic
+#'
+#' @examples
+#' adsl <- random.cdisc.data::cadsl
+#' advs <- random.cdisc.data::cadvs
+#'
+#' lyt <- build_generic_bds_table(advs,
+#'   param = "Diastolic Blood Pressure",
+#'   trt_var = "ARM", visit = "AVISIT",
+#'   disp_vars = c("AVAL", "CHG")
+#' )
+#'
+#' build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+#'
+build_generic_bds_table <-
+  function(bds_df,
+           filter_cond = NULL,
+           param,
+           trt_var,
+           visit = "AVISIT",
+           disp_vars) {
+    df <- bds_df |>
+      filter(PARAM %in% param)
+
+    if (!is.null(filter_cond)) {
+      df <- df |>
+        filter(!!!parse_exprs(filter_cond))
+    }
+
+    var_labs <- map_chr(disp_vars, \(x) obj_label(df[[x]]))
+
+    lyt <- basic_table(
+      show_colcounts = TRUE,
+      title = str_glue("Summary of {param} w.r.t {paste(var_labs, collapse = ', ')}")
+    ) |>
+      split_cols_by(trt_var) |>
+      split_rows_by(
+        visit,
+        split_fun = drop_split_levels,
+        label_pos = "topleft",
+        split_label = obj_label(df[[visit]])
+      ) |>
+      split_cols_by_multivar(
+        vars = disp_vars,
+        varlabels = var_labs
+      ) |>
+      summarize_colvars(.labels = c(range = "Min - Max")) |>
+      append_topleft(paste(" ", "Summary Statistic"))
 
     return(list(lyt = lyt, df_out = df))
   }

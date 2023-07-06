@@ -11,7 +11,7 @@ app_server <- function(input, output, session) {
 
   observe({
     req(load_data$df_read())
-    domain <- c("cadsl", "cadae", "cadmh", "cadcm")
+    domain <- c("cadsl", "cadae", "cadmh", "cadcm", "cadvs", "cadlb", "cadeg")
     walk(seq_along(domain) + 2, function(x) {
       toggleState(
         selector = str_glue("#tab-Tab{x}"),
@@ -69,5 +69,29 @@ app_server <- function(input, output, session) {
     df_out = load_data$df_read,
     adsl = processed_adsl,
     filters = load_data$adcm_filters
+  )
+
+  mod_adxx_param_server(
+    "advs_param_1",
+    dataset = "cadvs",
+    df_out = load_data$df_read,
+    adsl = processed_adsl,
+    filters = load_data$advs_filters
+  )
+
+  mod_adxx_param_server(
+    "adlb_param_1",
+    dataset = "cadlb",
+    df_out = load_data$df_read,
+    adsl = processed_adsl,
+    filters = load_data$adlb_filters
+  )
+
+  mod_adxx_param_server(
+    "adeg_param_1",
+    dataset = "cadeg",
+    df_out = load_data$df_read,
+    adsl = processed_adsl,
+    filters = load_data$adeg_filters
   )
 }

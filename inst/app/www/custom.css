@@ -325,7 +325,10 @@ div.sidebar .shiny-input-container {
 #collapse_adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
 #collapse_adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react_1 > div,
 #collapse_admh_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
-#collapse_adcm_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div {
+#collapse_adcm_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_advs_param_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_adlb_param_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_adeg_param_1-filter_reactivity_1-acc_filt_react_1 > div {
   padding: 0.5rem;
 }
 
@@ -333,6 +336,13 @@ div.sidebar .shiny-input-container {
 #adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #admh_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#adcm_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header {
+#adcm_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#advs_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#adlb_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#adeg_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header {
   pointer-events: none;
+}
+
+p.rtables-main-title {
+  font-weight: 600;
 }

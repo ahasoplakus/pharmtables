@@ -64,14 +64,15 @@ create_widget <- function(filter_list, df, dataset, namespace) {
 #'
 #' @param flags Population Flags
 #' @param namespace namespace
+#' @param label Label of Flags
 #'
 #' @return radio button widget for analysis population
 #'
 #' @noRd
-create_flag_widget <- function(flags, namespace) {
+create_flag_widget <- function(flags, namespace, label = "Population Flags") {
   prettyRadioButtons(
     namespace("pop"),
-    label = "Population",
+    label = label,
     choices = flags,
     selected = flags[1],
     animation = "pulse",

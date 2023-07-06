@@ -20,8 +20,8 @@ mod_adxx_bodsys_ui <-
           id = ns("adxx_side_bodsys"),
           background = "#EFF5F5",
           width = 35,
-          mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain),
           h2(tags$strong("Table Options")),
+          mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain),
           selectInput(
             ns("split_col"),
             "Treatment Variable",
