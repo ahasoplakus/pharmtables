@@ -59,4 +59,3 @@ test_that("module ui works", {
     expect_true(i %in% names(fmls))
   }
 })
-
