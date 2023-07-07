@@ -41,8 +41,8 @@ mod_dt_table_server <- function(id, display_df) {
       req(df_out())
       logger::log_info("mod_dt_table_server: display data")
       df_out() |>
-        autofit() |>
-        htmltools_value()
+        flextable::autofit() |>
+        flextable::htmltools_value()
     })
   })
 }

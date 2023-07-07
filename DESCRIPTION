@@ -11,7 +11,6 @@ BugReports: https://github.com/ahasoplakus/clinTables/issues/
 Imports: 
     bs4Dash (>= 2.3.0),
     dplyr (>= 1.1.2),
-    flextable (>= 0.9.2),
     formatters (>= 0.5.0),
     golem (>= 0.4.0),
     logger (>= 0.2.2),
@@ -32,6 +31,7 @@ Suggests:
     cli,
     config,
     covr,
+    flextable,
     glue,
     knitr,
     lifecycle,
