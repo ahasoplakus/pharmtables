@@ -37,7 +37,9 @@ lyt <- build_adae_summary(
 )
 tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
 
-tbl
+\dontrun{
+tt_to_flextable(tbl)
+}
 
 }
 \seealso{

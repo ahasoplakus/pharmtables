@@ -42,7 +42,9 @@ lyt <- build_adsl_chars_table(
 )
 tbl <- rtables::build_table(lyt, random.cdisc.data::cadsl)
 
-tbl
+\dontrun{
+tt_to_flextable(tbl)
+}
 
 }
 \seealso{

@@ -100,7 +100,9 @@ add_adae_flags <- function(df) {
 #' )
 #' tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
 #'
-#' tbl
+#' \dontrun{
+#' tt_to_flextable(tbl)
+#' }
 #'
 build_adae_summary <-
   function(adae, filter_cond = NULL, event_vars, trt_var) {
@@ -156,6 +158,7 @@ build_adae_summary <-
 #' @examples
 #'
 #' library(clinTables)
+#' library(rtables)
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
 #'
@@ -169,7 +172,9 @@ build_adae_summary <-
 #'   default_view = TRUE
 #' )
 #'
-#' tbl
+#' \dontrun{
+#' tt_to_flextable(tbl)
+#' }
 #'
 build_adae_by_sev_tox <- function(adsl,
                                   df_adae,

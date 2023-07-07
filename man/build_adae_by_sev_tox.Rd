@@ -41,6 +41,7 @@ Adverse Events Table by Body System and Severity/Toxicity
 \examples{
 
 library(clinTables)
+library(rtables)
 adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae
 
@@ -54,7 +55,9 @@ tbl <- build_adae_by_sev_tox(
   default_view = TRUE
 )
 
-tbl
+\dontrun{
+tt_to_flextable(tbl)
+}
 
 }
 \seealso{
