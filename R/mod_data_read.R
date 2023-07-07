@@ -185,6 +185,7 @@ mod_data_read_server <- function(id) {
     observe({
       req(rv$setup_filters$adsl_filt())
       rv$all_filt <- c(map(rv$setup_filters, \(x) x()), rv$df)
+      disable("def_data")
     }) |> bindEvent(list(input$apply, rv$df), ignoreNULL = FALSE)
 
     observe({

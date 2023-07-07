@@ -82,6 +82,7 @@ div.sidebar .shiny-input-container {
     border: 2px solid grey !important;
     color: grey !important;
     border-radius: 2rem;
+    pointer-events: none;
 }
 
 .btn.btn-file {

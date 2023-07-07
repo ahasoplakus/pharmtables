@@ -86,7 +86,7 @@ create_flag_widget <- function(flags, namespace, label = "Population Flags") {
     namespace("pop"),
     label = label,
     choices = flags,
-    selected = flags[1],
+    selected = ifelse("SAFFL" %in% flags, "SAFFL", flags[1]),
     animation = "pulse",
     status = "info",
     shape = "curve"
