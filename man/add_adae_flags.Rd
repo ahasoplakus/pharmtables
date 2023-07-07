@@ -16,6 +16,7 @@ add_adae_flags(df)
 Add Flags to ADAE
 }
 \examples{
+library(clinTables)
 library(dplyr)
 adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae

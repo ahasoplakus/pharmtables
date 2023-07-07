@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{build_generic_occurrence_table}
 \alias{build_generic_occurrence_table}
-\title{Create Generic Occurrence Table}
+\title{Create Generic Occurrence Summary Table}
 \usage{
 build_generic_occurrence_table(
   occ_df,
@@ -14,8 +14,7 @@ build_generic_occurrence_table(
 )
 }
 \arguments{
-\item{occ_df}{(\code{data.frame})\cr Occurrence dataset (typically ADAE, ADMH etc)
-required to build table.}
+\item{occ_df}{(\code{data.frame})\cr Occurrence dataset (typically ADAE, ADMH etc)}
 
 \item{filter_cond}{(\code{character})\cr Filtering condition required for \code{occ_df}.}
 
@@ -32,10 +31,11 @@ List containing table layout object of Generic Occurrence Table and
 filtered Occurrencedata
 }
 \description{
-Create Generic Occurrence Table
+Create Generic Occurrence Summary Table
 }
 \examples{
 
+library(clinTables)
 library(rtables)
 library(tern)
 library(dplyr)
@@ -53,12 +53,15 @@ lyt <- build_generic_occurrence_table(
 )
 tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
 
-tbl
+\dontrun{
+tt_to_flextable(tbl)
+}
 
 }
 \seealso{
 Other generic: 
-\code{\link{build_adsl_chars_table}()}
+\code{\link{build_adsl_chars_table}()},
+\code{\link{build_generic_bds_table}()}
 }
 \concept{generic}
 \keyword{generic}

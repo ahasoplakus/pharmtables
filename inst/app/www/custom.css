@@ -59,8 +59,6 @@ img {
 
 label {
     display: flex;
-    margin-bottom: .5rem;
-    margin-right: 100px;
 }
 
 div.sidebar .shiny-input-container {
@@ -84,6 +82,7 @@ div.sidebar .shiny-input-container {
     border: 2px solid grey !important;
     color: grey !important;
     border-radius: 2rem;
+    pointer-events: none;
 }
 
 .btn.btn-file {
@@ -129,8 +128,10 @@ div.sidebar .shiny-input-container {
     margin-right: 5px !important;
 }
 
-#acc_st_filt > div > div.card-header > h4 {
+#acc_st_filt > div > div.card-header {
   pointer-events: none;
+  background: #ceecf1 !important;
+
 }
 
 #collapse_acc_st_filt_1.collapse.show>.card-body {
@@ -325,7 +326,10 @@ div.sidebar .shiny-input-container {
 #collapse_adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
 #collapse_adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react_1 > div,
 #collapse_admh_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
-#collapse_adcm_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div {
+#collapse_adcm_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_advs_param_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_adlb_param_1-filter_reactivity_1-acc_filt_react_1 > div,
+#collapse_adeg_param_1-filter_reactivity_1-acc_filt_react_1 > div {
   padding: 0.5rem;
 }
 
@@ -333,6 +337,14 @@ div.sidebar .shiny-input-container {
 #adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #admh_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#adcm_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header {
+#adcm_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#advs_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#adlb_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#adeg_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header {
   pointer-events: none;
+  background: #ceecf1 !important;
+}
+
+p.rtables-main-title {
+  font-weight: 600;
 }

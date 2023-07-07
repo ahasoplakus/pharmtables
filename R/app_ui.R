@@ -27,29 +27,69 @@ app_ui <- function(request) {
         skin = "light",
         bs4Dash::navbarMenu(
           id = "navmenu",
-          navbarTab(
-            tabName = "Tab1",
-            text = tags$span(icon("home"), "")
+          tooltip(
+            navbarTab(
+              tabName = "Tab1",
+              text = tags$span(icon("home"), "")
+            ),
+            title = "Home",
+            placement = "bottom"
           ),
-          navbarTab(
-            tabName = "Tab2",
-            text = tags$span(icon("eye"), "Data Preview")
+          tooltip(
+            navbarTab(
+              tabName = "Tab2",
+              text = tags$span(icon("eye"), "")
+            ),
+            title = "Preview Data"
           ),
-          navbarTab(
-            tabName = "Tab3",
-            text = tags$span(icon("id-card"), "Demographics")
+          tooltip(
+            navbarTab(
+              tabName = "Tab3",
+              text = tags$span(icon("id-card"), "")
+            ),
+            title = "Demographics"
           ),
-          navbarTab(
-            tabName = "Tab4",
-            text = tags$span(icon("head-side-cough"), "Adverse Events")
+          tooltip(
+            navbarTab(
+              tabName = "Tab4",
+              text = tags$span(icon("head-side-cough"), "")
+            ),
+            title = "Adverse Events"
           ),
-          navbarTab(
-            tabName = "Tab5",
-            text = tags$span(icon("file-medical"), "Medical History")
+          tooltip(
+            navbarTab(
+              tabName = "Tab5",
+              text = tags$span(icon("file-medical"), "")
+            ),
+            title = "Medical History"
           ),
-          navbarTab(
-            tabName = "Tab6",
-            text = tags$span(icon("capsules"), "Concomitant Medications")
+          tooltip(
+            navbarTab(
+              tabName = "Tab6",
+              text = tags$span(icon("capsules"), "")
+            ),
+            title = "Concomitant Medications"
+          ),
+          tooltip(
+            navbarTab(
+              tabName = "Tab7",
+              text = tags$span(icon("stethoscope"), "")
+            ),
+            title = "Vital Signs"
+          ),
+          tooltip(
+            navbarTab(
+              tabName = "Tab8",
+              text = tags$span(icon("flask-vial"), "")
+            ),
+            title = "Laboratory Analysis"
+          ),
+          tooltip(
+            navbarTab(
+              tabName = "Tab9",
+              text = tags$span(icon("heart-pulse"), "")
+            ),
+            title = "ECG Analysis"
           )
         )
       ),
@@ -101,6 +141,27 @@ app_ui <- function(request) {
               title = "Summary of Concomitant Medications by Categories",
               domain = "ADCM"
             )
+          ),
+          tabItem(
+            tabName = "Tab7",
+            mod_adxx_param_ui("advs_param_1",
+              title = "Vital Signs: Summary Table for Analysis Value, Change from Baseline",
+              domain = "ADVS"
+            )
+          ),
+          tabItem(
+            tabName = "Tab8",
+            mod_adxx_param_ui("adlb_param_1",
+              title = "Laboratory Analysis: Summary Table for Analysis Value, Change from Baseline",
+              domain = "ADLB"
+            )
+          ),
+          tabItem(
+            tabName = "Tab9",
+            mod_adxx_param_ui("adeg_param_1",
+              title = "ECG: Summary Table for Analysis Value, Change from Baseline",
+              domain = "ADEG"
+            )
           )
         )
       ),
@@ -108,7 +169,10 @@ app_ui <- function(request) {
       dark = NULL,
       help = NULL,
       scrollToTop = TRUE,
-      preloader = list(html = tagList(spin_ball(), "Loading clinTables ..."), color = "#27374D")
+      preloader = list(html = tagList(
+        waiter::spin_ball(),
+        "Loading clinTables ..."
+      ), color = "#27374D")
     )
   )
 }

@@ -122,3 +122,42 @@ test_that("build_generic_occurrence_table works", {
   expect_identical(lyt_$lyt, exp_lyt_)
   expect_equal(nrow(lyt_$df_out), nrow(adae_))
 })
+
+test_that("build_generic_bds_table works", {
+  adsl <- random.cdisc.data::cadsl
+  advs <- random.cdisc.data::cadvs
+
+  lyt <- build_generic_bds_table(
+    bds_df = advs,
+    filter_cond = NULL,
+    param = "Diastolic Blood Pressure",
+    trt_var = "ARM",
+    visit = "AVISIT",
+    disp_vars = c("AVAL", "CHG")
+  )
+
+  df <- advs |>
+    filter(PARAM %in% "Diastolic Blood Pressure")
+
+  var_labs <- map_chr(c("AVAL", "CHG"), \(x) obj_label(df[[x]]))
+
+  exp_lyt <- basic_table(
+    show_colcounts = TRUE,
+    title = str_glue("Summary of Diastolic Blood Pressure w.r.t {paste(var_labs, collapse = ', ')}")
+  ) |>
+    split_cols_by("ARM") |>
+    split_rows_by(
+      "AVISIT",
+      split_fun = drop_split_levels,
+      label_pos = "topleft",
+      split_label = obj_label(df[["AVISIT"]])
+    ) |>
+    split_cols_by_multivar(
+      vars = c("AVAL", "CHG"),
+      varlabels = var_labs
+    ) |>
+    summarize_colvars(.labels = c(range = "Min - Max")) |>
+    append_topleft(paste(" ", "Summary Statistic"))
+
+  expect_identical(lyt$lyt, exp_lyt)
+})

@@ -2,7 +2,7 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: []
+    branches: [devel]
   pull_request:
     branches: [devel]
 
@@ -40,8 +40,8 @@ jobs:
                   line_exclusions = list(
                   "R/app_server.R" = 12:22,
                   "R/run_app.R",
-                  "R/mod_data_read.R" = c(160:168, 170:178, 185:194, 196:214),
-                  "R/mod_global_filters.R" = c(75, 88:89),
+                  "R/mod_data_read.R" = c(160:168, 170:178, 185:189, 191:200),
+                  "R/mod_global_filters.R" = c(96:97),
                   "R/mod_data_preview.R" = 63:66
                   )
                 )

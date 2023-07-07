@@ -9,7 +9,7 @@
 #' @importFrom shiny NS tagList
 mod_dt_table_ui <- function(id) {
   ns <- NS(id)
-  tagList(htmlOutput(ns("out_data")))
+  tagList(uiOutput(ns("out_data")))
 }
 
 #' dt_table Server Functions
@@ -24,7 +24,7 @@ mod_dt_table_server <- function(id, display_df) {
     df_out <- reactive({
       req(display_df()$out_df)
       if (is.data.frame(display_df()$out_df)) {
-        df <- as_html(
+        df <- tt_to_flextable(
           build_table(
             lyt = display_df()$lyt,
             df = display_df()$out_df,
@@ -32,15 +32,17 @@ mod_dt_table_server <- function(id, display_df) {
           )
         )
       } else {
-        df <- as_html(display_df()$out_df)
+        df <- tt_to_flextable(display_df()$out_df)
       }
       df
     }) |> bindEvent(display_df())
 
-    output$out_data <- renderPrint({
+    output$out_data <- renderUI({
       req(df_out())
       logger::log_info("mod_dt_table_server: display data")
-      df_out()
+      df_out() |>
+        flextable::autofit() |>
+        flextable::htmltools_value()
     })
   })
 }

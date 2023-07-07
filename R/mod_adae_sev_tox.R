@@ -19,8 +19,8 @@ mod_adae_sev_tox_ui <- function(id) {
         id = ns("adae_side"),
         background = "#EFF5F5",
         width = 35,
-        mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         h2(tags$strong("Table Options")),
+        mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         selectInput(
           ns("split_col"),
           "Treatment Variable",
@@ -103,9 +103,13 @@ mod_adae_sev_tox_server <- function(id,
       df <- df_out()[[dataset]]
 
       trt_choices <-
-        names(select(adsl(), setdiff(starts_with(
-          c("ARM", "TRT0")
-        ), ends_with("DTM"))))
+        names(select(
+          adsl(),
+          setdiff(
+            starts_with(c("ACT", "ARM", "TRT")),
+            ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
+          )
+        ))
       class_choices <-
         names(select(df, union(ends_with(
           c("SOC", "BODSYS", "CAT")
@@ -167,13 +171,14 @@ mod_adae_sev_tox_server <- function(id,
       req(input$summ_var)
 
       df_adsl <- adsl() |>
-        select(USUBJID, ends_with("ARM"), starts_with("TRT")) |>
+        select(USUBJID, input$split_col) |>
         unique()
 
       logger::log_info("mod_adae_sev_tox_server: alt_data has
                          {nrow(df_adsl)} rows")
 
       df <- df_out()[[dataset]] |>
+        left_join(df_adsl) |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
       out_df <- build_adae_by_sev_tox(

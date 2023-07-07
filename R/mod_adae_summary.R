@@ -17,8 +17,8 @@ mod_adae_summary_ui <- function(id) {
         id = ns("adae_summ_side"),
         background = "#EFF5F5",
         width = 35,
-        mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         h2(tags$strong("Table Options")),
+        mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         selectInput(
           ns("split_col"),
           "Treatment Variable",
@@ -75,20 +75,22 @@ mod_adae_summary_server <- function(id,
       req(adsl())
 
       df_adsl <- adsl() |>
-        select(USUBJID, ends_with("ARM"), starts_with("TRT")) |>
+        select(USUBJID, ends_with("ARM"), starts_with("TRT0")) |>
         unique()
 
       logger::log_info("mod_adae_summary_server: alt_data has
                          {nrow(df_adsl)} rows")
 
       df <- df_out()[[dataset]] |>
+        left_join(df_adsl) |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
       logger::log_info("mod_adae_summary_server: adae has
                          {nrow(df)} rows")
 
-      df <- add_adae_flags(df)
-      aesi_vars <- setdiff(names(df), names(df_out()[[dataset]]))
+      df_ <- add_adae_flags(df_out()[[dataset]])
+      aesi_vars <- setdiff(names(df_), names(df_out()[[dataset]]))
+      df <- inner_join(df, df_)
       labels <- var_labels(df[, aesi_vars])
 
       return(list(
@@ -109,7 +111,13 @@ mod_adae_summary_server <- function(id,
       selected <- choices
       labs <- as.character(ae_summ_init()$labs)
       trt_choices <-
-        names(select(adsl(), setdiff(starts_with(c("ARM", "TRT0")), ends_with("DTM"))))
+        names(select(
+          adsl(),
+          setdiff(
+            starts_with(c("ACT", "ARM", "TRT")),
+            ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
+          )
+        ))
 
       updatePrettyCheckboxGroup(
         inputId = "events",

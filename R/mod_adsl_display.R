@@ -74,7 +74,10 @@ mod_adsl_display_server <- function(id, adsl) {
       logger::log_info("mod_adsl_display_server: updating table options")
 
       trt_choices <-
-        names(select(adsl(), setdiff(starts_with(c("ARM", "TRT0")), ends_with("DTM"))))
+        names(select(adsl(), setdiff(
+          starts_with(c("ACT", "ARM", "TRT")),
+          ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
+        )))
       rowgrp_choices <-
         sort(names(discard(adsl(), is.numeric)))
       summ_vars <-
