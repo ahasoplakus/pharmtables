@@ -184,29 +184,15 @@ mod_data_read_server <- function(id) {
 
     observe({
       req(rv$setup_filters$adsl_filt())
-      rv$all_filt <- list(
-        rv$setup_filters$adsl_filt(),
-        rv$setup_filters$adae_filt(),
-        rv$setup_filters$admh_filt(),
-        rv$setup_filters$adcm_filt(),
-        rv$df
-      )
+      rv$all_filt <- c(map(rv$setup_filters, \(x) x()), rv$df)
+      disable("def_data")
     }) |> bindEvent(list(input$apply, rv$df), ignoreNULL = FALSE)
 
     observe({
       req(read_df())
       req(rv$setup_filters$adsl_filt())
 
-      if (identical(
-        list(
-          rv$setup_filters$adsl_filt(),
-          rv$setup_filters$adae_filt(),
-          rv$setup_filters$admh_filt(),
-          rv$setup_filters$adcm_filt(),
-          rv$df
-        ),
-        rv$all_filt
-      )) {
+      if (identical(c(map(rv$setup_filters, \(x) x()), rv$df), rv$all_filt)) {
         disable("apply")
       } else {
         enable("apply")
@@ -237,6 +223,18 @@ mod_data_read_server <- function(id) {
       adcm_filters = eventReactive(
         input$apply,
         rv$setup_filters$adcm_filt()
+      ),
+      advs_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$advs_filt()
+      ),
+      adlb_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$adlb_filt()
+      ),
+      adeg_filters = eventReactive(
+        input$apply,
+        rv$setup_filters$adeg_filt()
       )
     ))
   })

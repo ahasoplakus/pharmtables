@@ -1,6 +1,7 @@
 utils::globalVariables(
   c(
     "AGE",
+    "PARAM",
     "COUNTRY",
     "ETHNIC",
     "ITTFL",

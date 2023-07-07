@@ -9,13 +9,20 @@
 #'
 #' @export
 #' @examples
+#' library(clinTables)
 #' library(dplyr)
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
 #' adae_ <- add_adae_flags(adae)
-#' select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
+#'
+#' tbl <- select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
+#' slice_head(tbl, n = 5)
 #'
 add_adae_flags <- function(df) {
+  if (!any(c("AESER", "AEREL", "AEACN", "AESDTH") %in% names(df))) {
+    return(df)
+  }
+
   df <- df |>
     mutate(
       FATAL = AESDTH == "Y",
@@ -33,9 +40,7 @@ add_adae_flags <- function(df) {
       RELDSM = AEREL == "Y" & AEACN %in% c(
         "DRUG INTERRUPTED",
         "DOSE INCREASED", "DOSE REDUCED"
-      ),
-      CTC35 = AETOXGR %in% c("3", "4", "5"),
-      CTC45 = AETOXGR %in% c("4", "5")
+      )
     ) |>
     var_relabel(
       FATAL = "AE with fatal outcome",
@@ -47,10 +52,22 @@ add_adae_flags <- function(df) {
       DSM = "AE leading to dose modification/interruption",
       REL = "Related AE",
       RELWD = "Related AE leading to withdrawal from treatment",
-      RELDSM = "Related AE leading to dose modification/interruption",
-      CTC35 = "Grade 3-5 AE",
-      CTC45 = "Grade 4/5 AE"
+      RELDSM = "Related AE leading to dose modification/interruption"
     )
+
+  if ("AETOXGR" %in% names(df)) {
+    df <- df |>
+      mutate(
+        CTC35 = AETOXGR %in% c("3", "4", "5"),
+        CTC45 = AETOXGR %in% c("4", "5")
+      ) |>
+      var_relabel(
+        CTC35 = "Grade 3-5 AE",
+        CTC45 = "Grade 4/5 AE"
+      )
+  }
+
+  df
 }
 
 
@@ -70,6 +87,7 @@ add_adae_flags <- function(df) {
 #'
 #' @examples
 #'
+#' library(clinTables)
 #' library(rtables)
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
@@ -80,7 +98,11 @@ add_adae_flags <- function(df) {
 #'   event_vars = setdiff(names(adae_), names(adae)),
 #'   trt_var = "ARM"
 #' )
-#' build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+#' tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+#'
+#' \dontrun{
+#' tt_to_flextable(tbl)
+#' }
 #'
 build_adae_summary <-
   function(adae, filter_cond = NULL, event_vars, trt_var) {
@@ -135,10 +157,12 @@ build_adae_summary <-
 #'
 #' @examples
 #'
+#' library(clinTables)
+#' library(rtables)
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
 #'
-#' build_adae_by_sev_tox(
+#' tbl <- build_adae_by_sev_tox(
 #'   adsl = adsl,
 #'   df_adae = adae,
 #'   colsby = "ARM",
@@ -147,6 +171,10 @@ build_adae_summary <-
 #'   term_val = "AEDECOD",
 #'   default_view = TRUE
 #' )
+#'
+#' \dontrun{
+#' tt_to_flextable(tbl)
+#' }
 #'
 build_adae_by_sev_tox <- function(adsl,
                                   df_adae,

@@ -24,6 +24,7 @@ Create ADAE Summary Table
 }
 \examples{
 
+library(clinTables)
 library(rtables)
 adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae
@@ -34,7 +35,11 @@ lyt <- build_adae_summary(
   event_vars = setdiff(names(adae_), names(adae)),
   trt_var = "ARM"
 )
-build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+
+\dontrun{
+tt_to_flextable(tbl)
+}
 
 }
 \seealso{
