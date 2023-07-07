@@ -35,6 +35,7 @@ Create Generic Occurrence Summary Table
 }
 \examples{
 
+library(clinTables)
 library(rtables)
 library(tern)
 library(dplyr)

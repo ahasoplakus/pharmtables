@@ -40,6 +40,7 @@ Adverse Events Table by Body System and Severity/Toxicity
 }
 \examples{
 
+library(clinTables)
 adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae
 

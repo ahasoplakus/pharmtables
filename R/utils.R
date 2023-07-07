@@ -13,6 +13,8 @@
 #' @export
 #'
 #' @examples
+#'
+#' library(clinTables)
 #' lyt <- build_adsl_chars_table(
 #'   split_cols_by = "ARM",
 #'   summ_vars = c("AGE", "RACE")
@@ -73,6 +75,7 @@ build_adsl_chars_table <-
 #'
 #' @examples
 #'
+#' library(clinTables)
 #' library(rtables)
 #' library(tern)
 #' library(dplyr)
@@ -158,6 +161,9 @@ build_generic_occurrence_table <-
 #' @keywords generic
 #'
 #' @examples
+#'
+#' library(clinTables)
+#' library(rtables)
 #' adsl <- random.cdisc.data::cadsl
 #' advs <- random.cdisc.data::cadvs
 #'

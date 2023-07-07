@@ -33,6 +33,9 @@ List containing Generic BDS table layout and filtered BDS data
 Create generic BDS Summary table
 }
 \examples{
+
+library(clinTables)
+library(rtables)
 adsl <- random.cdisc.data::cadsl
 advs <- random.cdisc.data::cadvs
 

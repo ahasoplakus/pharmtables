@@ -34,6 +34,8 @@ A tabletree object.
 Baseline Demographic and Clinical Characteristics
 }
 \examples{
+
+library(clinTables)
 lyt <- build_adsl_chars_table(
   split_cols_by = "ARM",
   summ_vars = c("AGE", "RACE")

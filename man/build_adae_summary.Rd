@@ -24,6 +24,7 @@ Create ADAE Summary Table
 }
 \examples{
 
+library(clinTables)
 library(rtables)
 adsl <- random.cdisc.data::cadsl
 adae <- random.cdisc.data::cadae

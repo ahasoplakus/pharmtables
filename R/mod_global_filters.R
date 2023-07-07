@@ -31,8 +31,10 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
 
       logger::log_info("mod_global_filters_server: initialise study filters")
 
+      flag_vars <- names(select(load_data()[[dataset]], ends_with("FL")))
+
       tagList(
-        create_flag_widget(c("SAFFL", "ITTFL"), ns),
+        create_flag_widget(flag_vars, ns),
         create_widget(
           filter_list(),
           load_data(),

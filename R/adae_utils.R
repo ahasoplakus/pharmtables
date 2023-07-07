@@ -9,6 +9,7 @@
 #'
 #' @export
 #' @examples
+#' library(clinTables)
 #' library(dplyr)
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
@@ -86,6 +87,7 @@ add_adae_flags <- function(df) {
 #'
 #' @examples
 #'
+#' library(clinTables)
 #' library(rtables)
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
@@ -153,6 +155,7 @@ build_adae_summary <-
 #'
 #' @examples
 #'
+#' library(clinTables)
 #' adsl <- random.cdisc.data::cadsl
 #' adae <- random.cdisc.data::cadae
 #'
