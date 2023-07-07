@@ -116,9 +116,13 @@ mod_adxx_param_server <- function(id,
       df <- df_out()[[dataset]]
 
       trt_choices <-
-        names(select(adsl(), setdiff(starts_with(
-          c("ARM", "TRT0")
-        ), ends_with("DTM"))))
+        names(select(
+          adsl(),
+          setdiff(
+            starts_with(c("ACT", "ARM", "TRT")),
+            ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
+          )
+        ))
       param_choices <- unique(df$PARAM)
       visit_choices <- names(select(df, ends_with("VISIT")))
       summ_choices <- c("AVAL", sort(names(select(df, contains("CHG")))))
@@ -185,18 +189,21 @@ mod_adxx_param_server <- function(id,
       req(rv$pop_trigger)
 
       df_adsl <- adsl() |>
-        select(USUBJID, ends_with("ARM"), starts_with("TRT")) |>
+        select(USUBJID, input$split_col) |>
         unique()
 
       logger::log_info("mod_adxx_param_server: alt_data has {nrow(df_adsl)} rows")
 
-      df <- df_out()[[dataset]] |>
-        filter(USUBJID %in% unique(df_adsl$USUBJID))
+      df <- df_out()[[dataset]]
 
       if (!is.null(input$pop)) {
         df <- df |>
           filter(.data[[input$pop]] == "Y")
       }
+
+      df <- df |>
+        left_join(df_adsl) |>
+        filter(USUBJID %in% unique(df_adsl$USUBJID))
 
       lyt <- build_generic_bds_table(
         bds_df = df,

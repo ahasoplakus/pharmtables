@@ -32,7 +32,7 @@ app_ui <- function(request) {
               tabName = "Tab1",
               text = tags$span(icon("home"), "")
             ),
-            title = "Home Page",
+            title = "Home",
             placement = "bottom"
           ),
           tooltip(

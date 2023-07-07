@@ -45,11 +45,23 @@ create_widget <- function(filter_list, df, dataset, namespace) {
             ))
         )
       } else {
+        choice_vals <- filter_values[[x]]
+        choice_labs <-
+          map_chr(
+            choice_vals,
+            \(x) if (nchar(x) > 20) {
+              str_trunc(x, width = 20)
+            } else {
+              x
+            }
+          )
+
         prettyCheckboxGroup(
           namespace(tolower(x)),
           label = labs,
-          choices = filter_values[[x]],
-          selected = filter_values[[x]],
+          choiceNames = choice_labs,
+          choiceValues = choice_vals,
+          selected = choice_vals,
           outline = TRUE,
           animation = "pulse",
           status = "info",

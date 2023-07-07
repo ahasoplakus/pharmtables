@@ -59,8 +59,6 @@ img {
 
 label {
     display: flex;
-    margin-bottom: .5rem;
-    margin-right: 100px;
 }
 
 div.sidebar .shiny-input-container {
@@ -129,8 +127,10 @@ div.sidebar .shiny-input-container {
     margin-right: 5px !important;
 }
 
-#acc_st_filt > div > div.card-header > h4 {
+#acc_st_filt > div > div.card-header {
   pointer-events: none;
+  background: #ceecf1 !important;
+
 }
 
 #collapse_acc_st_filt_1.collapse.show>.card-body {
@@ -341,6 +341,7 @@ div.sidebar .shiny-input-container {
 #adlb_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #adeg_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header {
   pointer-events: none;
+  background: #ceecf1 !important;
 }
 
 p.rtables-main-title {
