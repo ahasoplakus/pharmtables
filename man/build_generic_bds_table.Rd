@@ -45,7 +45,7 @@ lyt <- build_generic_bds_table(advs,
   disp_vars = c("AVAL", "CHG")
 )
 
-build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+tt_to_flextable(build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl))
 
 }
 \seealso{
