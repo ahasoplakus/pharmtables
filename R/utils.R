@@ -176,9 +176,9 @@ build_generic_occurrence_table <-
 #'   trt_var = "ARM", visit = "AVISIT",
 #'   disp_vars = c("AVAL", "CHG")
 #' )
-#' \dontrun{
+#'
 #' tt_to_flextable(build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl))
-#' }
+#'
 #'
 build_generic_bds_table <-
   function(bds_df,
