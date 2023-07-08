@@ -27,7 +27,7 @@ mod_data_preview_server <- function(id, df) {
       req(df())
       logger::log_info("mod_data_preview_server: preview data")
 
-      react_df <- tibble(
+      react_df <- tibble::tibble(
         `Name` = names(df()),
         `N_Rows` = map(df(), \(x) nrow(x)),
         `Colnames` = map(df(), \(x) names(x))

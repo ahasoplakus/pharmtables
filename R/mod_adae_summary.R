@@ -75,7 +75,10 @@ mod_adae_summary_server <- function(id,
       req(adsl())
 
       df_adsl <- adsl() |>
-        select(USUBJID, ends_with("ARM"), starts_with("TRT0")) |>
+        select(USUBJID, setdiff(
+          starts_with(c("ACT", "ARM", "TRT0")),
+          ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
+        )) |>
         unique()
 
       logger::log_info("mod_adae_summary_server: alt_data has
@@ -90,7 +93,7 @@ mod_adae_summary_server <- function(id,
 
       df_ <- add_adae_flags(df_out()[[dataset]])
       aesi_vars <- setdiff(names(df_), names(df_out()[[dataset]]))
-      df <- inner_join(df, df_)
+      df <- suppressMessages(inner_join(df, df_))
       labels <- var_labels(df[, aesi_vars])
 
       return(list(

@@ -22,9 +22,7 @@ Imports:
     shinyjs (>= 2.1.0),
     shinyWidgets (>= 0.7.6),
     stringr (>= 1.5.0),
-    tern (>= 0.8.3),
-    tibble (>= 3.2.1),
-    tidyr (>= 1.3.0)
+    tern (>= 0.8.3)
 Suggests: 
     cli,
     config,
@@ -38,6 +36,8 @@ Suggests:
     rmarkdown,
     spelling,
     testthat (>= 3.0.0),
+    tibble,
+    tidyr,
     waiter,
     withr
 VignetteBuilder: 

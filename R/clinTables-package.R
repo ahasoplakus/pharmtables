@@ -89,7 +89,5 @@
 #' @importFrom tern df_explicit_na
 #' @importFrom tern summarize_colvars
 #' @importFrom tern summarize_num_patients
-#' @importFrom tibble tibble
-#' @importFrom tidyr replace_na
 ## usethis namespace: end
 NULL
