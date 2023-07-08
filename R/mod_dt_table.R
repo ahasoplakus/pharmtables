@@ -42,6 +42,7 @@ mod_dt_table_server <- function(id, display_df) {
       logger::log_info("mod_dt_table_server: display data")
       df_out() |>
         flextable::autofit() |>
+        flextable::theme_zebra(odd_body = "#F3F4ED", odd_header = "#ECF8F9") |>
         flextable::htmltools_value()
     })
   })

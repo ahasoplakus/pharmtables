@@ -231,7 +231,7 @@ build_adae_by_sev_tox <- function(adsl,
     adae <-
       full_join(adae, pre_ae1, by = c("USUBJID", colsby, class_val, term_val)) |>
       modify_if(is.factor, as.character) |>
-      mutate(!!grade_val := replace_na(!!sym(grade_val), "Missing")) |>
+      mutate(!!grade_val := tidyr::replace_na(!!sym(grade_val), "Missing")) |>
       left_join(adsl, by = c("USUBJID", colsby)) |>
       modify_if(is.character, as.factor)
 
