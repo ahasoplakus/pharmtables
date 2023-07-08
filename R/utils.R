@@ -168,6 +168,7 @@ build_generic_occurrence_table <-
 #'
 #' library(clinTables)
 #' library(rtables)
+#' library(flextable)
 #' adsl <- random.cdisc.data::cadsl
 #' advs <- random.cdisc.data::cadvs
 #'
