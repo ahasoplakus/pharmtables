@@ -59,7 +59,7 @@ mod_adae_sev_tox_ui <- function(id) {
       shinyWidgets::prettySwitch(
         ns("view"),
         label = "Default View",
-        value = TRUE,
+        value = FALSE,
         status = "info",
         inline = TRUE,
         fill = TRUE,

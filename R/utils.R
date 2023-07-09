@@ -195,18 +195,26 @@ build_generic_bds_table <-
         filter(!!!parse_exprs(filter_cond))
     }
 
+    vis_label <- obj_label(df[[visit]])
+    vis_levels <- df |>
+      arrange(AVISITN) |>
+      distinct(!!sym(visit)) |>
+      pull(!!sym(visit)) |>
+      as.character()
+
+    df[[visit]] <- factor(df[[visit]], levels = vis_levels)
     var_labs <- map_chr(disp_vars, \(x) obj_label(df[[x]]))
 
     lyt <- basic_table(
       show_colcounts = TRUE,
       title = str_glue("Summary of {param} w.r.t {paste(var_labs, collapse = ', ')}")
     ) |>
-      split_cols_by(trt_var) |>
+      split_cols_by(trt_var, split_fun = drop_split_levels) |>
       split_rows_by(
         visit,
         split_fun = drop_split_levels,
         label_pos = "topleft",
-        split_label = obj_label(df[[visit]])
+        split_label = vis_label
       ) |>
       split_cols_by_multivar(
         vars = disp_vars,

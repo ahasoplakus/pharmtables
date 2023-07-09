@@ -10,8 +10,14 @@
 mod_data_preview_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    div(withSpinner(reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
-      style = "overflow-x: scroll; overflow-y: scroll;"
+    box(
+      id = ns("box_adxx_param"),
+      title = tags$strong("Preview Data"),
+      maximizable = TRUE,
+      width = 12,
+      div(withSpinner(reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
+        style = "overflow-x: scroll; overflow-y: scroll;"
+      )
     )
   )
 }
@@ -38,6 +44,8 @@ mod_data_preview_server <- function(id, df) {
         bordered = TRUE,
         striped = TRUE,
         highlight = TRUE,
+        defaultPageSize = 3,
+        paginationType = "jump",
         columns = list(
           `Name` = colDef(minWidth = 50),
           `N_Rows` = colDef(minWidth = 50),
@@ -53,7 +61,9 @@ mod_data_preview_server <- function(id, df) {
               filterable = TRUE,
               bordered = TRUE,
               striped = TRUE,
-              highlight = TRUE
+              highlight = TRUE,
+              defaultPageSize = 5,
+              paginationType = "jump"
             )
           )
         }
