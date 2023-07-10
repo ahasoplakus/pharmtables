@@ -104,6 +104,9 @@ mod_setup_filters_server <- function(id, load_data) {
 
       choices <-
         names(select(load_data()$cadsl, !ends_with("FL")))
+      choice_list <-
+        named_choice_list(choices, load_data()[["cadsl"]])
+
       selected <-
         intersect(
           c("SEX", "RACE", "ETHNIC", "COUNTRY", "AGE", "SITEID", "USUBJID"),
@@ -114,7 +117,7 @@ mod_setup_filters_server <- function(id, load_data) {
         session,
         "adsl_var",
         "",
-        choices = choices,
+        choices = choice_list,
         selected = selected,
         options = list(maxItems = 8)
       )
@@ -135,13 +138,15 @@ mod_setup_filters_server <- function(id, load_data) {
         )),
         names(load_data()$cadsl)
       )
+      choice_list <-
+        named_choice_list(choices, load_data()[["cadae"]])
       selected <- NULL
 
       updateSelectizeInput(
         session,
         "adae_var",
         "",
-        choices = choices,
+        choices = choice_list,
         selected = selected,
         options = list(maxItems = 4)
       )
@@ -159,13 +164,15 @@ mod_setup_filters_server <- function(id, load_data) {
         names(select(load_data()$cadmh, !ends_with("FL"))),
         names(load_data()$cadsl)
       )
+      choice_list <-
+        named_choice_list(choices, load_data()[["cadmh"]])
       selected <- NULL
 
       updateSelectizeInput(
         session,
         "admh_var",
         "",
-        choices = choices,
+        choices = choice_list,
         selected = selected,
         options = list(maxItems = 4)
       )
@@ -183,13 +190,15 @@ mod_setup_filters_server <- function(id, load_data) {
         names(select(load_data()$cadcm, !ends_with("FL"))),
         names(load_data()$cadsl)
       )
+      choice_list <-
+        named_choice_list(choices, load_data()[["cadcm"]])
       selected <- NULL
 
       updateSelectizeInput(
         session,
         "adcm_var",
         "",
-        choices = choices,
+        choices = choice_list,
         selected = selected,
         options = list(maxItems = 4)
       )
@@ -209,13 +218,15 @@ mod_setup_filters_server <- function(id, load_data) {
       )
       exclude_vars <- names(select(load_data()$cadvs, !contains("CHG")))
       choices <- intersect(exclude_vars, choices)
+      choice_list <-
+        named_choice_list(choices, load_data()[["cadvs"]])
       selected <- NULL
 
       updateSelectizeInput(
         session,
         "advs_var",
         "",
-        choices = choices,
+        choices = choice_list,
         selected = selected,
         options = list(maxItems = 4)
       )
@@ -235,13 +246,15 @@ mod_setup_filters_server <- function(id, load_data) {
       )
       exclude_vars <- names(select(load_data()$cadlb, !contains("CHG")))
       choices <- intersect(choices, exclude_vars)
+      choice_list <-
+        named_choice_list(choices, load_data()[["cadlb"]])
       selected <- NULL
 
       updateSelectizeInput(
         session,
         "adlb_var",
         "",
-        choices = choices,
+        choices = choice_list,
         selected = selected,
         options = list(maxItems = 4)
       )
@@ -261,13 +274,15 @@ mod_setup_filters_server <- function(id, load_data) {
       )
       exclude_vars <- names(select(load_data()$cadeg, !contains("CHG")))
       choices <- intersect(choices, exclude_vars)
+      choice_list <-
+        named_choice_list(choices, load_data()[["cadeg"]])
       selected <- NULL
 
       updateSelectizeInput(
         session,
         "adeg_var",
         "",
-        choices = choices,
+        choices = choice_list,
         selected = selected,
         options = list(maxItems = 4)
       )

@@ -59,13 +59,13 @@ mod_adae_sev_tox_ui <- function(id) {
       shinyWidgets::prettySwitch(
         ns("view"),
         label = "Default View",
-        value = TRUE,
+        value = FALSE,
         status = "info",
         inline = TRUE,
         fill = TRUE,
         slim = TRUE
       ),
-      div(withSpinner(mod_dt_table_ui(ns("dt_table_2")), type = 6, color = "#3BACB6"),
+      div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_2")), color = "#3BACB6"),
         style = "overflow-x: scroll;"
       )
     )

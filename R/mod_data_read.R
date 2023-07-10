@@ -10,51 +10,52 @@
 mod_data_read_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    fluidRow(
-      column(width = 3),
-      column(
-        width = 9,
-        sortable(
-          bs4Card(
-            title = tags$span(icon("database"), tags$strong("Load Data")),
-            width = 8,
-            fluidRow(
-              prettySwitch(
-                ns("def_data"),
-                label = "Load Default Data (random.cdisc.data)",
-                value = FALSE,
-                status = "info",
-                inline = TRUE,
-                fill = TRUE,
-                slim = TRUE,
-                width = 6
-              )
-            ),
-            fluidRow(
-              fileInput(
-                ns("upload"),
-                HTML("&nbsp;&nbsp;&nbsp;&nbsp;Upload Files"),
-                multiple = TRUE,
-                accept = ".RDS",
-                width = "150%",
-                buttonLabel = tags$span(icon("upload")),
-                placeholder = "No file selected",
-                capture = NULL
-              )
-            ),
-            fluidRow(
-              div(actionButton(ns("apply"), "Run"), style = "text-align: right; margin-left: auto;")
+    carousel(
+      id = ns("carousel"),
+      carouselItem(
+        caption = NULL,
+        active = TRUE,
+        bs4Card(
+          title = tags$span(icon("database"), tags$strong("Load Data")),
+          width = 6,
+          fluidRow(
+            prettySwitch(
+              ns("def_data"),
+              label = "Load Default Data (random.cdisc.data)",
+              value = FALSE,
+              status = "info",
+              inline = TRUE,
+              fill = TRUE,
+              slim = TRUE,
+              width = 6
             )
+          ),
+          fluidRow(
+            fileInput(
+              ns("upload"),
+              HTML("&nbsp;&nbsp;&nbsp;&nbsp;Upload Files"),
+              multiple = TRUE,
+              accept = ".RDS",
+              width = "150%",
+              buttonLabel = tags$span(icon("upload")),
+              placeholder = "No file selected",
+              capture = NULL
+            )
+          ),
+          fluidRow(
+            div(actionButton(ns("apply"), "Run"), style = "text-align: right; margin-left: auto;")
           )
-        ),
-        sortable(
-          bs4Card(
-            title = tags$span(icon("gears"), tags$strong("Filters Setup")),
-            width = 8,
-            collapsed = FALSE,
-            maximizable = TRUE,
-            mod_setup_filters_ui(ns("setup_filters_1"))
-          )
+        )
+      ),
+      carouselItem(
+        caption = NULL,
+        active = FALSE,
+        bs4Card(
+          title = tags$span(icon("gears"), tags$strong("Filters Setup")),
+          width = 6,
+          collapsed = FALSE,
+          maximizable = TRUE,
+          mod_setup_filters_ui(ns("setup_filters_1"))
         )
       )
     )
@@ -72,7 +73,7 @@ mod_data_read_server <- function(id) {
       data_list = character(0),
       df = NULL,
       trig_reset = 0,
-      upload_state = "stale",
+      upload_state = "init",
       setup_filters = NULL
     )
 
@@ -100,7 +101,6 @@ mod_data_read_server <- function(id) {
           rv$upload <- list_assign(input$upload, name = NULL)
         }
         rv$upload_state <- "refresh"
-        rv$trig_reset <- rv$trig_reset + 1
       },
       priority = 1000
     ) |>
@@ -110,7 +110,7 @@ mod_data_read_server <- function(id) {
       req(input$upload)
       logger::log_info("mod_data_read_server: uploading data")
       rv$upload <- input$upload
-      rv$upload_state <- "stale"
+      rv$upload_state <- "init"
     }) |>
       bindEvent(input$upload)
 
@@ -152,11 +152,6 @@ mod_data_read_server <- function(id) {
     )
 
     read_df <- reactive({
-      if (!is.null(rv$df) && rv$upload_state == "refresh") {
-        rv$upload_state <- "stale"
-        return(NULL)
-      }
-      req(rv$upload_state == "stale")
       if (is.null(rv$df) && rv$trig_reset > 1) {
         show_toast(
           title = "No data to display",
@@ -204,6 +199,14 @@ mod_data_read_server <- function(id) {
       updateActionButton(session, "apply", label = "Reload")
     }) |>
       bindEvent(input$apply, once = TRUE)
+
+    observe({
+      if (is.null(rv$df)) {
+        disable("apply")
+      } else {
+        enable("apply")
+      }
+    })
 
     return(list(
       df_read = read_df,

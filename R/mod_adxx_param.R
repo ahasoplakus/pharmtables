@@ -61,11 +61,11 @@ mod_adxx_param_ui <- function(id,
       width = 12,
       height = "800px",
       div(
-        withSpinner(
+        shinycssloaders::withSpinner(
           mod_dt_table_ui(ns(
             "dt_table_param"
           )),
-          type = 6, color = "#3BACB6"
+          color = "#3BACB6"
         ),
         style = "overflow-x: scroll;"
       )
@@ -102,7 +102,7 @@ mod_adxx_param_server <- function(id,
       req(length(anl_flags) > 0)
 
       tagList(
-        create_flag_widget(anl_flags, ns, "Analysis Flags")
+        create_flag_widget(df_out()[[dataset]], anl_flags, ns, "Analysis Flags")
       )
     })
 
