@@ -26,6 +26,7 @@ utils::globalVariables(
     ":=",
     "spin_ball",
     "AESDTH",
-    "app_sys"
+    "app_sys",
+    "AVISITN"
   )
 )

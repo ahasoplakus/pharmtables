@@ -50,7 +50,7 @@ mod_adsl_display_ui <- function(id) {
       maximizable = TRUE,
       width = 12,
       height = "800px",
-      div(withSpinner(mod_dt_table_ui(ns("dt_table_1")), type = 6, color = "#3BACB6"),
+      div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
         style = "overflow-x: scroll;"
       )
     )

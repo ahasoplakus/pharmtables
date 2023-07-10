@@ -40,7 +40,7 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
       ))
 
       tagList(
-        create_flag_widget(flag_vars, ns),
+        create_flag_widget(load_data()[[dataset]], flag_vars, ns),
         create_widget(
           filter_list(),
           load_data(),

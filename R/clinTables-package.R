@@ -62,7 +62,6 @@
 #' @importFrom rtables remove_split_levels
 #' @importFrom rtables split_cols_by_multivar
 #' @importFrom rtables tt_to_flextable
-#' @importFrom shinycssloaders withSpinner
 #' @importFrom shinyjs disable
 #' @importFrom shinyjs enable
 #' @importFrom shinyjs hide

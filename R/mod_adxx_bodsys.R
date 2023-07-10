@@ -51,11 +51,11 @@ mod_adxx_bodsys_ui <-
         width = 12,
         height = "800px",
         div(
-          withSpinner(
+          shinycssloaders::withSpinner(
             mod_dt_table_ui(ns(
               "dt_table_bodsys"
             )),
-            type = 6, color = "#3BACB6"
+            color = "#3BACB6"
           ),
           style = "overflow-x: scroll;"
         )

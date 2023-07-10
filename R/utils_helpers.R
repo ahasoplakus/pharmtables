@@ -49,14 +49,14 @@ create_widget <- function(filter_list, df, dataset, namespace) {
         choice_labs <-
           map_chr(
             choice_vals,
-            \(x) if (nchar(x) > 20) {
-              str_trunc(x, width = 20)
+            \(x) if (nchar(x) > 50) {
+              str_trunc(x, width = 50)
             } else {
               x
             }
           )
 
-        prettyCheckboxGroup(
+        checkbox <- prettyCheckboxGroup(
           namespace(tolower(x)),
           label = labs,
           choiceNames = choice_labs,
@@ -67,6 +67,11 @@ create_widget <- function(filter_list, df, dataset, namespace) {
           status = "info",
           shape = "curve"
         )
+
+        if (any(nchar(choice_vals) > 25)) {
+          checkbox <- div(checkbox, style = "overflow-x:scroll;")
+        }
+        checkbox
       }
     })
   do.call(tagList, filters)
@@ -74,6 +79,7 @@ create_widget <- function(filter_list, df, dataset, namespace) {
 
 #' Population Flag widget
 #'
+#' @param df data frame
 #' @param flags Population Flags
 #' @param namespace namespace
 #' @param label Label of Flags
@@ -81,17 +87,39 @@ create_widget <- function(filter_list, df, dataset, namespace) {
 #' @return radio button widget for analysis population
 #'
 #' @noRd
-create_flag_widget <- function(flags, namespace, label = "Population Flags") {
-  prettyRadioButtons(
-    namespace("pop"),
-    label = label,
-    choices = flags,
-    selected = ifelse("SAFFL" %in% flags, "SAFFL", flags[1]),
-    animation = "pulse",
-    status = "info",
-    shape = "curve"
-  )
-}
+create_flag_widget <-
+  function(df, flags, namespace, label = "Population Flags") {
+    labs <- map_chr(
+      map_chr(flags, \(x) {
+        val <- obj_label(df[[x]])
+        if (is.null(val)) {
+          val <- x
+        }
+        val
+      }),
+      \(y) if (nchar(y) > 50) {
+        str_trunc(y, width = 50)
+      } else {
+        y
+      }
+    )
+
+    radio <- prettyRadioButtons(
+      namespace("pop"),
+      label = label,
+      choiceNames = labs,
+      choiceValues = flags,
+      selected = ifelse("SAFFL" %in% flags, "SAFFL", flags[1]),
+      animation = "pulse",
+      status = "info",
+      shape = "curve"
+    )
+
+    if (any(nchar(labs) > 25)) {
+      radio <- div(radio, style = "overflow-x: scroll;")
+    }
+    radio
+  }
 
 #' Create filtering condition based on filters
 #'
@@ -130,4 +158,17 @@ filters_to_cond <- function(filter_list) {
 
   filter_cond <- reduce(study_filters, paste, sep = " & ")
   return(filter_cond)
+}
+
+#' Convert selectInput choices to named list
+#'
+#' @param choices vector of choices
+#' @param dataset data frame
+#'
+#' @return named list of choices
+#'
+#' @noRd
+named_choice_list <- function(choices, dataset) {
+  map(choices, \(x) x) |>
+    set_names(map_chr(choices, \(x) str_glue("{x}: {obj_label({dataset}[[x]])}")))
 }

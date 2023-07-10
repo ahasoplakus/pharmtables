@@ -15,7 +15,7 @@ mod_data_preview_ui <- function(id) {
       title = tags$strong("Preview Data"),
       maximizable = TRUE,
       width = 12,
-      div(withSpinner(reactableOutput(ns("print_dat")), type = 6, color = "#3BACB6"),
+      div(shinycssloaders::withSpinner(reactableOutput(ns("print_dat")), color = "#3BACB6"),
         style = "overflow-x: scroll; overflow-y: scroll;"
       )
     )
