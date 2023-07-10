@@ -24,6 +24,16 @@ mod_dt_table_server <- function(id, display_df) {
     df_out <- reactive({
       req(display_df()$out_df)
       if (is.data.frame(display_df()$out_df)) {
+        if (nrow(display_df()$out_df) < 1) {
+          show_toast(
+            title = "Filtered data has no observation",
+            text = "Try applying a different filter",
+            type = "error",
+            position = "center",
+            width = "600px"
+          )
+        }
+        req(nrow(display_df()$out_df) > 0)
         df <- tt_to_flextable(
           build_table(
             lyt = display_df()$lyt,
@@ -32,6 +42,7 @@ mod_dt_table_server <- function(id, display_df) {
           )
         )
       } else {
+        req(nrow(display_df()$out_df) > 0)
         df <- tt_to_flextable(display_df()$out_df)
       }
       df
