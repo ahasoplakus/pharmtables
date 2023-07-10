@@ -1,5 +1,9 @@
+.content-wrapper {
+    background-color: #ffffff !important;
+}
+
 .navbar-white {
-    background-color: #D8E3E7;
+    background-color: #F3F4ED;
 }
 
 .layout-fixed .main-sidebar {
@@ -16,24 +20,24 @@
 #logo-id {
     width: 275px;
     color: #fff;
-    background-color: #27374D;
+    background-color: #526D82;
     font-size: x-large;
     padding: 6px;
 }
 
 b, strong {
     font-weight: bolder;
-    color: #27374D;
+    color: #526D82;
 }
 
 .fas {
     font-weight: 900;
-    color: #27374D;
+    color: #526D82;
 }
 
 .far {
     font-weight: 400;
-    color: #27374D;
+    color: #526D82;
 }
 
 .fas.fa-upload {
@@ -42,7 +46,7 @@ b, strong {
 }
 
 .card {
-    box-shadow: 1px 1px 5px #9AC5F4, 1px 1px 5px #27374D;
+    box-shadow: 1px 1px 5px #9AC5F4, 1px 1px 5px #526D82;
     margin-bottom: 1rem;
 }
 
@@ -87,7 +91,7 @@ div.sidebar .shiny-input-container {
 
 .btn.btn-file {
     overflow: hidden;
-    background-color: #27374D;
+    background-color: #526D82;
     border: 2px solid #293B5F;
     width: 120px !important;
     color: #fff;
@@ -109,7 +113,7 @@ div.sidebar .shiny-input-container {
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
-    background-color: #3BACB6;
+    background-color: #526D82;
     margin-right: 5px !important;
     border: 2px solid #293B5F !important;
     font-weight: 400 !important;
@@ -117,7 +121,7 @@ div.sidebar .shiny-input-container {
 
 .nav-item>a:hover {
     color: #fff !important;
-    background-color: #526D82 !important;
+    background-color: #3BACB6 !important;
     border: 2px solid #293B5F !important;
     border-radius: 4px !important;
 }
@@ -130,7 +134,8 @@ div.sidebar .shiny-input-container {
 
 #acc_st_filt > div > div.card-header {
   pointer-events: none;
-  background: #ceecf1 !important;
+  background: #F3F4ED !important;
+  border-color: #526D82 !important;
 
 }
 
@@ -148,7 +153,7 @@ div.sidebar .shiny-input-container {
 .direct-chat-contacts {
     bottom: 0;
     color: #2E4F4F;
-    background-color: #F4F9F9 !important;
+    background-color: #fff !important;
     overflow: auto;
     position: absolute;
     top: 0;
@@ -211,7 +216,15 @@ div.sidebar .shiny-input-container {
     color: #fff;
     width: 180px;
     border-radius: 2rem;
-    margin: auto;
+    margin-left: 65px;
+    display: flex !important;
+    justify-content: space-around;
+}
+
+#global_filters_1-apply {
+    display: flex !important;
+    margin-left: 30px !important;
+    justify-content: space-around;
 }
 
 .h2, h2 {
@@ -249,7 +262,7 @@ div.sidebar .shiny-input-container {
 }
 
 .pretty.p-switch.p-fill input:checked~.state label:after {
-    background-color: #27374D !important;
+    background-color: #526D82 !important;
     border: 2px solid #293B5F;
 }
 
@@ -283,7 +296,7 @@ div.sidebar .shiny-input-container {
     top: 25px;
     height: 8px;
     border-color: #526D82 !important;
-    background: #27374D !important;
+    background: #526D82 !important;
 }
 
 .irs--shiny .irs-from,
@@ -342,7 +355,8 @@ div.sidebar .shiny-input-container {
 #adlb_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #adeg_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header {
   pointer-events: none;
-  background: #ceecf1 !important;
+  background: #F3F4ED !important;
+  border: #526D82 !important;
 }
 
 p.rtables-main-title {
@@ -359,18 +373,16 @@ p.rtables-main-title {
 
 .carousel-control-next-icon {
     background-image: url(data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E) !important;
-    background-color: #435B66 !important;
-    height: 35px !important;
-    width: 50px !important;
-    opacity: 1 !important;
+    background-color: #374259 !important;
+    height: 25px !important;
+    width: 25px !important;
 }
 
 .carousel-control-prev-icon {
     background-image: url(data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E);
-    background-color: #435B66 !important;
-    height: 35px !important;
-    width: 50px !important;
-    opacity: 1 !important;
+    background-color: #374259 !important;
+    height: 25px !important;
+    width: 25px !important;
 }
 
 .carousel-indicators {

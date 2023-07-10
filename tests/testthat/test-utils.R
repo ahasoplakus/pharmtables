@@ -145,7 +145,7 @@ test_that("build_generic_bds_table works", {
     show_colcounts = TRUE,
     title = str_glue("Summary of Diastolic Blood Pressure w.r.t {paste(var_labs, collapse = ', ')}")
   ) |>
-    split_cols_by("ARM") |>
+    split_cols_by("ARM", split_fun = drop_split_levels) |>
     split_rows_by(
       "AVISIT",
       split_fun = drop_split_levels,

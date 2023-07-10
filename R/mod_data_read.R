@@ -73,7 +73,7 @@ mod_data_read_server <- function(id) {
       data_list = character(0),
       df = NULL,
       trig_reset = 0,
-      upload_state = "stale",
+      upload_state = "init",
       setup_filters = NULL
     )
 
@@ -101,7 +101,6 @@ mod_data_read_server <- function(id) {
           rv$upload <- list_assign(input$upload, name = NULL)
         }
         rv$upload_state <- "refresh"
-        rv$trig_reset <- rv$trig_reset + 1
       },
       priority = 1000
     ) |>
@@ -111,7 +110,7 @@ mod_data_read_server <- function(id) {
       req(input$upload)
       logger::log_info("mod_data_read_server: uploading data")
       rv$upload <- input$upload
-      rv$upload_state <- "stale"
+      rv$upload_state <- "init"
     }) |>
       bindEvent(input$upload)
 
@@ -153,11 +152,6 @@ mod_data_read_server <- function(id) {
     )
 
     read_df <- reactive({
-      if (!is.null(rv$df) && rv$upload_state == "refresh") {
-        rv$upload_state <- "stale"
-        return(NULL)
-      }
-      req(rv$upload_state == "stale")
       if (is.null(rv$df) && rv$trig_reset > 1) {
         show_toast(
           title = "No data to display",
@@ -205,6 +199,14 @@ mod_data_read_server <- function(id) {
       updateActionButton(session, "apply", label = "Reload")
     }) |>
       bindEvent(input$apply, once = TRUE)
+
+    observe({
+      if (is.null(rv$df)) {
+        disable("apply")
+      } else {
+        enable("apply")
+      }
+    })
 
     return(list(
       df_read = read_df,
