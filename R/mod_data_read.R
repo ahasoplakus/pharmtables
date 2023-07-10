@@ -14,7 +14,6 @@ mod_data_read_ui <- function(id) {
       id = ns("carousel"),
       carouselItem(
         caption = NULL,
-        active = TRUE,
         bs4Card(
           title = tags$span(icon("database"), tags$strong("Load Data")),
           width = 6,
@@ -49,7 +48,6 @@ mod_data_read_ui <- function(id) {
       ),
       carouselItem(
         caption = NULL,
-        active = FALSE,
         bs4Card(
           title = tags$span(icon("gears"), tags$strong("Filters Setup")),
           width = 6,
