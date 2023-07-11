@@ -10,7 +10,8 @@
 mod_adxx_bodsys_ui <-
   function(id,
            title = "Summary of Treatment-Emergent Adverse Events (TEAES) By Body System Class",
-           domain = "ADAE") {
+           domain = "ADAE",
+           logo = "head-side-cough") {
     ns <- NS(id)
     tagList(
       box(
@@ -20,28 +21,37 @@ mod_adxx_bodsys_ui <-
           id = ns("adxx_side_bodsys"),
           background = "#EFF5F5",
           width = 35,
-          h2(tags$strong("Table Options")),
-          mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain),
-          selectInput(
-            ns("split_col"),
-            "Treatment Variable",
-            choices = NULL,
-            selected = NULL,
-            width = 400
-          ),
-          selectInput(
-            ns("class"),
-            "Higher Level Term",
-            choices = NULL,
-            selected = NULL,
-            width = 400
-          ),
-          selectInput(
-            ns("term"),
-            "Lower Level Term",
-            choices = NULL,
-            selected = NULL,
-            width = 400
+          mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),
+          div(
+            accordion(
+              id = ns("bodsys_accord"),
+              accordionItem(
+                title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+                collapsed = FALSE,
+                selectInput(
+                  ns("split_col"),
+                  "Treatment Variable",
+                  choices = NULL,
+                  selected = NULL,
+                  width = 400
+                ),
+                selectInput(
+                  ns("class"),
+                  "Higher Level Term",
+                  choices = NULL,
+                  selected = NULL,
+                  width = 400
+                ),
+                selectInput(
+                  ns("term"),
+                  "Lower Level Term",
+                  choices = NULL,
+                  selected = NULL,
+                  width = 400
+                )
+              )
+            ),
+            style = "width: 350px;"
           ),
           tagAppendAttributes(actionButton(ns("run"), "Update"),
             class = "side_apply"
