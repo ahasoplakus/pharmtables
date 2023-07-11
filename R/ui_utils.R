@@ -98,7 +98,7 @@ dashboard_sidebar <- function() {
     accordion(
       id = "acc_st_filt",
       accordionItem(
-        title = tags$span(icon("user-gear"), tags$strong("ADSL Filters")),
+        title = tags$span(icon("id-card"), tags$strong("ADSL Filters")),
         collapsed = FALSE,
         mod_global_filters_ui("global_filters_1")
       )
@@ -137,14 +137,16 @@ dashboard_body <- function() {
         tabName = "Tab5",
         mod_adxx_bodsys_ui("admh_bodsys_1",
           title = "Summary of Medical History By Body System Class",
-          domain = "ADMH"
+          domain = "ADMH",
+          logo = "file-medical"
         )
       ),
       tabItem(
         tabName = "Tab6",
         mod_adxx_bodsys_ui("adcm_bodsys_1",
           title = "Summary of Concomitant Medications by Categories",
-          domain = "ADCM"
+          domain = "ADCM",
+          logo = "capsules"
         )
       ),
       tabItem(
@@ -158,14 +160,16 @@ dashboard_body <- function() {
         tabName = "Tab8",
         mod_adxx_param_ui("adlb_param_1",
           title = "Summary of Laboratory Tests by Parameter and Visit",
-          domain = "ADLB"
+          domain = "ADLB",
+          logo = "flask-vial"
         )
       ),
       tabItem(
         tabName = "Tab9",
         mod_adxx_param_ui("adeg_param_1",
           title = "Summary of ECG Findings by Parameter and Visit",
-          domain = "ADEG"
+          domain = "ADEG",
+          logo = "heart-pulse"
         )
       )
     )

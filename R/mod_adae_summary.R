@@ -17,24 +17,36 @@ mod_adae_summary_ui <- function(id) {
         id = ns("adae_summ_side"),
         background = "#EFF5F5",
         width = 35,
-        h2(tags$strong("Table Options")),
         mod_filter_reactivity_ui(ns("filter_reactivity_1")),
-        selectInput(
-          ns("split_col"),
-          "Treatment Variable",
-          choices = NULL,
-          selected = NULL,
-          width = 400
-        ),
-        prettyCheckboxGroup(
-          ns("events"),
-          label = NULL,
-          choiceNames = NULL,
-          choiceValues = NULL,
-          selected = NULL,
-          animation = "pulse",
-          status = "info",
-          shape = "curve"
+        div(
+          accordion(
+            id = ns("summ_accord"),
+            accordionItem(
+              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              collapsed = FALSE,
+              selectInput(
+                ns("split_col"),
+                "Treatment Variable",
+                choices = NULL,
+                selected = NULL,
+                width = 400
+              ),
+              div(
+                prettyCheckboxGroup(
+                  ns("events"),
+                  label = NULL,
+                  choiceNames = NULL,
+                  choiceValues = NULL,
+                  selected = NULL,
+                  animation = "pulse",
+                  status = "info",
+                  shape = "curve"
+                ),
+                style = "overflow-x:scroll;"
+              )
+            )
+          ),
+          style = "width: 350px;"
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
           class = "side_apply"

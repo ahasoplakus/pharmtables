@@ -9,7 +9,8 @@
 #' @importFrom shiny NS tagList
 mod_adxx_param_ui <- function(id,
                               title = "",
-                              domain = "ADVS") {
+                              domain = "ADVS",
+                              logo = "stethoscope") {
   ns <- NS(id)
   tagList(
     box(
@@ -19,39 +20,46 @@ mod_adxx_param_ui <- function(id,
         id = ns("adxx_side_param"),
         background = "#EFF5F5",
         width = 35,
-        h2(tags$strong("Table Options")),
-        uiOutput(ns("analysis_flag_ui")),
-        mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain),
-        selectInput(
-          ns("split_col"),
-          "Treatment Variable",
-          choices = NULL,
-          selected = NULL,
-          width = 400
-        ),
-        selectizeInput(
-          ns("param"),
-          "Parameter Value",
-          choices = NULL,
-          selected = NULL,
-          width = 300,
-          options = list(maxItems = 1)
-        ),
-        selectizeInput(
-          ns("visit"),
-          "Analysis Visit",
-          choices = NULL,
-          selected = NULL,
-          width = 300,
-          options = list(maxItems = 1)
-        ),
-        selectInput(
-          ns("summ_var"),
-          "Analysis Variables",
-          choices = NULL,
-          selected = NULL,
-          width = 400,
-          multiple = TRUE
+        div(uiOutput(ns("analysis_flag_ui"))),
+        mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),
+        div(
+          accordion(
+            id = ns("param_accord"),
+            accordionItem(
+              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              collapsed = FALSE,
+              selectInput(
+                ns("split_col"),
+                "Treatment Variable",
+                choices = NULL,
+                selected = NULL,
+                width = 400
+              ),
+              selectInput(
+                ns("param"),
+                "Parameter Value",
+                choices = NULL,
+                selected = NULL,
+                width = 400,
+              ),
+              selectInput(
+                ns("visit"),
+                "Analysis Visit",
+                choices = NULL,
+                selected = NULL,
+                width = 400,
+              ),
+              selectInput(
+                ns("summ_var"),
+                "Analysis Variables",
+                choices = NULL,
+                selected = NULL,
+                width = 400,
+                multiple = TRUE
+              )
+            )
+          ),
+          style = "width: 350px;"
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
           class = "side_apply"
@@ -102,7 +110,16 @@ mod_adxx_param_server <- function(id,
       req(length(anl_flags) > 0)
 
       tagList(
-        create_flag_widget(df_out()[[dataset]], anl_flags, ns, "Analysis Flags")
+        div(
+          accordion(
+            id = ns("flag_accord"),
+            accordionItem(
+              title = tags$span(icon("magnifying-glass-chart"), tags$strong("Analysis Flags")),
+              collapsed = FALSE,
+              create_flag_widget(df_out()[[dataset]], anl_flags, ns, "")
+            )
+          )
+        )
       )
     })
 
@@ -133,13 +150,13 @@ mod_adxx_param_server <- function(id,
         selected = trt_choices[1]
       )
 
-      updateSelectizeInput(session,
+      updateSelectInput(session,
         "param",
         choices = param_choices,
         selected = param_choices[1]
       )
 
-      updateSelectizeInput(session,
+      updateSelectInput(session,
         "visit",
         choices = visit_choices,
         selected = visit_choices[1]

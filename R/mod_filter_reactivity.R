@@ -8,7 +8,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_filter_reactivity_ui <- function(id, domain = "ADAE") {
+mod_filter_reactivity_ui <- function(id, domain = "ADAE", logo = "head-side-cough") {
   ns <- NS(id)
   tagList(
     div(
@@ -16,12 +16,12 @@ mod_filter_reactivity_ui <- function(id, domain = "ADAE") {
       accordion(
         id = ns("acc_filt_react"),
         accordionItem(
-          title = tags$strong(str_glue("{domain} Filters")),
+          title = tags$span(icon(logo), tags$strong(str_glue("{domain} Filters"))),
           collapsed = FALSE,
           uiOutput(ns("xx_filt_ui"))
         )
       ),
-      style = "width: 300px;"
+      style = "width: 350px;"
     )
   )
 }
@@ -84,7 +84,7 @@ mod_filter_reactivity_server <- function(id, df, dataset, filters, trt_var) {
       if (!is.null(rv$cached_filters) &&
         length(rv$filters) > length(rv$cached_filters)) {
         req(filt_update)
-        logger::log_info("mod_filter_reactivity_server: triggering report")
+        logger::log_info("mod_filter_reactivity_server: triggering report (filters added)")
         rv$trig_report <- rv$trig_report + 1
       } else if (!is.null(rv$cached_filters) &&
         length(rv$filters) < length(rv$cached_filters)) {
@@ -96,12 +96,12 @@ mod_filter_reactivity_server <- function(id, df, dataset, filters, trt_var) {
           )))
         }
         req(!trig_stop)
-        logger::log_info("mod_filter_reactivity_server: triggering report")
+        logger::log_info("mod_filter_reactivity_server: triggering report (filters removed)")
         rv$trig_report <- rv$trig_report + 1
       } else if (!is.null(rv$cached_filters) &&
         !identical(names(rv$filters), names(rv$cached_filters))) {
         req(filt_update)
-        logger::log_info("mod_filter_reactivity_server: triggering report")
+        logger::log_info("mod_filter_reactivity_server: triggering report (filters replaced)")
         rv$trig_report <- rv$trig_report + 1
       }
 

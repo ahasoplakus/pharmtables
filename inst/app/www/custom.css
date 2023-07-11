@@ -58,7 +58,13 @@ img {
 
 .selectize-control {
     margin-bottom: 10px;
-    margin-right: 100px;
+}
+
+.selectize-control.single .selectize-input, .selectize-control.single .selectize-input input,
+.selectize-control.multi .selectize-input.has-items {
+    cursor: pointer;
+    border: 1px solid #293B5F;
+    background-color: #F3F4ED;
 }
 
 label {
@@ -216,7 +222,7 @@ div.sidebar .shiny-input-container {
     color: #fff;
     width: 180px;
     border-radius: 2rem;
-    margin-left: 65px;
+    margin-left: 85px;
     display: flex !important;
     justify-content: space-around;
 }
@@ -306,8 +312,8 @@ div.sidebar .shiny-input-container {
 }
 
 .bootstrap-select>.dropdown-toggle {
-    background-color: #D8E3E7 !important;
-    border: 2px solid #293B5F !important;
+    background-color: #F3F4ED !important;
+    border: 1px solid #293B5F !important;
 }
 
 .selectize-dropdown, .selectize-input, .selectize-input input {
@@ -335,17 +341,38 @@ div.sidebar .shiny-input-container {
     border-top: 7px solid #3BACB6;
 }
 
-#collapse_adae_global_1-adae_summary_1-filter_reactivity_1-acc_filt_react_1 > div,
-#collapse_adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
-#collapse_adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react_1 > div,
-#collapse_admh_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
-#collapse_adcm_bodsys_1-filter_reactivity_1-acc_filt_react_1 > div,
-#collapse_advs_param_1-filter_reactivity_1-acc_filt_react_1 > div,
-#collapse_adlb_param_1-filter_reactivity_1-acc_filt_react_1 > div,
-#collapse_adeg_param_1-filter_reactivity_1-acc_filt_react_1 > div {
+#adsl_display_1-adsl_accord > div,
+#adae_global_1-adae_summary_1-summ_accord > div,
+#adae_global_1-adae_bodsys_1-bodsys_accord > div,
+#adae_global_1-adae_sev_tox_1-sevtox_accord > div,
+#admh_bodsys_1-bodsys_accord > div,
+#adcm_bodsys_1-bodsys_accord > div,
+#advs_param_1-param_accord > div,
+#adlb_param_1-param_accord > div,
+#adeg_param_1-param_accord > div,
+#adae_global_1-adae_summary_1-filter_reactivity_1-acc_filt_react > div,
+#adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react > div,
+#adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react > div,
+#admh_bodsys_1-filter_reactivity_1-acc_filt_react > div,
+#adcm_bodsys_1-filter_reactivity_1-acc_filt_react > div,
+#advs_param_1-filter_reactivity_1-acc_filt_react > div,
+#adlb_param_1-filter_reactivity_1-acc_filt_react > div,
+#adeg_param_1-filter_reactivity_1-acc_filt_react > div,
+#advs_param_1-flag_accord > div,
+#adlb_param_1-flag_accord > div,
+#adeg_param_1-flag_accord > div {
   padding: 0.5rem;
 }
 
+#adsl_display_1-adsl_accord > div > div.card-header,
+#adae_global_1-adae_summary_1-summ_accord > div > div.card-header,
+#adae_global_1-adae_bodsys_1-bodsys_accord > div > div.card-header,
+#adae_global_1-adae_sev_tox_1-sevtox_accord > div > div.card-header,
+#admh_bodsys_1-bodsys_accord > div > div.card-header,
+#adcm_bodsys_1-bodsys_accord > div > div.card-header,
+#advs_param_1-param_accord > div > div.card-header,
+#adlb_param_1-param_accord > div > div.card-header,
+#adeg_param_1-param_accord > div > div.card-header,
 #adae_global_1-adae_summary_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
@@ -353,8 +380,10 @@ div.sidebar .shiny-input-container {
 #adcm_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #advs_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
 #adlb_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#adeg_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header {
-  pointer-events: none;
+#adeg_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
+#advs_param_1-flag_accord > div > div.card-header,
+#adlb_param_1-flag_accord > div > div.card-header,
+#adeg_param_1-flag_accord > div > div.card-header {
   background: #F3F4ED !important;
   border: #526D82 !important;
 }

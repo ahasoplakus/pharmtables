@@ -17,31 +17,40 @@ mod_adsl_display_ui <- function(id) {
         id = ns("demog_side"),
         background = "#EFF5F5",
         width = 35,
-        h2(tags$strong("Table Options")),
-        selectInput(
-          ns("split_col"),
-          "Treatment Variable",
-          choices = NULL,
-          selected = NULL,
-          width = 400
-        ),
-        selectInput(
-          ns("summ_var"),
-          "Summarize",
-          choices = NULL,
-          selected = NULL,
-          multiple = TRUE,
-          width = 400
-        ),
-        prettyCheckboxGroup(
-          inputId = ns("stats"),
-          label = "Show/Hide Statistic",
-          choiceNames = NULL,
-          choiceValues = NULL,
-          selected = NULL,
-          animation = "pulse",
-          shape = "curve",
-          status = "info"
+        div(
+          accordion(
+            id = ns("adsl_accord"),
+            accordionItem(
+              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              collapsed = FALSE,
+              selectInput(
+                ns("split_col"),
+                "Treatment Variable",
+                choices = NULL,
+                selected = NULL,
+                width = 400
+              ),
+              selectInput(
+                ns("summ_var"),
+                "Summarize",
+                choices = NULL,
+                selected = NULL,
+                multiple = TRUE,
+                width = 400
+              ),
+              prettyCheckboxGroup(
+                inputId = ns("stats"),
+                label = "Show/Hide Statistic",
+                choiceNames = NULL,
+                choiceValues = NULL,
+                selected = NULL,
+                animation = "pulse",
+                shape = "curve",
+                status = "info"
+              )
+            )
+          ),
+          style = "width: 350px;"
         ),
         tagAppendAttributes(actionButton(ns("run"), "Update"),
           class = "side_apply"
