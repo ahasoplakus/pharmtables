@@ -73,6 +73,8 @@ mod_adae_summary_server <- function(id,
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
+    rv <- reactiveValues(occ_cached = NULL)
+
     observe({
       req(df_out()[[dataset]])
       if (is.null(filters())) {
@@ -119,7 +121,8 @@ mod_adae_summary_server <- function(id,
 
     observe({
       req(ae_summ_init())
-      logger::log_info("mod_adae_summary_server: update show/hide events")
+      req(!identical(df_out()[[dataset]], rv$occ_cached))
+      logger::log_info("mod_adae_summary_server: updating table options for {dataset}")
 
       df <- ae_summ_init()$out_df
       choices <- names(select(df, all_of(ae_summ_init()$aesi_vars)))
@@ -152,6 +155,8 @@ mod_adae_summary_server <- function(id,
         choices = trt_choices,
         selected = trt_choices[1]
       )
+
+      rv$occ_cached <- df_out()[[dataset]]
     }) |>
       bindEvent(ae_summ_init())
 

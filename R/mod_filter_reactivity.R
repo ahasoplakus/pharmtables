@@ -35,13 +35,12 @@ mod_filter_reactivity_server <- function(id, df, dataset, filters, trt_var) {
 
     rv <- reactiveValues(trig_report = 0)
 
-    output$xx_filt_ui <- renderUI({
+    observe({
       req(df()[[dataset]])
       req(filters())
+      req(!identical(filters(), rv$cached_filter_list))
 
-      logger::log_info("mod_filter_reactivity_server: initialise {dataset} filters")
-
-      tagList(
+      rv$widget <- tagList(
         create_widget(
           filters(),
           df(),
@@ -49,6 +48,12 @@ mod_filter_reactivity_server <- function(id, df, dataset, filters, trt_var) {
           ns
         )
       )
+    })
+
+    output$xx_filt_ui <- renderUI({
+      req(rv$widget)
+      logger::log_info("mod_filter_reactivity_server: initialise {dataset} filters")
+      rv$widget
     })
 
     outputOptions(output, "xx_filt_ui", priority = 925)
@@ -68,6 +73,7 @@ mod_filter_reactivity_server <- function(id, df, dataset, filters, trt_var) {
 
         logger::log_info("mod_filter_reactivity_server: update {dataset} filter condtion")
         rv$filter_cond <- filters_to_cond(rv$filters)
+        rv$cached_filter_list <- filters()
       },
       priority = 920
     )
