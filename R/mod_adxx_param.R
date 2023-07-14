@@ -103,24 +103,29 @@ mod_adxx_param_server <- function(id,
       }
     })
 
-    output$analysis_flag_ui <- renderUI({
+    observe({
       req(adsl())
       req(df_out()[[dataset]])
       anl_flags <- names(select(df_out()[[dataset]], starts_with("ANL0")))
       req(length(anl_flags) > 0)
+      req(is.null(rv$lyt))
 
-      tagList(
-        div(
-          accordion(
-            id = ns("flag_accord"),
-            accordionItem(
-              title = tags$span(icon("magnifying-glass-chart"), tags$strong("Analysis Flags")),
-              collapsed = FALSE,
-              create_flag_widget(df_out()[[dataset]], anl_flags, ns, "")
-            )
-          )
+      rv$widget <- tagList(div(accordion(
+        id = ns("flag_accord"),
+        accordionItem(
+          title = tags$span(
+            icon("magnifying-glass-chart"),
+            tags$strong("Analysis Flags")
+          ),
+          collapsed = FALSE,
+          create_flag_widget(df_out()[[dataset]], anl_flags, ns, "")
         )
-      )
+      )))
+    })
+
+    output$analysis_flag_ui <- renderUI({
+      req(rv$widget)
+      rv$widget
     })
 
     outputOptions(output, "analysis_flag_ui", priority = 970)
@@ -128,6 +133,7 @@ mod_adxx_param_server <- function(id,
     observe({
       req(adsl())
       req(df_out()[[dataset]])
+      req(!identical(df_out()[[dataset]], rv$bds_cached))
       logger::log_info("mod_adxx_param_server: updating table options for {dataset}")
 
       df <- df_out()[[dataset]]
@@ -167,6 +173,8 @@ mod_adxx_param_server <- function(id,
         choices = summ_choices,
         selected = summ_choices[1:2]
       )
+
+      rv$bds_cached <- df_out()[[dataset]]
     }) |>
       bindEvent(list(adsl(), df_out()[[dataset]]))
 
@@ -230,6 +238,8 @@ mod_adxx_param_server <- function(id,
         visit = input$visit,
         disp_vars = input$summ_var
       )
+
+      rv$lyt <- lyt$lyt
 
       return(list(
         out_df = lyt$df_out,

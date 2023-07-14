@@ -95,6 +95,8 @@ mod_adae_sev_tox_server <- function(id,
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
+    rv <- reactiveValues(occ_cached = NULL)
+
     observe({
       req(df_out()[[dataset]])
       if (is.null(filters())) {
@@ -107,6 +109,7 @@ mod_adae_sev_tox_server <- function(id,
     observe({
       req(adsl())
       req(df_out()[[dataset]])
+      req(!identical(df_out()[[dataset]], rv$occ_cached))
       logger::log_info("mod_adae_sev_tox_server: updating table options for {dataset}")
 
       df <- df_out()[[dataset]]
@@ -153,6 +156,8 @@ mod_adae_sev_tox_server <- function(id,
         choices = summ_var,
         selected = summ_var[1]
       )
+
+      rv$occ_cached <- df_out()[[dataset]]
     }) |>
       bindEvent(list(adsl(), df_out()[[dataset]]))
 

@@ -93,7 +93,7 @@ dashboard_header <- function() {
 dashboard_sidebar <- function() {
   dashboardSidebar(
     status = "info",
-    width = "275px",
+    width = "300px",
     minified = FALSE,
     accordion(
       id = "acc_st_filt",
