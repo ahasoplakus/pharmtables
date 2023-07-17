@@ -20,7 +20,7 @@ jobs:
         config:
           - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: '4.1', repos: 'https://packagemanager.posit.co/cran/2021-05-03/'}
-          - {os: ubuntu-latest,   r: '4.2', repos: 'https://packagemanager.posit.co/cran/2021-05-03/'}
+          - {os: ubuntu-latest,   r: '4.2', repos: 'https://packagemanager.posit.co/cran/2022-01-03/'}
           - {os: ubuntu-latest,   r: '4.3', repos: 'https://packagemanager.posit.co/cran/__linux__/focal/latest'}
 
     env:
