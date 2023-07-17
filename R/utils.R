@@ -120,9 +120,8 @@ build_generic_occurrence_table <-
       text <- "treatment"
     }
 
-    lyt <- basic_table() |>
+    lyt <- basic_table(show_colcounts = TRUE) |>
       split_cols_by(var = trt_var, split_fun = drop_split_levels) |>
-      add_colcounts() |>
       add_overall_col(label = "All Patients") |>
       summarize_num_patients(
         var = "USUBJID",

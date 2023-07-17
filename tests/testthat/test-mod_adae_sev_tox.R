@@ -39,7 +39,14 @@ test_that("mod_adae_sev_tox_server works", {
         add_colcounts() |>
         add_overall_col(label = "All Patients") |>
         add_colcounts() |>
-        summarize_num_patients("USUBJID") |>
+        summarize_num_patients(
+          var = "USUBJID",
+          .stats = c("unique", "nonunique"),
+          .labels = c(
+            unique = str_glue("Total number of patients with at least one adverse event"),
+            nonunique = str_glue("Total number of adverse events")
+          )
+        ) |>
         split_rows_by("AESOC",
           child_labels = "visible",
           nested = TRUE,
