@@ -13,6 +13,8 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Depends:
+    R (>= 3.6)
 Imports: 
     bs4Dash (>= 2.3.0),
     dplyr (>= 1.1.2),
@@ -50,5 +52,4 @@ Suggests:
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
-Remotes:  
-    insightsengineering/random.cdisc.data
+Additional_repositories: https://github.com/insightsengineering/random.cdisc.data/
