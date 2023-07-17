@@ -19,8 +19,9 @@ jobs:
       matrix:
         config:
           - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
+          - {os: ubuntu-latest,   r: '4.1', repos: 'https://packagemanager.posit.co/cran/2021-05-03/'}
+          - {os: ubuntu-latest,   r: '4.2', repos: 'https://packagemanager.posit.co/cran/2021-05-03/'}
+          - {os: ubuntu-latest,   r: '4.3', repos: 'https://packagemanager.posit.co/cran/__linux__/focal/latest'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
