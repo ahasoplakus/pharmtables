@@ -6,8 +6,13 @@ Authors@R:
 Description: Shiny Application for visualizing some of the standard tables
     used in Clinical Trials.
 License: Apache License (>= 2)
-URL: https://github.com/ahasoplakus/clinTables/
 BugReports: https://github.com/ahasoplakus/clinTables/issues/
+URL: https://ahasoplakus.github.io/clinTables/, https://github.com/ahasoplakus/clinTables/
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
 Imports: 
     bs4Dash (>= 2.3.0),
     dplyr (>= 1.1.2),
@@ -31,7 +36,7 @@ Suggests:
     knitr,
     lifecycle,
     logger,
-    random.cdisc.data,
+    random.cdisc.data (>= 0.3.13.9060),
     reactable,
     rmarkdown,
     shinycssloaders,
@@ -44,11 +49,4 @@ Suggests:
     withr
 VignetteBuilder: 
     knitr
-Remotes:
-    insightsengineering/random.cdisc.data
 Config/testthat/edition: 3
-Encoding: UTF-8
-Language: en-US
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
