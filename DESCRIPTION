@@ -51,4 +51,4 @@ VignetteBuilder:
     knitr
 Config/testthat/edition: 3
 Remotes:  
-    insightsengineering
+    insightsengineering/random.cdisc.data
