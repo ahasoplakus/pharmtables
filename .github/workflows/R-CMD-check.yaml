@@ -55,10 +55,9 @@ jobs:
         run: |
           if (!requireNamespace("rcmdcheck", quietly = TRUE)) install.packages("rcmdcheck")
           options(crayon.enabled = TRUE)
-          check_error_on <- "${{ inputs.error-on }}"
           rcmdcheck::rcmdcheck(
             args = c("--no-manual", "--as-cran"),
-            error_on = check_error_on,
+            error_on = "error",
             check_dir = "check"
           )
         shell: Rscript {0}
