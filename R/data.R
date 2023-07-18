@@ -5,6 +5,8 @@
 #'
 #' @docType data
 #'
+#' @keywords datasets
+#' @family datasets
 #'
 #' @format Data frame with 400 features and 55 fields
 #'
@@ -20,6 +22,8 @@
 #'
 #' @docType data
 #'
+#' @keywords datasets
+#' @family datasets
 #'
 #' @format Data frame with 1934 features and 92 fields
 #'
@@ -35,6 +39,8 @@
 #'
 #' @docType data
 #'
+#' @keywords datasets
+#' @family datasets
 #'
 #' @format Data frame with 16800 features and 87 fields
 #'
@@ -50,6 +56,8 @@
 #'
 #' @docType data
 #'
+#' @keywords datasets
+#' @family datasets
 #'
 #' @format Data frame with 8400 features and 102 fields
 #'

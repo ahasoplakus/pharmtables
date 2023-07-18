@@ -16,4 +16,11 @@ data(advs)
 \description{
 Vital Signs Dataset.
 }
+\seealso{
+Other datasets: 
+\code{\link{adae}},
+\code{\link{adlb}},
+\code{\link{adsl}}
+}
+\concept{datasets}
 \keyword{datasets}

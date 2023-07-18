@@ -16,4 +16,11 @@ data(adsl)
 \description{
 Subject Level Analysis Dataset.
 }
+\seealso{
+Other datasets: 
+\code{\link{adae}},
+\code{\link{adlb}},
+\code{\link{advs}}
+}
+\concept{datasets}
 \keyword{datasets}

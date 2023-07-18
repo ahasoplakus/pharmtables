@@ -16,4 +16,11 @@ data(adlb)
 \description{
 Laboratory Analysis Dataset.
 }
+\seealso{
+Other datasets: 
+\code{\link{adae}},
+\code{\link{adsl}},
+\code{\link{advs}}
+}
+\concept{datasets}
 \keyword{datasets}

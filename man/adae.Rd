@@ -16,4 +16,11 @@ data(adae)
 \description{
 Adverse Events Dataset.
 }
+\seealso{
+Other datasets: 
+\code{\link{adlb}},
+\code{\link{adsl}},
+\code{\link{advs}}
+}
+\concept{datasets}
 \keyword{datasets}
