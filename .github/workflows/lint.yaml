@@ -8,7 +8,7 @@ name: lint
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -22,6 +22,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
+          pak-version: devel
           extra-packages: any::lintr, local::.
           needs: lint
 
