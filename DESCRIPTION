@@ -38,7 +38,6 @@ Suggests:
     knitr,
     lifecycle,
     logger,
-    random.cdisc.data (>= 0.3.13.9060),
     reactable,
     rmarkdown,
     shinycssloaders,
@@ -52,4 +51,3 @@ Suggests:
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
-Additional_repositories: https://github.com/insightsengineering/random.cdisc.data/

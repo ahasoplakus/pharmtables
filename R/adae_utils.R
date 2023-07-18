@@ -11,8 +11,8 @@
 #' @examples
 #' library(clinTables)
 #' library(dplyr)
-#' adsl <- random.cdisc.data::cadsl
-#' adae <- random.cdisc.data::cadae
+#' data(adsl)
+#' data(adae)
 #' adae_ <- add_adae_flags(adae)
 #'
 #' tbl <- select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
@@ -89,8 +89,8 @@ add_adae_flags <- function(df) {
 #'
 #' library(clinTables)
 #' library(rtables)
-#' adsl <- random.cdisc.data::cadsl
-#' adae <- random.cdisc.data::cadae
+#' data(adsl)
+#' data(adae)
 #' adae_ <- add_adae_flags(adae)
 #' lyt <- build_adae_summary(
 #'   adae = adae_,
@@ -159,8 +159,8 @@ build_adae_summary <-
 #'
 #' library(clinTables)
 #' library(rtables)
-#' adsl <- random.cdisc.data::cadsl
-#' adae <- random.cdisc.data::cadae
+#' data(adsl)
+#' data(adae)
 #'
 #' tbl <- build_adae_by_sev_tox(
 #'   adsl = adsl,

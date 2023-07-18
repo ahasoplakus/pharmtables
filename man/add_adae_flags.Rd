@@ -18,8 +18,8 @@ Add Flags to ADAE
 \examples{
 library(clinTables)
 library(dplyr)
-adsl <- random.cdisc.data::cadsl
-adae <- random.cdisc.data::cadae
+data(adsl)
+data(adae)
 adae_ <- add_adae_flags(adae)
 
 tbl <- select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))

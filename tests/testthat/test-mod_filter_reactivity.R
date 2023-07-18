@@ -1,3 +1,5 @@
+data(adae)
+
 test_that("mod_filter_reactivity_server works", {
   filt <- reactiveVal()
   testServer(
@@ -5,7 +7,7 @@ test_that("mod_filter_reactivity_server works", {
     # Add here your module params
     args = list(
       id = "filter_reactivity_123",
-      df = reactive(list(cadae = random.cdisc.data::cadae)),
+      df = reactive(list(cadae = adae)),
       dataset = "cadae",
       filters = filt,
       trt_var = "ARM"

@@ -36,8 +36,8 @@ Create generic BDS Summary table
 
 library(clinTables)
 library(rtables)
-adsl <- random.cdisc.data::cadsl
-advs <- random.cdisc.data::cadvs
+data(adsl)
+data(advs)
 
 lyt <- build_generic_bds_table(advs,
   param = "Diastolic Blood Pressure",

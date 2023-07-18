@@ -26,8 +26,8 @@ Create ADAE Summary Table
 
 library(clinTables)
 library(rtables)
-adsl <- random.cdisc.data::cadsl
-adae <- random.cdisc.data::cadae
+data(adsl)
+data(adae)
 adae_ <- add_adae_flags(adae)
 lyt <- build_adae_summary(
   adae = adae_,

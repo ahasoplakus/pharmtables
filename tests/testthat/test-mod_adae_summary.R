@@ -1,3 +1,6 @@
+data(adsl)
+data(adae)
+
 test_that("mod_adae_summary_server works", {
   filt <- reactiveVal()
   testServer(
@@ -8,11 +11,11 @@ test_that("mod_adae_summary_server works", {
       dataset = "cadae",
       df_out = reactive(
         list(
-          cadsl = random.cdisc.data::cadsl,
-          cadae = random.cdisc.data::cadae
+          cadsl = adsl,
+          cadae = adae
         )
       ),
-      adsl = reactive(random.cdisc.data::cadsl),
+      adsl = reactive(adsl),
       filters = filt
     ),
     {
