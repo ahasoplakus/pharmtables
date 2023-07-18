@@ -2,9 +2,9 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: [devel, main]
+    branches: [main, devel]
   pull_request:
-    branches: [devel, main]
+    branches: [main, devel]
 
 name: R-CMD-check
 
@@ -18,10 +18,11 @@ jobs:
       fail-fast: false
       matrix:
         config:
+          - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: '4.1', repos: 'https://packagemanager.posit.co/cran/2021-05-03/'}
-          - {os: ubuntu-latest,   r: '4.2', repos: 'https://packagemanager.posit.co/cran/2022-01-03/'}
-          - {os: ubuntu-latest,   r: '4.3', repos: 'https://packagemanager.posit.co/cran/__linux__/focal/latest'}
+          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,   r: 'release'}
+          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -44,25 +45,6 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_REMOTE_: false
-          _R_CHECK_FORCE_SUGGESTS_: false
-        run: |
-          if (!requireNamespace("rcmdcheck", quietly = TRUE)) install.packages("rcmdcheck")
-          options(crayon.enabled = TRUE)
-          rcmdcheck::rcmdcheck(
-            args = c("--no-manual", "--as-cran"),
-            error_on = "error",
-            check_dir = "check"
-          )
-        shell: Rscript {0}
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
+      - uses: r-lib/actions/check-r-package@v2
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
-
-
+          upload-snapshots: true
