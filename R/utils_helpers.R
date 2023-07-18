@@ -172,3 +172,25 @@ named_choice_list <- function(choices, dataset) {
   map(choices, \(x) x) |>
     set_names(map_chr(choices, \(x) str_glue("{x}: {obj_label({dataset}[[x]])}")))
 }
+
+
+#' Read data into a list
+#'
+#' @param data_path data path from `fileInput()`
+#' @param data_name data name from `fileInput()`
+#' @param data_list names of data files in `fileInput()`
+#'
+#' @return list of data frames
+#' @noRd
+#'
+read_data_list <- function(data_path, data_name, data_list) {
+  map(data_path, function(x) {
+    if (tools::file_ext(data_name) == "sas7bdat") {
+      df <- haven::read_sas(x)
+    } else {
+      df <- readRDS(x)
+    }
+    df
+  }) |>
+    set_names(paste0("c", data_list))
+}

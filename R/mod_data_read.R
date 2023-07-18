@@ -34,7 +34,7 @@ mod_data_read_ui <- function(id) {
               ns("upload"),
               HTML("&nbsp;&nbsp;&nbsp;&nbsp;Upload Files"),
               multiple = TRUE,
-              accept = ".RDS",
+              accept = c(".RDS", ".sas7bdat"),
               width = "150%",
               buttonLabel = tags$span(icon("upload")),
               placeholder = "No file selected",
@@ -123,15 +123,14 @@ mod_data_read_server <- function(id) {
             map(\(x) readRDS(paste0(
               app_sys("extdata"), "/", x, ".RDS"
             ))) |>
-            set_names(rv$data_list)
+            set_names(paste0("c", rv$data_list))
           logger::log_info(
             "mod_data_read_server: data read complete from system folder with {nrow(rv$df[[1]])} rows" # nolint
           )
         } else {
-          rv$data_list <- str_remove_all(rv$upload$name, ".RDS")
+          rv$data_list <- str_remove_all(rv$upload$name, ".RDS|.sas7bdat")
           if (!identical(rv$data_list, character(0))) {
-            rv$df <- map(rv$upload$datapath, readRDS) |>
-              set_names(rv$data_list)
+            rv$df <- read_data_list(rv$upload$datapath, rv$upload$name, rv$data_list)
             logger::log_info("mod_data_read_server: data read complete with {nrow(rv$df[[1]])} rows") # nolint
           } else {
             rv$df <- NULL

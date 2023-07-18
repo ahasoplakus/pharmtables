@@ -11,8 +11,8 @@
 #' @examples
 #' library(clinTables)
 #' library(dplyr)
-#' adsl <- random.cdisc.data::cadsl
-#' adae <- random.cdisc.data::cadae
+#' data(adsl)
+#' data(adae)
 #' adae_ <- add_adae_flags(adae)
 #'
 #' tbl <- select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
@@ -89,8 +89,8 @@ add_adae_flags <- function(df) {
 #'
 #' library(clinTables)
 #' library(rtables)
-#' adsl <- random.cdisc.data::cadsl
-#' adae <- random.cdisc.data::cadae
+#' data(adsl)
+#' data(adae)
 #' adae_ <- add_adae_flags(adae)
 #' lyt <- build_adae_summary(
 #'   adae = adae_,
@@ -159,8 +159,8 @@ build_adae_summary <-
 #'
 #' library(clinTables)
 #' library(rtables)
-#' adsl <- random.cdisc.data::cadsl
-#' adae <- random.cdisc.data::cadae
+#' data(adsl)
+#' data(adae)
 #'
 #' tbl <- build_adae_by_sev_tox(
 #'   adsl = adsl,
@@ -287,12 +287,17 @@ build_adae_by_sev_tox <- function(adsl,
 
     tab <- reduce(l1, cbind_rtables)
   } else {
-    lyt <- basic_table() |>
+    lyt <- basic_table(show_colcounts = TRUE) |>
       split_cols_by(var = colsby, split_fun = drop_split_levels) |>
-      add_colcounts() |>
       add_overall_col(label = "All Patients") |>
-      add_colcounts() |>
-      summarize_num_patients("USUBJID") |>
+      summarize_num_patients(
+        var = "USUBJID",
+        .stats = c("unique", "nonunique"),
+        .labels = c(
+          unique = str_glue("Total number of patients with at least one adverse event"),
+          nonunique = str_glue("Total number of adverse events")
+        )
+      ) |>
       split_rows_by(
         class_val,
         child_labels = "visible",

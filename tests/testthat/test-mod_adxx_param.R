@@ -1,3 +1,6 @@
+data(adsl)
+data(advs)
+
 test_that("mod_adxx_param_server works", {
   filt <- reactiveVal()
   testServer(
@@ -8,11 +11,11 @@ test_that("mod_adxx_param_server works", {
       dataset = "cadvs",
       df_out = reactive(
         list(
-          cadsl = random.cdisc.data::cadsl,
-          cadvs = random.cdisc.data::cadvs
+          cadsl = adsl,
+          cadvs = advs
         )
       ),
-      adsl = reactive(random.cdisc.data::cadsl),
+      adsl = reactive(adsl),
       filters = filt
     ),
     {

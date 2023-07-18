@@ -39,8 +39,8 @@ library(clinTables)
 library(rtables)
 library(tern)
 library(dplyr)
-adsl <- random.cdisc.data::cadsl
-adae <- random.cdisc.data::cadae
+data(adsl)
+data(adae)
 adae <- filter(adae, SAFFL == "Y")
 
 lyt <- build_generic_occurrence_table(

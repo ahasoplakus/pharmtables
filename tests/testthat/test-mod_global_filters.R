@@ -1,3 +1,5 @@
+data(adsl)
+
 test_that("mod_global_filters_server works", {
   testServer(
     mod_global_filters_server,
@@ -5,7 +7,7 @@ test_that("mod_global_filters_server works", {
     args = list(
       id = "global_filters_abc",
       dataset = "cadsl",
-      load_data = reactive(list(cadsl = random.cdisc.data::cadsl)),
+      load_data = reactive(list(cadsl = adsl)),
       filter_list = reactive(c("SEX", "RACE", "COUNTRY", "AGE"))
     ),
     {

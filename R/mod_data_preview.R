@@ -9,17 +9,18 @@
 #' @importFrom shiny NS tagList
 mod_data_preview_ui <- function(id) {
   ns <- NS(id)
-  tagList(
-    box(
-      id = ns("box_adxx_param"),
-      title = tags$strong("Preview Data"),
-      maximizable = TRUE,
-      width = 12,
-      div(shinycssloaders::withSpinner(reactableOutput(ns("print_dat")), color = "#3BACB6"),
-        style = "overflow-x: scroll; overflow-y: scroll;"
-      )
+  tagList(box(
+    id = ns("box_adxx_param"),
+    title = tags$strong("Preview Data"),
+    maximizable = TRUE,
+    width = 12,
+    div(
+      shinycssloaders::withSpinner(reactable::reactableOutput(ns("print_dat")),
+        color = "#3BACB6"
+      ),
+      style = "overflow-x: scroll; overflow-y: scroll;"
     )
-  )
+  ))
 }
 
 #' data_preview Server Functions
@@ -34,30 +35,25 @@ mod_data_preview_server <- function(id, df) {
       logger::log_info("mod_data_preview_server: preview data")
 
       react_df <- tibble::tibble(
-        `Name` = names(df()),
+        `Name` = str_sub(names(df()), start = 2),
         `N_Rows` = map(df(), \(x) nrow(x)),
-        `Colnames` = map(df(), \(x) names(x))
+        `N_Cols` = map(df(), \(x) ncol(x))
       )
-      reactable(
+      reactable::reactable(
         react_df,
         filterable = TRUE,
         bordered = TRUE,
         striped = TRUE,
         highlight = TRUE,
-        defaultPageSize = 3,
+        defaultPageSize = 10,
         paginationType = "jump",
-        columns = list(
-          `Name` = colDef(minWidth = 50),
-          `N_Rows` = colDef(minWidth = 50),
-          `Colnames` = colDef(minWidth = 300)
-        ),
         details = function(rowNum) {
           sub_df <- df()[[rowNum]]
           div(
             style = "padding: 1rem",
-            reactable(
+            reactable::reactable(
               sub_df,
-              columns = list(USUBJID = colDef(sticky = "left")),
+              columns = list(USUBJID = reactable::colDef(sticky = "left")),
               filterable = TRUE,
               bordered = TRUE,
               striped = TRUE,
@@ -70,7 +66,7 @@ mod_data_preview_server <- function(id, df) {
       )
     })
 
-    output$print_dat <- renderReactable({
+    output$print_dat <- reactable::renderReactable({
       req(prev_data())
       prev_data()
     })

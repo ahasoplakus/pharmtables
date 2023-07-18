@@ -15,11 +15,12 @@
 #' @examples
 #'
 #' library(clinTables)
+#' data(adsl)
 #' lyt <- build_adsl_chars_table(
 #'   split_cols_by = "ARM",
 #'   summ_vars = c("AGE", "RACE")
 #' )
-#' tbl <- rtables::build_table(lyt, random.cdisc.data::cadsl)
+#' tbl <- rtables::build_table(lyt, adsl)
 #'
 #' \dontrun{
 #' tt_to_flextable(tbl)
@@ -81,8 +82,8 @@ build_adsl_chars_table <-
 #' library(rtables)
 #' library(tern)
 #' library(dplyr)
-#' adsl <- random.cdisc.data::cadsl
-#' adae <- random.cdisc.data::cadae
+#' data(adsl)
+#' data(adae)
 #' adae <- filter(adae, SAFFL == "Y")
 #'
 #' lyt <- build_generic_occurrence_table(
@@ -120,9 +121,8 @@ build_generic_occurrence_table <-
       text <- "treatment"
     }
 
-    lyt <- basic_table() |>
+    lyt <- basic_table(show_colcounts = TRUE) |>
       split_cols_by(var = trt_var, split_fun = drop_split_levels) |>
-      add_colcounts() |>
       add_overall_col(label = "All Patients") |>
       summarize_num_patients(
         var = "USUBJID",
@@ -168,8 +168,8 @@ build_generic_occurrence_table <-
 #'
 #' library(clinTables)
 #' library(rtables)
-#' adsl <- random.cdisc.data::cadsl
-#' advs <- random.cdisc.data::cadvs
+#' data(adsl)
+#' data(advs)
 #'
 #' lyt <- build_generic_bds_table(advs,
 #'   param = "Diastolic Blood Pressure",

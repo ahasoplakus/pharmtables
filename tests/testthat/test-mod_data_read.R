@@ -9,8 +9,8 @@ test_that("mod_data_read_server works", {
       expect_true(grepl("test", ns("test")))
 
       df <- list(
-        name = "cadsl.RDS",
-        datapath = app_sys("extdata/cadsl.RDS")
+        name = "adsl.RDS",
+        datapath = app_sys("extdata/adsl.RDS")
       )
 
       session$setInputs(def_data = FALSE)

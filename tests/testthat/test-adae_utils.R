@@ -1,5 +1,5 @@
-adsl <- random.cdisc.data::cadsl
-adae <- random.cdisc.data::cadae
+data(adsl)
+data(adae)
 
 test_that("add_adae_flags works as expected", {
   out_df <- add_adae_flags(adae)
