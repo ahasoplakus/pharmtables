@@ -8,13 +8,7 @@ name: lint
 
 jobs:
   lint:
-    runs-on: ${{ matrix.config.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
+    runs-on: ubuntu-latest
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

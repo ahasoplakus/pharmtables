@@ -1,6 +1,6 @@
 #' Subject Level Analysis Dataset.
 #'
-#' @source <https://https://github.com/insightsengineering/random.cdisc.data/tree/main/data>, downloaded 2023-07-18
+#' @source <https://https://github.com/insightsengineering/random.cdisc.data/tree/main/data>
 #'
 #'
 #' @docType data
@@ -17,7 +17,7 @@
 
 #' Adverse Events Dataset.
 #'
-#' @source <https://https://github.com/insightsengineering/random.cdisc.data/tree/main/data>, downloaded 2023-07-18
+#' @source <https://https://github.com/insightsengineering/random.cdisc.data/tree/main/data>
 #'
 #'
 #' @docType data
@@ -34,7 +34,7 @@
 
 #' Vital Signs Dataset.
 #'
-#' @source <https://https://github.com/insightsengineering/random.cdisc.data/tree/main/data>, downloaded 2023-07-18
+#' @source <https://https://github.com/insightsengineering/random.cdisc.data/tree/main/data>
 #'
 #'
 #' @docType data
@@ -51,7 +51,7 @@
 
 #' Laboratory Analysis Dataset.
 #'
-#' @source <https://https://github.com/insightsengineering/random.cdisc.data/tree/main/data>, downloaded 2023-07-18
+#' @source <https://https://github.com/insightsengineering/random.cdisc.data/tree/main/data>
 #'
 #'
 #' @docType data
