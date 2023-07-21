@@ -7,8 +7,8 @@ test_that("mod_filter_reactivity_server works", {
     # Add here your module params
     args = list(
       id = "filter_reactivity_123",
-      df = reactive(list(cadae = adae)),
-      dataset = "cadae",
+      df = reactive(list(adae = adae)),
+      dataset = "adae",
       filters = filt,
       trt_var = "ARM"
     ),

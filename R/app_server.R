@@ -11,7 +11,7 @@ app_server <- function(input, output, session) {
 
   observe({
     req(load_data$df_read())
-    domain <- c("cadsl", "cadae", "cadmh", "cadcm", "cadvs", "cadlb", "cadeg")
+    domain <- c("adsl", "adae", "admh", "adcm", "advs", "adlb", "adeg")
     walk(seq_along(domain) + 2, function(x) {
       toggleState(
         selector = str_glue("#tab-Tab{x}"),
@@ -28,8 +28,8 @@ app_server <- function(input, output, session) {
   )
 
   adsl_filters <-
-    mod_global_filters_server("global_filters_1",
-      dataset = "cadsl",
+    mod_adsl_filters_server("adsl_filters_1",
+      dataset = "adsl",
       load_data = load_data$df_read,
       filter_list = load_data$study_filters
     )
@@ -37,7 +37,7 @@ app_server <- function(input, output, session) {
   filtered_adsl <-
     mod_process_adsl_server(
       "process_adsl_1",
-      dataset = "cadsl",
+      dataset = "adsl",
       df_out = load_data$df_read,
       global_filters = adsl_filters$filters,
       apply = adsl_filters$apply
@@ -49,7 +49,7 @@ app_server <- function(input, output, session) {
 
   mod_adae_global_server(
     "adae_global_1",
-    dataset = "cadae",
+    dataset = "adae",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
     filters = reactive(load_data$adae_filters)
@@ -57,7 +57,7 @@ app_server <- function(input, output, session) {
 
   mod_adxx_bodsys_server(
     "admh_bodsys_1",
-    dataset = "cadmh",
+    dataset = "admh",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
     filters = load_data$admh_filters
@@ -65,7 +65,7 @@ app_server <- function(input, output, session) {
 
   mod_adxx_bodsys_server(
     "adcm_bodsys_1",
-    dataset = "cadcm",
+    dataset = "adcm",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
     filters = load_data$adcm_filters
@@ -73,7 +73,7 @@ app_server <- function(input, output, session) {
 
   mod_adxx_param_server(
     "advs_param_1",
-    dataset = "cadvs",
+    dataset = "advs",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
     filters = load_data$advs_filters
@@ -81,7 +81,7 @@ app_server <- function(input, output, session) {
 
   mod_adxx_param_server(
     "adlb_param_1",
-    dataset = "cadlb",
+    dataset = "adlb",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
     filters = load_data$adlb_filters
@@ -89,7 +89,7 @@ app_server <- function(input, output, session) {
 
   mod_adxx_param_server(
     "adeg_param_1",
-    dataset = "cadeg",
+    dataset = "adeg",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
     filters = load_data$adeg_filters

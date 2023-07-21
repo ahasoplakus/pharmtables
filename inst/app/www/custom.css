@@ -56,6 +56,10 @@ img {
     margin-right: 7.5px;
 }
 
+.os-content {
+    padding: 0px 3px !important;
+}
+
 .selectize-control {
     margin-bottom: 10px;
 }
@@ -227,7 +231,7 @@ div.sidebar .shiny-input-container {
     justify-content: space-around;
 }
 
-#global_filters_1-apply {
+#adsl_filters_1-apply {
     display: flex !important;
     margin-left: 30px !important;
     justify-content: space-around;
@@ -277,19 +281,19 @@ div.sidebar .shiny-input-container {
     background-color: #3BACB6 !important;
 }
 
-#global_filters_1-sex .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+#adsl_filters_1-sex .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
     background-color: #3BACB6 !important;
 }
 
-#global_filters_1-race .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+#adsl_filters_1-race .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
     background-color: #3BACB6 !important;
 }
 
-#global_filters_1-ethnic .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+#adsl_filters_1-ethnic .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
     background-color: #3BACB6 !important;
 }
 
-#global_filters_1-country .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+#adsl_filters_1-country .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
     background-color: #3BACB6 !important;
 }
 

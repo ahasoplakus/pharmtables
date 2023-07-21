@@ -8,7 +8,7 @@
 #'
 #' @importFrom shiny NS tagList
 #' @importFrom shinyWidgets pickerInput updatePickerInput
-mod_global_filters_ui <- function(id) {
+mod_adsl_filters_ui <- function(id) {
   ns <- NS(id)
   uiOutput(ns("glob_filt_ui"))
 }
@@ -16,7 +16,7 @@ mod_global_filters_ui <- function(id) {
 #' global_filters Server Functions
 #'
 #' @noRd
-mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
+mod_adsl_filters_server <- function(id, dataset, load_data, filter_list) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 

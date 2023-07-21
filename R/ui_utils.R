@@ -100,7 +100,7 @@ dashboard_sidebar <- function() {
       accordionItem(
         title = tags$span(icon("id-card"), tags$strong("ADSL Filters")),
         collapsed = FALSE,
-        mod_global_filters_ui("global_filters_1")
+        mod_adsl_filters_ui("adsl_filters_1")
       )
     )
   )

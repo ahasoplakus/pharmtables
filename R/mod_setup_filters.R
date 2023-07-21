@@ -96,16 +96,16 @@ mod_setup_filters_server <- function(id, load_data) {
     ns <- session$ns
 
     observe({
-      req(load_data()$cadsl)
+      req(load_data()[["adsl"]])
 
       logger::log_info(
         "mod_setup_filters_server: setup adsl filters"
       )
 
       choices <-
-        names(select(load_data()$cadsl, !ends_with("FL")))
+        names(select(load_data()[["adsl"]], !ends_with("FL")))
       choice_list <-
-        named_choice_list(choices, load_data()[["cadsl"]])
+        named_choice_list(choices, load_data()[["adsl"]])
 
       selected <-
         intersect(
@@ -124,8 +124,8 @@ mod_setup_filters_server <- function(id, load_data) {
     })
 
     observe({
-      req(load_data()$cadsl)
-      req(load_data()$cadae)
+      req(load_data()[["adsl"]])
+      req(load_data()[["adae"]])
 
       logger::log_info(
         "mod_setup_filters_server: setup adae filters"
@@ -133,13 +133,13 @@ mod_setup_filters_server <- function(id, load_data) {
 
       choices <- setdiff(
         names(select(
-          load_data()$cadae,
+          load_data()[["adae"]],
           !ends_with("FL")
         )),
-        names(load_data()$cadsl)
+        names(load_data()[["adsl"]])
       )
       choice_list <-
-        named_choice_list(choices, load_data()[["cadae"]])
+        named_choice_list(choices, load_data()[["adae"]])
       selected <- NULL
 
       updateSelectizeInput(
@@ -153,19 +153,19 @@ mod_setup_filters_server <- function(id, load_data) {
     })
 
     observe({
-      req(load_data()$cadsl)
-      req(load_data()$cadmh)
+      req(load_data()[["adsl"]])
+      req(load_data()[["admh"]])
 
       logger::log_info(
         "mod_setup_filters_server: setup admh filters"
       )
 
       choices <- setdiff(
-        names(select(load_data()$cadmh, !ends_with("FL"))),
-        names(load_data()$cadsl)
+        names(select(load_data()[["admh"]], !ends_with("FL"))),
+        names(load_data()[["adsl"]])
       )
       choice_list <-
-        named_choice_list(choices, load_data()[["cadmh"]])
+        named_choice_list(choices, load_data()[["admh"]])
       selected <- NULL
 
       updateSelectizeInput(
@@ -179,19 +179,19 @@ mod_setup_filters_server <- function(id, load_data) {
     })
 
     observe({
-      req(load_data()$cadsl)
-      req(load_data()$cadcm)
+      req(load_data()[["adsl"]])
+      req(load_data()[["adcm"]])
 
       logger::log_info(
         "mod_setup_filters_server: setup adcm filters"
       )
 
       choices <- setdiff(
-        names(select(load_data()$cadcm, !ends_with("FL"))),
-        names(load_data()$cadsl)
+        names(select(load_data()[["adcm"]], !ends_with("FL"))),
+        names(load_data()[["adsl"]])
       )
       choice_list <-
-        named_choice_list(choices, load_data()[["cadcm"]])
+        named_choice_list(choices, load_data()[["adcm"]])
       selected <- NULL
 
       updateSelectizeInput(
@@ -205,21 +205,21 @@ mod_setup_filters_server <- function(id, load_data) {
     })
 
     observe({
-      req(load_data()$cadsl)
-      req(load_data()$cadvs)
+      req(load_data()[["adsl"]])
+      req(load_data()[["advs"]])
 
       logger::log_info(
         "mod_setup_filters_server: setup advs filters"
       )
 
       choices <- setdiff(
-        names(select(load_data()$cadvs, !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
-        names(load_data()$cadsl)
+        names(select(load_data()[["advs"]], !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
+        names(load_data()[["adsl"]])
       )
-      exclude_vars <- names(select(load_data()$cadvs, !contains("CHG")))
+      exclude_vars <- names(select(load_data()[["advs"]], !contains("CHG")))
       choices <- intersect(exclude_vars, choices)
       choice_list <-
-        named_choice_list(choices, load_data()[["cadvs"]])
+        named_choice_list(choices, load_data()[["advs"]])
       selected <- NULL
 
       updateSelectizeInput(
@@ -233,21 +233,21 @@ mod_setup_filters_server <- function(id, load_data) {
     })
 
     observe({
-      req(load_data()$cadsl)
-      req(load_data()$cadlb)
+      req(load_data()[["adsl"]])
+      req(load_data()[["adlb"]])
 
       logger::log_info(
         "mod_setup_filters_server: setup adlb filters"
       )
 
       choices <- setdiff(
-        names(select(load_data()$cadlb, !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
-        names(load_data()$cadsl)
+        names(select(load_data()[["adlb"]], !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
+        names(load_data()[["adsl"]])
       )
-      exclude_vars <- names(select(load_data()$cadlb, !contains("CHG")))
+      exclude_vars <- names(select(load_data()[["adlb"]], !contains("CHG")))
       choices <- intersect(choices, exclude_vars)
       choice_list <-
-        named_choice_list(choices, load_data()[["cadlb"]])
+        named_choice_list(choices, load_data()[["adlb"]])
       selected <- NULL
 
       updateSelectizeInput(
@@ -261,21 +261,21 @@ mod_setup_filters_server <- function(id, load_data) {
     })
 
     observe({
-      req(load_data()$cadsl)
-      req(load_data()$cadeg)
+      req(load_data()[["adsl"]])
+      req(load_data()[["adeg"]])
 
       logger::log_info(
         "mod_setup_filters_server: setup adeg filters"
       )
 
       choices <- setdiff(
-        names(select(load_data()$cadeg, !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
-        names(load_data()$cadsl)
+        names(select(load_data()[["adeg"]], !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
+        names(load_data()[["adsl"]])
       )
-      exclude_vars <- names(select(load_data()$cadeg, !contains("CHG")))
+      exclude_vars <- names(select(load_data()[["adeg"]], !contains("CHG")))
       choices <- intersect(choices, exclude_vars)
       choice_list <-
-        named_choice_list(choices, load_data()[["cadeg"]])
+        named_choice_list(choices, load_data()[["adeg"]])
       selected <- NULL
 
       updateSelectizeInput(
