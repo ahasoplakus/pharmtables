@@ -151,15 +151,28 @@ dashboard_body <- function() {
       ),
       tabItem(
         tabName = "Tab7",
-        mod_vitals_analysis_ui("vitals_analysis_1")
+        mod_bds_analysis_ui("vitals_analysis_1",
+          tab_title = "Summary of Vital Signs Tests",
+          title = "Summary of Vital Signs Tests by Parameter and Visit",
+          domain = "ADVS",
+          logo = "stethoscope"
+        )
       ),
       tabItem(
         tabName = "Tab8",
-        mod_lab_analysis_ui("lab_analysis_1")
+        mod_bds_analysis_ui("lab_analysis_1",
+          tab_title = "Summary Laboratory Tests",
+          title = "Summary of Laboratory Tests by Parameter and Visit"
+        )
       ),
       tabItem(
         tabName = "Tab9",
-        mod_ecg_analysis_ui("ecg_analysis_1")
+        mod_bds_analysis_ui("ecg_analysis_1",
+          tab_title = "Summary of ECG Tests",
+          title = "Summary of ECG Tests by Parameter and Visit",
+          domain = "ADEG",
+          logo = "heart-pulse"
+        )
       )
     )
   )

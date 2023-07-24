@@ -25,7 +25,7 @@ mod_adxx_param_ui <- function(id,
         div(
           accordion(
             id = ns("param_accord"),
-            accordionItem(
+            tagAppendAttributes(accordionItem(
               title = tags$span(icon("table-cells"), tags$strong("Table Options")),
               collapsed = FALSE,
               selectInput(
@@ -57,7 +57,7 @@ mod_adxx_param_ui <- function(id,
                 width = 400,
                 multiple = TRUE
               )
-            )
+            ), class = "side_accord")
           ),
           style = "width: 350px;"
         ),
@@ -112,14 +112,14 @@ mod_adxx_param_server <- function(id,
 
       rv$widget <- tagList(div(accordion(
         id = ns("flag_accord"),
-        accordionItem(
+        tagAppendAttributes(accordionItem(
           title = tags$span(
             icon("magnifying-glass-chart"),
             tags$strong("Analysis Flags")
           ),
           collapsed = FALSE,
           create_flag_widget(df_out()[[dataset]], anl_flags, ns, "")
-        )
+        ), class = "side_accord")
       )))
     })
 
@@ -249,6 +249,7 @@ mod_adxx_param_server <- function(id,
     }) |>
       bindCache(list(
         adsl(),
+        dataset,
         input$pop,
         input$split_col,
         input$visit,

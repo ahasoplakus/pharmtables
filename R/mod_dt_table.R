@@ -42,7 +42,8 @@ mod_dt_table_server <- function(id, display_df) {
           )
         )
       } else if (class(display_df()$out_df) == "flextable") {
-        df <- display_df()$out_df
+        df <- display_df()$out_df |>
+          flextable::font(fontname = "courier", part = "body")
       } else {
         req(nrow(display_df()$out_df) > 0)
         df <- tt_to_flextable(display_df()$out_df)

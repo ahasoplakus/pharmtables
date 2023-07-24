@@ -1,7 +1,6 @@
 #' The application server-side
 #'
 #' @param input,output,session Internal parameters for {shiny}.
-#'     DO NOT REMOVE.
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
@@ -71,7 +70,7 @@ app_server <- function(input, output, session) {
     filters = load_data$adcm_filters
   )
 
-  mod_vitals_analysis_server(
+  mod_bds_analysis_server(
     "vitals_analysis_1",
     dataset = "advs",
     df_out = load_data$df_read,
@@ -79,7 +78,7 @@ app_server <- function(input, output, session) {
     filters = reactive(load_data$advs_filters)
   )
 
-  mod_lab_analysis_server(
+  mod_bds_analysis_server(
     "lab_analysis_1",
     dataset = "adlb",
     df_out = load_data$df_read,
@@ -87,7 +86,7 @@ app_server <- function(input, output, session) {
     filters = reactive(load_data$adlb_filters)
   )
 
-  mod_ecg_analysis_server(
+  mod_bds_analysis_server(
     "ecg_analysis_1",
     dataset = "adeg",
     df_out = load_data$df_read,

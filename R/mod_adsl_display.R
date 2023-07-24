@@ -20,7 +20,7 @@ mod_adsl_display_ui <- function(id) {
         div(
           accordion(
             id = ns("adsl_accord"),
-            accordionItem(
+            tagAppendAttributes(accordionItem(
               title = tags$span(icon("table-cells"), tags$strong("Table Options")),
               collapsed = FALSE,
               selectInput(
@@ -48,7 +48,7 @@ mod_adsl_display_ui <- function(id) {
                 shape = "curve",
                 status = "info"
               )
-            )
+            ), class = "side_accord")
           ),
           style = "width: 350px;"
         ),

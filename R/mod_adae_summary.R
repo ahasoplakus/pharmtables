@@ -21,7 +21,7 @@ mod_adae_summary_ui <- function(id) {
         div(
           accordion(
             id = ns("summ_accord"),
-            accordionItem(
+            tagAppendAttributes(accordionItem(
               title = tags$span(icon("table-cells"), tags$strong("Table Options")),
               collapsed = FALSE,
               selectInput(
@@ -44,7 +44,7 @@ mod_adae_summary_ui <- function(id) {
                 ),
                 style = "overflow-x:scroll;"
               )
-            )
+            ), class = "side_accord")
           ),
           style = "width: 350px;"
         ),

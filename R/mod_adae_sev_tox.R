@@ -23,7 +23,7 @@ mod_adae_sev_tox_ui <- function(id) {
         div(
           accordion(
             id = ns("sevtox_accord"),
-            accordionItem(
+            tagAppendAttributes(accordionItem(
               title = tags$span(icon("table-cells"), tags$strong("Table Options")),
               collapsed = FALSE,
               selectInput(
@@ -54,7 +54,7 @@ mod_adae_sev_tox_ui <- function(id) {
                 selected = NULL,
                 width = 400
               )
-            )
+            ), class = "side_accord")
           ),
           style = "width: 350px;"
         ),

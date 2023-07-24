@@ -20,12 +20,18 @@ mod_bds_shift_ui <- function(id,
         id = ns("bds_side_shift"),
         background = "#EFF5F5",
         width = 35,
-        div(uiOutput(ns("analysis_flag_ui"))),
-        mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),
+        div(uiOutput(ns(
+          "analysis_flag_ui"
+        ))),
+        mod_filter_reactivity_ui(
+          ns("filter_reactivity_1"),
+          domain = domain,
+          logo = logo
+        ),
         div(
           accordion(
             id = ns("shift_accord"),
-            accordionItem(
+            tagAppendAttributes(accordionItem(
               title = tags$span(icon("table-cells"), tags$strong("Table Options")),
               collapsed = FALSE,
               selectInput(
@@ -43,7 +49,7 @@ mod_bds_shift_ui <- function(id,
                 width = 400,
                 multiple = TRUE
               )
-            )
+            ), class = "side_accord")
           ),
           style = "width: 350px;"
         ),
@@ -55,10 +61,7 @@ mod_bds_shift_ui <- function(id,
       width = 12,
       height = "800px",
       div(
-        shinycssloaders::withSpinner(
-          mod_dt_table_ui(ns(
-            "dt_table_shift"
-          )),
+        shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_shift")),
           color = "#3BACB6"
         ),
         style = "overflow-x: scroll;"
@@ -92,20 +95,21 @@ mod_bds_shift_server <- function(id,
     observe({
       req(adsl())
       req(df_out()[[dataset]])
-      anl_flags <- names(select(df_out()[[dataset]], starts_with("ANL0")))
+      anl_flags <-
+        names(select(df_out()[[dataset]], starts_with("ANL0")))
       req(length(anl_flags) > 0)
       req(is.null(rv$lyt))
 
       rv$widget <- tagList(div(accordion(
         id = ns("flag_accord"),
-        accordionItem(
+        tagAppendAttributes(accordionItem(
           title = tags$span(
             icon("magnifying-glass-chart"),
             tags$strong("Analysis Flags")
           ),
           collapsed = FALSE,
           create_flag_widget(df_out()[[dataset]], anl_flags, ns, "")
-        )
+        ), class = "side_accord")
       )))
     })
 
@@ -128,8 +132,12 @@ mod_bds_shift_server <- function(id,
         names(select(
           adsl(),
           setdiff(
-            starts_with(c("ACT", "ARM", "TRT")),
-            ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
+            starts_with(
+              c("ACT", "ARM", "TRT")
+            ),
+            ends_with(
+              c("DTM", "DUR", "PN", "AN", "DT", "FL")
+            )
           )
         ))
       group_choices <- names(select(df, ends_with("VISIT")))
@@ -167,7 +175,8 @@ mod_bds_shift_server <- function(id,
 
     observe({
       req(df_out()[[dataset]])
-      anl_flags <- names(select(df_out()[[dataset]], starts_with("ANL0")))
+      anl_flags <-
+        names(select(df_out()[[dataset]], starts_with("ANL0")))
       if (length(anl_flags) == 0) {
         rv$pop_trigger <- TRUE
       } else {
@@ -207,7 +216,8 @@ mod_bds_shift_server <- function(id,
       df <- df |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      var_check <- all(c("USUBJID", "PARAMCD", "BNRIND", "ANRIND") %in% names(df))
+      var_check <-
+        all(c("USUBJID", "PARAMCD", "BNRIND", "ANRIND") %in% names(df))
 
       if (!var_check) {
         show_toast(
@@ -219,7 +229,7 @@ mod_bds_shift_server <- function(id,
         )
       }
       req(var_check)
-      logger::log_info("mod_bds_shift_server: creating shift table")
+      logger::log_info("mod_bds_shift_server: creating shift table for {dataset}")
 
       lyt <- build_shift_table(
         adsl = df_adsl,
@@ -239,14 +249,22 @@ mod_bds_shift_server <- function(id,
         lyt = NULL
       ))
     }) |>
-      bindCache(list(
+      bindCache(
+        list(
+          adsl(),
+          dataset,
+          input$pop,
+          input$split_col,
+          input$group_var,
+          filt_react$filter_cond()
+        )
+      ) |>
+      bindEvent(list(
         adsl(),
-        input$pop,
-        input$split_col,
-        input$group_var,
-        filt_react$filter_cond()
-      )) |>
-      bindEvent(list(adsl(), filt_react$trig_report(), input$run, rv$pop_trigger))
+        filt_react$trig_report(),
+        input$run,
+        rv$pop_trigger
+      ))
 
     mod_dt_table_server("dt_table_shift",
       display_df = xx_shift
