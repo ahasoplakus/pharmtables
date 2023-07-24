@@ -151,26 +151,15 @@ dashboard_body <- function() {
       ),
       tabItem(
         tabName = "Tab7",
-        mod_adxx_param_ui("advs_param_1",
-          title = "Summary of Vital Signs by Parameter and Visit",
-          domain = "ADVS"
-        )
+        mod_vitals_analysis_ui("vitals_analysis_1")
       ),
       tabItem(
         tabName = "Tab8",
-        mod_adxx_param_ui("adlb_param_1",
-          title = "Summary of Laboratory Tests by Parameter and Visit",
-          domain = "ADLB",
-          logo = "flask-vial"
-        )
+        mod_lab_analysis_ui("lab_analysis_1")
       ),
       tabItem(
         tabName = "Tab9",
-        mod_adxx_param_ui("adeg_param_1",
-          title = "Summary of ECG Findings by Parameter and Visit",
-          domain = "ADEG",
-          logo = "heart-pulse"
-        )
+        mod_ecg_analysis_ui("ecg_analysis_1")
       )
     )
   )

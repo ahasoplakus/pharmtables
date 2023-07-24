@@ -38,6 +38,7 @@ Suggests:
     knitr,
     lifecycle,
     logger,
+    officer,
     reactable,
     rmarkdown,
     shinycssloaders,

@@ -71,27 +71,27 @@ app_server <- function(input, output, session) {
     filters = load_data$adcm_filters
   )
 
-  mod_adxx_param_server(
-    "advs_param_1",
+  mod_vitals_analysis_server(
+    "vitals_analysis_1",
     dataset = "advs",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = load_data$advs_filters
+    filters = reactive(load_data$advs_filters)
   )
 
-  mod_adxx_param_server(
-    "adlb_param_1",
+  mod_lab_analysis_server(
+    "lab_analysis_1",
     dataset = "adlb",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = load_data$adlb_filters
+    filters = reactive(load_data$adlb_filters)
   )
 
-  mod_adxx_param_server(
-    "adeg_param_1",
+  mod_ecg_analysis_server(
+    "ecg_analysis_1",
     dataset = "adeg",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = load_data$adeg_filters
+    filters = reactive(load_data$adeg_filters)
   )
 }
