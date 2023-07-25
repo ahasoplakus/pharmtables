@@ -51,15 +51,17 @@ library(clinTables)
 data(adsl)
 data(adlb)
 
+\dontrun{
 build_shift_table(
   adsl = adsl,
   bds_df = adlb,
   filter_cond = NULL,
   trt_var = "ARM",
   trt_label = c(ARM = "Description of Planned Arm"),
-  group_var = NULL,,
+  group_var = NULL, ,
   default_view = FALSE
 )
+}
 
 }
 \seealso{

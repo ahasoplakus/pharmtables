@@ -41,7 +41,7 @@ mod_dt_table_server <- function(id, display_df) {
             alt_counts_df = display_df()$alt_df
           )
         )
-      } else if (class(display_df()$out_df) == "flextable") {
+      } else if (isTRUE(inherits(display_df()$out_df, "flextable"))) {
         df <- display_df()$out_df |>
           flextable::font(fontname = "courier", part = "body")
       } else {
