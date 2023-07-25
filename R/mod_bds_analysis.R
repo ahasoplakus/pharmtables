@@ -10,7 +10,8 @@
 mod_bds_analysis_ui <-
   function(id,
            tab_title = "",
-           title = "",
+           summ_title = "",
+           shift_title = "",
            domain = "ADLB",
            logo = "flask-vial") {
     ns <- NS(id)
@@ -23,7 +24,7 @@ mod_bds_analysis_ui <-
         tab_title,
         mod_adxx_param_ui(
           ns("bds_param_1"),
-          title = title,
+          title = summ_title,
           domain = domain,
           logo = logo
         )
@@ -32,7 +33,7 @@ mod_bds_analysis_ui <-
         "Shift Table",
         mod_bds_shift_ui(
           ns("bds_shift_1"),
-          title = paste0(domain, " Shift Table"),
+          title = shift_title,
           domain = domain,
           logo = logo
         )

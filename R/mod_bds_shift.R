@@ -43,7 +43,7 @@ mod_bds_shift_ui <- function(id,
               ),
               selectInput(
                 ns("group_var"),
-                "Analysis Variables",
+                "Additonal Grouping Variables",
                 choices = NULL,
                 selected = NULL,
                 width = 400,
@@ -140,7 +140,25 @@ mod_bds_shift_server <- function(id,
             )
           )
         ))
-      group_choices <- names(select(df, ends_with("VISIT")))
+
+      group_choices <-
+        select(df, -all_of(trt_choices)) |>
+        select(!ends_with(c(
+          "DTM", "DUR", "PN", "AN", "DT", "CD", "TEST", "DY", "SEQ"
+        ))) |>
+        select(!contains(
+          c(
+            "PARAM",
+            "ANRIND",
+            "BNRIND",
+            "STUDYID",
+            "SUBJID",
+            "FL",
+            "AVAL",
+            "CHG"
+          )
+        )) |>
+        names()
 
       updateSelectInput(session,
         "split_col",

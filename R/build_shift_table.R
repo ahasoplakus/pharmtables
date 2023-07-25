@@ -1,17 +1,27 @@
-#' Shift Table
+#' @title Create Shift Table
 #'
-#' @param adsl (`data.frame`)\cr `adsl` data set.
-#' @param bds_df (`data.frame`)\cr `bds` data set eg. `adlb`, `advs`.
+#' @description A shift table is a table that displays the number of subjects who are low,
+#' normal or high at baseline and the shift at post-dose. They show the progression of change
+#' from the baseline, with the progression often being along time; the number of subjects is
+#' displayed in different range (e.g. low, normal, or high) at baseline and at selected
+#' time points or intervals.
+#'
+#' @param adsl (`data.frame`)\cr `adsl` data frame.
+#' @param bds_df (`data.frame`)\cr `bds` data frame eg. `adlb`, `advs`.
 #' @param filter_cond (`character`)\cr Filtering condition required for `bds_df`.
 #' @param trt_var (`character`)\cr  Name of the treatment variable from `adsl` for treatment
-#' count, eg. `ARM`.
-#' @param trt_label (`named vector of character`)\cr Label of `trt_var`.
+#' count, eg. `ARM`. Must be a vector of length `1`.
+#' @param trt_label (`named vector of character`)\cr Label of `trt_var`. Must be a **named** vector
+#' of length `1`.
 #' @param group_var (`vector of characters`)\cr Names of variables for grouping in addition to
 #' parameter. Default is `NULL`.
-#' @param group_label (`named vector of character`)\cr Label of `group_var`.
+#' @param group_label (`named vector of characters`)\cr Label of `group_var`.
 #'
 #' @return A Flextable object of the Shift Table
 #' @export
+#'
+#' @family generic
+#' @keywords generic
 #'
 #' @examples
 #' library(clinTables)
@@ -21,6 +31,7 @@
 #' build_shift_table(
 #'   adsl = adsl,
 #'   bds_df = adlb,
+#'   filter_cond = NULL,
 #'   trt_var = "ARM",
 #'   trt_label = c(ARM = "Description of Planned Arm"),
 #'   group_var = "AVISIT",
@@ -69,6 +80,8 @@ build_shift_table <-
       select(-temp) |>
       ungroup()
 
+    # create dummy dataset {dummy_anr} with all possible combinations of Treatment, Parameter,
+    # ANRIND and additional grouping variables eg. AVISIT
     dummy_anr <-
       tidyr::expand_grid(
         !!trt_var := unique(wpb[[trt_var]]),
@@ -90,6 +103,7 @@ build_shift_table <-
       cross_join(tibble::tibble(BNRIND = levels(bds_df[["ANRIND"]]))) |>
       filter(ANRIND != "<Missing>", BNRIND != "<Missing>")
 
+    # get the parameter counts and merge with {dummy_anr} to get all combinations
     wpb_anr <- wpb |>
       bind_rows(mutate(wpb, BNRIND = "Total")) |>
       group_by(!!!syms(group_vars), BNRIND, ANRIND, N) |>

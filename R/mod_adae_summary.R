@@ -195,7 +195,15 @@ mod_adae_summary_server <- function(id,
         lyt = lyt$lyt
       ))
     }) |>
-      bindCache(list(ae_summ_init(), input$split_col, input$events, filt_react$filter_cond())) |>
+      bindCache(
+        list(
+          ae_summ_init(),
+          dataset,
+          input$split_col,
+          input$events,
+          filt_react$filter_cond()
+        )
+      ) |>
       bindEvent(list(ae_summ_init(), input$run, filt_react$trig_report()))
 
     mod_dt_table_server("dt_table_ae_summ",

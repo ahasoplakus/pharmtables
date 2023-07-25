@@ -2,7 +2,7 @@
 % Please edit documentation in R/build_shift_table.R
 \name{build_shift_table}
 \alias{build_shift_table}
-\title{Shift Table}
+\title{Create Shift Table}
 \usage{
 build_shift_table(
   adsl,
@@ -15,27 +15,32 @@ build_shift_table(
 )
 }
 \arguments{
-\item{adsl}{(\code{data.frame})\cr \code{adsl} data set.}
+\item{adsl}{(\code{data.frame})\cr \code{adsl} data frame.}
 
-\item{bds_df}{(\code{data.frame})\cr \code{bds} data set eg. \code{adlb}, \code{advs}.}
+\item{bds_df}{(\code{data.frame})\cr \code{bds} data frame eg. \code{adlb}, \code{advs}.}
 
 \item{filter_cond}{(\code{character})\cr Filtering condition required for \code{bds_df}.}
 
 \item{trt_var}{(\code{character})\cr  Name of the treatment variable from \code{adsl} for treatment
-count, eg. \code{ARM}.}
+count, eg. \code{ARM}. Must be a vector of length \code{1}.}
 
-\item{trt_label}{(\verb{named vector of character})\cr Label of \code{trt_var}.}
+\item{trt_label}{(\verb{named vector of character})\cr Label of \code{trt_var}. Must be a \strong{named} vector
+of length \code{1}.}
 
 \item{group_var}{(\verb{vector of characters})\cr Names of variables for grouping in addition to
 parameter. Default is \code{NULL}.}
 
-\item{group_label}{(\verb{named vector of character})\cr Label of \code{group_var}.}
+\item{group_label}{(\verb{named vector of characters})\cr Label of \code{group_var}.}
 }
 \value{
 A Flextable object of the Shift Table
 }
 \description{
-Shift Table
+A shift table is a table that displays the number of subjects who are low,
+normal or high at baseline and the shift at post-dose. They show the progression of change
+from the baseline, with the progression often being along time; the number of subjects is
+displayed in different range (e.g. low, normal, or high) at baseline and at selected
+time points or intervals.
 }
 \examples{
 library(clinTables)
@@ -45,6 +50,7 @@ data(adlb)
 build_shift_table(
   adsl = adsl,
   bds_df = adlb,
+  filter_cond = NULL,
   trt_var = "ARM",
   trt_label = c(ARM = "Description of Planned Arm"),
   group_var = "AVISIT",
@@ -52,3 +58,11 @@ build_shift_table(
 )
 
 }
+\seealso{
+Other generic: 
+\code{\link{build_adsl_chars_table}()},
+\code{\link{build_generic_bds_table}()},
+\code{\link{build_generic_occurrence_table}()}
+}
+\concept{generic}
+\keyword{generic}

@@ -214,8 +214,14 @@ mod_adae_sev_tox_server <- function(id,
     }) |>
       bindCache(
         list(
-          adsl(), input$split_col, input$class, input$term,
-          input$summ_var, input$view, filt_react$filter_cond()
+          adsl(),
+          dataset,
+          input$split_col,
+          input$class,
+          input$term,
+          input$summ_var,
+          input$view,
+          filt_react$filter_cond()
         )
       ) |>
       bindEvent(list(adsl(), filt_react$trig_report(), input$run, input$view))

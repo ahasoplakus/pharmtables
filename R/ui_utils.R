@@ -153,7 +153,8 @@ dashboard_body <- function() {
         tabName = "Tab7",
         mod_bds_analysis_ui("vitals_analysis_1",
           tab_title = "Summary of Vital Signs Tests",
-          title = "Summary of Vital Signs Tests by Parameter and Visit",
+          summ_title = "Summary of Vital Signs Tests by Parameter and Visit",
+          shift_title = "Table to display the shift at post dose for Vital Signs",
           domain = "ADVS",
           logo = "stethoscope"
         )
@@ -162,14 +163,16 @@ dashboard_body <- function() {
         tabName = "Tab8",
         mod_bds_analysis_ui("lab_analysis_1",
           tab_title = "Summary Laboratory Tests",
-          title = "Summary of Laboratory Tests by Parameter and Visit"
+          summ_title = "Summary of Laboratory Tests by Parameter and Visit",
+          shift_title = "Table to display the shift at post dose for Laboratory Tests"
         )
       ),
       tabItem(
         tabName = "Tab9",
         mod_bds_analysis_ui("ecg_analysis_1",
           tab_title = "Summary of ECG Tests",
-          title = "Summary of ECG Tests by Parameter and Visit",
+          summ_title = "Summary of ECG Tests by Parameter and Visit",
+          shift_title = "Table to display the shift at post dose for ECG Tests",
           domain = "ADEG",
           logo = "heart-pulse"
         )
