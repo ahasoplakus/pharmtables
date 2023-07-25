@@ -60,6 +60,15 @@ mod_bds_shift_ui <- function(id,
       maximizable = TRUE,
       width = 12,
       height = "800px",
+      shinyWidgets::prettySwitch(
+        ns("view"),
+        label = "Default View",
+        value = TRUE,
+        status = "info",
+        inline = TRUE,
+        fill = TRUE,
+        slim = TRUE
+      ),
       div(
         shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_shift")),
           color = "#3BACB6"
@@ -256,7 +265,8 @@ mod_bds_shift_server <- function(id,
         trt_var = input$split_col,
         trt_label = trt_label,
         group_var = input$group_var,
-        group_label = group_label
+        group_label = group_label,
+        default_view = input$view
       )
 
       rv$lyt <- lyt
@@ -274,6 +284,7 @@ mod_bds_shift_server <- function(id,
           input$pop,
           input$split_col,
           input$group_var,
+          input$view,
           filt_react$filter_cond()
         )
       ) |>
@@ -281,6 +292,7 @@ mod_bds_shift_server <- function(id,
         adsl(),
         filt_react$trig_report(),
         input$run,
+        input$view,
         rv$pop_trigger
       ))
 

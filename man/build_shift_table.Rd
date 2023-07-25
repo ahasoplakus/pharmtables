@@ -11,7 +11,8 @@ build_shift_table(
   trt_var,
   trt_label = NULL,
   group_var = NULL,
-  group_label = NULL
+  group_label = NULL,
+  default_view = TRUE
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ of length \code{1}.}
 parameter. Default is \code{NULL}.}
 
 \item{group_label}{(\verb{named vector of characters})\cr Label of \code{group_var}.}
+
+\item{default_view}{(\code{logical})\cr If \code{TRUE} (\strong{default}), values of \code{trt_var} are shown in
+rows, else in columns.}
 }
 \value{
 A Flextable object of the Shift Table

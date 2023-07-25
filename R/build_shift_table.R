@@ -16,6 +16,8 @@
 #' @param group_var (`vector of characters`)\cr Names of variables for grouping in addition to
 #' parameter. Default is `NULL`.
 #' @param group_label (`named vector of characters`)\cr Label of `group_var`.
+#' @param default_view (`logical`)\cr If `TRUE` (**default**), values of `trt_var` are shown in
+#' rows, else in columns.
 #'
 #' @return A Flextable object of the Shift Table
 #' @export
@@ -45,7 +47,8 @@ build_shift_table <-
            trt_var,
            trt_label = NULL,
            group_var = NULL,
-           group_label = NULL) {
+           group_label = NULL,
+           default_view = TRUE) {
     adsl_bign <- select(adsl, c("USUBJID", all_of(trt_var))) |>
       add_count(.data[[trt_var]], name = "N")
 
@@ -116,10 +119,20 @@ build_shift_table <-
       mutate(PCT = round(CNT / N * 100, 2)) |>
       select(-N)
 
+    if (isTRUE(default_view)) {
+      ft_rows <- c("PARAM", trt_var, group_var, "BNRIND")
+      ft_cols <- c("ANRIND")
+      ft_labs <- c(trt_label, group_label)
+    } else {
+      ft_rows <- c("PARAM", group_var, "BNRIND")
+      ft_cols <- c(trt_var, "ANRIND")
+      ft_labs <- group_label
+    }
+
     tab <- flextable::tabulator(
       x = wpb_anr,
-      rows = c("PARAM", trt_var, group_var, "BNRIND"),
-      columns = c("ANRIND"),
+      rows = ft_rows,
+      columns = ft_cols,
       `n` = flextable::as_paragraph(CNT),
       `%` = flextable::as_paragraph(PCT)
     )
@@ -134,7 +147,7 @@ build_shift_table <-
       separate_with = "PARAM",
       label_rows = c(
         PARAM = "Parameter",
-        c(trt_label, group_label),
+        ft_labs,
         BNRIND = "Baseline Reference Range Indicator"
       )
     )

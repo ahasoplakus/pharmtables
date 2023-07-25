@@ -44,7 +44,7 @@ jobs:
                   "R/mod_data_read.R" = c(153:161, 163:171, 178:182, 188:193),
                   "R/mod_global_filters.R" = c(96:97),
                   "R/mod_data_preview.R" = 63:66,
-                  "R/mod_dt_table.R = 27:35"
+                  "R/mod_dt_table.R"
                   )
                 )
                 print(x)
