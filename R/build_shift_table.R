@@ -36,8 +36,8 @@
 #'   filter_cond = NULL,
 #'   trt_var = "ARM",
 #'   trt_label = c(ARM = "Description of Planned Arm"),
-#'   group_var = "AVISIT",
-#'   group_label = c(AVISIT = "Analysis Visit")
+#'   group_var = NULL,,
+#'   default_view = FALSE
 #' )
 #'
 build_shift_table <-
