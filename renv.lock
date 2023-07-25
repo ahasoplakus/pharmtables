@@ -423,27 +423,6 @@
       ],
       "Hash": "89e6d8219950eac806ae0c489052048a"
     },
-    "clinTables": {
-      "Package": "clinTables",
-      "Version": "0.0.0.9005",
-      "Source": "unknown",
-      "Requirements": [
-        "R",
-        "bs4Dash",
-        "dplyr",
-        "formatters",
-        "golem",
-        "purrr",
-        "rlang",
-        "rtables",
-        "shiny",
-        "shinyWidgets",
-        "shinyjs",
-        "stringr",
-        "tern"
-      ],
-      "Hash": "a7c3e732ffd9a4593fb10a048b66119b"
-    },
     "clipr": {
       "Package": "clipr",
       "Version": "0.8.0",
