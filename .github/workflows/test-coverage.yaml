@@ -84,35 +84,5 @@ jobs:
         run: echo "coverage-percentage=$(cat coverage.txt)" >> $GITHUB_OUTPUT
         if: steps.check_coverage_reports.outputs.files_exists == 'true'
 
-      - name: Generate Coverage Summary Report
-        if: steps.check_coverage_reports.outputs.files_exists == 'true' && github.event_name == 'pull_request'
-        uses: irongut/CodeCoverageSummary@v1.2.0
-        with:
-          filename: coverage.xml
-          badge: true
-          fail_below_min: false
-          format: markdown
-          hide_branch_rate: true
-          hide_complexity: true
-          indicators: true
-          output: both
-          thresholds: '60 80'
-
-      - name: Upload report for review
-        if: steps.check_coverage_reports.outputs.files_exists == 'true' && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-report
-          path: "coverage-report.html"
-        continue-on-error: true
-
-      - name: Add Coverage PR Comment
-        if: steps.check_coverage_reports.outputs.files_exists == 'true' && github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: code-coverage
-          path: code-coverage-results.md
-        continue-on-error: true
-
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
