@@ -15,11 +15,11 @@ mod_filter_reactivity_ui <- function(id, domain = "ADAE", logo = "head-side-coug
       id = ns("domain_filters"),
       accordion(
         id = ns("acc_filt_react"),
-        accordionItem(
+        tagAppendAttributes(accordionItem(
           title = tags$span(icon(logo), tags$strong(str_glue("{domain} Filters"))),
           collapsed = FALSE,
           uiOutput(ns("xx_filt_ui"))
-        )
+        ), class = "side_accord")
       ),
       style = "width: 350px;"
     )

@@ -123,7 +123,7 @@ mod_data_read_server <- function(id) {
             map(\(x) readRDS(paste0(
               app_sys("extdata"), "/", x, ".RDS"
             ))) |>
-            set_names(paste0("c", rv$data_list))
+            set_names(rv$data_list)
           logger::log_info(
             "mod_data_read_server: data read complete from system folder with {nrow(rv$df[[1]])} rows" # nolint
           )
@@ -159,7 +159,7 @@ mod_data_read_server <- function(id) {
         )
       }
 
-      if (!is.null(rv$df) && is.null(rv$df[["cadsl"]])) {
+      if (!is.null(rv$df) && is.null(rv$df[["adsl"]])) {
         show_toast(
           title = "ADSL dataset is required",
           text = "Please upload ADSL data",

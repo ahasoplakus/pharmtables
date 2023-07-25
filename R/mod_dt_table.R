@@ -41,6 +41,9 @@ mod_dt_table_server <- function(id, display_df) {
             alt_counts_df = display_df()$alt_df
           )
         )
+      } else if (isTRUE(inherits(display_df()$out_df, "flextable"))) {
+        df <- display_df()$out_df |>
+          flextable::font(fontname = "courier", part = "body")
       } else {
         req(nrow(display_df()$out_df) > 0)
         df <- tt_to_flextable(display_df()$out_df)
@@ -54,6 +57,7 @@ mod_dt_table_server <- function(id, display_df) {
       df_out() |>
         flextable::autofit() |>
         flextable::theme_zebra(odd_body = "#F3F4ED", odd_header = "#F3F4ED") |>
+        flextable::border(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
         flextable::htmltools_value()
     })
   })

@@ -51,7 +51,7 @@ test_that("build_generic_occurrence_table works", {
     occ_df = adae,
     filter_cond = NULL,
     trt_var = "ARM",
-    dataset = "cadae",
+    dataset = "adae",
     class_var = "AESOC",
     term_var = "AEDECOD"
   )
@@ -88,7 +88,7 @@ test_that("build_generic_occurrence_table works", {
     occ_df = adae,
     filter_cond = filters_to_cond(list(SEX = c("F"))),
     trt_var = "ARM",
-    dataset = "cadae",
+    dataset = "adae",
     class_var = "AESOC",
     term_var = "AEDECOD"
   )

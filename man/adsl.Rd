@@ -8,7 +8,7 @@
 Data frame with 400 features and 55 fields
 }
 \source{
-\url{https://https://github.com/insightsengineering/random.cdisc.data/tree/main/data}
+\url{https://github.com/insightsengineering/random.cdisc.data/tree/main/data}
 }
 \usage{
 data(adsl)

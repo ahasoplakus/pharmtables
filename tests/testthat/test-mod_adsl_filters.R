@@ -2,12 +2,12 @@ data(adsl)
 
 test_that("mod_global_filters_server works", {
   testServer(
-    mod_global_filters_server,
+    mod_adsl_filters_server,
     # Add here your module params
     args = list(
       id = "global_filters_abc",
-      dataset = "cadsl",
-      load_data = reactive(list(cadsl = adsl)),
+      dataset = "adsl",
+      load_data = reactive(list(adsl = adsl)),
       filter_list = reactive(c("SEX", "RACE", "COUNTRY", "AGE"))
     ),
     {
@@ -67,10 +67,10 @@ test_that("mod_global_filters_server works", {
 })
 
 test_that("module ui works", {
-  ui <- mod_global_filters_ui(id = "test")
+  ui <- mod_adsl_filters_ui(id = "test")
   golem::expect_shinytag(ui)
   # Check that formals have not been removed
-  fmls <- formals(mod_global_filters_ui)
+  fmls <- formals(mod_adsl_filters_ui)
   for (i in c("id")) {
     expect_true(i %in% names(fmls))
   }

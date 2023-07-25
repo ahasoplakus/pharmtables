@@ -192,5 +192,5 @@ read_data_list <- function(data_path, data_name, data_list) {
     }
     df
   }) |>
-    set_names(paste0("c", data_list))
+    set_names(data_list)
 }

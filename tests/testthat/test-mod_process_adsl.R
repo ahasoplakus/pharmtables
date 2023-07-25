@@ -8,8 +8,8 @@ test_that("mod_process_adsl_server works", {
     # Add here your module params
     args = list(
       id = "process_adsl_xyz",
-      dataset = "cadsl",
-      df_out = reactive(list(cadsl = adsl)),
+      dataset = "adsl",
+      df_out = reactive(list(adsl = adsl)),
       global_filters = gf,
       apply = trigger
     ),

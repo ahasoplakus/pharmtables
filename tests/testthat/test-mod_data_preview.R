@@ -7,8 +7,8 @@ testServer(
   args = list(
     id = "data_preview_123",
     df = reactive(list(
-      cadae = adae,
-      cadsl = adsl
+      adae = adae,
+      adsl = adsl
     ))
   ),
   {

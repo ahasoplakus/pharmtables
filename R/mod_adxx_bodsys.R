@@ -25,7 +25,7 @@ mod_adxx_bodsys_ui <-
           div(
             accordion(
               id = ns("bodsys_accord"),
-              accordionItem(
+              tagAppendAttributes(accordionItem(
                 title = tags$span(icon("table-cells"), tags$strong("Table Options")),
                 collapsed = FALSE,
                 selectInput(
@@ -49,7 +49,7 @@ mod_adxx_bodsys_ui <-
                   selected = NULL,
                   width = 400
                 )
-              )
+              ), class = "side_accord")
             ),
             style = "width: 350px;"
           ),
@@ -194,6 +194,7 @@ mod_adxx_bodsys_server <- function(id,
     }) |>
       bindCache(list(
         adsl(),
+        dataset,
         input$split_col,
         input$class,
         input$term,

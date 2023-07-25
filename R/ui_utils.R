@@ -100,7 +100,7 @@ dashboard_sidebar <- function() {
       accordionItem(
         title = tags$span(icon("id-card"), tags$strong("ADSL Filters")),
         collapsed = FALSE,
-        mod_global_filters_ui("global_filters_1")
+        mod_adsl_filters_ui("adsl_filters_1")
       )
     )
   )
@@ -151,23 +151,28 @@ dashboard_body <- function() {
       ),
       tabItem(
         tabName = "Tab7",
-        mod_adxx_param_ui("advs_param_1",
-          title = "Summary of Vital Signs by Parameter and Visit",
-          domain = "ADVS"
+        mod_bds_analysis_ui("vitals_analysis_1",
+          tab_title = "Summary of Vital Signs Tests",
+          summ_title = "Summary of Vital Signs Tests by Parameter and Visit",
+          shift_title = "Table to display the shift at post dose for Vital Signs",
+          domain = "ADVS",
+          logo = "stethoscope"
         )
       ),
       tabItem(
         tabName = "Tab8",
-        mod_adxx_param_ui("adlb_param_1",
-          title = "Summary of Laboratory Tests by Parameter and Visit",
-          domain = "ADLB",
-          logo = "flask-vial"
+        mod_bds_analysis_ui("lab_analysis_1",
+          tab_title = "Summary Laboratory Tests",
+          summ_title = "Summary of Laboratory Tests by Parameter and Visit",
+          shift_title = "Table to display the shift at post dose for Laboratory Tests"
         )
       ),
       tabItem(
         tabName = "Tab9",
-        mod_adxx_param_ui("adeg_param_1",
-          title = "Summary of ECG Findings by Parameter and Visit",
+        mod_bds_analysis_ui("ecg_analysis_1",
+          tab_title = "Summary of ECG Tests",
+          summ_title = "Summary of ECG Tests by Parameter and Visit",
+          shift_title = "Table to display the shift at post dose for ECG Tests",
           domain = "ADEG",
           logo = "heart-pulse"
         )

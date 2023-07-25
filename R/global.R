@@ -27,6 +27,14 @@ utils::globalVariables(
     "spin_ball",
     "AESDTH",
     "app_sys",
-    "AVISITN"
+    "AVISITN",
+    "AVAL",
+    "BNRIND",
+    "N",
+    "temp",
+    "ANRIND",
+    "PARAMCD",
+    "CNT",
+    "PCT"
   )
 )

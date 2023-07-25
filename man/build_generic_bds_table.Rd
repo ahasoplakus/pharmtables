@@ -52,7 +52,8 @@ tt_to_flextable(build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl
 \seealso{
 Other generic: 
 \code{\link{build_adsl_chars_table}()},
-\code{\link{build_generic_occurrence_table}()}
+\code{\link{build_generic_occurrence_table}()},
+\code{\link{build_shift_table}()}
 }
 \concept{generic}
 \keyword{generic}

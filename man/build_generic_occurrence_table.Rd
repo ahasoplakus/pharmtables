@@ -47,7 +47,7 @@ lyt <- build_generic_occurrence_table(
   occ_df = adae,
   filter_cond = NULL,
   trt_var = "ARM",
-  dataset = "cadae",
+  dataset = "adae",
   class_var = "AESOC",
   term_var = "AEDECOD"
 )
@@ -61,7 +61,8 @@ tt_to_flextable(tbl)
 \seealso{
 Other generic: 
 \code{\link{build_adsl_chars_table}()},
-\code{\link{build_generic_bds_table}()}
+\code{\link{build_generic_bds_table}()},
+\code{\link{build_shift_table}()}
 }
 \concept{generic}
 \keyword{generic}

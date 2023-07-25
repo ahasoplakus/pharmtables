@@ -8,11 +8,11 @@ test_that("mod_adxx_bodsys_server works", {
     # Add here your module params
     args = list(
       id = "adxx_bodsys_abc",
-      dataset = "cadae",
+      dataset = "adae",
       df_out = reactive(
         list(
-          cadsl = adsl,
-          cadae = adae
+          adsl = adsl,
+          adae = adae
         )
       ),
       adsl = reactive(adsl),

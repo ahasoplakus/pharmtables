@@ -23,7 +23,7 @@ mod_adae_sev_tox_ui <- function(id) {
         div(
           accordion(
             id = ns("sevtox_accord"),
-            accordionItem(
+            tagAppendAttributes(accordionItem(
               title = tags$span(icon("table-cells"), tags$strong("Table Options")),
               collapsed = FALSE,
               selectInput(
@@ -54,7 +54,7 @@ mod_adae_sev_tox_ui <- function(id) {
                 selected = NULL,
                 width = 400
               )
-            )
+            ), class = "side_accord")
           ),
           style = "width: 350px;"
         ),
@@ -214,8 +214,14 @@ mod_adae_sev_tox_server <- function(id,
     }) |>
       bindCache(
         list(
-          adsl(), input$split_col, input$class, input$term,
-          input$summ_var, input$view, filt_react$filter_cond()
+          adsl(),
+          dataset,
+          input$split_col,
+          input$class,
+          input$term,
+          input$summ_var,
+          input$view,
+          filt_react$filter_cond()
         )
       ) |>
       bindEvent(list(adsl(), filt_react$trig_report(), input$run, input$view))

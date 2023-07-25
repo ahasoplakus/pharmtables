@@ -56,6 +56,10 @@ img {
     margin-right: 7.5px;
 }
 
+.os-content {
+    padding: 0px 3px !important;
+}
+
 .selectize-control {
     margin-bottom: 10px;
 }
@@ -186,36 +190,6 @@ div.sidebar .shiny-input-container {
     text-align: center;
 }
 
-#adsl_display_1-box_adsl .card-header {
-    border-top: 2px solid #3BACB6 !important;
-    border-left: 2px solid #3BACB6 !important;
-}
-
-#adae_global_1-adae_sev_tox_1-box_adae .card-header {
-    border-top: 2px solid #3BACB6 !important;
-    border-left: 2px solid #3BACB6 !important;
-}
-
-#adae_global_1-adae_summary_1-box_adae_summ .card-header {
-    border-top: 2px solid #3BACB6 !important;
-    border-left: 2px solid #3BACB6 !important;
-}
-
-#adae_global_1-adae_bodsys_1-box_adxx_bodsys .card-header {
-    border-top: 2px solid #3BACB6 !important;
-    border-left: 2px solid #3BACB6 !important;
-}
-
-#admh_bodsys_1-box_adxx_bodsys .card-header {
-    border-top: 2px solid #3BACB6 !important;
-    border-left: 2px solid #3BACB6 !important;
-}
-
-#adcm_bodsys_1-box_adxx_bodsys .card-header {
-    border-top: 2px solid #3BACB6 !important;
-    border-left: 2px solid #3BACB6 !important;
-}
-
 .side_apply {
     background-color: #3BACB6;
     border-color: #ddd;
@@ -227,7 +201,7 @@ div.sidebar .shiny-input-container {
     justify-content: space-around;
 }
 
-#global_filters_1-apply {
+#adsl_filters_1-apply {
     display: flex !important;
     margin-left: 30px !important;
     justify-content: space-around;
@@ -277,19 +251,19 @@ div.sidebar .shiny-input-container {
     background-color: #3BACB6 !important;
 }
 
-#global_filters_1-sex .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+#adsl_filters_1-sex .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
     background-color: #3BACB6 !important;
 }
 
-#global_filters_1-race .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+#adsl_filters_1-race .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
     background-color: #3BACB6 !important;
 }
 
-#global_filters_1-ethnic .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+#adsl_filters_1-ethnic .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
     background-color: #3BACB6 !important;
 }
 
-#global_filters_1-country .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
+#adsl_filters_1-country .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
     background-color: #3BACB6 !important;
 }
 
@@ -341,55 +315,17 @@ div.sidebar .shiny-input-container {
     border-top: 7px solid #3BACB6;
 }
 
-#adsl_display_1-adsl_accord > div,
-#adae_global_1-adae_summary_1-summ_accord > div,
-#adae_global_1-adae_bodsys_1-bodsys_accord > div,
-#adae_global_1-adae_sev_tox_1-sevtox_accord > div,
-#admh_bodsys_1-bodsys_accord > div,
-#adcm_bodsys_1-bodsys_accord > div,
-#advs_param_1-param_accord > div,
-#adlb_param_1-param_accord > div,
-#adeg_param_1-param_accord > div,
-#adae_global_1-adae_summary_1-filter_reactivity_1-acc_filt_react > div,
-#adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react > div,
-#adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react > div,
-#admh_bodsys_1-filter_reactivity_1-acc_filt_react > div,
-#adcm_bodsys_1-filter_reactivity_1-acc_filt_react > div,
-#advs_param_1-filter_reactivity_1-acc_filt_react > div,
-#adlb_param_1-filter_reactivity_1-acc_filt_react > div,
-#adeg_param_1-filter_reactivity_1-acc_filt_react > div,
-#advs_param_1-flag_accord > div,
-#adlb_param_1-flag_accord > div,
-#adeg_param_1-flag_accord > div {
-  padding: 0.5rem;
+.side_accord > div {
+    padding: 0.5rem;
 }
 
-#adsl_display_1-adsl_accord > div > div.card-header,
-#adae_global_1-adae_summary_1-summ_accord > div > div.card-header,
-#adae_global_1-adae_bodsys_1-bodsys_accord > div > div.card-header,
-#adae_global_1-adae_sev_tox_1-sevtox_accord > div > div.card-header,
-#admh_bodsys_1-bodsys_accord > div > div.card-header,
-#adcm_bodsys_1-bodsys_accord > div > div.card-header,
-#advs_param_1-param_accord > div > div.card-header,
-#adlb_param_1-param_accord > div > div.card-header,
-#adeg_param_1-param_accord > div > div.card-header,
-#adae_global_1-adae_summary_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#adae_global_1-adae_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#adae_global_1-adae_sev_tox_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#admh_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#adcm_bodsys_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#advs_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#adlb_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#adeg_param_1-filter_reactivity_1-acc_filt_react > div > div.card-header,
-#advs_param_1-flag_accord > div > div.card-header,
-#adlb_param_1-flag_accord > div > div.card-header,
-#adeg_param_1-flag_accord > div > div.card-header {
-  background: #F3F4ED !important;
-  border: #526D82 !important;
+div.card.side_accord > div.card-header {
+    background: #F3F4ED !important;
+    border: #526D82 !important;
 }
 
 p.rtables-main-title {
-  font-weight: 600;
+    font-weight: 600;
 }
 
 .carousel-inner {

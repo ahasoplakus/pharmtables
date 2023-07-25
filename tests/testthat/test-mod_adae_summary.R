@@ -8,11 +8,11 @@ test_that("mod_adae_summary_server works", {
     # Add here your module params
     args = list(
       id = "adae_summary_abc",
-      dataset = "cadae",
+      dataset = "adae",
       df_out = reactive(
         list(
-          cadsl = adsl,
-          cadae = adae
+          adsl = adsl,
+          adae = adae
         )
       ),
       adsl = reactive(adsl),

@@ -1,4 +1,4 @@
-#' adxx_param UI Function
+#' bds_shift UI Function
 #'
 #' @description A shiny Module.
 #'
@@ -7,24 +7,30 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_adxx_param_ui <- function(id,
-                              title = "",
-                              domain = "ADVS",
-                              logo = "stethoscope") {
+mod_bds_shift_ui <- function(id,
+                             title = "",
+                             domain = "ADLB",
+                             logo = "flask-vial") {
   ns <- NS(id)
   tagList(
     box(
-      id = ns("box_adxx_param"),
+      id = ns("box_bds_shift"),
       title = tags$strong(title),
       sidebar = boxSidebar(
-        id = ns("adxx_side_param"),
+        id = ns("bds_side_shift"),
         background = "#EFF5F5",
         width = 35,
-        div(uiOutput(ns("analysis_flag_ui"))),
-        mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),
+        div(uiOutput(ns(
+          "analysis_flag_ui"
+        ))),
+        mod_filter_reactivity_ui(
+          ns("filter_reactivity_1"),
+          domain = domain,
+          logo = logo
+        ),
         div(
           accordion(
-            id = ns("param_accord"),
+            id = ns("shift_accord"),
             tagAppendAttributes(accordionItem(
               title = tags$span(icon("table-cells"), tags$strong("Table Options")),
               collapsed = FALSE,
@@ -36,22 +42,8 @@ mod_adxx_param_ui <- function(id,
                 width = 400
               ),
               selectInput(
-                ns("param"),
-                "Parameter Value",
-                choices = NULL,
-                selected = NULL,
-                width = 400,
-              ),
-              selectInput(
-                ns("visit"),
-                "Analysis Visit",
-                choices = NULL,
-                selected = NULL,
-                width = 400,
-              ),
-              selectInput(
-                ns("summ_var"),
-                "Analysis Variables",
+                ns("group_var"),
+                "Additonal Grouping Variables",
                 choices = NULL,
                 selected = NULL,
                 width = 400,
@@ -68,11 +60,17 @@ mod_adxx_param_ui <- function(id,
       maximizable = TRUE,
       width = 12,
       height = "800px",
+      shinyWidgets::prettySwitch(
+        ns("view"),
+        label = "Default View",
+        value = TRUE,
+        status = "info",
+        inline = TRUE,
+        fill = TRUE,
+        slim = TRUE
+      ),
       div(
-        shinycssloaders::withSpinner(
-          mod_dt_table_ui(ns(
-            "dt_table_param"
-          )),
+        shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_shift")),
           color = "#3BACB6"
         ),
         style = "overflow-x: scroll;"
@@ -81,14 +79,14 @@ mod_adxx_param_ui <- function(id,
   )
 }
 
-#' adxx_param Server Functions
+#' bds_shift Server Functions
 #'
 #' @noRd
-mod_adxx_param_server <- function(id,
-                                  dataset,
-                                  df_out,
-                                  adsl,
-                                  filters = reactive(NULL)) {
+mod_bds_shift_server <- function(id,
+                                 dataset,
+                                 df_out,
+                                 adsl,
+                                 filters = reactive(NULL)) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -106,7 +104,8 @@ mod_adxx_param_server <- function(id,
     observe({
       req(adsl())
       req(df_out()[[dataset]])
-      anl_flags <- names(select(df_out()[[dataset]], starts_with("ANL0")))
+      anl_flags <-
+        names(select(df_out()[[dataset]], starts_with("ANL0")))
       req(length(anl_flags) > 0)
       req(is.null(rv$lyt))
 
@@ -134,7 +133,7 @@ mod_adxx_param_server <- function(id,
       req(adsl())
       req(df_out()[[dataset]])
       req(!identical(df_out()[[dataset]], rv$bds_cached))
-      logger::log_info("mod_adxx_param_server: updating table options for {dataset}")
+      logger::log_info("mod_bds_shift_server: updating table options for {dataset}")
 
       df <- df_out()[[dataset]]
 
@@ -142,13 +141,33 @@ mod_adxx_param_server <- function(id,
         names(select(
           adsl(),
           setdiff(
-            starts_with(c("ACT", "ARM", "TRT")),
-            ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
+            starts_with(
+              c("ACT", "ARM", "TRT")
+            ),
+            ends_with(
+              c("DTM", "DUR", "PN", "AN", "DT", "FL")
+            )
           )
         ))
-      param_choices <- unique(df$PARAM)
-      visit_choices <- names(select(df, ends_with("VISIT")))
-      summ_choices <- c("AVAL", sort(names(select(df, contains("CHG")))))
+
+      group_choices <-
+        select(df, -all_of(trt_choices)) |>
+        select(!ends_with(c(
+          "DTM", "DUR", "PN", "AN", "DT", "CD", "TEST", "DY", "SEQ"
+        ))) |>
+        select(!contains(
+          c(
+            "PARAM",
+            "ANRIND",
+            "BNRIND",
+            "STUDYID",
+            "SUBJID",
+            "FL",
+            "AVAL",
+            "CHG"
+          )
+        )) |>
+        names()
 
       updateSelectInput(session,
         "split_col",
@@ -157,21 +176,9 @@ mod_adxx_param_server <- function(id,
       )
 
       updateSelectInput(session,
-        "param",
-        choices = param_choices,
-        selected = param_choices[1]
-      )
-
-      updateSelectInput(session,
-        "visit",
-        choices = visit_choices,
-        selected = visit_choices[1]
-      )
-
-      updateSelectInput(session,
-        "summ_var",
-        choices = summ_choices,
-        selected = summ_choices[1:2]
+        "group_var",
+        choices = group_choices,
+        selected = NULL
       )
 
       rv$bds_cached <- df_out()[[dataset]]
@@ -195,7 +202,8 @@ mod_adxx_param_server <- function(id,
 
     observe({
       req(df_out()[[dataset]])
-      anl_flags <- names(select(df_out()[[dataset]], starts_with("ANL0")))
+      anl_flags <-
+        names(select(df_out()[[dataset]], starts_with("ANL0")))
       if (length(anl_flags) == 0) {
         rv$pop_trigger <- TRUE
       } else {
@@ -204,22 +212,28 @@ mod_adxx_param_server <- function(id,
       }
     })
 
-    xx_param <- reactive({
+    xx_shift <- reactive({
       req(df_out()[[dataset]])
       req(adsl())
       req(input$split_col)
-      req(input$visit)
-      req(input$param)
-      req(input$summ_var)
       req(rv$pop_trigger)
 
       df_adsl <- adsl() |>
         select(USUBJID, input$split_col) |>
         unique()
 
-      logger::log_info("mod_adxx_param_server: alt_data has {nrow(df_adsl)} rows")
+      logger::log_info("mod_bds_shift_server: alt_data has {nrow(df_adsl)} rows")
 
       df <- df_out()[[dataset]]
+
+      trt_label <-
+        compact(map(set_names(input$split_col), \(x) obj_label(df[[x]])))
+      group_label <- NULL
+
+      if (!is.null(input$group_var)) {
+        group_label <-
+          compact(map(set_names(input$group_var), \(x) obj_label(df[[x]])))
+      }
 
       if (!is.null(input$pop)) {
         df <- df |>
@@ -227,40 +241,63 @@ mod_adxx_param_server <- function(id,
       }
 
       df <- df |>
-        left_join(df_adsl) |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      lyt <- build_generic_bds_table(
+      var_check <-
+        all(c("USUBJID", "PARAMCD", "BNRIND", "ANRIND") %in% names(df))
+
+      if (!var_check) {
+        show_toast(
+          title = "Required Variables are not present to create Shift Table",
+          text = "Please update your data",
+          type = "error",
+          position = "center",
+          width = "600px"
+        )
+      }
+      req(var_check)
+      logger::log_info("mod_bds_shift_server: creating shift table for {dataset}")
+
+      lyt <- build_shift_table(
+        adsl = df_adsl,
         bds_df = df,
         filter_cond = filt_react$filter_cond(),
-        param = input$param,
         trt_var = input$split_col,
-        visit = input$visit,
-        disp_vars = input$summ_var
+        trt_label = trt_label,
+        group_var = input$group_var,
+        group_label = group_label,
+        default_view = input$view
       )
 
-      rv$lyt <- lyt$lyt
+      rv$lyt <- lyt
 
       return(list(
-        out_df = lyt$df_out,
-        alt_df = df_adsl,
-        lyt = lyt$lyt
+        out_df = lyt,
+        alt_df = NULL,
+        lyt = NULL
       ))
     }) |>
-      bindCache(list(
+      bindCache(
+        list(
+          adsl(),
+          dataset,
+          input$pop,
+          input$split_col,
+          input$group_var,
+          input$view,
+          filt_react$filter_cond()
+        )
+      ) |>
+      bindEvent(list(
         adsl(),
-        dataset,
-        input$pop,
-        input$split_col,
-        input$visit,
-        input$param,
-        input$summ_var,
-        filt_react$filter_cond()
-      )) |>
-      bindEvent(list(adsl(), filt_react$trig_report(), input$run, rv$pop_trigger))
+        filt_react$trig_report(),
+        input$run,
+        input$view,
+        rv$pop_trigger
+      ))
 
-    mod_dt_table_server("dt_table_param",
-      display_df = xx_param
+    mod_dt_table_server("dt_table_shift",
+      display_df = xx_shift
     )
   })
 }

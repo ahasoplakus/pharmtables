@@ -90,7 +90,7 @@ build_adsl_chars_table <-
 #'   occ_df = adae,
 #'   filter_cond = NULL,
 #'   trt_var = "ARM",
-#'   dataset = "cadae",
+#'   dataset = "adae",
 #'   class_var = "AESOC",
 #'   term_var = "AEDECOD"
 #' )
@@ -113,9 +113,9 @@ build_generic_occurrence_table <-
         filter(!!!parse_exprs(filter_cond))
     }
 
-    if (dataset == "cadae") {
+    if (dataset == "adae") {
       text <- "event"
-    } else if (dataset == "cadmh") {
+    } else if (dataset == "admh") {
       text <- "condition"
     } else {
       text <- "treatment"
