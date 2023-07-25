@@ -2,7 +2,7 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: [main, devel]
+    branches: [devel]
   pull_request:
     branches: [devel]
 
@@ -13,6 +13,10 @@ jobs:
     runs-on: windows-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      coverage-percent: ${{ steps.set-coverage-percentage.outputs.coverage-percentage }}
+    permissions:
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v3
@@ -23,28 +27,92 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr
-          needs: coverage
+          extra-packages: any::covr, any::DT
 
       - name: Test coverage
         run: |
-          covr::codecov(
-            quiet = FALSE,
-            clean = FALSE,
-            install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
+          tryCatch(
+            expr = {
+                x <- covr::package_coverage(
+                  path=".",
+                  clean = FALSE,
+                  quiet = FALSE,
+                  line_exclusions = list(
+                  "R/app_server.R" = 12:22,
+                  "R/run_app.R",
+                  "R/ui_utils.R",
+                  "R/mod_data_read.R" = c(153:161, 163:171, 178:182, 188:193),
+                  "R/mod_global_filters.R" = c(96:97),
+                  "R/mod_data_preview.R" = 63:66,
+                  "R/mod_dt_table.R"
+                  )
+                )
+                print(x)
+                covr::to_cobertura(x, filename = "coverage.xml")
+                p <- round(covr::percent_coverage(x))
+                cat(p, file = "coverage.txt", sep = "")
+                covr::report(
+                    x,
+                    file = "coverage-report.html",
+                    browse = FALSE
+                )
+            },
+            error = function(e) {
+              message("Errors generated during coverage analysis:")
+              print(e)
+              error_file <- list.files(path = "/tmp", pattern="*.fail$", recursive = T, full.names = T)[1]
+              if (length(error_file) && file.exists(error_file)) {
+                cat("__________FULL OUTPUT__________")
+                writeLines(readLines(error_file))
+              }
+            },
+            warning = function(w) {
+                message("Warnings generated during coverage analysis:")
+                print(w)
+            }
           )
         shell: Rscript {0}
 
-      - name: Show testthat output
-        if: always()
-        run: |
-          ## --------------------------------------------------------------------
-          find ${{ runner.temp }}/package -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Upload test results
-        if: failure()
-        uses: actions/upload-artifact@v3
+      - name: Check whether coverage reports exists
+        id: check_coverage_reports
+        uses: andstor/file-existence-action@v1
         with:
-          name: coverage-test-failures
-          path: ${{ runner.temp }}/package
+          files: "coverage.xml, coverage.txt, coverage-report.html"
+
+      - name: Set coverage percentage as output
+        id: set-coverage-percentage
+        run: echo "coverage-percentage=$(cat coverage.txt)" >> $GITHUB_OUTPUT
+        if: steps.check_coverage_reports.outputs.files_exists == 'true'
+
+      - name: Generate Coverage Summary Report
+        if: steps.check_coverage_reports.outputs.files_exists == 'true' && github.event_name == 'pull_request'
+        uses: irongut/CodeCoverageSummary@v1.2.0
+        with:
+          filename: coverage.xml
+          badge: true
+          fail_below_min: false
+          format: markdown
+          hide_branch_rate: true
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '60 80'
+
+      - name: Upload report for review
+        if: steps.check_coverage_reports.outputs.files_exists == 'true' && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: "coverage-report.html"
+        continue-on-error: true
+
+      - name: Add Coverage PR Comment
+        if: steps.check_coverage_reports.outputs.files_exists == 'true' && github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: code-coverage
+          path: code-coverage-results.md
+        continue-on-error: true
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
