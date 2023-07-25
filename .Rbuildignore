@@ -26,3 +26,4 @@ $run_dev.*
 ^deploy$
 ^tests$
 ^R/app_config\.R$
+^webr$

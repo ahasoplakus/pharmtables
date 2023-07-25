@@ -1,0 +1,54 @@
+Package: clinTables
+Title: Clinical Trial Tables in R
+Version: 0.0.0.9005
+Authors@R: 
+    person("Sukalpo", "Saha", , "sukalposaha@gmail.com", role = c("cre", "aut"))
+Description: Shiny Application for visualizing some of the standard tables
+    used in Clinical Trials.
+License: Apache License (>= 2)
+BugReports: https://github.com/ahasoplakus/clinTables/issues/
+URL: https://ahasoplakus.github.io/clinTables/, https://github.com/ahasoplakus/clinTables/
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends:
+    R (>= 3.6)
+Imports: 
+    bs4Dash (>= 2.3.0),
+    dplyr (>= 1.1.2),
+    formatters (>= 0.5.0),
+    golem (>= 0.4.0),
+    purrr (>= 1.0.1),
+    rlang (>= 1.1.0),
+    rtables (>= 0.6.1),
+    shiny (>= 1.7.4),
+    shinyjs (>= 2.1.0),
+    shinyWidgets (>= 0.7.6),
+    stringr (>= 1.5.0),
+    tern (>= 0.8.3)
+Suggests: 
+    cli,
+    config,
+    covr,
+    flextable,
+    glue,
+    haven,
+    knitr,
+    lifecycle,
+    logger,
+    officer,
+    reactable,
+    rmarkdown,
+    shinycssloaders,
+    spelling,
+    testthat (>= 3.0.0),
+    tibble,
+    tidyr,
+    tools,
+    waiter,
+    withr
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
