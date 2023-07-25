@@ -1,0 +1,3 @@
+linters: linters_with_defaults(line_length_linter(100), object_usage_linter=NULL, object_name_linter=NULL)
+exclusions: list("R/golem_utils_ui.R", "tests/testthat/test-golem_utils_ui.R", "tests/testthat/test-mod_data_read.R", "tests/testthat/test-mod_dt_table.R", "tests/testthat/test-mod_global_filters.R", "tests/testthat/test-mod_process_adsl.R", "tests/testthat/test-mod_adae_display.R", "tests/testthat/test-mod_adae_summary.R", "tests/testthat/test-adae_by_sev_tox.R", "tests/testthat/test-mod_adae_bodsys.R")
+encoding: "UTF-8"

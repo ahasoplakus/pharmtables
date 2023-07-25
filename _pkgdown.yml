@@ -1,0 +1,52 @@
+url: https://ahasoplakus.github.io/clinTables/
+
+template:
+  bootstrap: 5
+  params:
+    noindex: false
+    bootswatch: flatly
+  bslib:
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "Poltawski Nowy"}
+repo:
+  url:
+    home: https://github.com/ahasoplakus/clinTables/
+    source: https://github.com/ahasoplakus/clinTables/blob/devel/
+    issue: https://github.com/ahasoplakus/clinTables/issues/
+    user: https://github.com/
+
+reference:
+- title: Run App
+  desc: Run the application locally
+  contents:
+  - has_keyword("app_specific")
+
+- title: Generic Functions
+  contents:
+  - has_keyword("generic")
+
+- title: Adverse Events
+  contents:
+  - has_keyword("adae_utils")
+
+- title: Helper Functions
+  contents:
+  - has_keyword("helpers")
+
+- title: Example Datasets
+  contents:
+  - has_keyword('datasets')
+
+navbar:
+  structure:
+    right: [github, linkedin, twitter]
+  components:
+    linkedin:
+      icon: fa-linkedin
+      href: https://www.linkedin.com/in/sukalpo-saha-186329b1/
+      aria-label: Linkedin
+    twitter:
+      icon: fa-twitter
+      href: https://twitter.com/saha_sukalpo
+      aria-label: Twitter
