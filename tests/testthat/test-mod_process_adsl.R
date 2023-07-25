@@ -1,3 +1,5 @@
+data(adsl)
+
 test_that("mod_process_adsl_server works", {
   trigger <- reactiveVal()
   gf <- reactiveVal()
@@ -6,8 +8,8 @@ test_that("mod_process_adsl_server works", {
     # Add here your module params
     args = list(
       id = "process_adsl_xyz",
-      dataset = "cadsl",
-      df_out = reactive(list(cadsl = random.cdisc.data::cadsl)),
+      dataset = "adsl",
+      df_out = reactive(list(adsl = adsl)),
       global_filters = gf,
       apply = trigger
     ),
@@ -30,10 +32,10 @@ test_that("mod_process_adsl_server works", {
             "NOT HISPANIC OR LATINO",
             "UNKNOWN"
           ),
-          country = levels(random.cdisc.data::cadsl[["COUNTRY"]]),
+          country = levels(adsl[["COUNTRY"]]),
           age = 69,
-          siteid = unique(random.cdisc.data::cadsl[["SITEID"]]),
-          usubjid = unique(random.cdisc.data::cadsl[["USUBJID"]])
+          siteid = unique(adsl[["SITEID"]]),
+          usubjid = unique(adsl[["USUBJID"]])
         )
       )
       session$flushReact()

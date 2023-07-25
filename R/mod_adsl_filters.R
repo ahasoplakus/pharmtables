@@ -8,7 +8,7 @@
 #'
 #' @importFrom shiny NS tagList
 #' @importFrom shinyWidgets pickerInput updatePickerInput
-mod_global_filters_ui <- function(id) {
+mod_adsl_filters_ui <- function(id) {
   ns <- NS(id)
   uiOutput(ns("glob_filt_ui"))
 }
@@ -16,7 +16,7 @@ mod_global_filters_ui <- function(id) {
 #' global_filters Server Functions
 #'
 #' @noRd
-mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
+mod_adsl_filters_server <- function(id, dataset, load_data, filter_list) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -25,11 +25,13 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
       cached_filters = NULL
     )
 
-    output$glob_filt_ui <- renderUI({
+    observe({
       req(load_data()[[dataset]])
       req(filter_list())
-
-      logger::log_info("mod_global_filters_server: initialise study filters")
+      req(is.null(rv$cached_filters) || length(setdiff(
+        filter_list(),
+        toupper(names(rv$cached_filters))
+      )) > 0)
 
       flag_vars <- names(select(
         load_data()[[dataset]],
@@ -39,8 +41,8 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
         )
       ))
 
-      tagList(
-        create_flag_widget(flag_vars, ns),
+      rv$widget <- tagList(
+        create_flag_widget(load_data()[[dataset]], flag_vars, ns),
         create_widget(
           filter_list(),
           load_data(),
@@ -49,6 +51,12 @@ mod_global_filters_server <- function(id, dataset, load_data, filter_list) {
         ),
         actionButton(ns("apply"), "Update")
       )
+    })
+
+    output$glob_filt_ui <- renderUI({
+      req(rv$widget)
+      logger::log_info("mod_global_filters_server: initialise study filters")
+      rv$widget
     })
 
     outputOptions(output, "glob_filt_ui", priority = 975)

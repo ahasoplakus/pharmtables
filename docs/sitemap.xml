@@ -16,6 +16,9 @@
     <loc>https://ahasoplakus.github.io/clinTables/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
+    <loc>https://ahasoplakus.github.io/clinTables/CONTRIBUTING.html</loc>
+  </url>
+  <url>
     <loc>https://ahasoplakus.github.io/clinTables/index.html</loc>
   </url>
   <url>
@@ -25,10 +28,22 @@
     <loc>https://ahasoplakus.github.io/clinTables/news/index.html</loc>
   </url>
   <url>
+    <loc>https://ahasoplakus.github.io/clinTables/reference/adae.html</loc>
+  </url>
+  <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/adae_by_sev_tox.html</loc>
   </url>
   <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/add_adae_flags.html</loc>
+  </url>
+  <url>
+    <loc>https://ahasoplakus.github.io/clinTables/reference/adlb.html</loc>
+  </url>
+  <url>
+    <loc>https://ahasoplakus.github.io/clinTables/reference/adsl.html</loc>
+  </url>
+  <url>
+    <loc>https://ahasoplakus.github.io/clinTables/reference/advs.html</loc>
   </url>
   <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/build_adae_by_sev_tox.html</loc>
@@ -50,6 +65,9 @@
   </url>
   <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/build_generic_occurrence_table.html</loc>
+  </url>
+  <url>
+    <loc>https://ahasoplakus.github.io/clinTables/reference/build_shift_table.html</loc>
   </url>
   <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/clinTables-package.html</loc>

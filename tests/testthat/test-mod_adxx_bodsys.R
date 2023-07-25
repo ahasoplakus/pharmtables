@@ -1,3 +1,6 @@
+data(adsl)
+data(adae)
+
 test_that("mod_adxx_bodsys_server works", {
   filt <- reactiveVal()
   testServer(
@@ -5,14 +8,14 @@ test_that("mod_adxx_bodsys_server works", {
     # Add here your module params
     args = list(
       id = "adxx_bodsys_abc",
-      dataset = "cadae",
+      dataset = "adae",
       df_out = reactive(
         list(
-          cadsl = random.cdisc.data::cadsl,
-          cadae = random.cdisc.data::cadae
+          adsl = adsl,
+          adae = adae
         )
       ),
-      adsl = reactive(random.cdisc.data::cadsl),
+      adsl = reactive(adsl),
       filters = filt
     ),
     {

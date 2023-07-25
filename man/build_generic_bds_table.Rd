@@ -36,8 +36,8 @@ Create generic BDS Summary table
 
 library(clinTables)
 library(rtables)
-adsl <- random.cdisc.data::cadsl
-advs <- random.cdisc.data::cadvs
+data(adsl)
+data(advs)
 
 lyt <- build_generic_bds_table(advs,
   param = "Diastolic Blood Pressure",
@@ -52,7 +52,8 @@ tt_to_flextable(build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl
 \seealso{
 Other generic: 
 \code{\link{build_adsl_chars_table}()},
-\code{\link{build_generic_occurrence_table}()}
+\code{\link{build_generic_occurrence_table}()},
+\code{\link{build_shift_table}()}
 }
 \concept{generic}
 \keyword{generic}

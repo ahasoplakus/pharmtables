@@ -1,7 +1,9 @@
+data(adsl)
+
 test_that("mod_adsl_display_server works", {
   testServer(mod_adsl_display_server,
     # Add here your module params
-    args = list(id = "adsl_display_abc", adsl = reactive(random.cdisc.data::cadsl)),
+    args = list(id = "adsl_display_abc", adsl = reactive(adsl)),
     {
       ns <- session$ns
       expect_true(inherits(ns, "function"))

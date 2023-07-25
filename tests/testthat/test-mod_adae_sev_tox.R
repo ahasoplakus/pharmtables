@@ -1,3 +1,6 @@
+data(adsl)
+data(adae)
+
 test_that("mod_adae_sev_tox_server works", {
   filt <- reactiveVal()
   testServer(
@@ -5,14 +8,14 @@ test_that("mod_adae_sev_tox_server works", {
     # Add here your module params
     args = list(
       id = "adae_display_abc",
-      dataset = "cadae",
+      dataset = "adae",
       df_out = reactive(
         list(
-          cadsl = random.cdisc.data::cadsl,
-          cadae = random.cdisc.data::cadae
+          adsl = adsl,
+          adae = adae
         )
       ),
-      adsl = reactive(random.cdisc.data::cadsl),
+      adsl = reactive(adsl),
       filters = filt
     ),
     {
@@ -39,7 +42,14 @@ test_that("mod_adae_sev_tox_server works", {
         add_colcounts() |>
         add_overall_col(label = "All Patients") |>
         add_colcounts() |>
-        summarize_num_patients("USUBJID") |>
+        summarize_num_patients(
+          var = "USUBJID",
+          .stats = c("unique", "nonunique"),
+          .labels = c(
+            unique = str_glue("Total number of patients with at least one adverse event"),
+            nonunique = str_glue("Total number of adverse events")
+          )
+        ) |>
         split_rows_by("AESOC",
           child_labels = "visible",
           nested = TRUE,

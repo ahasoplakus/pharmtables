@@ -13,6 +13,7 @@ Shiny Application for visualizing some of the standard tables used in Clinical T
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://ahasoplakus.github.io/clinTables/}
   \item \url{https://github.com/ahasoplakus/clinTables/}
   \item Report bugs at \url{https://github.com/ahasoplakus/clinTables/issues/}
 }

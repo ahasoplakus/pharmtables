@@ -1,11 +1,14 @@
+data(adsl)
+data(adae)
+
 testServer(
   mod_data_preview_server,
   # Add here your module params
   args = list(
     id = "data_preview_123",
     df = reactive(list(
-      cadae = random.cdisc.data::cadae,
-      cadsl = random.cdisc.data::cadsl
+      adae = adae,
+      adsl = adsl
     ))
   ),
   {

@@ -42,8 +42,8 @@ Adverse Events Table by Body System and Severity/Toxicity
 
 library(clinTables)
 library(rtables)
-adsl <- random.cdisc.data::cadsl
-adae <- random.cdisc.data::cadae
+data(adsl)
+data(adae)
 
 tbl <- build_adae_by_sev_tox(
   adsl = adsl,

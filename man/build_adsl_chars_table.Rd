@@ -36,11 +36,12 @@ Baseline Demographic and Clinical Characteristics
 \examples{
 
 library(clinTables)
+data(adsl)
 lyt <- build_adsl_chars_table(
   split_cols_by = "ARM",
   summ_vars = c("AGE", "RACE")
 )
-tbl <- rtables::build_table(lyt, random.cdisc.data::cadsl)
+tbl <- rtables::build_table(lyt, adsl)
 
 \dontrun{
 tt_to_flextable(tbl)
@@ -50,7 +51,8 @@ tt_to_flextable(tbl)
 \seealso{
 Other generic: 
 \code{\link{build_generic_bds_table}()},
-\code{\link{build_generic_occurrence_table}()}
+\code{\link{build_generic_occurrence_table}()},
+\code{\link{build_shift_table}()}
 }
 \concept{generic}
 \keyword{generic}

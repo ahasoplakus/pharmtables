@@ -1,3 +1,7 @@
+data(adsl)
+data(adae)
+data(advs)
+
 test_that("build_adsl_chars_table works", {
   lyt <- build_adsl_chars_table(
     split_cols_by = "ARM",
@@ -41,15 +45,13 @@ test_that("build_adsl_chars_table works", {
 })
 
 test_that("build_generic_occurrence_table works", {
-  adsl <- random.cdisc.data::cadsl
-  adae <- random.cdisc.data::cadae
   adae <- filter(adae, SAFFL == "Y")
 
   lyt <- build_generic_occurrence_table(
     occ_df = adae,
     filter_cond = NULL,
     trt_var = "ARM",
-    dataset = "cadae",
+    dataset = "adae",
     class_var = "AESOC",
     term_var = "AEDECOD"
   )
@@ -86,7 +88,7 @@ test_that("build_generic_occurrence_table works", {
     occ_df = adae,
     filter_cond = filters_to_cond(list(SEX = c("F"))),
     trt_var = "ARM",
-    dataset = "cadae",
+    dataset = "adae",
     class_var = "AESOC",
     term_var = "AEDECOD"
   )
@@ -124,9 +126,6 @@ test_that("build_generic_occurrence_table works", {
 })
 
 test_that("build_generic_bds_table works", {
-  adsl <- random.cdisc.data::cadsl
-  advs <- random.cdisc.data::cadvs
-
   lyt <- build_generic_bds_table(
     bds_df = advs,
     filter_cond = NULL,
@@ -145,7 +144,7 @@ test_that("build_generic_bds_table works", {
     show_colcounts = TRUE,
     title = str_glue("Summary of Diastolic Blood Pressure w.r.t {paste(var_labs, collapse = ', ')}")
   ) |>
-    split_cols_by("ARM") |>
+    split_cols_by("ARM", split_fun = drop_split_levels) |>
     split_rows_by(
       "AVISIT",
       split_fun = drop_split_levels,

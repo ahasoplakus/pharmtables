@@ -1,3 +1,6 @@
+data(adsl)
+data(advs)
+
 test_that("mod_adxx_param_server works", {
   filt <- reactiveVal()
   testServer(
@@ -5,14 +8,14 @@ test_that("mod_adxx_param_server works", {
     # Add here your module params
     args = list(
       id = "adxx_param_abc",
-      dataset = "cadvs",
+      dataset = "advs",
       df_out = reactive(
         list(
-          cadsl = random.cdisc.data::cadsl,
-          cadvs = random.cdisc.data::cadvs
+          adsl = adsl,
+          advs = advs
         )
       ),
-      adsl = reactive(random.cdisc.data::cadsl),
+      adsl = reactive(adsl),
       filters = filt
     ),
     {
@@ -22,7 +25,7 @@ test_that("mod_adxx_param_server works", {
       expect_true(grepl("test", ns("test")))
 
       exp_lyt <- build_generic_bds_table(
-        bds_df = df_out()[["cadvs"]],
+        bds_df = df_out()[["advs"]],
         filter_cond = NULL,
         param = "Diastolic Blood Pressure",
         trt_var = "ACTARM",

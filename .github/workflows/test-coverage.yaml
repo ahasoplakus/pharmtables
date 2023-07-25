@@ -10,7 +10,7 @@ name: test-coverage
 
 jobs:
   test-coverage:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     outputs:
@@ -40,9 +40,11 @@ jobs:
                   line_exclusions = list(
                   "R/app_server.R" = 12:22,
                   "R/run_app.R",
-                  "R/mod_data_read.R" = c(160:168, 170:178, 185:189, 191:200),
+                  "R/ui_utils.R",
+                  "R/mod_data_read.R" = c(153:161, 163:171, 178:182, 188:193),
                   "R/mod_global_filters.R" = c(96:97),
-                  "R/mod_data_preview.R" = 63:66
+                  "R/mod_data_preview.R" = 63:66,
+                  "R/mod_dt_table.R"
                   )
                 )
                 print(x)
@@ -81,36 +83,6 @@ jobs:
         id: set-coverage-percentage
         run: echo "coverage-percentage=$(cat coverage.txt)" >> $GITHUB_OUTPUT
         if: steps.check_coverage_reports.outputs.files_exists == 'true'
-
-      - name: Generate Coverage Summary Report
-        if: steps.check_coverage_reports.outputs.files_exists == 'true' && github.event_name == 'pull_request'
-        uses: irongut/CodeCoverageSummary@v1.2.0
-        with:
-          filename: coverage.xml
-          badge: true
-          fail_below_min: false
-          format: markdown
-          hide_branch_rate: true
-          hide_complexity: true
-          indicators: true
-          output: both
-          thresholds: '60 80'
-
-      - name: Upload report for review
-        if: steps.check_coverage_reports.outputs.files_exists == 'true' && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-report
-          path: "coverage-report.html"
-        continue-on-error: true
-
-      - name: Add Coverage PR Comment
-        if: steps.check_coverage_reports.outputs.files_exists == 'true' && github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: code-coverage
-          path: code-coverage-results.md
-        continue-on-error: true
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3

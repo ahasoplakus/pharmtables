@@ -9,8 +9,8 @@ test_that("mod_data_read_server works", {
       expect_true(grepl("test", ns("test")))
 
       df <- list(
-        name = "cadsl.RDS",
-        datapath = app_sys("extdata/cadsl.RDS")
+        name = "adsl.RDS",
+        datapath = app_sys("extdata/adsl.RDS")
       )
 
       session$setInputs(def_data = FALSE)
@@ -18,21 +18,21 @@ test_that("mod_data_read_server works", {
       session$setInputs(apply = 1)
 
       expect_equal(length(rv$df), 1)
-      expect_equal(nrow(rv$df[["cadsl"]]), 400)
-      expect_equal(rv$upload_state, "stale")
+      expect_equal(nrow(rv$df[["adsl"]]), 400)
+      expect_equal(rv$upload_state, "init")
       expect_equal(rv$trig_reset, 1)
-      expect_equal(nrow(read_df()[["cadsl"]]), 400)
+      expect_equal(nrow(read_df()[["adsl"]]), 400)
 
       session$setInputs(def_data = TRUE)
-      expect_null(read_df())
+      expect_false(is.null(read_df()))
 
       session$setInputs(apply = 2)
       expect_true(length(read_df()) > 0)
-      expect_equal(rv$trig_reset, 2)
-      expect_equal(nrow(read_df()[["cadsl"]]), 400)
-      expect_equal(nrow(read_df()[["cadmh"]]), 1934)
-      expect_equal(nrow(read_df()[["cadae"]]), 1934)
-      expect_equal(nrow(read_df()[["cadcm"]]), 3685)
+      expect_equal(rv$trig_reset, 1)
+      expect_equal(nrow(read_df()[["adsl"]]), 400)
+      expect_equal(nrow(read_df()[["admh"]]), 1934)
+      expect_equal(nrow(read_df()[["adae"]]), 1934)
+      expect_equal(nrow(read_df()[["adcm"]]), 3685)
     }
   )
 })
