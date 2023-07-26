@@ -10,50 +10,57 @@
 mod_data_read_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    carousel(
-      id = ns("carousel"),
-      carouselItem(
-        caption = NULL,
-        bs4Card(
-          title = tags$span(icon("database"), tags$strong("Load Data")),
-          width = 6,
-          fluidRow(
-            prettySwitch(
-              ns("def_data"),
-              label = "Load Default Data (random.cdisc.data)",
-              value = FALSE,
-              status = "info",
-              inline = TRUE,
-              fill = TRUE,
-              slim = TRUE,
-              width = 6
-            )
-          ),
-          fluidRow(
-            fileInput(
-              ns("upload"),
-              HTML("&nbsp;&nbsp;&nbsp;&nbsp;Upload Files"),
-              multiple = TRUE,
-              accept = c(".RDS", ".sas7bdat"),
-              width = "150%",
-              buttonLabel = tags$span(icon("upload")),
-              placeholder = "No file selected",
-              capture = NULL
-            )
-          ),
-          fluidRow(
-            div(actionButton(ns("apply"), "Run"), style = "text-align: right; margin-left: auto;")
-          )
-        )
+    tabBox(
+      id = ns("about"),
+      title = "",
+      type = "pills",
+      collapsible = FALSE,
+      width = 12,
+      tabPanel(
+        title = tags$span(icon("circle-info"), "About"),
+        includeMarkdown(app_sys("about.md"))
       ),
-      carouselItem(
-        caption = NULL,
-        bs4Card(
-          title = tags$span(icon("gears"), tags$strong("Filters Setup")),
-          width = 6,
-          collapsed = FALSE,
-          maximizable = TRUE,
-          mod_setup_filters_ui(ns("setup_filters_1"))
+      tabPanel(
+        title = tags$span(icon("gears"), "Setup"),
+        fluidRow(
+          column(width = 3, offset = 1),
+          column(
+            width = 8,
+            fluidRow(
+              prettySwitch(
+                ns("def_data"),
+                label = "Load Synthetic Data (random.cdisc.data)",
+                value = FALSE,
+                status = "info",
+                inline = TRUE,
+                fill = TRUE,
+                slim = FALSE,
+                width = 6
+              )
+            ),
+            fluidRow(
+              fileInput(
+                ns("upload"),
+                HTML("&nbsp;&nbsp;&nbsp;&nbsp;Upload Files"),
+                multiple = TRUE,
+                accept = c(".RDS", ".sas7bdat"),
+                width = "50%",
+                buttonLabel = tags$span(icon("upload")),
+                placeholder = "No file selected",
+                capture = NULL
+              )
+            ),
+            mod_setup_filters_ui(ns("setup_filters_1"))
+          )
+        ),
+        fluidRow(
+          column(width = 3, offset = 1),
+          column(
+            width = 4,
+            div(actionButton(ns("apply"), "Run"),
+              style = "justify-content: center; display: flex;"
+            )
+          )
         )
       )
     )

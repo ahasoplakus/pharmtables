@@ -12,7 +12,7 @@ mod_adsl_display_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adsl"),
-      title = tags$strong("Demographic Characteristics"),
+      title = tags$strong("Summary Statistics of Demographics and Baseline Characteristics"),
       sidebar = boxSidebar(
         id = ns("demog_side"),
         background = "#EFF5F5",

@@ -62,12 +62,12 @@ mod_bds_shift_ui <- function(id,
       height = "800px",
       shinyWidgets::prettySwitch(
         ns("view"),
-        label = "Default View",
+        label = "Toggle View",
         value = TRUE,
         status = "info",
         inline = TRUE,
         fill = TRUE,
-        slim = TRUE
+        slim = FALSE
       ),
       div(
         shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_shift")),

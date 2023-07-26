@@ -13,8 +13,8 @@ mod_adae_sev_tox_ui <- function(id) {
     box(
       id = ns("box_adae"),
       title =
-        tags$strong("Summary of Treatment-Emergent Adverse Events (TEAES) By
-                    Body System And Severity"),
+        tags$strong("Summary of Adverse Events by Body System or Organ Class,
+                    Dictionary-Derived Term and Severity/Toxicity"),
       sidebar = boxSidebar(
         id = ns("adae_side"),
         background = "#EFF5F5",
@@ -67,12 +67,12 @@ mod_adae_sev_tox_ui <- function(id) {
       height = "800px",
       shinyWidgets::prettySwitch(
         ns("view"),
-        label = "Default View",
+        label = "Toggle View",
         value = FALSE,
         status = "info",
         inline = TRUE,
         fill = TRUE,
-        slim = TRUE
+        slim = FALSE
       ),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_2")), color = "#3BACB6"),
         style = "overflow-x: scroll;"

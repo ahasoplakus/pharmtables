@@ -37,6 +37,7 @@ Suggests:
     knitr,
     lifecycle,
     logger,
+    markdown,
     officer,
     reactable,
     rmarkdown,
