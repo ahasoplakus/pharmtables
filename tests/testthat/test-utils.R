@@ -160,3 +160,40 @@ test_that("build_generic_bds_table works", {
 
   expect_identical(lyt$lyt, exp_lyt)
 })
+
+test_that("build_generic_bds_table works with filter oondition", {
+  lyt <- build_generic_bds_table(
+    bds_df = advs,
+    filter_cond = filters_to_cond(list(SEX = c("F"))),
+    param = "Diastolic Blood Pressure",
+    trt_var = "ARM",
+    visit = "AVISIT",
+    disp_vars = c("AVAL", "CHG")
+  )
+
+  df <- advs |>
+    filter(PARAM %in% "Diastolic Blood Pressure",
+           SEX == "F")
+
+  var_labs <- map_chr(c("AVAL", "CHG"), \(x) obj_label(df[[x]]))
+
+  exp_lyt <- basic_table(
+    show_colcounts = TRUE,
+    title = str_glue("Summary of Diastolic Blood Pressure w.r.t {paste(var_labs, collapse = ', ')}")
+  ) |>
+    split_cols_by("ARM", split_fun = drop_split_levels) |>
+    split_rows_by(
+      "AVISIT",
+      split_fun = drop_split_levels,
+      label_pos = "topleft",
+      split_label = obj_label(df[["AVISIT"]])
+    ) |>
+    split_cols_by_multivar(
+      vars = c("AVAL", "CHG"),
+      varlabels = var_labs
+    ) |>
+    summarize_colvars(.labels = c(range = "Min - Max")) |>
+    append_topleft(paste(" ", "Summary Statistic"))
+
+  expect_identical(lyt$lyt, exp_lyt)
+})

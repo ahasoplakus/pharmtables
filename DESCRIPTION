@@ -31,7 +31,6 @@ Imports:
 Suggests: 
     cli,
     config,
-    covr,
     flextable,
     glue,
     haven,

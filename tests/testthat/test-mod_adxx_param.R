@@ -1,5 +1,6 @@
 data(adsl)
 data(advs)
+data(adlb)
 
 test_that("mod_adxx_param_server works", {
   filt <- reactiveVal()
@@ -48,6 +49,58 @@ test_that("mod_adxx_param_server works", {
       session$flushReact()
 
       expect_equal(nrow(xx_param()$out_df), 2800)
+      expect_equal(nrow(xx_param()$alt_df), 400)
+    }
+  )
+})
+
+test_that("mod_adxx_param_server works with different dataset", {
+  filt <- reactiveVal()
+  testServer(
+    mod_adxx_param_server,
+    # Add here your module params
+    args = list(
+      id = "adxx_param_abc1",
+      dataset = "adlb",
+      df_out = reactive(
+        list(
+          adsl = adsl,
+          adlb = adlb
+        )
+      ),
+      adsl = reactive(adsl),
+      filters = filt
+    ),
+    {
+      ns <- session$ns
+      expect_true(inherits(ns, "function"))
+      expect_true(grepl(id, ns("")))
+      expect_true(grepl("test", ns("test")))
+
+      exp_lyt <- build_generic_bds_table(
+        bds_df = df_out()[["adlb"]],
+        filter_cond = NULL,
+        param = "Alanine Aminotransferase Measurement",
+        trt_var = "ACTARM",
+        visit = "AVISIT",
+        disp_vars = c("AVAL", "CHG")
+      )
+
+      session$setInputs(split_col = "ACTARM")
+      session$setInputs(param = "Alanine Aminotransferase Measurement")
+      session$setInputs(visit = "AVISIT")
+      session$setInputs(summ_var = c("AVAL", "CHG"))
+      session$setInputs(pop = "ANL01FL")
+      session$setInputs(run = 1)
+
+      expect_identical(xx_param()$lyt, exp_lyt$lyt)
+      expect_equal(nrow(xx_param()$out_df), 2400)
+      expect_equal(nrow(xx_param()$alt_df), 400)
+
+      filt("AVISIT")
+      session$flushReact()
+
+      expect_equal(nrow(xx_param()$out_df), 2400)
       expect_equal(nrow(xx_param()$alt_df), 400)
     }
   )
