@@ -87,25 +87,26 @@ mod_filter_reactivity_server <- function(id, df, dataset, filters, trt_var) {
         \(x) identical(rv$filters[[x]], levels(unique(df()[[dataset]][[toupper(x)]])))
       )))
 
-      if (!is.null(rv$cached_filters) &&
-        length(rv$filters) > length(rv$cached_filters)) {
+      if (!is.null(rv$cached_filters) && length(rv$filters) > length(rv$cached_filters)) {
         req(filt_update)
         logger::log_info("mod_filter_reactivity_server: triggering report (filters added)")
         rv$trig_report <- rv$trig_report + 1
-      } else if (!is.null(rv$cached_filters) &&
-        length(rv$filters) < length(rv$cached_filters)) {
+      } else if (!is.null(rv$cached_filters) && length(rv$filters) < length(rv$cached_filters)) {
         if (isTRUE(filt_update)) {
           trig_stop <- FALSE
         } else {
           trig_stop <- any(unique(map_lgl(
-            names(rv$filters), \(x) identical(rv$filters[[x]], rv$cached_filters[[x]])
+            names(rv$filters),
+            \(x) identical(rv$filters[[x]], rv$cached_filters[[x]])
           )))
         }
         req(!trig_stop)
         logger::log_info("mod_filter_reactivity_server: triggering report (filters removed)")
         rv$trig_report <- rv$trig_report + 1
-      } else if (!is.null(rv$cached_filters) &&
-        !identical(names(rv$filters), names(rv$cached_filters))) {
+      } else if (!is.null(rv$cached_filters) && !identical(
+        names(rv$filters),
+        names(rv$cached_filters)
+      )) {
         req(filt_update)
         logger::log_info("mod_filter_reactivity_server: triggering report (filters replaced)")
         rv$trig_report <- rv$trig_report + 1
