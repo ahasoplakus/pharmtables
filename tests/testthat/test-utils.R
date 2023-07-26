@@ -172,8 +172,10 @@ test_that("build_generic_bds_table works with filter oondition", {
   )
 
   df <- advs |>
-    filter(PARAM %in% "Diastolic Blood Pressure",
-           SEX == "F")
+    filter(
+      PARAM %in% "Diastolic Blood Pressure",
+      SEX == "F"
+    )
 
   var_labs <- map_chr(c("AVAL", "CHG"), \(x) obj_label(df[[x]]))
 
