@@ -12,7 +12,6 @@ $run_dev.*
 ^CODE_OF_CONDUCT\.md$
 ^\.github$
 ^.lintr$
-^app.R
 ^lint.yaml
 ^_pkgdown\.yml$
 ^docs$
@@ -26,3 +25,4 @@ $run_dev.*
 ^deploy$
 ^tests$
 ^webr$
+^app\.R$
