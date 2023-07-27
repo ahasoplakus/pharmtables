@@ -8,7 +8,7 @@
 #' @param ... character vectors, specifying subdirectory and file(s)
 #' within your package. The default, none, returns the root of the app.
 #'
-#' @noRd
+#' @export
 app_sys <- function(...) {
   system.file(..., package = "clinTables")
 }
