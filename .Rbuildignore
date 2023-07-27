@@ -25,5 +25,4 @@ $run_dev.*
 ^manifest.json
 ^deploy$
 ^tests$
-^R/app_config\.R$
 ^webr$
