@@ -50,6 +50,12 @@ mod_data_read_ui <- function(id) {
                 capture = NULL
               )
             ),
+            column(
+              width = 6,
+              div(actionButton(ns("btn_prev"), "Preview"),
+                style = "justify-content: center; display: flex; padding-bottom: 30px; padding-right: 10px;" # nolint
+              )
+            ),
             mod_setup_filters_ui(ns("setup_filters_1"))
           )
         ),
@@ -207,8 +213,10 @@ mod_data_read_server <- function(id) {
     observe({
       if (is.null(rv$df)) {
         disable("apply")
+        disable("btn_prev")
       } else {
         enable("apply")
+        enable("btn_prev")
       }
     })
 
@@ -242,7 +250,8 @@ mod_data_read_server <- function(id) {
       adeg_filters = eventReactive(
         input$apply,
         rv$setup_filters$adeg_filt()
-      )
+      ),
+      prev_btn = reactive(input$btn_prev)
     ))
   })
 }

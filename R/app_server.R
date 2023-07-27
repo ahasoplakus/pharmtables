@@ -4,22 +4,35 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
-  # Your application server logic
   Sys.sleep(2)
   load_data <- mod_data_read_server("data_read_1")
 
   observe({
     req(load_data$df_read())
     domain <- c("adsl", "adae", "admh", "adcm", "advs", "adlb", "adeg")
-    walk(seq_along(domain) + 2, function(x) {
+    walk(seq_along(domain) + 1, function(x) {
       toggleState(
         selector = str_glue("#tab-Tab{x}"),
-        condition = all(c(domain[x - 2], domain[1]) %in% names(load_data$df_read()))
+        condition = all(c(domain[x - 1], domain[1]) %in% names(load_data$df_read()))
       )
     })
-    updateNavbarTabs(session, inputId = "navmenu", "Tab3")
+    updateNavbarTabs(session, inputId = "navmenu", "Tab2")
   }) |>
     bindEvent(load_data$df_read())
+
+  observe({
+    req(load_data$df_read())
+    showModal(
+      modalDialog(
+        mod_data_preview_ui("data_preview_1"),
+        title = tags$span(icon("eye"), tags$strong("Preview Data")),
+        size = "l",
+        easyClose = FALSE,
+        fade = TRUE
+      )
+    )
+  }) |>
+    bindEvent(load_data$prev_btn())
 
   mod_data_preview_server(
     "data_preview_1",

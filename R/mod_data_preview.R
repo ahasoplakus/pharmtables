@@ -11,7 +11,7 @@ mod_data_preview_ui <- function(id) {
   ns <- NS(id)
   tagList(box(
     id = ns("box_adxx_param"),
-    title = tags$strong("Preview Data"),
+    title = tags$strong("Datasets"),
     maximizable = TRUE,
     width = 12,
     div(

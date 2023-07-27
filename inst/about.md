@@ -15,8 +15,20 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 # Introduction
 
-**clinTables** is a shiny application to visualize standard tables used in
-<b>Clinical Trials</b>. This application is intended for a pilot submission to the FDA composing of a Shiny application, as part of the
+**clinTables** is a **R Shiny Application** to visualize standard tables used in <b>Clinical Trials</b>.\
+It is developed using the <a href="https://thinkr-open.github.io/golem/" target="_blank">Golem</a>
+framework which creates Shiny Applications as R packages, so **clinTables** can be used (installed)
+as an R package as well.
+
+## Installation
+
+Latest `dev` version
+
+```r
+remotes::install_github("ahasoplakus/clinTables")
+```
+<!---
+This application is intended for a pilot submission to the FDA composing of a Shiny application, as part of the
 <a href="https://rconsortium.github.io/submissions-wg/" target="_blank">R Submissions Working Group</a>
 Pilot&nbsp;2.
 The data sets and results displayed in the application originate from the
@@ -80,4 +92,4 @@ A summary table of an additional efficacy analysis is shown for baseline and wee
 A summary table of the number of patients remaining in the treatment period for each scheduled visit from baseline to week 24.
 
 ### 
-```
+-->
