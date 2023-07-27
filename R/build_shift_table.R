@@ -90,14 +90,14 @@ build_shift_table <-
     dummy_anr <-
       tidyr::expand_grid(
         !!trt_var := unique(wpb[[trt_var]]),
-        PARAM = intersect(levels(bds_df[["PARAM"]]), unique(wpb[["PARAM"]])),
-        ANRIND = levels(bds_df[["ANRIND"]])
+        PARAM = intersect(levels(as.factor(bds_df[["PARAM"]])), unique(wpb[["PARAM"]])),
+        ANRIND = levels(as.factor(bds_df[["ANRIND"]]))
       )
 
     if (!is.null(group_var)) {
       group_anr <-
         map(group_var, \(x) tibble::tibble(!!x := intersect(
-          levels(bds_df[[x]]),
+          levels(as.factor(bds_df[[x]])),
           unique(df[[x]])
         ))) |>
         reduce(tidyr::expand_grid)
@@ -105,8 +105,8 @@ build_shift_table <-
     }
 
     dummy_anr <- dummy_anr |>
-      cross_join(tibble::tibble(BNRIND = levels(bds_df[["ANRIND"]]))) |>
-      filter(ANRIND != "<Missing>", BNRIND != "<Missing>")
+      cross_join(tibble::tibble(BNRIND = c(levels(as.factor(bds_df[["ANRIND"]])), "Total"))) |>
+      filter(!ANRIND %in% c("<Missing>", ""), !BNRIND %in% c("<Missing>", ""))
 
     # get the parameter counts and merge with {dummy_anr} to get all combinations
     wpb_anr <- wpb |>

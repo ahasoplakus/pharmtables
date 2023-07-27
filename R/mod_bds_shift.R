@@ -62,12 +62,12 @@ mod_bds_shift_ui <- function(id,
       height = "800px",
       shinyWidgets::prettySwitch(
         ns("view"),
-        label = "Default View",
+        label = "Toggle View",
         value = TRUE,
         status = "info",
         inline = TRUE,
         fill = TRUE,
-        slim = TRUE
+        slim = FALSE
       ),
       div(
         shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_shift")),
@@ -150,18 +150,19 @@ mod_bds_shift_server <- function(id,
           )
         ))
 
-      group_choices <-
-        select(df, -all_of(trt_choices)) |>
+      group_choices <- df |>
         select(!ends_with(c(
           "DTM", "DUR", "PN", "AN", "DT", "CD", "TEST", "DY", "SEQ"
         ))) |>
         select(!contains(
           c(
+            trt_choices,
             "PARAM",
             "ANRIND",
             "BNRIND",
             "STUDYID",
             "SUBJID",
+            "SITEID",
             "FL",
             "AVAL",
             "CHG"

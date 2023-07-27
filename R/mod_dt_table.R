@@ -49,7 +49,8 @@ mod_dt_table_server <- function(id, display_df) {
         df <- tt_to_flextable(display_df()$out_df)
       }
       df
-    }) |> bindEvent(display_df())
+    }) |>
+      bindEvent(display_df())
 
     output$out_data <- renderUI({
       req(df_out())

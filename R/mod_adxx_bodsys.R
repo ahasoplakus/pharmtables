@@ -9,7 +9,8 @@
 #' @importFrom shiny NS tagList
 mod_adxx_bodsys_ui <-
   function(id,
-           title = "Summary of Treatment-Emergent Adverse Events (TEAES) By Body System Class",
+           title = "Summary of Adverse Events by Body System or Organ Class and Dictionary-Derived
+           Term",
            domain = "ADAE",
            logo = "head-side-cough") {
     ns <- NS(id)

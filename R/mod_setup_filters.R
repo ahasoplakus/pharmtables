@@ -13,6 +13,7 @@ mod_setup_filters_ui <- function(id) {
     fluidRow(
       accordion(
         id = ns("acc_study_setup"),
+        width = 6,
         accordionItem(
           title = "ADSL Filters",
           selectizeInput(

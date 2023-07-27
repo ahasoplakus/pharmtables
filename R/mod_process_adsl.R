@@ -35,8 +35,10 @@ mod_process_adsl_server <- function(id,
         req(global_filters())
         req(none(global_filters(), is.null))
         run_cond <-
-          !identical(df_out()[[dataset]], rv$cached_df) ||
-            !identical(global_filters(), rv$cached_filters)
+          !identical(df_out()[[dataset]], rv$cached_df) || !identical(
+            global_filters(),
+            rv$cached_filters
+          )
         req(run_cond)
         logger::log_info("mod_process_adsl_server: loaded adsl has
                          {nrow(df_out()[[dataset]])} rows")
