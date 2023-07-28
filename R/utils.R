@@ -56,7 +56,7 @@ build_adsl_chars_table <-
           quantiles = c("IQR")
         )
       ) |>
-      append_topleft(c("", "Characteristic"))
+      append_topleft(c("", "Baseline Characteristic"))
   }
 
 

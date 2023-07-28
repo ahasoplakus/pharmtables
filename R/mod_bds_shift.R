@@ -142,7 +142,7 @@ mod_bds_shift_server <- function(id,
           adsl(),
           setdiff(
             starts_with(
-              c("ACT", "ARM", "TRT")
+              c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")
             ),
             ends_with(
               c("DTM", "DUR", "PN", "AN", "DT", "FL")

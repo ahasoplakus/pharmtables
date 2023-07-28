@@ -118,7 +118,7 @@ mod_adae_sev_tox_server <- function(id,
         names(select(
           adsl(),
           setdiff(
-            starts_with(c("ACT", "ARM", "TRT")),
+            starts_with(c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")),
             ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
           )
         ))
