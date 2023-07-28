@@ -39,22 +39,27 @@ mod_bds_shift_ui <- function(id,
                 "Treatment Variable",
                 choices = NULL,
                 selected = NULL,
-                width = 400
+                width = "100vw"
               ),
               selectInput(
                 ns("group_var"),
                 "Additonal Grouping Variables",
                 choices = NULL,
                 selected = NULL,
-                width = 400,
+                width = "100vw",
                 multiple = TRUE
               )
             ), class = "side_accord")
           ),
-          style = "width: 350px;"
+          style = "display: flex; justify-content: center;"
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Update"),
-          class = "side_apply"
+        fluidRow(
+          div(
+            tagAppendAttributes(actionButton(ns("run"), "Update"),
+              class = "side_apply"
+            ),
+            style = "display: flex; justify-content: center; width: 100vw;"
+          )
         )
       ),
       maximizable = TRUE,

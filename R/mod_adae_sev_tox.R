@@ -31,35 +31,40 @@ mod_adae_sev_tox_ui <- function(id) {
                 "Treatment Variable",
                 choices = NULL,
                 selected = NULL,
-                width = 400
+                width = "100vw"
               ),
               selectInput(
                 ns("class"),
                 "Higher Level Term",
                 choices = NULL,
                 selected = NULL,
-                width = 400
+                width = "100vw"
               ),
               selectInput(
                 ns("term"),
                 "Lower Level Term",
                 choices = NULL,
                 selected = NULL,
-                width = 400
+                width = "100vw"
               ),
               selectInput(
                 ns("summ_var"),
                 "Summarize",
                 choices = NULL,
                 selected = NULL,
-                width = 400
+                width = "100vw"
               )
             ), class = "side_accord")
           ),
-          style = "width: 350px;"
+          style = "display: flex; justify-content: center;"
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Update"),
-          class = "side_apply"
+        fluidRow(
+          div(
+            tagAppendAttributes(actionButton(ns("run"), "Update"),
+              class = "side_apply"
+            ),
+            style = "display: flex; justify-content: center; width: 100vw;"
+          )
         )
       ),
       maximizable = TRUE,
