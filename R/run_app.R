@@ -1,3 +1,4 @@
+options(shiny.maxRequestSize = 100000 * 1024^2)
 #' Run the Shiny Application
 #'
 #' @param ... arguments to pass to golem_opts.

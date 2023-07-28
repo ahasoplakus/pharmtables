@@ -167,15 +167,9 @@ div.sidebar .shiny-input-container {
 }
 
 .direct-chat-contacts {
-    bottom: 0;
     color: #2E4F4F;
     background-color: #fff !important;
     overflow: auto;
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: left;
-    align-items: start;
     border-style: ridge;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;

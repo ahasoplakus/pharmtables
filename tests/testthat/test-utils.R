@@ -39,7 +39,7 @@ test_that("build_adsl_chars_table works", {
         quantiles = c("IQR")
       )
     ) |>
-    append_topleft(c("", "Characteristic"))
+    append_topleft(c("", "Baseline Characteristic"))
 
   expect_identical(lyt, exp_lyt)
 })

@@ -90,7 +90,7 @@ mod_adae_summary_server <- function(id,
 
       df_adsl <- adsl() |>
         select(USUBJID, setdiff(
-          starts_with(c("ACT", "ARM", "TRT0")),
+          starts_with(c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")),
           ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
         )) |>
         unique()
@@ -117,6 +117,7 @@ mod_adae_summary_server <- function(id,
         aesi_vars = aesi_vars
       ))
     }) |>
+      bindCache(list(adsl(), df_out()[[dataset]])) |>
       bindEvent(list(adsl(), df_out()[[dataset]]))
 
     observe({
@@ -182,6 +183,8 @@ mod_adae_summary_server <- function(id,
 
       disp_eve <- ae_summ_init()$aesi_vars[ae_summ_init()$aesi_vars %in% input$events]
 
+      logger::log_info("mod_adae_summary_server: creating {dataset} summary")
+
       lyt <- build_adae_summary(
         adae = ae_summ_init()$out_df,
         filter_cond = filt_react$filter_cond(),
@@ -197,6 +200,7 @@ mod_adae_summary_server <- function(id,
     }) |>
       bindCache(
         list(
+          adsl(),
           ae_summ_init(),
           dataset,
           input$split_col,
@@ -204,7 +208,7 @@ mod_adae_summary_server <- function(id,
           filt_react$filter_cond()
         )
       ) |>
-      bindEvent(list(ae_summ_init(), input$run, filt_react$trig_report()))
+      bindEvent(list(adsl(), input$run, filt_react$trig_report()))
 
     mod_dt_table_server("dt_table_ae_summ",
       display_df = ae_summ
