@@ -8,6 +8,14 @@ app_server <- function(input, output, session) {
   load_data <- mod_data_read_server("data_read_1")
 
   observe({
+    if (length(load_data$df_read()) < 1) {
+      hide(selector = "#acc_st_filt")
+    } else {
+      show(selector = "#acc_st_filt")
+    }
+  })
+
+  observe({
     req(load_data$df_read())
     domain <- c("adsl", "adae", "admh", "adcm", "advs", "adlb", "adeg")
     walk(seq_along(domain) + 1, function(x) {

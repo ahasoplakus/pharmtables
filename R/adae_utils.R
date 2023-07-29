@@ -58,8 +58,11 @@ add_adae_flags <- function(df) {
   if ("AETOXGR" %in% names(df)) {
     df <- df |>
       mutate(
-        CTC35 = AETOXGR %in% c("3", "4", "5"),
-        CTC45 = AETOXGR %in% c("4", "5")
+        CTC35 = stringr::str_to_sentence(AETOXGR) %in% c(
+          "3", "4", "5",
+          "Grade 3", "Grade 4", "Grade 5"
+        ),
+        CTC45 = AETOXGR %in% c("4", "5", "Grade 4", "Grade 5")
       ) |>
       var_relabel(
         CTC35 = "Grade 3-5 AE",

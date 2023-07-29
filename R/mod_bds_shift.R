@@ -233,7 +233,7 @@ mod_bds_shift_server <- function(id,
       df <- df_out()[[dataset]]
 
       trt_label <-
-        compact(map(set_names(input$split_col), \(x) obj_label(df[[x]])))
+        compact(map(set_names(input$split_col), \(x) obj_label(adsl()[[x]])))
       group_label <- NULL
 
       if (!is.null(input$group_var)) {
