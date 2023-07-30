@@ -125,7 +125,7 @@ div.sidebar .shiny-input-container {
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #526D82;
-    background-color: #D3E4CD;
+    background-color: #F3F4ED;
     margin-right: 5px !important;
     border: 2px solid #293B5F !important;
     font-weight: 400 !important;
@@ -167,15 +167,9 @@ div.sidebar .shiny-input-container {
 }
 
 .direct-chat-contacts {
-    bottom: 0;
     color: #2E4F4F;
     background-color: #fff !important;
     overflow: auto;
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: left;
-    align-items: start;
     border-style: ridge;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -202,7 +196,6 @@ div.sidebar .shiny-input-container {
     color: #fff;
     width: 180px;
     border-radius: 2rem;
-    margin-left: 85px;
     display: flex !important;
     justify-content: space-around;
 }

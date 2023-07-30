@@ -15,7 +15,10 @@ create_widget <- function(filter_list, df, dataset, namespace) {
     filter_list |>
     set_names() |>
     map(\(x) if (is.factor(df[[dataset]][[x]])) {
-      levels(unique(pull(df[[dataset]], x)))
+      intersect(
+        levels(unique(pull(df[[dataset]], x))),
+        unique(pull(df[[dataset]], x))
+      )
     } else {
       unique(pull(df[[dataset]], x))
     })
@@ -185,7 +188,7 @@ named_choice_list <- function(choices, dataset) {
 #'
 read_data_list <- function(data_path, data_name, data_list) {
   map(data_path, function(x) {
-    if (tools::file_ext(data_name) == "sas7bdat") {
+    if (all(tools::file_ext(data_name) == "sas7bdat")) {
       df <- haven::read_sas(x)
     } else {
       df <- readRDS(x)

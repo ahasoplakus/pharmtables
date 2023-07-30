@@ -39,22 +39,27 @@ mod_bds_shift_ui <- function(id,
                 "Treatment Variable",
                 choices = NULL,
                 selected = NULL,
-                width = 400
+                width = "100vw"
               ),
               selectInput(
                 ns("group_var"),
                 "Additonal Grouping Variables",
                 choices = NULL,
                 selected = NULL,
-                width = 400,
+                width = "100vw",
                 multiple = TRUE
               )
             ), class = "side_accord")
           ),
-          style = "width: 350px;"
+          style = "display: flex; justify-content: center;"
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Update"),
-          class = "side_apply"
+        fluidRow(
+          div(
+            tagAppendAttributes(actionButton(ns("run"), "Update"),
+              class = "side_apply"
+            ),
+            style = "display: flex; justify-content: center; width: 100vw;"
+          )
         )
       ),
       maximizable = TRUE,
@@ -142,7 +147,7 @@ mod_bds_shift_server <- function(id,
           adsl(),
           setdiff(
             starts_with(
-              c("ACT", "ARM", "TRT")
+              c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")
             ),
             ends_with(
               c("DTM", "DUR", "PN", "AN", "DT", "FL")
@@ -228,7 +233,7 @@ mod_bds_shift_server <- function(id,
       df <- df_out()[[dataset]]
 
       trt_label <-
-        compact(map(set_names(input$split_col), \(x) obj_label(df[[x]])))
+        compact(map(set_names(input$split_col), \(x) obj_label(adsl()[[x]])))
       group_label <- NULL
 
       if (!is.null(input$group_var)) {

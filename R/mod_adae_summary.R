@@ -29,7 +29,7 @@ mod_adae_summary_ui <- function(id) {
                 "Treatment Variable",
                 choices = NULL,
                 selected = NULL,
-                width = 400
+                width = "100vw"
               ),
               div(
                 prettyCheckboxGroup(
@@ -46,10 +46,15 @@ mod_adae_summary_ui <- function(id) {
               )
             ), class = "side_accord")
           ),
-          style = "width: 350px;"
+          style = "display: flex; justify-content: center;"
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Update"),
-          class = "side_apply"
+        fluidRow(
+          div(
+            tagAppendAttributes(actionButton(ns("run"), "Update"),
+              class = "side_apply"
+            ),
+            style = "display: flex; justify-content: center; width: 100vw;"
+          )
         )
       ),
       maximizable = TRUE,
@@ -90,7 +95,7 @@ mod_adae_summary_server <- function(id,
 
       df_adsl <- adsl() |>
         select(USUBJID, setdiff(
-          starts_with(c("ACT", "ARM", "TRT0")),
+          starts_with(c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")),
           ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
         )) |>
         unique()
@@ -106,6 +111,16 @@ mod_adae_summary_server <- function(id,
                          {nrow(df)} rows")
 
       df_ <- add_adae_flags(df_out()[[dataset]])
+      flag_check <- ncol(df_out()[[dataset]]) != ncol(df_)
+      if (isFALSE(flag_check)) {
+        show_toast(
+          title = "Expected Variables are not present in the Adverse Events Dataset",
+          text = "Please use a different Adverse Events Data",
+          type = "error"
+        )
+      }
+      req(flag_check)
+
       aesi_vars <- setdiff(names(df_), names(df_out()[[dataset]]))
       df <- suppressMessages(inner_join(df, df_))
       labels <- var_labels(df[, aesi_vars])
@@ -117,6 +132,7 @@ mod_adae_summary_server <- function(id,
         aesi_vars = aesi_vars
       ))
     }) |>
+      bindCache(list(adsl(), df_out()[[dataset]])) |>
       bindEvent(list(adsl(), df_out()[[dataset]]))
 
     observe({
@@ -132,7 +148,7 @@ mod_adae_summary_server <- function(id,
         names(select(
           adsl(),
           setdiff(
-            starts_with(c("ACT", "ARM", "TRT")),
+            starts_with(c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")),
             ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
           )
         ))
@@ -182,6 +198,8 @@ mod_adae_summary_server <- function(id,
 
       disp_eve <- ae_summ_init()$aesi_vars[ae_summ_init()$aesi_vars %in% input$events]
 
+      logger::log_info("mod_adae_summary_server: creating {dataset} summary")
+
       lyt <- build_adae_summary(
         adae = ae_summ_init()$out_df,
         filter_cond = filt_react$filter_cond(),
@@ -197,6 +215,7 @@ mod_adae_summary_server <- function(id,
     }) |>
       bindCache(
         list(
+          adsl(),
           ae_summ_init(),
           dataset,
           input$split_col,
@@ -204,7 +223,7 @@ mod_adae_summary_server <- function(id,
           filt_react$filter_cond()
         )
       ) |>
-      bindEvent(list(ae_summ_init(), input$run, filt_react$trig_report()))
+      bindEvent(list(adsl(), input$run, filt_react$trig_report()))
 
     mod_dt_table_server("dt_table_ae_summ",
       display_df = ae_summ

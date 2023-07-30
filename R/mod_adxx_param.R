@@ -33,36 +33,41 @@ mod_adxx_param_ui <- function(id,
                 "Treatment Variable",
                 choices = NULL,
                 selected = NULL,
-                width = 400
+                width = "100vw"
               ),
               selectInput(
                 ns("param"),
                 "Parameter Value",
                 choices = NULL,
                 selected = NULL,
-                width = 400,
+                width = "100vw",
               ),
               selectInput(
                 ns("visit"),
                 "Analysis Visit",
                 choices = NULL,
                 selected = NULL,
-                width = 400,
+                width = "100vw",
               ),
               selectInput(
                 ns("summ_var"),
                 "Analysis Variables",
                 choices = NULL,
                 selected = NULL,
-                width = 400,
+                width = "100vw",
                 multiple = TRUE
               )
             ), class = "side_accord")
           ),
-          style = "width: 350px;"
+          style = "display: flex; justify-content: center;"
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Update"),
-          class = "side_apply"
+        fluidRow(
+          div(
+            tagAppendAttributes(actionButton(ns("run"), "Update"),
+              class = "side_apply"
+            ),
+            style = "display: flex; justify-content: center; width: 100vw;"
+          )
         )
       ),
       maximizable = TRUE,
@@ -142,7 +147,7 @@ mod_adxx_param_server <- function(id,
         names(select(
           adsl(),
           setdiff(
-            starts_with(c("ACT", "ARM", "TRT")),
+            starts_with(c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")),
             ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
           )
         ))

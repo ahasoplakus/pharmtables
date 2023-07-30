@@ -28,7 +28,7 @@ mod_adsl_display_ui <- function(id) {
                 "Treatment Variable",
                 choices = NULL,
                 selected = NULL,
-                width = 400
+                width = "100vw"
               ),
               selectInput(
                 ns("summ_var"),
@@ -36,7 +36,7 @@ mod_adsl_display_ui <- function(id) {
                 choices = NULL,
                 selected = NULL,
                 multiple = TRUE,
-                width = 400
+                width = "100vw"
               ),
               prettyCheckboxGroup(
                 inputId = ns("stats"),
@@ -50,10 +50,15 @@ mod_adsl_display_ui <- function(id) {
               )
             ), class = "side_accord")
           ),
-          style = "width: 350px;"
+          style = "display: flex; justify-content: center;"
         ),
-        tagAppendAttributes(actionButton(ns("run"), "Update"),
-          class = "side_apply"
+        fluidRow(
+          div(
+            tagAppendAttributes(actionButton(ns("run"), "Update"),
+              class = "side_apply"
+            ),
+            style = "display: flex; justify-content: center; width: 100vw;"
+          )
         )
       ),
       maximizable = TRUE,
@@ -84,7 +89,7 @@ mod_adsl_display_server <- function(id, adsl) {
 
       trt_choices <-
         names(select(adsl(), setdiff(
-          starts_with(c("ACT", "ARM", "TRT")),
+          starts_with(c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")),
           ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
         )))
       rowgrp_choices <-
