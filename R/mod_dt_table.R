@@ -40,13 +40,20 @@ mod_dt_table_server <- function(id, display_df) {
             df = display_df()$out_df,
             alt_counts_df = display_df()$alt_df
           )
-        )
+        ) |>
+          table_options()
       } else if (isTRUE(inherits(display_df()$out_df, "flextable"))) {
         df <- display_df()$out_df |>
-          flextable::font(fontname = "courier", part = "body")
+          flextable::autofit() |>
+          flextable::theme_zebra(odd_body = "#F3F4ED", odd_header = "#F3F4ED") |>
+          flextable::border(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
+          flextable::font(fontname = "courier", part = "body") |>
+          flextable::align(align = "center", part = "header") |>
+          flextable::align(align = "left", j = 1, part = "header")
       } else {
         req(nrow(display_df()$out_df) > 0)
-        df <- tt_to_flextable(display_df()$out_df)
+        df <- tt_to_flextable(display_df()$out_df) |>
+          table_options()
       }
       df
     }) |>
@@ -56,13 +63,6 @@ mod_dt_table_server <- function(id, display_df) {
       req(df_out())
       logger::log_info("mod_dt_table_server: display data")
       df_out() |>
-        flextable::autofit() |>
-        flextable::theme_zebra(odd_body = "#F3F4ED", odd_header = "#F3F4ED") |>
-        flextable::border_inner_h(border = officer::fp_border(color = "#9DB2BF"), part = "body") |>
-        flextable::border_inner_v(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
-        flextable::border_outer(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
-        flextable::align(align = "center", part = "header") |>
-        flextable::align(align = "left", j = 1, part = "header") |>
         flextable::htmltools_value()
     })
   })

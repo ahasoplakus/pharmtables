@@ -111,6 +111,16 @@ mod_adae_summary_server <- function(id,
                          {nrow(df)} rows")
 
       df_ <- add_adae_flags(df_out()[[dataset]])
+      flag_check <- ncol(df_out()[[dataset]]) != ncol(df_)
+      if (isFALSE(flag_check)) {
+        show_toast(
+          title = "Expected Variables are not present in the Adverse Events Dataset",
+          text = "Please use a different Adverse Events Data",
+          type = "error"
+        )
+      }
+      req(flag_check)
+
       aesi_vars <- setdiff(names(df_), names(df_out()[[dataset]]))
       df <- suppressMessages(inner_join(df, df_))
       labels <- var_labels(df[, aesi_vars])
@@ -138,7 +148,7 @@ mod_adae_summary_server <- function(id,
         names(select(
           adsl(),
           setdiff(
-            starts_with(c("ACT", "ARM", "TRT")),
+            starts_with(c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")),
             ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
           )
         ))

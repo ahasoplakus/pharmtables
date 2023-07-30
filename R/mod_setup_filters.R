@@ -31,7 +31,7 @@ mod_setup_filters_ui <- function(id) {
             "",
             choices = NULL,
             selected = NULL,
-            options = list(maxItems = 4)
+            options = list(maxItems = 8)
           )
         ),
         accordionItem(
@@ -41,7 +41,7 @@ mod_setup_filters_ui <- function(id) {
             "",
             choices = NULL,
             selected = NULL,
-            options = list(maxItems = 4)
+            options = list(maxItems = 8)
           )
         ),
         accordionItem(
@@ -51,7 +51,7 @@ mod_setup_filters_ui <- function(id) {
             "",
             choices = NULL,
             selected = NULL,
-            options = list(maxItems = 4)
+            options = list(maxItems = 8)
           )
         ),
         accordionItem(
@@ -61,7 +61,7 @@ mod_setup_filters_ui <- function(id) {
             "",
             choices = NULL,
             selected = NULL,
-            options = list(maxItems = 4)
+            options = list(maxItems = 8)
           )
         ),
         accordionItem(
@@ -71,7 +71,7 @@ mod_setup_filters_ui <- function(id) {
             "",
             choices = NULL,
             selected = NULL,
-            options = list(maxItems = 4)
+            options = list(maxItems = 8)
           )
         ),
         accordionItem(
@@ -81,7 +81,7 @@ mod_setup_filters_ui <- function(id) {
             "",
             choices = NULL,
             selected = NULL,
-            options = list(maxItems = 4)
+            options = list(maxItems = 8)
           )
         )
       )
@@ -149,7 +149,7 @@ mod_setup_filters_server <- function(id, load_data) {
         "",
         choices = choice_list,
         selected = selected,
-        options = list(maxItems = 4)
+        options = list(maxItems = 8)
       )
     })
 
@@ -175,7 +175,7 @@ mod_setup_filters_server <- function(id, load_data) {
         "",
         choices = choice_list,
         selected = selected,
-        options = list(maxItems = 4)
+        options = list(maxItems = 8)
       )
     })
 
@@ -201,7 +201,7 @@ mod_setup_filters_server <- function(id, load_data) {
         "",
         choices = choice_list,
         selected = selected,
-        options = list(maxItems = 4)
+        options = list(maxItems = 8)
       )
     })
 
@@ -229,7 +229,7 @@ mod_setup_filters_server <- function(id, load_data) {
         "",
         choices = choice_list,
         selected = selected,
-        options = list(maxItems = 4)
+        options = list(maxItems = 8)
       )
     })
 
@@ -257,7 +257,7 @@ mod_setup_filters_server <- function(id, load_data) {
         "",
         choices = choice_list,
         selected = selected,
-        options = list(maxItems = 4)
+        options = list(maxItems = 8)
       )
     })
 
@@ -285,7 +285,7 @@ mod_setup_filters_server <- function(id, load_data) {
         "",
         choices = choice_list,
         selected = selected,
-        options = list(maxItems = 4)
+        options = list(maxItems = 8)
       )
     })
 

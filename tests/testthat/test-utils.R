@@ -141,8 +141,7 @@ test_that("build_generic_bds_table works", {
   var_labs <- map_chr(c("AVAL", "CHG"), \(x) obj_label(df[[x]]))
 
   exp_lyt <- basic_table(
-    show_colcounts = TRUE,
-    title = str_glue("Summary of Diastolic Blood Pressure w.r.t {paste(var_labs, collapse = ', ')}")
+    show_colcounts = TRUE
   ) |>
     split_cols_by("ARM", split_fun = drop_split_levels) |>
     split_rows_by(
@@ -180,8 +179,7 @@ test_that("build_generic_bds_table works with filter oondition", {
   var_labs <- map_chr(c("AVAL", "CHG"), \(x) obj_label(df[[x]]))
 
   exp_lyt <- basic_table(
-    show_colcounts = TRUE,
-    title = str_glue("Summary of Diastolic Blood Pressure w.r.t {paste(var_labs, collapse = ', ')}")
+    show_colcounts = TRUE
   ) |>
     split_cols_by("ARM", split_fun = drop_split_levels) |>
     split_rows_by(

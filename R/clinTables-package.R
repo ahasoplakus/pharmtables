@@ -79,6 +79,7 @@
 #' @importFrom stringr str_glue
 #' @importFrom stringr str_remove_all
 #' @importFrom stringr str_sub
+#' @importFrom stringr str_to_sentence
 #' @importFrom stringr str_to_title
 #' @importFrom stringr str_trunc
 #' @importFrom tern append_varlabels

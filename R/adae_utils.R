@@ -19,13 +19,18 @@
 #' slice_head(tbl, n = 5)
 #'
 add_adae_flags <- function(df) {
-  if (!any(c("AESER", "AEREL", "AEACN", "AESDTH") %in% names(df))) {
+  if (!any(c("AESER", "AEREL", "AEACN") %in% names(df))) {
     return(df)
+  }
+
+  if ("AESDTH" %in% names(df)) {
+    df <- df |>
+      mutate(FATAL = AESDTH == "Y") |>
+      var_relabel(FATAL = "AE with fatal outcome")
   }
 
   df <- df |>
     mutate(
-      FATAL = AESDTH == "Y",
       SER = AESER == "Y",
       SERWD = AESER == "Y" & AEACN == "DRUG WITHDRAWN",
       SERDSM = AESER == "Y" & AEACN %in% c(
@@ -43,7 +48,6 @@ add_adae_flags <- function(df) {
       )
     ) |>
     var_relabel(
-      FATAL = "AE with fatal outcome",
       SER = "Serious AE",
       SERWD = "Serious AE leading to withdrawal from treatment",
       SERDSM = "Serious AE leading to dose modification/interruption",
@@ -58,8 +62,11 @@ add_adae_flags <- function(df) {
   if ("AETOXGR" %in% names(df)) {
     df <- df |>
       mutate(
-        CTC35 = AETOXGR %in% c("3", "4", "5"),
-        CTC45 = AETOXGR %in% c("4", "5")
+        CTC35 = str_to_sentence(AETOXGR) %in% c(
+          "3", "4", "5",
+          "Grade 3", "Grade 4", "Grade 5"
+        ),
+        CTC45 = AETOXGR %in% c("4", "5", "Grade 4", "Grade 5")
       ) |>
       var_relabel(
         CTC35 = "Grade 3-5 AE",

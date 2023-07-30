@@ -135,7 +135,7 @@ build_generic_occurrence_table <-
       split_rows_by(
         class_var,
         label_pos = "topleft",
-        split_label = obj_label(df[[class_var]]),
+        split_label = obj_label(occ_df[[class_var]]),
         split_fun = drop_split_levels
       ) |>
       summarize_num_patients(
@@ -144,7 +144,7 @@ build_generic_occurrence_table <-
         .labels = c(unique = NULL)
       ) |>
       count_occurrences(vars = term_var) |>
-      append_topleft(paste(" ", obj_label(df[[term_var]])))
+      append_topleft(paste(" ", obj_label(occ_df[[term_var]])))
 
     return(list(lyt = lyt, df_out = df))
   }
@@ -195,7 +195,7 @@ build_generic_bds_table <-
         filter(!!!parse_exprs(filter_cond))
     }
 
-    vis_label <- obj_label(df[[visit]])
+    vis_label <- obj_label(bds_df[[visit]])
     vis_levels <- df |>
       arrange(AVISITN) |>
       distinct(!!sym(visit)) |>
@@ -203,12 +203,9 @@ build_generic_bds_table <-
       as.character()
 
     df[[visit]] <- factor(df[[visit]], levels = vis_levels)
-    var_labs <- map_chr(disp_vars, \(x) obj_label(df[[x]]))
+    var_labs <- map_chr(disp_vars, \(x) obj_label(bds_df[[x]]))
 
-    lyt <- basic_table(
-      show_colcounts = TRUE,
-      title = str_glue("Summary of {param} w.r.t {paste(var_labs, collapse = ', ')}")
-    ) |>
+    lyt <- basic_table(show_colcounts = TRUE) |>
       split_cols_by(trt_var, split_fun = drop_split_levels) |>
       split_rows_by(
         visit,
