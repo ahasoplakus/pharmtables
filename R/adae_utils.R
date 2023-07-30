@@ -201,7 +201,7 @@ build_adae_by_sev_tox <- function(adsl,
   if (isTRUE(default_view)) {
     adsl <- adsl |>
       add_count(.data[[colsby]]) |>
-      mutate(colsby_lab = paste0(.data[[colsby]], " (n = ", n, ")")) |>
+      mutate(colsby_lab = paste0(.data[[colsby]], " (N = ", n, ")")) |>
       select(all_of(c("USUBJID", colsby)), colsby_lab)
 
     if (grade_val == "AESEV") {
