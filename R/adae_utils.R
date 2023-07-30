@@ -62,7 +62,7 @@ add_adae_flags <- function(df) {
   if ("AETOXGR" %in% names(df)) {
     df <- df |>
       mutate(
-        CTC35 = stringr::str_to_sentence(AETOXGR) %in% c(
+        CTC35 = str_to_sentence(AETOXGR) %in% c(
           "3", "4", "5",
           "Grade 3", "Grade 4", "Grade 5"
         ),
