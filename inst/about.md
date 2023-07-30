@@ -22,11 +22,9 @@ as an R package as well.
 
 ## Installation
 
-Latest `dev` version
+Install the latest `dev` version `remotes::install_github("ahasoplakus/clinTables")`
 
-```r
-remotes::install_github("ahasoplakus/clinTables")
-```
+After installation, install these packages with `install.packages(c("logger", "haven", "reactable", "markdown", "shinycssloaders", "flextable", "officer"))`
 <!---
 This application is intended for a pilot submission to the FDA composing of a Shiny application, as part of the
 <a href="https://rconsortium.github.io/submissions-wg/" target="_blank">R Submissions Working Group</a>
