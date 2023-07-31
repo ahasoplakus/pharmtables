@@ -140,6 +140,7 @@ build_generic_occurrence_table <-
         class_var,
         label_pos = "topleft",
         split_label = obj_label(occ_df[[class_var]]),
+        indent_mod = 1L,
         split_fun = drop_split_levels
       ) |>
       summarize_num_patients(
@@ -218,6 +219,7 @@ build_generic_bds_table <-
       split_rows_by(
         visit,
         split_fun = drop_split_levels,
+        indent_mod = 1L,
         label_pos = "topleft",
         split_label = vis_label
       )
@@ -235,7 +237,7 @@ build_generic_bds_table <-
     lyt <- lyt |>
       split_cols_by_multivar(
         vars = disp_vars,
-        varlabels = var_labs
+        varlabels = str_wrap(var_labs, 15)
       ) |>
       summarize_colvars(.labels = c(range = "Min - Max")) |>
       append_topleft(paste(" ", "Summary Statistic"))

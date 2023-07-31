@@ -26,87 +26,57 @@ test_that("mod_adae_summary_server works", {
 
       df <- df_out()[[dataset]] |>
         filter(USUBJID %in% unique(adsl()$USUBJID)) |>
-        mutate(
-          FATAL = AESDTH == "Y",
-          SER = AESER == "Y",
-          SERWD = AESER == "Y" & AEACN == "DRUG WITHDRAWN",
-          SERDSM = AESER == "Y" & AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
-          RELSER = AESER == "Y" & AEREL == "Y",
-          WD = AEACN == "DRUG WITHDRAWN",
-          DSM = AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
-          REL = AEREL == "Y",
-          RELWD = AEREL == "Y" & AEACN == "DRUG WITHDRAWN",
-          RELDSM = AEREL == "Y" & AEACN %in% c("DRUG INTERRUPTED", "DOSE INCREASED", "DOSE REDUCED"),
-          CTC35 = AETOXGR %in% c("3", "4", "5"),
-          CTC45 = AETOXGR %in% c("4", "5")
-        ) |>
-        var_relabel(
-          FATAL = "AE with fatal outcome",
-          SER = "Serious AE",
-          SERWD = "Serious AE leading to withdrawal from treatment",
-          SERDSM = "Serious AE leading to dose modification/interruption",
-          RELSER = "Related Serious AE",
-          WD = "AE leading to withdrawal from treatment",
-          DSM = "AE leading to dose modification/interruption",
-          REL = "Related AE",
-          RELWD = "Related AE leading to withdrawal from treatment",
-          RELDSM = "Related AE leading to dose modification/interruption",
-          CTC35 = "Grade 3-5 AE",
-          CTC45 = "Grade 4/5 AE"
-        )
+        add_adae_flags()
 
-      disp_eve <- c(
-        "FATAL", "SER", "SERWD", "SERDSM", "RELSER", "WD",
-        "DSM", "REL", "RELWD", "RELDSM", "CTC35", "CTC45"
-      )
-
-      disp_eve1 <- c("FATAL", "SER", "SERWD")
+      disp_eve <- names(df)[93:107]
 
       exp_lyt <- basic_table(show_colcounts = TRUE) |>
         split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
         add_overall_col(label = "All Patients") |>
-        count_patients_with_event(
+        count_patients_with_flags(
+          "USUBJID",
+          flag_variables = var_labels(df[, "SER"]),
+          .indent_mods = 1L,
+          table_names = "sae"
+        ) |>
+        count_patients_with_flags(
+          "USUBJID",
+          flag_variables = var_labels(df[, c(
+            "SAEFATAL", "SAELIFE", "SAEHOSP",
+            "SAEDISAB", "SAECONG", "SAEMIE"
+          )]),
+          .indent_mods = 2L,
+          table_names = "sae_fl"
+        ) |>
+        count_patients_with_flags(
+          var = "USUBJID",
+          flag_variables = var_labels(df[, c("WD", "WDSM")]),
+          .indent_mods = 1L,
+          table_names = "ae"
+        ) |>
+        count_patients_with_flags(
+          var = "USUBJID",
+          flag_variables = var_labels(df[, c("AEINT", "AERED", "AED", "AEMIE")]),
+          .indent_mods = 2L,
+          table_names = "ds"
+        ) |>
+        analyze_num_patients(
           vars = "USUBJID",
-          filters = c("STUDYID" = as.character(unique(df[["STUDYID"]]))),
-          denom = "N_col",
-          .labels = c(count_fraction = "Total number of patients with at least one adverse event")
+          .stats = "unique",
+          .labels = c(unique = "Any AE"),
+          .indent_mods = 1L,
+          show_labels = "hidden"
         ) |>
-        count_values(
-          "STUDYID",
-          values = as.character(unique(df[["STUDYID"]])),
-          .stats = "count",
-          .labels = c(count = "Total AEs"),
-          table_names = "total_aes"
+        count_occurrences_by_grade(
+          var = "AESEV",
+          show_labels = "hidden",
+          .indent_mods = 2L
         ) |>
-        count_patients_with_flags("USUBJID",
-          flag_variables = var_labels(df[, disp_eve]),
-          denom = "N_col",
-          var_labels = "Total number of patients with at least one",
-          show_labels = "visible"
-        ) |>
-        append_topleft(c("", "Adverse Events"))
-
-      exp_lyt1 <- basic_table(show_colcounts = TRUE) |>
-        split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
-        add_overall_col(label = "All Patients") |>
-        count_patients_with_event(
-          vars = "USUBJID",
-          filters = c("STUDYID" = as.character(unique(df[["STUDYID"]]))),
-          denom = "N_col",
-          .labels = c(count_fraction = "Total number of patients with at least one adverse event")
-        ) |>
-        count_values(
-          "STUDYID",
-          values = as.character(unique(df[["STUDYID"]])),
-          .stats = "count",
-          .labels = c(count = "Total AEs"),
-          table_names = "total_aes"
-        ) |>
-        count_patients_with_flags("USUBJID",
-          flag_variables = var_labels(df[, disp_eve1]),
-          denom = "N_col",
-          var_labels = "Total number of patients with at least one",
-          show_labels = "visible"
+        count_patients_with_flags(
+          var = "USUBJID",
+          flag_variables = var_labels(df[, c("CTC35", "CTC45")]),
+          .indent_mods = 2L,
+          table_names = "ctc"
         ) |>
         append_topleft(c("", "Adverse Events"))
 
@@ -117,11 +87,6 @@ test_that("mod_adae_summary_server works", {
       expect_equal(nrow(ae_summ()$out_df), 1934)
       expect_equal(nrow(ae_summ()$alt_df), 400)
       expect_identical(ae_summ()$lyt, exp_lyt)
-
-      session$setInputs(events = names(select(df, all_of(disp_eve1))))
-      session$setInputs(run = 2)
-
-      expect_identical(ae_summ()$lyt, exp_lyt1)
 
       filt("AESER")
       session$flushReact()
