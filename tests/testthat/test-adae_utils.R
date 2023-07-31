@@ -8,18 +8,9 @@ test_that("add_adae_flags works as expected", {
   expect_equal(
     setdiff(names(out_df), names(adae)),
     c(
-      "FATAL",
-      "SER",
-      "SERWD",
-      "SERDSM",
-      "RELSER",
-      "WD",
-      "DSM",
-      "REL",
-      "RELWD",
-      "RELDSM",
-      "CTC35",
-      "CTC45"
+      "SER", "SAEFATAL", "SAELIFE", "SAEHOSP",
+      "SAEDISAB", "SAECONG", "SAEMIE", "WD", "WDSM",
+      "AEINT", "AERED", "AED", "AEMIE", "CTC35", "CTC45"
     )
   )
 })
@@ -37,25 +28,50 @@ test_that("build_adae_summary works", {
   exp_lyt <- basic_table(show_colcounts = TRUE) |>
     split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
     add_overall_col(label = "All Patients") |>
-    count_patients_with_event(
-      vars = "USUBJID",
-      filters = c("STUDYID" = as.character(unique(adae_[["STUDYID"]]))),
-      denom = "N_col",
-      .labels = c(count_fraction = "Total number of patients with at least one adverse event")
-    ) |>
-    count_values(
-      "STUDYID",
-      values = as.character(unique(adae_[["STUDYID"]])),
-      .stats = "count",
-      .labels = c(count = "Total AEs"),
-      table_names = "total_aes"
+    count_patients_with_flags(
+      "USUBJID",
+      flag_variables = var_labels(adae_[, "SER"]),
+      .indent_mods = 1L,
+      table_names = "sae"
     ) |>
     count_patients_with_flags(
       "USUBJID",
-      flag_variables = var_labels(adae_[, setdiff(names(adae_), names(adae))]),
-      denom = "N_col",
-      var_labels = "Total number of patients with at least one",
-      show_labels = "visible"
+      flag_variables = var_labels(adae_[, c(
+        "SAEFATAL", "SAELIFE", "SAEHOSP",
+        "SAEDISAB", "SAECONG", "SAEMIE"
+      )]),
+      .indent_mods = 2L,
+      table_names = "sae_fl"
+    ) |>
+    count_patients_with_flags(
+      var = "USUBJID",
+      flag_variables = var_labels(adae_[, c("WD", "WDSM")]),
+      .indent_mods = 1L,
+      table_names = "ae"
+    ) |>
+    count_patients_with_flags(
+      var = "USUBJID",
+      flag_variables = var_labels(adae_[, c("AEINT", "AERED", "AED", "AEMIE")]),
+      .indent_mods = 2L,
+      table_names = "ds"
+    ) |>
+    analyze_num_patients(
+      vars = "USUBJID",
+      .stats = "unique",
+      .labels = c(unique = "Any AE"),
+      .indent_mods = 1L,
+      show_labels = "hidden"
+    ) |>
+    count_occurrences_by_grade(
+      var = "AESEV",
+      show_labels = "hidden",
+      .indent_mods = 2L
+    ) |>
+    count_patients_with_flags(
+      var = "USUBJID",
+      flag_variables = var_labels(adae_[, c("CTC35", "CTC45")]),
+      .indent_mods = 2L,
+      table_names = "ctc"
     ) |>
     append_topleft(c("", "Adverse Events"))
 
@@ -63,6 +79,7 @@ test_that("build_adae_summary works", {
 })
 
 test_that("build_adae_summary works with filter condition", {
+  adae <- select(adae, -c(all_of("AEACN")))
   adae_ <- add_adae_flags(adae)
 
   lyt <- build_adae_summary(
@@ -78,25 +95,50 @@ test_that("build_adae_summary works with filter condition", {
   exp_lyt <- basic_table(show_colcounts = TRUE) |>
     split_cols_by(var = "ARM", split_fun = drop_split_levels) |>
     add_overall_col(label = "All Patients") |>
-    count_patients_with_event(
-      vars = "USUBJID",
-      filters = c("STUDYID" = as.character(unique(adae_1[["STUDYID"]]))),
-      denom = "N_col",
-      .labels = c(count_fraction = "Total number of patients with at least one adverse event")
-    ) |>
-    count_values(
-      "STUDYID",
-      values = as.character(unique(adae_1[["STUDYID"]])),
-      .stats = "count",
-      .labels = c(count = "Total AEs"),
-      table_names = "total_aes"
+    count_patients_with_flags(
+      "USUBJID",
+      flag_variables = var_labels(adae_[, "SER"]),
+      .indent_mods = 1L,
+      table_names = "sae"
     ) |>
     count_patients_with_flags(
       "USUBJID",
-      flag_variables = var_labels(adae_1[, setdiff(names(adae_1), names(adae))]),
-      denom = "N_col",
-      var_labels = "Total number of patients with at least one",
-      show_labels = "visible"
+      flag_variables = var_labels(adae_[, c(
+        "SAEFATAL", "SAELIFE", "SAEHOSP",
+        "SAEDISAB", "SAECONG", "SAEMIE"
+      )]),
+      .indent_mods = 2L,
+      table_names = "sae_fl"
+    ) |>
+    count_patients_with_flags(
+      var = "USUBJID",
+      flag_variables = var_labels(adae_[, c("WD", "WDSM")]),
+      .indent_mods = 1L,
+      table_names = "ae"
+    ) |>
+    count_patients_with_flags(
+      var = "USUBJID",
+      flag_variables = var_labels(adae_[, c("AEINT", "AERED", "AED", "AEMIE")]),
+      .indent_mods = 2L,
+      table_names = "ds"
+    ) |>
+    analyze_num_patients(
+      vars = "USUBJID",
+      .stats = "unique",
+      .labels = c(unique = "Any AE"),
+      .indent_mods = 1L,
+      show_labels = "hidden"
+    ) |>
+    count_occurrences_by_grade(
+      var = "AESEV",
+      show_labels = "hidden",
+      .indent_mods = 2L
+    ) |>
+    count_patients_with_flags(
+      var = "USUBJID",
+      flag_variables = var_labels(adae_[, c("CTC35", "CTC45")]),
+      .indent_mods = 2L,
+      table_names = "ctc"
     ) |>
     append_topleft(c("", "Adverse Events"))
 

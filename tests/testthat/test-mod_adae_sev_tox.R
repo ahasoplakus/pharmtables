@@ -54,6 +54,7 @@ test_that("mod_adae_sev_tox_server works", {
           child_labels = "visible",
           nested = TRUE,
           label_pos = "topleft",
+          indent_mod = 1L,
           split_label = obj_label(df_out()[[dataset]][["AESOC"]]),
           split_fun = drop_split_levels
         ) |>

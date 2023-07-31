@@ -45,7 +45,7 @@ mod_dt_table_server <- function(id, display_df) {
       } else if (isTRUE(inherits(display_df()$out_df, "flextable"))) {
         df <- display_df()$out_df |>
           flextable::autofit() |>
-          flextable::theme_zebra(odd_body = "#F3F4ED", odd_header = "#F3F4ED") |>
+          flextable::theme_zebra(odd_body = "#F3F4ED", odd_header = "#FFFFFF") |>
           flextable::border(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
           flextable::font(fontname = "courier", part = "body") |>
           flextable::align(align = "center", part = "header") |>

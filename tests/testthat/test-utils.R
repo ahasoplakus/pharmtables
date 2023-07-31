@@ -72,6 +72,7 @@ test_that("build_generic_occurrence_table works", {
       "AESOC",
       label_pos = "topleft",
       split_label = obj_label(adae[["AESOC"]]),
+      indent_mod = 1L,
       split_fun = drop_split_levels
     ) |>
     summarize_num_patients(
@@ -111,6 +112,7 @@ test_that("build_generic_occurrence_table works", {
       "AESOC",
       label_pos = "topleft",
       split_label = obj_label(adae_[["AESOC"]]),
+      indent_mod = 1L,
       split_fun = drop_split_levels
     ) |>
     summarize_num_patients(
@@ -148,11 +150,12 @@ test_that("build_generic_bds_table works", {
       "AVISIT",
       split_fun = drop_split_levels,
       label_pos = "topleft",
+      indent_mod = 1L,
       split_label = obj_label(df[["AVISIT"]])
     ) |>
     split_cols_by_multivar(
       vars = c("AVAL", "CHG"),
-      varlabels = var_labs
+      varlabels = str_wrap(var_labs, 15)
     ) |>
     summarize_colvars(.labels = c(range = "Min - Max")) |>
     append_topleft(paste(" ", "Summary Statistic"))
@@ -186,11 +189,12 @@ test_that("build_generic_bds_table works with filter oondition", {
       "AVISIT",
       split_fun = drop_split_levels,
       label_pos = "topleft",
+      indent_mod = 1L,
       split_label = obj_label(df[["AVISIT"]])
     ) |>
     split_cols_by_multivar(
       vars = c("AVAL", "CHG"),
-      varlabels = var_labs
+      varlabels = str_wrap(var_labs, 15)
     ) |>
     summarize_colvars(.labels = c(range = "Min - Max")) |>
     append_topleft(paste(" ", "Summary Statistic"))
@@ -225,6 +229,7 @@ test_that("build_generic_bds_table works with timepoint", {
       "AVISIT",
       split_fun = drop_split_levels,
       label_pos = "topleft",
+      indent_mod = 1L,
       split_label = obj_label(df[["AVISIT"]])
     ) |>
     split_rows_by(
@@ -235,7 +240,7 @@ test_that("build_generic_bds_table works with timepoint", {
     ) |>
     split_cols_by_multivar(
       vars = c("AVAL", "CHG"),
-      varlabels = var_labs
+      varlabels = str_wrap(var_labs, 15)
     ) |>
     summarize_colvars(.labels = c(range = "Min - Max")) |>
     append_topleft(paste(" ", "Summary Statistic"))
