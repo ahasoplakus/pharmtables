@@ -22,17 +22,13 @@ reference:
   contents:
   - has_keyword("app_specific")
 
-- title: Generic Functions
+- title: Generic Summary Tables
   contents:
   - has_keyword("generic")
 
-- title: Adverse Events
+- title: Adverse Events Specific
   contents:
   - has_keyword("adae_utils")
-
-- title: Helper Functions
-  contents:
-  - has_keyword("helpers")
 
 - title: Example Datasets
   contents:

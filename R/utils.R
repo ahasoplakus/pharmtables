@@ -1,5 +1,7 @@
 #' Baseline Demographic and Clinical Characteristics
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' @param title (`character`)\cr Title of the demographic table.
 #' @param subtitle (`character`)\cr Subtitle of the demographic table.
 #' @param footer (`character`)\cr Footer of the demographic table.
@@ -61,6 +63,8 @@ build_adsl_chars_table <-
 
 
 #' Create Generic Occurrence Summary Table
+#'
+#' @description `r lifecycle::badge("stable")`
 #'
 #' @param occ_df (`data.frame`)\cr Occurrence dataset (typically ADAE, ADMH etc)
 #' @param filter_cond (`character`)\cr Filtering condition required for `occ_df`.
@@ -151,11 +155,14 @@ build_generic_occurrence_table <-
 
 #' Create generic BDS Summary table
 #'
+#' @description `r lifecycle::badge("maturing")`
+#'
 #' @param bds_df (`data.frame`)\cr BDS dataset (typically ADVS, ADLB etc)
 #' @param filter_cond (`character`)\cr Filtering condition required for `bds_df`.
 #' @param param (`character`)\cr BDS parameter value from `PARAM`
 #' @param trt_var (`character`)\cr Arm variable used to split table into columns.
 #' @param visit (`character`)\cr Visit variable name eg. `AVISIT`
+#' @param timepoint (`character`)\cr Timepoint variable name eg. `ATPT`
 #' @param disp_vars (`vector of characters`)\cr Variables to summarize
 #'
 #' @return List containing Generic BDS table layout and filtered BDS data
@@ -186,6 +193,7 @@ build_generic_bds_table <-
            param,
            trt_var,
            visit = "AVISIT",
+           timepoint = NULL,
            disp_vars) {
     df <- bds_df |>
       filter(PARAM %in% param)
@@ -212,7 +220,19 @@ build_generic_bds_table <-
         split_fun = drop_split_levels,
         label_pos = "topleft",
         split_label = vis_label
-      ) |>
+      )
+
+    if (!is.null(timepoint) && timepoint %in% names(bds_df)) {
+      lyt <- lyt |>
+        split_rows_by(
+          timepoint,
+          split_fun = drop_split_levels,
+          label_pos = "topleft",
+          split_label = obj_label(bds_df[[timepoint]])
+        )
+    }
+
+    lyt <- lyt |>
       split_cols_by_multivar(
         vars = disp_vars,
         varlabels = var_labs

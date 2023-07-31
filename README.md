@@ -5,8 +5,6 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml)
 [![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://app.codecov.io/gh/ahasoplakus/clinTables)
 [![Style](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml)
@@ -31,9 +29,6 @@ Version](https://img.shields.io/github/r-package/v/ahasoplakus/clinTables/main?c
 `clinTables` is a shiny application to visualize standard tables used in
 <b>Clinical Trials</b>
 
-<left> Find the <b>app</b> here:
-[clinTables](https://sukalpo94.shinyapps.io/clinTables/) </left>
-
 ## Installation
 
 Latest `dev` version
@@ -41,6 +36,10 @@ Latest `dev` version
 ``` r
 remotes::install_github("ahasoplakus/clinTables")
 ```
+
+<left> After installation, install these packages with
+`install.packages(c("logger", "haven", "reactable", "markdown", "shinycssloaders", "flextable", "officer"))`
+</left>
 
 Run `library(clinTables)` to access all the exported functions from
 `clinTables` that help in reproducing analysis performed in the app. Or,

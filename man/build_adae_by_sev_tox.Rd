@@ -36,7 +36,7 @@ build_adae_by_sev_tox(
 An rtable object
 }
 \description{
-Adverse Events Table by Body System and Severity/Toxicity
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
 }
 \examples{
 

@@ -130,9 +130,7 @@ create_flag_widget <-
 #'
 #' @return The Filtering condition
 #'
-#' @family helpers
-#' @keywords helpers
-#' @export
+#' @noRd
 #'
 #' @examples
 #'

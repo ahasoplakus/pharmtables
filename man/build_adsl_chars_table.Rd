@@ -31,7 +31,7 @@ build_adsl_chars_table(
 A tabletree object.
 }
 \description{
-Baseline Demographic and Clinical Characteristics
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 

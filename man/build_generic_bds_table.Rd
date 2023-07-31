@@ -10,6 +10,7 @@ build_generic_bds_table(
   param,
   trt_var,
   visit = "AVISIT",
+  timepoint = NULL,
   disp_vars
 )
 }
@@ -24,13 +25,15 @@ build_generic_bds_table(
 
 \item{visit}{(\code{character})\cr Visit variable name eg. \code{AVISIT}}
 
+\item{timepoint}{(\code{character})\cr Timepoint variable name eg. \code{ATPT}}
+
 \item{disp_vars}{(\verb{vector of characters})\cr Variables to summarize}
 }
 \value{
 List containing Generic BDS table layout and filtered BDS data
 }
 \description{
-Create generic BDS Summary table
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
 }
 \examples{
 

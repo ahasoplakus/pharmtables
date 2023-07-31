@@ -1,5 +1,7 @@
 #' Add Flags to ADAE
 #'
+#' @description `r lifecycle::badge("maturing")`
+#'
 #' @param df (`data.frame`)\cr ADAE dataset.
 #'
 #' @return `ADAE` dataset with added flags
@@ -80,6 +82,8 @@ add_adae_flags <- function(df) {
 
 #' Create ADAE Summary Table
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' @param adae (`data.frame`)\cr ADAE dataset.
 #' @param filter_cond (`character`)\cr Filtering condition required for `adae`.
 #' @param event_vars (`vector of character`)\cr Variables added to source `ADAE`
@@ -147,6 +151,8 @@ build_adae_summary <-
   }
 
 #' Adverse Events Table by Body System and Severity/Toxicity
+#'
+#' @description `r lifecycle::badge("maturing")`
 #'
 #' @param adsl (`data.frame`)\cr ADSL dataset.
 #' @param df_adae (`data.frame`)\cr ADAE dataset.
