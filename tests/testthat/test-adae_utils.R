@@ -79,7 +79,7 @@ test_that("build_adae_summary works", {
 })
 
 test_that("build_adae_summary works with filter condition", {
-  adae <- select(adae, -c(all_of("AEACN")))
+  adae <- select(adae, -c(all_of(c("AEACN", "AESEV"))))
   adae_ <- add_adae_flags(adae)
 
   lyt <- build_adae_summary(
@@ -128,11 +128,6 @@ test_that("build_adae_summary works with filter condition", {
       .labels = c(unique = "Any AE"),
       .indent_mods = 1L,
       show_labels = "hidden"
-    ) |>
-    count_occurrences_by_grade(
-      var = "AESEV",
-      show_labels = "hidden",
-      .indent_mods = 2L
     ) |>
     count_patients_with_flags(
       var = "USUBJID",

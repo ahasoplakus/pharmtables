@@ -165,12 +165,16 @@ build_adae_summary <-
         .labels = c(unique = "Any AE"),
         .indent_mods = 1L,
         show_labels = "hidden"
-      ) |>
-      count_occurrences_by_grade(
-        var = "AESEV",
-        show_labels = "hidden",
-        .indent_mods = 2L
       )
+
+    if ("AESEV" %in% names(adae)) {
+      lyt <- lyt |>
+        count_occurrences_by_grade(
+          var = "AESEV",
+          show_labels = "hidden",
+          .indent_mods = 2L
+        )
+    }
 
     if (length(ctc_vars) > 0) {
       lyt <- lyt |>
