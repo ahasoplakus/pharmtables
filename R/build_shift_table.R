@@ -1,10 +1,9 @@
 #' @title Create Shift Table
 #'
-#' @description A shift table is a table that displays the number of subjects who are low,
-#' normal or high at baseline and the shift at post-dose. They show the progression of change
-#' from the baseline, with the progression often being along time; the number of subjects is
-#' displayed in different range (e.g. low, normal, or high) at baseline and at selected
-#' time points or intervals.
+#' @description `r lifecycle::badge("stable")`
+#' Shift Tables show the progression of change from the baseline, with the progression often
+#' being along time; the number of subjects is displayed in different range
+#' (e.g. low, normal, or high) at baseline and at selected time points or intervals.
 #'
 #' @param adsl (`data.frame`)\cr `adsl` data frame.
 #' @param bds_df (`data.frame`)\cr `bds` data frame eg. `adlb`, `advs`.

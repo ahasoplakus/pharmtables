@@ -13,7 +13,7 @@ add_adae_flags(df)
 \code{ADAE} dataset with added flags
 }
 \description{
-Add Flags to ADAE
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
 }
 \examples{
 library(clinTables)

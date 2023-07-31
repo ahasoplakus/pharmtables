@@ -44,7 +44,14 @@ mod_adxx_param_ui <- function(id,
               ),
               selectInput(
                 ns("visit"),
-                "Analysis Visit",
+                "Timing Variable",
+                choices = NULL,
+                selected = NULL,
+                width = "100vw",
+              ),
+              selectizeInput(
+                ns("tpt"),
+                "Timepoint",
                 choices = NULL,
                 selected = NULL,
                 width = "100vw",
@@ -153,6 +160,7 @@ mod_adxx_param_server <- function(id,
         ))
       param_choices <- unique(df$PARAM)
       visit_choices <- names(select(df, ends_with("VISIT")))
+      tpt_choices <- names(select(df, contains("TPT")))
       summ_choices <- c("AVAL", sort(names(select(df, contains("CHG")))))
 
       updateSelectInput(session,
@@ -171,6 +179,12 @@ mod_adxx_param_server <- function(id,
         "visit",
         choices = visit_choices,
         selected = visit_choices[1]
+      )
+
+      updateSelectizeInput(session,
+        "tpt",
+        choices = c("", tpt_choices),
+        selected = 1
       )
 
       updateSelectInput(session,
@@ -241,6 +255,7 @@ mod_adxx_param_server <- function(id,
         param = input$param,
         trt_var = input$split_col,
         visit = input$visit,
+        timepoint = input$tpt,
         disp_vars = input$summ_var
       )
 
@@ -258,6 +273,7 @@ mod_adxx_param_server <- function(id,
         input$pop,
         input$split_col,
         input$visit,
+        input$tpt,
         input$param,
         input$summ_var,
         filt_react$filter_cond()

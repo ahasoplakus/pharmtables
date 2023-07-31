@@ -21,7 +21,7 @@ mod_filter_reactivity_ui <- function(id, domain = "ADAE", logo = "head-side-coug
           uiOutput(ns("xx_filt_ui"))
         ), class = "side_accord")
       ),
-      style = "width: 350px;"
+      style = "display: flex; justify-content: center;"
     )
   )
 }
