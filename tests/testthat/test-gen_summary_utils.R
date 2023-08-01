@@ -155,7 +155,7 @@ test_that("build_generic_bds_table works", {
     ) |>
     split_cols_by_multivar(
       vars = c("AVAL", "CHG"),
-      varlabels = str_wrap(var_labs, 15)
+      varlabels = var_labs
     ) |>
     summarize_colvars(.labels = c(range = "Min - Max")) |>
     append_topleft(paste(" ", "Summary Statistic"))
@@ -194,7 +194,7 @@ test_that("build_generic_bds_table works with filter oondition", {
     ) |>
     split_cols_by_multivar(
       vars = c("AVAL", "CHG"),
-      varlabels = str_wrap(var_labs, 15)
+      varlabels = var_labs
     ) |>
     summarize_colvars(.labels = c(range = "Min - Max")) |>
     append_topleft(paste(" ", "Summary Statistic"))
@@ -240,7 +240,7 @@ test_that("build_generic_bds_table works with timepoint", {
     ) |>
     split_cols_by_multivar(
       vars = c("AVAL", "CHG"),
-      varlabels = str_wrap(var_labs, 15)
+      varlabels = var_labs
     ) |>
     summarize_colvars(.labels = c(range = "Min - Max")) |>
     append_topleft(paste(" ", "Summary Statistic"))

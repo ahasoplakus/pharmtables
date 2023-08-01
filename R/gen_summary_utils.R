@@ -113,12 +113,15 @@ build_generic_occurrence_table <-
            term_var) {
     df <- occ_df
     if (!is.null(filter_cond)) {
-      df <- occ_df |>
+      df <- df |>
         filter(!!!parse_exprs(filter_cond))
     }
 
+    req(nrow(df) > 0)
+
     if (dataset == "adae") {
       text <- "event"
+      df <- filter(df, toupper(TRTEMFL) == "Y")
     } else if (dataset == "admh") {
       text <- "condition"
     } else {
@@ -204,6 +207,8 @@ build_generic_bds_table <-
         filter(!!!parse_exprs(filter_cond))
     }
 
+    req(nrow(df) > 0)
+
     vis_label <- obj_label(bds_df[[visit]])
     vis_levels <- df |>
       arrange(AVISITN) |>
@@ -237,7 +242,7 @@ build_generic_bds_table <-
     lyt <- lyt |>
       split_cols_by_multivar(
         vars = disp_vars,
-        varlabels = str_wrap(var_labs, 15)
+        varlabels = var_labs
       ) |>
       summarize_colvars(.labels = c(range = "Min - Max")) |>
       append_topleft(paste(" ", "Summary Statistic"))

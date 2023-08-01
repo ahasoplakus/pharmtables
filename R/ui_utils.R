@@ -184,8 +184,8 @@ table_options <- function(ft) {
   ft |>
     flextable::autofit() |>
     flextable::theme_zebra(odd_body = "#F3F4ED", odd_header = "#FFFFFF") |>
-    flextable::border_inner_h(border = officer::fp_border(color = "#9DB2BF"), part = "body") |>
-    flextable::border_inner_v(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
+    flextable::border_inner_h(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
+    flextable::border_inner_v(border = officer::fp_border(color = "#9DB2BF"), part = "body") |>
     flextable::border_outer(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
     flextable::align(align = "center", part = "header") |>
     flextable::align(align = "left", j = 1, part = "header")
