@@ -23,7 +23,7 @@
 add_adae_flags <- function(df) {
   ae_vars <- c(
     "AESER", "AESDTH", "AESLIFE", "AESHOSP",
-    "AESDISAB", "AESCONG", "AESMIE", "AEACN", "ATOXGR"
+    "AESDISAB", "AESCONG", "AESMIE", "AEACN", "AETOXGR"
   )
 
   new_vars <- setdiff(ae_vars, names(df))
@@ -57,11 +57,11 @@ add_adae_flags <- function(df) {
       AERED = with_label(AEACN == "DOSE REDUCED", "AE leading to reduction of study drug"),
       AED = with_label(AEACN == "DOSE RATE REDUCED", "AE leading to dose delay of study drug"),
       AEMIE = with_label(AEACN == "DOSE INCREASED", "Other AEs"),
-      CTC35 = with_label(str_to_sentence(ATOXGR) %in% c(
+      CTC35 = with_label(str_to_sentence(AETOXGR) %in% c(
         "3", "4", "5",
         "Grade 3", "Grade 4", "Grade 5"
       ), "Grade 3-5 AE"),
-      CTC45 = with_label(ATOXGR %in% c("4", "5", "Grade 4", "Grade 5"), "Grade 4/5 AE")
+      CTC45 = with_label(AETOXGR %in% c("4", "5", "Grade 4", "Grade 5"), "Grade 4/5 AE")
     ) |>
     select(-all_of(new_vars))
 
@@ -245,9 +245,9 @@ build_adae_by_sev_tox <- function(adsl,
                                   term_val = "AEDECOD",
                                   default_view = TRUE) {
   if (!is.null(filter_cond)) {
-    browser()
     df_adae <- df_adae |>
-      filter(!!!parse_exprs(filter_cond), toupper(TRTEMFL) == "Y")
+      filter(!!!parse_exprs(filter_cond)) |>
+      filter(toupper(TRTEMFL) == "Y")
   } else {
     df_adae <- df_adae |>
       filter(toupper(TRTEMFL) == "Y")

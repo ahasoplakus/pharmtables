@@ -40,6 +40,8 @@ utils::globalVariables(
     "AESHOSP",
     "AESDISAB",
     "AESCONG",
-    "AESMIE"
+    "AESMIE",
+    "Labs",
+    "sp_labs"
   )
 )
