@@ -141,19 +141,19 @@ filters_to_cond <- function(filter_list) {
   study_filters <- map(names(filter_list), \(x) {
     if (!is.numeric(filter_list[[x]])) {
       if (x != "pop") {
-        vals <- paste0(filter_list[[x]], collapse = "','")
+        vals <- paste0(filter_list[[x]], collapse = '","')
         if (str_sub(x, start = -3) == "dtm") {
-          vals <- str_glue("as.character({toupper(x)}) %in% c('{vals}')")
+          vals <- str_glue('as.character({toupper(x)}) %in% c("{vals}")')
         } else {
-          vals <- str_glue("{toupper(x)} %in% c('{vals}')")
+          vals <- str_glue('{toupper(x)} %in% c("{vals}")')
         }
       } else {
         vals <- filter_list[[x]]
-        vals <- str_glue("{vals} == 'Y'")
+        vals <- str_glue('{vals} == "Y"')
       }
     } else {
       vals <- filter_list[[x]]
-      vals <- str_glue("{toupper(x)} <= {vals}")
+      vals <- str_glue('{toupper(x)} <= {vals}')
     }
   })
 
