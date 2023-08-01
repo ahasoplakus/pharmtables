@@ -106,11 +106,16 @@ add_adae_flags <- function(df) {
 #'
 build_adae_summary <-
   function(adae, filter_cond = NULL, event_vars, trt_var) {
-    df <- adae
+    df <- adae |>
+      filter(toupper(TRTEMFL) == "Y")
+
     if (!is.null(filter_cond)) {
-      df <- adae |>
+      df <- df |>
         filter(!!!parse_exprs(filter_cond))
     }
+
+    req(nrow(df) > 0)
+
     ser_vars <-
       event_vars[which(str_sub(event_vars, 1, 3) == "SAE")]
     ae_vars <- event_vars[which(str_sub(event_vars, 1, 2) == "WD")]
@@ -241,106 +246,24 @@ build_adae_by_sev_tox <- function(adsl,
                                   default_view = TRUE) {
   if (!is.null(filter_cond)) {
     df_adae <- df_adae |>
-      filter(!!!parse_exprs(filter_cond))
+      filter(!!!parse_exprs(filter_cond)) |>
+      filter(toupper(TRTEMFL) == "Y")
   } else {
-    df_adae <- df_adae
+    df_adae <- df_adae |>
+      filter(toupper(TRTEMFL) == "Y")
   }
 
+  req(nrow(df_adae) > 0)
+
   if (isTRUE(default_view)) {
-    adsl <- adsl |>
-      add_count(.data[[colsby]]) |>
-      mutate(colsby_lab = paste0(.data[[colsby]], " (N = ", n, ")")) |>
-      select(all_of(c("USUBJID", colsby)), colsby_lab)
-
-    if (grade_val == "AESEV") {
-      adae <- df_adae |>
-        mutate(
-          AESEVN =
-            case_when(
-              .data[[grade_val]] == "MILD" ~ 1,
-              .data[[grade_val]] == "MODERATE" ~ 2,
-              TRUE ~ 3
-            )
-        )
-    } else {
-      adae <- df_adae |>
-        mutate(AESEVN = as.numeric(AETOXGR))
-    }
-
-    adae <- adae |>
-      group_by(USUBJID, .data[[colsby]], .data[[class_val]], .data[[term_val]]) |>
-      filter(AESEVN == max(AESEVN)) |>
-      ungroup()
-
-    pre_ae <- df_adae |>
-      select(all_of(c(class_val, term_val))) |>
-      distinct_all() |>
-      arrange(.data[[class_val]])
-
-    pre_ae1 <-
-      cross_join(select(df_adae, all_of(c(
-        "USUBJID", colsby
-      ))), pre_ae) |>
-      distinct_all()
-
-    adae <-
-      full_join(adae, pre_ae1, by = c("USUBJID", colsby, class_val, term_val)) |>
-      modify_if(is.factor, as.character) |>
-      mutate(!!grade_val := tidyr::replace_na(!!sym(grade_val), "Missing")) |>
-      left_join(adsl, by = c("USUBJID", colsby)) |>
-      modify_if(is.character, as.factor)
-
-    dummy_sev <- data.frame(x = unique(adae[[grade_val]]))
-    names(dummy_sev) <- grade_val
-
-    l1 <- levels(adae[[colsby]]) |>
-      map(~ {
-        df <- adae |>
-          filter(.data[[colsby]] == .x) |>
-          mutate(sp_labs = "n") |>
-          mutate(!!colsby := as.character(!!sym(colsby)))
-
-        df_adsl1 <- adsl |>
-          filter(.data[[colsby]] == .x) |>
-          mutate(!!colsby := as.character(!!sym(colsby)))
-
-        df_adsl <- df_adsl1 |>
-          select(all_of(c("USUBJID", colsby))) |>
-          distinct_all() |>
-          cross_join(dummy_sev)
-
-        lyt1 <- basic_table() |>
-          split_cols_by(colsby,
-            labels_var = "sp_labs",
-            split_fun = remove_split_levels("Missing")
-          ) |>
-          split_rows_by(class_val) |>
-          count_occurrences(term_val) |>
-          build_table(
-            mutate(
-              df,
-              !!colsby := ifelse(.data[[grade_val]] == "Missing", "Missing", !!sym(colsby)),
-              sp_labs = ifelse(.data[[grade_val]] == "Missing", "Missing", sp_labs)
-            ),
-            alt_counts_df = df_adsl1
-          )
-
-
-        lyt <- basic_table() |>
-          split_cols_by(colsby, labels_var = "colsby_lab") |>
-          split_rows_by(class_val,
-            indent_mod = 1L,
-            label_pos = "topleft",
-            split_label = obj_label(df_adae[[class_val]])
-          ) |>
-          split_cols_by(grade_val, split_fun = remove_split_levels("Missing")) |>
-          count_occurrences(term_val) |>
-          append_varlabels(df_adae, term_val, indent = 2L) |>
-          build_table(df, alt_counts_df = df_adsl)
-        cbind_rtables(lyt1, lyt)
-      })
-
-    tab <- reduce(l1, cbind_rtables)
+    tab <- sev_tox_default(
+      adsl = adsl,
+      df_adae = df_adae,
+      colsby = colsby,
+      grade_val = grade_val,
+      class_val = class_val,
+      term_val = term_val
+    )
   } else {
     lyt <- basic_table(show_colcounts = TRUE) |>
       split_cols_by(var = colsby, split_fun = drop_split_levels) |>
@@ -381,3 +304,230 @@ build_adae_by_sev_tox <- function(adsl,
   }
   return(tab)
 }
+
+#' Create ADAE Summary by Toxicity/Severity
+#'
+#' @inheritParams build_adae_by_sev_tox
+#' @return rtables object of the ocmbined table
+#' @noRd
+#'
+sev_tox_default <-
+  function(adsl,
+           df_adae,
+           colsby,
+           grade_val,
+           class_val,
+           term_val) {
+    adsl <- adsl |>
+      add_count(.data[[colsby]]) |>
+      mutate(colsby_lab = paste0(.data[[colsby]], " (N = ", n, ")")) |>
+      select(all_of(c("USUBJID", colsby)), colsby_lab)
+
+    if (grade_val == "AESEV") {
+      adae <- df_adae |>
+        mutate(
+          AESEVN =
+            case_when(
+              .data[[grade_val]] == "MILD" ~ 1,
+              .data[[grade_val]] == "MODERATE" ~ 2,
+              TRUE ~ 3
+            )
+        )
+    } else {
+      adae <- df_adae |>
+        mutate(AESEVN = as.numeric(AETOXGR))
+    }
+
+    adae <- adae |>
+      group_by(USUBJID, .data[[colsby]], .data[[class_val]], .data[[term_val]]) |>
+      filter(AESEVN == max(AESEVN)) |>
+      ungroup()
+
+    pre_ae <- df_adae |>
+      select(all_of(c(class_val, term_val))) |>
+      distinct_all() |>
+      arrange(.data[[class_val]])
+
+    pre_ae1 <-
+      cross_join(select(df_adae, all_of(c("USUBJID", colsby))), pre_ae) |>
+      distinct_all()
+
+    adae <-
+      full_join(adae, pre_ae1, by = c("USUBJID", colsby, class_val, term_val)) |>
+      modify_if(is.factor, as.character) |>
+      mutate(!!grade_val := tidyr::replace_na(!!sym(grade_val), "Missing")) |>
+      left_join(adsl, by = c("USUBJID", colsby)) |>
+      modify_if(is.character, as.factor)
+
+    dummy_sev <- data.frame(x = unique(adae[[grade_val]]))
+    names(dummy_sev) <- grade_val
+
+    l1 <- levels(adae[[colsby]]) |>
+      map(
+        ~ sev_tox_by_cols(
+          df_adae = df_adae,
+          adae = adae,
+          adsl = adsl,
+          colsby = colsby,
+          cols_val = .x,
+          dummy_sev = dummy_sev,
+          class_val = class_val,
+          term_val = term_val,
+          grade_val = grade_val
+        )
+      )
+
+    tab_trt <- reduce(l1, cbind_rtables)
+    tab_all <- sev_tox_by_all(
+      df_adae = df_adae,
+      adae = adae,
+      adsl = adsl,
+      dummy_sev = dummy_sev,
+      class_val = class_val,
+      term_val = term_val,
+      grade_val = grade_val
+    )
+
+    tab <- cbind_rtables(tab_trt, tab_all)
+  }
+
+#' Severity/Toxicity by columns
+#'
+#' @inheritParams build_adae_by_sev_tox
+#' @param adae Filtered `adae`
+#' @param dummy_sev Dummy data containing Severity/Toxicity combinations
+#' @param cols_val Unique values of columns
+#'
+#' @return Combined severity/toxicity table by Columns
+#' @noRd
+#'
+sev_tox_by_cols <-
+  function(df_adae,
+           adae,
+           adsl,
+           colsby,
+           cols_val,
+           dummy_sev,
+           class_val,
+           term_val,
+           grade_val) {
+    df <- adae |>
+      filter(.data[[colsby]] == cols_val) |>
+      mutate(sp_labs = "n") |>
+      mutate(!!colsby := as.character(!!sym(colsby)))
+
+    df_adsl1 <- adsl |>
+      filter(.data[[colsby]] == cols_val) |>
+      mutate(!!colsby := as.character(!!sym(colsby)))
+
+    df_adsl <- df_adsl1 |>
+      select(all_of(c("USUBJID", colsby))) |>
+      distinct_all() |>
+      cross_join(dummy_sev)
+
+    lyt1 <- basic_table() |>
+      split_cols_by(colsby,
+        labels_var = "sp_labs",
+        split_fun = remove_split_levels("Missing")
+      ) |>
+      split_rows_by(class_val) |>
+      count_occurrences(term_val) |>
+      build_table(
+        mutate(
+          df,
+          !!colsby := ifelse(.data[[grade_val]] == "Missing", "Missing", !!sym(colsby)),
+          sp_labs = ifelse(.data[[grade_val]] == "Missing", "Missing", sp_labs)
+        ),
+        alt_counts_df = df_adsl1
+      )
+
+
+    lyt <- basic_table() |>
+      split_cols_by(colsby, labels_var = "colsby_lab") |>
+      split_rows_by(
+        class_val,
+        indent_mod = 1L,
+        label_pos = "topleft",
+        split_label = obj_label(df_adae[[class_val]])
+      ) |>
+      split_cols_by(grade_val, split_fun = remove_split_levels("Missing")) |>
+      count_occurrences(term_val) |>
+      append_varlabels(df_adae, term_val, indent = 2L) |>
+      build_table(df, alt_counts_df = df_adsl)
+
+    tab <- cbind_rtables(lyt1, lyt)
+  }
+
+#' Severity/Toxicity Count for entire population
+#'
+#' @inheritParams build_adae_by_sev_tox
+#' @param adae Filtered `adae`
+#' @param dummy_sev Dummy data containing Severity/Toxicity combinations
+#'
+#' @return Combined severity/toxicity table for entire population
+#' @noRd
+#'
+sev_tox_by_all <-
+  function(df_adae,
+           adae,
+           adsl,
+           dummy_sev,
+           class_val,
+           term_val,
+           grade_val) {
+    df_all <- adae |>
+      mutate(
+        All = "n",
+        Labs = paste0(
+          "All Patients (N = ",
+          length(unique(adsl[["USUBJID"]])), ")"
+        )
+      ) |>
+      filter(.data[[grade_val]] != "Missing")
+
+    df_adsl1_all <- adsl |>
+      mutate(
+        All = "n",
+        Labs = paste0(
+          "All Patients (N = ",
+          length(unique(adsl[["USUBJID"]])), ")"
+        )
+      )
+
+    df_adsl_all <- df_adsl1_all |>
+      select(USUBJID, Labs) |>
+      distinct_all() |>
+      cross_join(dummy_sev)
+
+    lyt1_all <- basic_table() |>
+      split_cols_by(
+        "All",
+        split_fun = drop_split_levels,
+        labels_var = "All"
+      ) |>
+      split_rows_by(class_val, split_fun = drop_split_levels) |>
+      count_occurrences(term_val) |>
+      build_table(
+        df = df_all,
+        alt_counts_df = df_adsl1_all
+      )
+
+    lyt_all <- basic_table() |>
+      split_cols_by("Labs", split_fun = drop_split_levels) |>
+      split_cols_by(
+        grade_val,
+        split_fun = drop_split_levels
+      ) |>
+      split_rows_by(
+        class_val,
+        indent_mod = 1L,
+        label_pos = "topleft",
+        split_fun = drop_split_levels,
+        split_label = obj_label(df_adae[[class_val]])
+      ) |>
+      count_occurrences(term_val) |>
+      append_varlabels(df_adae, term_val, indent = 2L) |>
+      build_table(df_all, alt_counts_df = df_adsl_all)
+
+    tab <- cbind_rtables(lyt1_all, lyt_all)
+  }

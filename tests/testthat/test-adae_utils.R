@@ -158,10 +158,10 @@ test_that("build_adae_by_sev_tox works with default view", {
     out_df@children[["cl B"]]@children[["AEDECOD"]]@children[["dcd B.1.1.1.1"]]@leaf_value
 
   expect_equal(class(out_df)[1], "TableTree")
-  expect_equal(length(obj_clA), 12)
+  expect_equal(length(obj_clA), 16)
   expect_identical(round(unlist(obj_clA[[1]]), 4), c(50, 0.3731))
 
-  expect_equal(length(obj_clB), 12)
+  expect_equal(length(obj_clB), 16)
   expect_identical(round(unlist(obj_clB[[1]]), 4), c(47, 0.3507))
 })
 
@@ -214,8 +214,8 @@ test_that("build_adae_by_sev_tox works with AETOXGR", {
   obj_clB <-
     out_df@children[["cl B"]]@children[["AEDECOD"]]@children[["dcd B.1.1.1.1"]]@leaf_value
 
-  expect_equal(length(obj_clA), 18)
-  expect_equal(length(obj_clB), 18)
+  expect_equal(length(obj_clA), 24)
+  expect_equal(length(obj_clB), 24)
 
   expect_identical(round(unlist(obj_clA[[1]]), 4), c(50, 0.3731))
   expect_identical(round(unlist(obj_clB[[1]]), 4), c(47, 0.3507))
