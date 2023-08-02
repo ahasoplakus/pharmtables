@@ -1,12 +1,15 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<style>.pre, pre{background-color: #F3F4ED;}</style>
+<style>.code.language-r, code.language-r{color: darkcyan !important;}</style>
+<style>.h1, h1{color: #2D4356; font-weight:700;}</style>
+<style>.h2, h2{color: #2D4356; font-weight:600;}</style>
 
-# clinTables <img src="figures/logo.png" align="right" width="200" style="margin-left:50px;"/>
+<h1>clinTables</h1> <img src="figures/logo.png" align="right" width="200" height="225"/>
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://app.codecov.io/gh/ahasoplakus/clinTables)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://app.codecov.io/gh/ahasoplakus/clinTables)
 [![Style](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml)
 [![lint](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml)
@@ -36,9 +39,18 @@ as an R package as well.
 
 ## Installation
 
-Install the latest `dev` version `remotes::install_github("ahasoplakus/clinTables")`
+Install the latest `dev` version
 
-After installation, install these packages with `install.packages(c("logger", "haven", "reactable", "markdown", "shinycssloaders", "flextable", "officer"))`
+``` r
+remotes::install_github("ahasoplakus/clinTables")
+```
+
+After installation, install these packages from <b>CRAN</b>
+
+``` r
+install.packages(c("logger", "haven", "reactable", "markdown", "shinycssloaders", "flextable", "officer"))
+```
+
 <!---
 This application is intended for a pilot submission to the FDA composing of a Shiny application, as part of the
 <a href="https://rconsortium.github.io/submissions-wg/" target="_blank">R Submissions Working Group</a>

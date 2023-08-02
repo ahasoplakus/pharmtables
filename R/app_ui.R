@@ -21,9 +21,9 @@ app_ui <- function(request) {
       help = NULL,
       scrollToTop = TRUE,
       preloader = list(html = tagList(
-        waiter::spin_ball(),
-        "Loading clinTables ..."
-      ), color = "#374259")
+        waiter::spin_dots(),
+        ""
+      ), color = "#526D82")
     )
   )
 }
