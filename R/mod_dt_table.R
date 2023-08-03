@@ -22,6 +22,7 @@ mod_dt_table_server <- function(id, display_df) {
     ns <- session$ns
 
     df_out <- reactive({
+      logger::log_info("mod_dt_table_server: formatting table")
       req(display_df()$out_df)
       if (is.data.frame(display_df()$out_df)) {
         if (nrow(display_df()$out_df) < 1) {

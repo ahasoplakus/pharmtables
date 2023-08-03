@@ -29,49 +29,49 @@ dashboard_header <- function() {
       tooltip(
         navbarTab(
           tabName = "Tab2",
-          text = tags$span(icon("id-card"), "")
+          text = tags$span(icon("id-card"), "ADSL")
         ),
         title = "Demographics"
       ),
       tooltip(
         navbarTab(
           tabName = "Tab3",
-          text = tags$span(icon("head-side-cough"), "")
+          text = tags$span(icon("head-side-cough"), "ADAE")
         ),
         title = "Adverse Events"
       ),
       tooltip(
         navbarTab(
           tabName = "Tab4",
-          text = tags$span(icon("file-medical"), "")
+          text = tags$span(icon("file-medical"), "ADMH")
         ),
         title = "Medical History"
       ),
       tooltip(
         navbarTab(
           tabName = "Tab5",
-          text = tags$span(icon("capsules"), "")
+          text = tags$span(icon("capsules"), "ADCM")
         ),
         title = "Concomitant Medications"
       ),
       tooltip(
         navbarTab(
           tabName = "Tab6",
-          text = tags$span(icon("stethoscope"), "")
+          text = tags$span(icon("stethoscope"), "ADVS")
         ),
         title = "Vital Signs"
       ),
       tooltip(
         navbarTab(
           tabName = "Tab7",
-          text = tags$span(icon("flask-vial"), "")
+          text = tags$span(icon("flask-vial"), "ADLB")
         ),
         title = "Laboratory Analysis"
       ),
       tooltip(
         navbarTab(
           tabName = "Tab8",
-          text = tags$span(icon("heart-pulse"), "")
+          text = tags$span(icon("heart-pulse"), "ADEG")
         ),
         title = "ECG Analysis"
       )

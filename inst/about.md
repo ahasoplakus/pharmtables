@@ -4,31 +4,9 @@
 <style>.h1, h1{color: #2D4356; font-weight:700;}</style>
 <style>.h2, h2{color: #2D4356; font-weight:600;}</style>
 
-<h1>clinTables</h1> <img src="figures/logo.png" align="right" width="200" height="225"/>
-
-<!-- badges: start -->
-
-[![R-CMD-check](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml)
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://app.codecov.io/gh/ahasoplakus/clinTables)
-[![Style](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml)
-[![lint](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml)
-![GitHub commit
-activity](https://img.shields.io/github/commit-activity/m/ahasoplakus/clinTables)
-![GitHub last
-commit](https://img.shields.io/github/last-commit/ahasoplakus/clinTables)
-![GitHub pull
-requests](https://img.shields.io/github/issues-pr/ahasoplakus/clinTables)
-![GitHub repo
-size](https://img.shields.io/github/repo-size/ahasoplakus/clinTables)
-![GitHub language
-count](https://img.shields.io/github/languages/count/ahasoplakus/clinTables)
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Current
-Version](https://img.shields.io/github/r-package/v/ahasoplakus/clinTables/main?color=purple&label=Development%20Version)](https://github.com/ahasoplakus/clinTables/tree/main)
-<!-- badges: end -->
+<div style="display:flex; justify-content: center;">
+<img src="figures/logo.png" align="center" width="250" height="275"/>
+</div>
 
 # Introduction
 
