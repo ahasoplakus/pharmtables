@@ -335,7 +335,7 @@ sev_tox_default <-
         )
     } else {
       adae <- df_adae |>
-        mutate(AESEVN = as.numeric(AETOXGR))
+        mutate(AESEVN = as.numeric(.data[[grade_val]]))
     }
 
     adae <- adae |>
@@ -444,13 +444,13 @@ sev_tox_by_cols <-
 
     lyt <- basic_table() |>
       split_cols_by(colsby, labels_var = "colsby_lab") |>
+      split_cols_by(grade_val, split_fun = remove_split_levels("Missing")) |>
       split_rows_by(
         class_val,
         indent_mod = 1L,
         label_pos = "topleft",
         split_label = obj_label(df_adae[[class_val]])
       ) |>
-      split_cols_by(grade_val, split_fun = remove_split_levels("Missing")) |>
       count_occurrences(term_val) |>
       append_varlabels(df_adae, term_val, indent = 2L) |>
       build_table(df, alt_counts_df = df_adsl)

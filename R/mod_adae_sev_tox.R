@@ -134,7 +134,7 @@ mod_adae_sev_tox_server <- function(id,
         ), starts_with("ATC"))))
       term_choices <-
         names(select(df, ends_with(c(
-          "TERM", "DECOD"
+          "DECOD", "TERM"
         ))))
       summ_var <-
         names(select(df, ends_with(c("SEV", "TOXGR"))))
