@@ -130,6 +130,7 @@ build_adae_summary <-
         "USUBJID",
         flag_variables = var_labels(adae[, "SER"]),
         .indent_mods = 1L,
+        denom = "N_col",
         table_names = "sae"
       )
 
@@ -139,6 +140,7 @@ build_adae_summary <-
           "USUBJID",
           flag_variables = var_labels(adae[, ser_vars]),
           .indent_mods = 2L,
+          denom = "N_col",
           table_names = "sae_fl"
         )
     }
@@ -149,6 +151,7 @@ build_adae_summary <-
           var = "USUBJID",
           flag_variables = var_labels(adae[, ae_vars]),
           .indent_mods = 1L,
+          denom = "N_col",
           table_names = "ae"
         )
     }
@@ -159,6 +162,7 @@ build_adae_summary <-
           var = "USUBJID",
           flag_variables = var_labels(adae[, ds_vars]),
           .indent_mods = 2L,
+          denom = "N_col",
           table_names = "ds"
         )
     }
@@ -187,6 +191,7 @@ build_adae_summary <-
           var = "USUBJID",
           flag_variables = var_labels(adae[, ctc_vars]),
           .indent_mods = 2L,
+          denom = "N_col",
           table_names = "ctc"
         )
     }
