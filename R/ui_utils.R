@@ -145,7 +145,7 @@ dashboard_body <- function() {
         mod_bds_analysis_ui("vitals_analysis_1",
           tab_title = "Vital Signs Tests Summary",
           summ_title = "Summary of Vital Signs Tests by Parameter, Analysis Value and Visit",
-          shift_title = "Table to display the shift at post dose for Vital Signs",
+          shift_title = "Shift at post dose for Vital Signs",
           domain = "ADVS",
           logo = "stethoscope"
         )
@@ -155,7 +155,7 @@ dashboard_body <- function() {
         mod_bds_analysis_ui("lab_analysis_1",
           tab_title = "Laboratory Tests Summary",
           summ_title = "Summary of Laboratory Tests by Parameter, Analysis Value and Visit",
-          shift_title = "Table to display the shift at post dose for Laboratory Tests"
+          shift_title = "Shift at post dose for Laboratory Tests"
         )
       ),
       tabItem(
@@ -163,7 +163,7 @@ dashboard_body <- function() {
         mod_bds_analysis_ui("ecg_analysis_1",
           tab_title = "ECG Tests Summary",
           summ_title = "Summary of ECG Tests by Parameter, Analysis Value and Visit",
-          shift_title = "Table to display the shift at post dose for ECG Tests",
+          shift_title = "Shift at post dose for ECG Tests",
           domain = "ADEG",
           logo = "heart-pulse"
         )
@@ -183,10 +183,17 @@ dashboard_body <- function() {
 table_options <- function(ft) {
   ft |>
     flextable::autofit() |>
-    flextable::theme_zebra(odd_body = "#F3F4ED", odd_header = "#FFFFFF") |>
-    flextable::border_inner_h(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
-    flextable::border_inner_v(border = officer::fp_border(color = "#9DB2BF"), part = "body") |>
-    flextable::border_outer(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
+    flextable::theme_vanilla() |>
     flextable::align(align = "center", part = "header") |>
-    flextable::align(align = "left", j = 1, part = "header")
+    flextable::align(align = "left", j = 1, part = "header") |>
+    flextable::bold(bold = TRUE, part = "header") |>
+    flextable::border_inner_h(
+      border = officer::fp_border(color = "#E1E5EA"),
+      part = "all"
+    ) |>
+    flextable::border_outer(
+      border = officer::fp_border(color = "#E1E5EA"),
+      part = "header"
+    ) |>
+    flextable::htmltools_value()
 }

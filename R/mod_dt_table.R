@@ -35,26 +35,19 @@ mod_dt_table_server <- function(id, display_df) {
           )
         }
         req(nrow(display_df()$out_df) > 0)
-        df <- tt_to_flextable(
+        df <- as_html(
           build_table(
             lyt = display_df()$lyt,
             df = display_df()$out_df,
             alt_counts_df = display_df()$alt_df
           )
-        ) |>
-          table_options()
+        )
       } else if (isTRUE(inherits(display_df()$out_df, "flextable"))) {
         df <- display_df()$out_df |>
-          flextable::autofit() |>
-          flextable::theme_zebra(odd_body = "#F3F4ED", odd_header = "#FFFFFF") |>
-          flextable::border(border = officer::fp_border(color = "#9DB2BF"), part = "all") |>
-          flextable::font(fontname = "courier", part = "body") |>
-          flextable::align(align = "center", part = "header") |>
-          flextable::align(align = "left", j = 1, part = "header")
+          table_options()
       } else {
         req(nrow(display_df()$out_df) > 0)
-        df <- tt_to_flextable(display_df()$out_df) |>
-          table_options()
+        df <- as_html(display_df()$out_df)
       }
       df
     }) |>
@@ -63,8 +56,7 @@ mod_dt_table_server <- function(id, display_df) {
     output$out_data <- renderUI({
       req(df_out())
       logger::log_info("mod_dt_table_server: display data")
-      df_out() |>
-        flextable::htmltools_value()
+      df_out()
     })
   })
 }
