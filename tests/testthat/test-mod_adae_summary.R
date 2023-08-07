@@ -37,6 +37,7 @@ test_that("mod_adae_summary_server works", {
           "USUBJID",
           flag_variables = var_labels(df[, "SER"]),
           .indent_mods = 1L,
+          denom = "N_col",
           table_names = "sae"
         ) |>
         count_patients_with_flags(
@@ -46,18 +47,21 @@ test_that("mod_adae_summary_server works", {
             "SAEDISAB", "SAECONG", "SAEMIE"
           )]),
           .indent_mods = 2L,
+          denom = "N_col",
           table_names = "sae_fl"
         ) |>
         count_patients_with_flags(
           var = "USUBJID",
           flag_variables = var_labels(df[, c("WD", "WDSM")]),
           .indent_mods = 1L,
+          denom = "N_col",
           table_names = "ae"
         ) |>
         count_patients_with_flags(
           var = "USUBJID",
           flag_variables = var_labels(df[, c("AEINT", "AERED", "AED", "AEMIE")]),
           .indent_mods = 2L,
+          denom = "N_col",
           table_names = "ds"
         ) |>
         analyze_num_patients(
@@ -76,6 +80,7 @@ test_that("mod_adae_summary_server works", {
           var = "USUBJID",
           flag_variables = var_labels(df[, c("CTC35", "CTC45")]),
           .indent_mods = 2L,
+          denom = "N_col",
           table_names = "ctc"
         ) |>
         append_topleft(c("", "Adverse Events"))

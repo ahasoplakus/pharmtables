@@ -104,8 +104,8 @@ mod_disposition_server <- function(id, adsl) {
       eos_vars <- names(select(adsl(), starts_with("EOSS")))
       eot_vars <- names(select(adsl(), starts_with("EOTS")))
 
-      dcs_vars <- names(select(adsl(), contains("DCSREAS")))
-      dct_vars <- names(select(adsl(), contains("DCTREAS")))
+      dcs_vars <- names(select(adsl(), contains(c("DCSREAS", "DCDECOD"))))
+      dct_vars <- names(select(adsl(), contains(c("DCTREAS", "DCTDECOD"))))
 
       updateSelectInput(session,
         "split_col",
