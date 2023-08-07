@@ -153,7 +153,7 @@ filters_to_cond <- function(filter_list) {
       }
     } else {
       vals <- filter_list[[x]]
-      vals <- str_glue('{toupper(x)} <= {vals}')
+      vals <- str_glue("{toupper(x)} <= {vals}")
     }
   })
 

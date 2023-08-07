@@ -1,31 +1,12 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<style>.pre, pre{background-color: #F3F4ED;}</style>
+<style>.code.language-r, code.language-r{color: darkcyan !important;}</style>
+<style>.h1, h1{color: #2D4356; font-weight:700;}</style>
+<style>.h2, h2{color: #2D4356; font-weight:600;}</style>
 
-# clinTables <img src="figures/logo.png" align="right" width="200" style="margin-left:50px;"/>
-
-<!-- badges: start -->
-
-[![R-CMD-check](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://app.codecov.io/gh/ahasoplakus/clinTables)
-[![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://app.codecov.io/gh/ahasoplakus/clinTables)
-[![Style](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml)
-[![lint](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml)
-![GitHub commit
-activity](https://img.shields.io/github/commit-activity/m/ahasoplakus/clinTables)
-![GitHub last
-commit](https://img.shields.io/github/last-commit/ahasoplakus/clinTables)
-![GitHub pull
-requests](https://img.shields.io/github/issues-pr/ahasoplakus/clinTables)
-![GitHub repo
-size](https://img.shields.io/github/repo-size/ahasoplakus/clinTables)
-![GitHub language
-count](https://img.shields.io/github/languages/count/ahasoplakus/clinTables)
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Current
-Version](https://img.shields.io/github/r-package/v/ahasoplakus/clinTables/main?color=purple&label=Development%20Version)](https://github.com/ahasoplakus/clinTables/tree/main)
-<!-- badges: end -->
+<div style="display:flex; justify-content: center;">
+<img src="figures/logo.png" align="center" width="250" height="275"/>
+</div>
 
 # Introduction
 
@@ -36,9 +17,18 @@ as an R package as well.
 
 ## Installation
 
-Install the latest `dev` version `remotes::install_github("ahasoplakus/clinTables")`
+Install the latest `dev` version
 
-After installation, install these packages with `install.packages(c("logger", "haven", "reactable", "markdown", "shinycssloaders", "flextable", "officer"))`
+``` r
+remotes::install_github("ahasoplakus/clinTables")
+```
+
+After installation, install these packages from <b>CRAN</b>
+
+``` r
+install.packages(c("logger", "haven", "reactable", "markdown", "shinycssloaders", "flextable", "officer"))
+```
+
 <!---
 This application is intended for a pilot submission to the FDA composing of a Shiny application, as part of the
 <a href="https://rconsortium.github.io/submissions-wg/" target="_blank">R Submissions Working Group</a>

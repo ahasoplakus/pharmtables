@@ -1,4 +1,4 @@
-#' adsl_display UI Function
+#' disposition UI Function
 #'
 #' @description A shiny Module.
 #'
@@ -7,20 +7,20 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_adsl_display_ui <- function(id) {
+mod_disposition_ui <- function(id) {
   ns <- NS(id)
   tagList(
     box(
-      id = ns("box_adsl"),
-      title = tags$strong("Summary Statistics of Demographics and Baseline Characteristics"),
+      id = ns("box_disposition"),
+      title = tags$strong("Patient Disposition"),
       sidebar = boxSidebar(
-        id = ns("demog_side"),
+        id = ns("disp_side"),
         background = "#EFF5F5",
         icon = icon("filter"),
         width = 35,
         div(
           accordion(
-            id = ns("adsl_accord"),
+            id = ns("adsl_disp_accord"),
             tagAppendAttributes(accordionItem(
               title = tags$span(icon("table-cells"), tags$strong("Table Options")),
               collapsed = FALSE,
@@ -32,22 +32,32 @@ mod_adsl_display_ui <- function(id) {
                 width = "100vw"
               ),
               selectInput(
-                ns("summ_var"),
-                "Summarize",
+                ns("eos"),
+                "End of Study Status",
                 choices = NULL,
                 selected = NULL,
-                multiple = TRUE,
                 width = "100vw"
               ),
-              prettyCheckboxGroup(
-                inputId = ns("stats"),
-                label = "Show/Hide Statistic",
-                choiceNames = NULL,
-                choiceValues = NULL,
+              selectInput(
+                ns("eot"),
+                "End of Treatment Status",
+                choices = NULL,
                 selected = NULL,
-                animation = "pulse",
-                shape = "curve",
-                status = "info"
+                width = "100vw"
+              ),
+              selectInput(
+                ns("dcs_reas"),
+                "Study Discontinuation Reason",
+                choices = NULL,
+                selected = NULL,
+                width = "100vw"
+              ),
+              selectInput(
+                ns("dct_reas"),
+                "Treatment Discontinuation Reason",
+                choices = NULL,
+                selected = NULL,
+                width = "100vw"
               )
             ), class = "side_accord")
           ),
@@ -72,13 +82,10 @@ mod_adsl_display_ui <- function(id) {
   )
 }
 
-#' adsl_display Server Functions
+#' disposition Server Functions
 #'
 #' @noRd
-#'
-#' @importFrom rtables basic_table split_cols_by split_rows_by add_overall_col
-#' @importFrom tern summarize_vars
-mod_adsl_display_server <- function(id, adsl) {
+mod_disposition_server <- function(id, adsl) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -86,20 +93,19 @@ mod_adsl_display_server <- function(id, adsl) {
 
     observe({
       req(adsl())
-      logger::log_info("mod_adsl_display_server: updating table options")
+      logger::log_info("mod_dispositon_server: updating table options")
 
       trt_choices <-
         names(select(adsl(), setdiff(
           starts_with(c("ACT", "ARM", "TRT", "TR0", "TR1", "TR2")),
           ends_with(c("DTM", "DUR", "PN", "AN", "DT", "FL"))
         )))
-      rowgrp_choices <-
-        sort(names(discard(adsl(), is.numeric)))
-      summ_vars <-
-        c(
-          sort(names(keep(adsl(), is.numeric))),
-          sort(names(keep(adsl(), is.factor)))
-        )
+
+      eos_vars <- names(select(adsl(), starts_with("EOSS")))
+      eot_vars <- names(select(adsl(), starts_with("EOTS")))
+
+      dcs_vars <- names(select(adsl(), contains(c("DCSREAS", "DCDECOD"))))
+      dct_vars <- names(select(adsl(), contains(c("DCTREAS", "DCTDECOD"))))
 
       updateSelectInput(session,
         "split_col",
@@ -108,59 +114,66 @@ mod_adsl_display_server <- function(id, adsl) {
       )
 
       updateSelectInput(session,
-        "summ_var",
-        choices = summ_vars,
-        selected = c("SEX", "AGE", "RACE", "ETHNIC")
+        "eos",
+        choices = eos_vars,
+        selected = eos_vars[1]
       )
 
-      updatePrettyCheckboxGroup(
-        inputId = "stats",
-        label = "Show/Hide Statistic",
-        choiceNames =
-          c("n", "Mean, SD", "Standard Error", "Median", "Min-Max", "IQR", "Count Fraction"),
-        choiceValues = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction"),
-        selected = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction"),
-        prettyOptions = list(
-          animation = "pulse",
-          status = "info",
-          shape = "curve"
-        )
+      updateSelectInput(session,
+        "eot",
+        choices = eot_vars,
+        selected = eot_vars[1]
+      )
+
+      updateSelectInput(session,
+        "dcs_reas",
+        choices = dcs_vars,
+        selected = dcs_vars[1]
+      )
+
+      updateSelectInput(session,
+        "dct_reas",
+        choices = dct_vars,
+        selected = dct_vars[1]
       )
     }) |>
       bindEvent(adsl())
 
     observe({
       req(input$split_col != "")
-      req(input$summ_var)
-      req(input$stats)
       rv$trig_report <- TRUE
     })
 
     disp_df <- reactive({
       req(adsl())
       req(input$split_col != "")
-      req(input$summ_var)
-      req(input$stats)
-      logger::log_info("mod_adsl_display_server: processed adsl has {nrow(adsl())} rows")
+      logger::log_info("mod_disposition_server: processed adsl has {nrow(adsl())} rows")
 
-      lyt <- build_adsl_chars_table(
-        title = "",
-        subtitle = "",
-        footer = "",
-        split_cols_by = input$split_col,
-        summ_vars = input$summ_var,
-        disp_stat = input$stats
+      lyt <- build_disp_table(
+        adsl = adsl(),
+        trt_var = input$split_col,
+        eos_var = input$eos,
+        eot_var = input$eot,
+        dcs_reas = input$dcs_reas,
+        dct_reas = input$dct_reas
       )
 
-      logger::log_info("mod_adsl_display_server: sending adsl layout for display")
+      logger::log_info("mod_disposition_server: disposition layout for display")
 
       return(list(
-        out_df = adsl(),
+        out_df = lyt,
         alt_df = NULL,
-        lyt = lyt
+        lyt = NULL
       ))
     }) |>
-      bindCache(list(adsl(), input$split_col, input$summ_var, input$stats)) |>
+      bindCache(list(
+        adsl(),
+        input$split_col,
+        input$eos,
+        input$eot,
+        input$dcs_reas,
+        input$dct_reas
+      )) |>
       bindEvent(list(adsl(), rv$trig_report, input$run))
 
     mod_dt_table_server("dt_table_1",

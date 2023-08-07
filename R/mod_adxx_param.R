@@ -19,6 +19,7 @@ mod_adxx_param_ui <- function(id,
       sidebar = boxSidebar(
         id = ns("adxx_side_param"),
         background = "#EFF5F5",
+        icon = icon("filter"),
         width = 35,
         div(uiOutput(ns("analysis_flag_ui"))),
         mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),

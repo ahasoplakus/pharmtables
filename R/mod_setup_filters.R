@@ -14,7 +14,7 @@ mod_setup_filters_ui <- function(id) {
       accordion(
         id = ns("acc_study_setup"),
         width = 6,
-        accordionItem(
+        tagAppendAttributes(accordionItem(
           title = "ADSL Filters",
           selectizeInput(
             ns("adsl_var"),
@@ -23,8 +23,8 @@ mod_setup_filters_ui <- function(id) {
             selected = NULL,
             options = list(maxItems = 8)
           )
-        ),
-        accordionItem(
+        ), class = "setup_accord"),
+        tagAppendAttributes(accordionItem(
           title = "ADAE Filters",
           selectizeInput(
             ns("adae_var"),
@@ -33,8 +33,8 @@ mod_setup_filters_ui <- function(id) {
             selected = NULL,
             options = list(maxItems = 8)
           )
-        ),
-        accordionItem(
+        ), class = "setup_accord"),
+        tagAppendAttributes(accordionItem(
           title = "ADMH Filters",
           selectizeInput(
             ns("admh_var"),
@@ -43,8 +43,8 @@ mod_setup_filters_ui <- function(id) {
             selected = NULL,
             options = list(maxItems = 8)
           )
-        ),
-        accordionItem(
+        ), class = "setup_accord"),
+        tagAppendAttributes(accordionItem(
           title = "ADCM Filters",
           selectizeInput(
             ns("adcm_var"),
@@ -53,8 +53,8 @@ mod_setup_filters_ui <- function(id) {
             selected = NULL,
             options = list(maxItems = 8)
           )
-        ),
-        accordionItem(
+        ), class = "setup_accord"),
+        tagAppendAttributes(accordionItem(
           title = "ADVS Filters",
           selectizeInput(
             ns("advs_var"),
@@ -63,8 +63,8 @@ mod_setup_filters_ui <- function(id) {
             selected = NULL,
             options = list(maxItems = 8)
           )
-        ),
-        accordionItem(
+        ), class = "setup_accord"),
+        tagAppendAttributes(accordionItem(
           title = "ADLB Filters",
           selectizeInput(
             ns("adlb_var"),
@@ -73,8 +73,8 @@ mod_setup_filters_ui <- function(id) {
             selected = NULL,
             options = list(maxItems = 8)
           )
-        ),
-        accordionItem(
+        ), class = "setup_accord"),
+        tagAppendAttributes(accordionItem(
           title = "ADEG Filters",
           selectizeInput(
             ns("adeg_var"),
@@ -83,7 +83,7 @@ mod_setup_filters_ui <- function(id) {
             selected = NULL,
             options = list(maxItems = 8)
           )
-        )
+        ), class = "setup_accord")
       )
     )
   )

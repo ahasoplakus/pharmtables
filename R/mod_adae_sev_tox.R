@@ -19,6 +19,7 @@ mod_adae_sev_tox_ui <- function(id) {
         id = ns("adae_side"),
         background = "#EFF5F5",
         width = 35,
+        icon = icon("filter"),
         mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         div(
           accordion(
@@ -133,7 +134,7 @@ mod_adae_sev_tox_server <- function(id,
         ), starts_with("ATC"))))
       term_choices <-
         names(select(df, ends_with(c(
-          "TERM", "DECOD"
+          "DECOD", "TERM"
         ))))
       summ_var <-
         names(select(df, ends_with(c("SEV", "TOXGR"))))

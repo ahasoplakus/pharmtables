@@ -102,8 +102,8 @@ mod_data_read_server <- function(id) {
           "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
         )
         show_toast(
-          title = "Data uploaded from package system folder",
-          text = "Default datasets have been loaded from random.cdisc.data",
+          title = "Reading Synthetic data",
+          text = "Default datasets will be used for analysis",
           type = "success",
           position = "center",
           width = "600px"

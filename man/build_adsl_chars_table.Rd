@@ -50,6 +50,7 @@ tt_to_flextable(tbl)
 }
 \seealso{
 Other generic: 
+\code{\link{build_disp_table}()},
 \code{\link{build_generic_bds_table}()},
 \code{\link{build_generic_occurrence_table}()},
 \code{\link{build_shift_table}()}

@@ -249,3 +249,154 @@ build_generic_bds_table <-
 
     return(list(lyt = lyt, df_out = df))
   }
+
+
+#' Disposition Summary Table
+#'
+#' @param adsl (`data.frame`)\cr adsl data set.
+#' @param trt_var (`character`)\cr Arm variable used to split table into columns.
+#' @param eos_var (`character`)\cr Name of the `end of study` variable, default is `"EOSSTT"`.
+#' @param eot_var (`character`)\cr Name of the `end of treatment` variable, default is `"EOTSTT"`.
+#' @param dcs_reas (`character`)\cr Name of the `study discontinuation reason` variable,
+#' default is `"DCSREAS"`.
+#' @param dct_reas (`character`)\cr Name of the `treatment discontinuation reason` variable,
+#' default is `"DCTREAS"`.
+#'
+#' @return An `rtable` object of the **Disposition Summary Table**
+#' @export
+#'
+#' @family generic
+#' @keywords generic
+#'
+#' @examples
+#' library(clinTables)
+#' library(rtables)
+#'
+#' data(adsl)
+#'
+#' tbl <- build_disp_table(
+#'   adsl = adsl,
+#'   trt_var = "ARM",
+#'   eos_var = "EOSSTT",
+#'   eot_var = "EOTSTT",
+#'   dcs_reas = "DCSREAS",
+#'   dct_reas = "DCTREAS"
+#' )
+#'
+#' \dontrun{
+#' tt_to_flextable(tbl)
+#' }
+#'
+build_disp_table <-
+  function(adsl,
+           trt_var,
+           eos_var = "EOSSTT",
+           eot_var = "EOTSTT",
+           dcs_reas = "DCSREAS",
+           dct_reas = "DCTREAS") {
+    lyt <- basic_table(show_colcounts = TRUE) |>
+      split_cols_by(trt_var,
+        split_fun = add_overall_level("All Patients", first = FALSE)
+      )
+
+    if ("RANDFL" %in% names(adsl)) {
+      lyt <- lyt |>
+        split_rows_by("RANDFL",
+          split_fun = keep_split_levels("Y")
+        ) |>
+        summarize_row_groups(label_fstr = "Patients Randomized")
+    }
+
+    lyt <- lyt |>
+      count_values(
+        "ITTFL",
+        values = "Y",
+        denom = "N_col",
+        .labels = c(count_fraction = "ITT Population"),
+        table_names = c("ITT")
+      ) |>
+      count_values(
+        "SAFFL",
+        values = "Y",
+        denom = "N_col",
+        .labels = c(count_fraction = "Safety Population"),
+        table_names = c("SAFF")
+      )
+
+    if ("PPROTFL" %in% names(adsl)) {
+      lyt <- lyt |>
+        count_values(
+          "PPROTFL",
+          values = "Y",
+          denom = "N_col",
+          .labels = c(count_fraction = "Per-protocol population"),
+          table_names = c("PPR")
+        )
+    }
+
+    if (eos_var %in% names(adsl)) {
+      lyt <- lyt |>
+        split_rows_by(eos_var,
+          split_fun = keep_split_levels("DISCONTINUED")
+        ) |>
+        summarize_row_groups(label_fstr = "Discontinued Study")
+    }
+
+    if (dcs_reas %in% names(adsl)) {
+      adsl <- adsl |>
+        mutate(DCS = as.factor(!!!syms(dcs_reas)))
+
+      lyt <- lyt |>
+        summarize_vars("DCS",
+          .stats = "count_fraction",
+          show_labels = "hidden",
+          denom = "N_col"
+        )
+    }
+
+    lyt1 <- basic_table(show_colcounts = TRUE) |>
+      split_cols_by(trt_var,
+        split_fun = add_overall_level("All Patients", first = FALSE)
+      )
+
+    if (eot_var %in% names(adsl)) {
+      lyt1 <- lyt1 |>
+        count_values(
+          eot_var,
+          values = "COMPLETED",
+          denom = "N_col",
+          .labels = c(count_fraction = "Completed Treatment"),
+          table_names = c("COMPLETED")
+        ) |>
+        count_values(
+          eot_var,
+          values = "ONGOING",
+          denom = "N_col",
+          .labels = c(count_fraction = "Ongoing Treatment"),
+          table_names = c("ONGOING")
+        ) |>
+        split_rows_by(eot_var,
+          split_fun = keep_split_levels("DISCONTINUED")
+        ) |>
+        summarize_row_groups(label_fstr = "Discontinued Treatment")
+    }
+
+    if (dct_reas %in% names(adsl)) {
+      adsl <- adsl |>
+        mutate(DCT = as.factor(!!!syms(dct_reas)))
+
+      lyt1 <- lyt1 |>
+        summarize_vars("DCT",
+          .stats = "count_fraction",
+          show_labels = "hidden",
+          denom = "N_col"
+        )
+    }
+
+    tbl1 <- build_table(lyt = lyt, df = adsl)
+    tbl2 <- build_table(lyt = lyt1, df = adsl)
+
+    rtables::col_info(tbl1) <- rtables::col_info(tbl2)
+
+    rbind(tbl1, tbl2)
+  }
