@@ -20,7 +20,7 @@ mod_adsl_ui <- function(id) {
         mod_adsl_display_ui(ns("adsl_display_1"))
       ),
       tabPanel(
-        "Dispostion Summary",
+        "Disposition Summary",
         mod_disposition_ui(ns("disposition_1"))
       )
     )
