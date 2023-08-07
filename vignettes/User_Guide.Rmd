@@ -1,9 +1,8 @@
 ---
-title: "clinTables"
-date: "`r format(Sys.time(), '%d %B, %Y %H:%M:%S')`"
+title: "User_Guide"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{clinTables}
+  %\VignetteIndexEntry{User_Guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

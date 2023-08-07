@@ -1,5 +1,4 @@
-# clinTables (development version)
+# clinTables 0.1.0
 
-# clinTables 0.0.0.9000
-
-* Added a `NEWS.md` file to track changes to the package.
+- Initial version.
+- Added a `NEWS.md` file to track changes to the package.
