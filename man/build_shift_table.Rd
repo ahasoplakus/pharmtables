@@ -66,6 +66,7 @@ build_shift_table(
 \seealso{
 Other generic: 
 \code{\link{build_adsl_chars_table}()},
+\code{\link{build_disp_table}()},
 \code{\link{build_generic_bds_table}()},
 \code{\link{build_generic_occurrence_table}()}
 }

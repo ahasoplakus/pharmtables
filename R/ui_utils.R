@@ -115,7 +115,7 @@ dashboard_body <- function() {
         tabName = "Tab2",
         fluidRow(
           mod_process_adsl_ui("process_adsl_1"),
-          mod_adsl_display_ui("adsl_display_1")
+          mod_adsl_ui("adsl_1")
         )
       ),
       tabItem(
@@ -193,7 +193,7 @@ table_options <- function(ft) {
     ) |>
     flextable::border_outer(
       border = officer::fp_border(color = "#E1E5EA"),
-      part = "header"
+      part = "all"
     ) |>
     flextable::htmltools_value()
 }

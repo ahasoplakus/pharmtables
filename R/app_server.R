@@ -63,7 +63,7 @@ app_server <- function(input, output, session) {
       apply = adsl_filters$apply
     )
 
-  mod_adsl_display_server("adsl_display_1",
+  mod_adsl_server("adsl_1",
     adsl = filtered_adsl
   )
 
