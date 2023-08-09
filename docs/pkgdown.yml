@@ -2,8 +2,9 @@ pandoc: 2.11.4
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
+  clinTables: clinTables.html
   User_Guide: User_Guide.html
-last_built: 2023-08-07T16:24Z
+last_built: 2023-08-09T14:40Z
 urls:
   reference: https://ahasoplakus.github.io/clinTables/reference
   article: https://ahasoplakus.github.io/clinTables/articles

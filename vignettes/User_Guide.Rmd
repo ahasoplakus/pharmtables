@@ -1,8 +1,10 @@
 ---
-title: "User_Guide"
+title: "User Guide"
+resource_files:
+  - '../man/figures/readin.png'
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{User_Guide}
+  %\VignetteIndexEntry{User Guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -10,10 +12,43 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "97%"
 )
 ```
 
-```{r setup}
+# Introduction
+
+This article provides a step-by-step user guide to run the `clinTables` application.
+
+# Steps
+* [Launch application](#launch)
+* [Upload/Read in data](#readdata)
+* [Preview Data](#preview)
+* [ADSL Filters](#adsl)
+* [Domain Specific Filters](#domain)
+* [Table Options](#tableopt)
+* [Analysis Flags](#analysisflag)
+
+## Launch application {#launch}
+
+```{r, eval=FALSE}
 library(clinTables)
+run_app()
 ```
+
+
+<img src="../man/figures/home.png" border-style="outset" width="97%">
+
+
+## Upload/Read in Data {#readdata}
+
+- Switch to the **Setup** tab beside the **About** tab on Homepage
+- Click on **Load Synthetic Data** if you want to run the application using synthetic data available
+within the package
+- Click on the **Upload Files** button if you want to load data you want to run the application on.
+(Only *sas7bdat* **or** *RDS* formats are accepted)
+
+<img src="../man/figures/readin.png" border-style="outset" width="97%">
+
+**Note:** *All examples assume CDISC SDTM and/or ADaM format as input unless otherwise specified.*

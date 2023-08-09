@@ -1,0 +1,30 @@
+---
+title: "Get Started with {clinTables}"
+resource_files:
+  - '../man/figures/home.png'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get Started with {clinTables}}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+```
+
+# Launch the application
+
+```{r, eval=FALSE}
+library(clinTables)
+run_app()
+```
+
+
+```{r, echo=FALSE}
+knitr::include_graphics("../man/figures/home.png")
+```
