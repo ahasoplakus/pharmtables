@@ -10,7 +10,7 @@
 [![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://app.codecov.io/gh/ahasoplakus/clinTables)
 [![Style](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml)
 [![lint](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml)
-[![riskmetric](https://img.shields.io/badge/riskmetric-0.48-olive)](https://pharmar.github.io/riskmetric/)
+[![riskmetric](https://img.shields.io/badge/riskmetric-0.43-olive)](https://pharmar.github.io/riskmetric/)
 <!--![GitHub commit
 activity](https://img.shields.io/github/commit-activity/m/ahasoplakus/clinTables) -->
 ![GitHub last
