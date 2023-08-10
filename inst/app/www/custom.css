@@ -201,9 +201,7 @@ div.sidebar .shiny-input-container {
 }
 
 #adsl_filters_1-apply {
-    display: flex !important;
-    margin-left: 40px !important;
-    justify-content: space-around;
+    margin-right: 15px !important;
 }
 
 .h2, h2 {

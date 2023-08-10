@@ -10,6 +10,9 @@
     <loc>https://ahasoplakus.github.io/clinTables/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://ahasoplakus.github.io/clinTables/articles/User_Guide.html</loc>
+  </url>
+  <url>
     <loc>https://ahasoplakus.github.io/clinTables/authors.html</loc>
   </url>
   <url>
@@ -31,9 +34,6 @@
     <loc>https://ahasoplakus.github.io/clinTables/reference/adae.html</loc>
   </url>
   <url>
-    <loc>https://ahasoplakus.github.io/clinTables/reference/adae_by_sev_tox.html</loc>
-  </url>
-  <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/add_adae_flags.html</loc>
   </url>
   <url>
@@ -52,13 +52,7 @@
     <loc>https://ahasoplakus.github.io/clinTables/reference/build_adae_summary.html</loc>
   </url>
   <url>
-    <loc>https://ahasoplakus.github.io/clinTables/reference/build_adsl.html</loc>
-  </url>
-  <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/build_adsl_chars_table.html</loc>
-  </url>
-  <url>
-    <loc>https://ahasoplakus.github.io/clinTables/reference/build_demog_characteristics_table.html</loc>
   </url>
   <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/build_disp_table.html</loc>
@@ -74,9 +68,6 @@
   </url>
   <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/clinTables-package.html</loc>
-  </url>
-  <url>
-    <loc>https://ahasoplakus.github.io/clinTables/reference/filters_to_cond.html</loc>
   </url>
   <url>
     <loc>https://ahasoplakus.github.io/clinTables/reference/index.html</loc>
