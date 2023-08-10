@@ -39,6 +39,7 @@ test_that("mod_adxx_bodsys_server works", {
         split_rows_by(
           "AEBODSYS",
           label_pos = "topleft",
+          indent_mod = 1L,
           split_label = obj_label(df_out()[[dataset]][["AEBODSYS"]]),
           split_fun = drop_split_levels
         ) |>

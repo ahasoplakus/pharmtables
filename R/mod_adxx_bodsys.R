@@ -21,6 +21,7 @@ mod_adxx_bodsys_ui <-
         sidebar = boxSidebar(
           id = ns("adxx_side_bodsys"),
           background = "#EFF5F5",
+          icon = icon("filter"),
           width = 35,
           mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),
           div(
@@ -126,7 +127,7 @@ mod_adxx_bodsys_server <- function(id,
         )))
       term_choices <-
         names(select(df, ends_with(c(
-          "TERM", "DECOD"
+          "DECOD", "TERM"
         ))))
 
       updateSelectInput(session,

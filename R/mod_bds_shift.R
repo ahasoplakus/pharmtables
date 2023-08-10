@@ -19,6 +19,7 @@ mod_bds_shift_ui <- function(id,
       sidebar = boxSidebar(
         id = ns("bds_side_shift"),
         background = "#EFF5F5",
+        icon = icon("filter"),
         width = 35,
         div(uiOutput(ns(
           "analysis_flag_ui"

@@ -1,20 +1,35 @@
 ---
-title: "clinTables"
-date: "`r format(Sys.time(), '%d %B, %Y %H:%M:%S')`"
+title: "Get Started with {clinTables}"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{clinTables}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Get Started with {clinTables}}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "97%"
 )
 ```
 
-```{r setup}
-library(clinTables)
+```{css, echo=FALSE}
+.img-border {
+  border-style: outset;
+}
 ```
+
+# Launch the application
+
+```{r, eval=FALSE}
+library(clinTables)
+run_app()
+```
+
+<div class="img-border">
+```{r, echo=FALSE}
+knitr::include_graphics("../man/figures/home.png")
+```
+</div>

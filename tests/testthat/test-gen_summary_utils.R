@@ -72,6 +72,7 @@ test_that("build_generic_occurrence_table works", {
       "AESOC",
       label_pos = "topleft",
       split_label = obj_label(adae[["AESOC"]]),
+      indent_mod = 1L,
       split_fun = drop_split_levels
     ) |>
     summarize_num_patients(
@@ -111,6 +112,7 @@ test_that("build_generic_occurrence_table works", {
       "AESOC",
       label_pos = "topleft",
       split_label = obj_label(adae_[["AESOC"]]),
+      indent_mod = 1L,
       split_fun = drop_split_levels
     ) |>
     summarize_num_patients(
@@ -148,6 +150,7 @@ test_that("build_generic_bds_table works", {
       "AVISIT",
       split_fun = drop_split_levels,
       label_pos = "topleft",
+      indent_mod = 1L,
       split_label = obj_label(df[["AVISIT"]])
     ) |>
     split_cols_by_multivar(
@@ -186,6 +189,7 @@ test_that("build_generic_bds_table works with filter oondition", {
       "AVISIT",
       split_fun = drop_split_levels,
       label_pos = "topleft",
+      indent_mod = 1L,
       split_label = obj_label(df[["AVISIT"]])
     ) |>
     split_cols_by_multivar(
@@ -225,6 +229,7 @@ test_that("build_generic_bds_table works with timepoint", {
       "AVISIT",
       split_fun = drop_split_levels,
       label_pos = "topleft",
+      indent_mod = 1L,
       split_label = obj_label(df[["AVISIT"]])
     ) |>
     split_rows_by(
@@ -241,4 +246,44 @@ test_that("build_generic_bds_table works with timepoint", {
     append_topleft(paste(" ", "Summary Statistic"))
 
   expect_identical(lyt$lyt, exp_lyt)
+})
+
+test_that("build_disp_table works with expected inputs", {
+  tbl <- build_disp_table(
+    adsl = adsl,
+    trt_var = "ARM",
+    eos_var = "EOSSTT",
+    eot_var = "EOTSTT",
+    dcs_reas = "DCSREAS",
+    dct_reas = "DCTREAS"
+  )
+
+  leaf_val <-
+    tbl@children[["root"]]@children[["ma_ITT_SAFF"]]@children[["ITT"]]@children[["count_fraction"]]@leaf_value # nolint
+
+  expect_equal(length(leaf_val), 4)
+  expect_equal(leaf_val[["A: Drug X"]][[1]][[1]], 134)
+  expect_equal(leaf_val[["B: Placebo"]][[1]][[1]], 134)
+
+  adsl_ <- adsl |>
+    mutate(
+      RANDFL = sample(c("Y", "N"), 400, replace = TRUE),
+      PPROTFL = sample(c("Y", "N"), 400, replace = TRUE),
+      DCTREAS = DCSREAS
+    )
+
+  tbl_ <- build_disp_table(
+    adsl = adsl_,
+    trt_var = "ARM",
+    eos_var = "EOSSTT",
+    eot_var = "EOTSTT",
+    dcs_reas = "DCSREAS",
+    dct_reas = "DCTREAS"
+  )
+
+  leaf_val_ <-
+    tbl_@children[["root"]]@children[["RANDFL"]]@children[["Y"]]@children[["ITT"]]@children[["count_fraction"]]@leaf_value # nolint
+  expect_equal(length(leaf_val), 4)
+  expect_equal(leaf_val[["A: Drug X"]][[1]][[1]], 134)
+  expect_equal(leaf_val[["B: Placebo"]][[1]][[1]], 134)
 })

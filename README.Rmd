@@ -17,11 +17,13 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/R-CMD-check.yaml)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![codecov](https://codecov.io/gh/ahasoplakus/clinTables/branch/devel/graph/badge.svg?token=G5URJVIVQM)](https://app.codecov.io/gh/ahasoplakus/clinTables)
 [![Style](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/styler.yaml)
 [![lint](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml/badge.svg)](https://github.com/ahasoplakus/clinTables/actions/workflows/lint.yaml)
-![GitHub commit
-activity](https://img.shields.io/github/commit-activity/m/ahasoplakus/clinTables)
+[![riskmetric](https://img.shields.io/badge/riskmetric-0.43-olive)](https://pharmar.github.io/riskmetric/)
+<!--![GitHub commit
+activity](https://img.shields.io/github/commit-activity/m/ahasoplakus/clinTables) -->
 ![GitHub last
 commit](https://img.shields.io/github/last-commit/ahasoplakus/clinTables)
 ![GitHub pull

@@ -17,6 +17,7 @@ mod_adae_summary_ui <- function(id) {
         id = ns("adae_summ_side"),
         background = "#EFF5F5",
         width = 35,
+        icon = icon("filter"),
         mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         div(
           accordion(
@@ -111,17 +112,9 @@ mod_adae_summary_server <- function(id,
                          {nrow(df)} rows")
 
       df_ <- add_adae_flags(df_out()[[dataset]])
-      flag_check <- ncol(df_out()[[dataset]]) != ncol(df_)
-      if (isFALSE(flag_check)) {
-        show_toast(
-          title = "Expected Variables are not present in the Adverse Events Dataset",
-          text = "Please use a different Adverse Events Data",
-          type = "error"
-        )
-      }
-      req(flag_check)
 
       aesi_vars <- setdiff(names(df_), names(df_out()[[dataset]]))
+      aesi_vars <- aesi_vars[!aesi_vars %in% "SER"]
       df <- suppressMessages(inner_join(df, df_))
       labels <- var_labels(df[, aesi_vars])
 
@@ -194,7 +187,6 @@ mod_adae_summary_server <- function(id,
     ae_summ <- reactive({
       req(ae_summ_init())
       req(input$split_col != "")
-      req(input$events)
 
       disp_eve <- ae_summ_init()$aesi_vars[ae_summ_init()$aesi_vars %in% input$events]
 

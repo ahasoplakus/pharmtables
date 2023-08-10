@@ -49,7 +49,7 @@ mod_adsl_filters_server <- function(id, dataset, load_data, filter_list) {
           dataset,
           ns
         ),
-        actionButton(ns("apply"), "Update")
+        div(actionButton(ns("apply"), "Update"), style = "display:flex; justify-content: center;")
       )
     })
 

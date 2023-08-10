@@ -16,6 +16,7 @@ mod_adsl_display_ui <- function(id) {
       sidebar = boxSidebar(
         id = ns("demog_side"),
         background = "#EFF5F5",
+        icon = icon("filter"),
         width = 35,
         div(
           accordion(

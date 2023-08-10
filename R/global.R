@@ -35,6 +35,13 @@ utils::globalVariables(
     "ANRIND",
     "PARAMCD",
     "CNT",
-    "PCT"
+    "PCT",
+    "AESLIFE",
+    "AESHOSP",
+    "AESDISAB",
+    "AESCONG",
+    "AESMIE",
+    "Labs",
+    "sp_labs"
   )
 )
