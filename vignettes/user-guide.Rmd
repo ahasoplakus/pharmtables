@@ -3,7 +3,7 @@ title: "User Guide"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{User Guide}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 

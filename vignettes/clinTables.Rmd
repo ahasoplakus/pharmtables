@@ -3,7 +3,7 @@ title: "Get Started with {clinTables}"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Get Started with {clinTables}}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
