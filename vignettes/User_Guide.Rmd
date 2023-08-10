@@ -1,11 +1,9 @@
 ---
 title: "User Guide"
-resource_files:
-  - '../man/figures/readin.png'
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{User Guide}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -13,8 +11,15 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  out.width = "97%"
+  out.width = "97%",
+  fig.align = "center"
 )
+```
+
+```{css, echo=FALSE}
+.img-border {
+  border-style: outset;
+}
 ```
 
 # Introduction
@@ -25,10 +30,7 @@ This article provides a step-by-step user guide to run the `clinTables` applicat
 * [Launch application](#launch)
 * [Upload/Read in data](#readdata)
 * [Preview Data](#preview)
-* [ADSL Filters](#adsl)
-* [Domain Specific Filters](#domain)
-* [Table Options](#tableopt)
-* [Analysis Flags](#analysisflag)
+* [Filters Setup](#setup)
 
 ## Launch application {#launch}
 
@@ -37,18 +39,78 @@ library(clinTables)
 run_app()
 ```
 
+`run_app()` will launch the application and the application homepage will load.
 
-<img src="../man/figures/home.png" border-style="outset" width="97%">
-
+<div class="img-border">
+```{r, echo=FALSE}
+knitr::include_graphics("../man/figures/home.png")
+```
+</div>
 
 ## Upload/Read in Data {#readdata}
 
 - Switch to the **Setup** tab beside the **About** tab on Homepage
-- Click on **Load Synthetic Data** if you want to run the application using synthetic data available
+- Turn on **Load Synthetic Data** if you want to run the application using synthetic data available
 within the package
 - Click on the **Upload Files** button if you want to load data you want to run the application on.
 (Only *sas7bdat* **or** *RDS* formats are accepted)
 
-<img src="../man/figures/readin.png" border-style="outset" width="97%">
+### Note
+
+Only following **ADaM** standard datasets are accepted
+
+- **adsl**: Subject-Level
+- **adae**: Adverse Events
+- **adcm**: Concomitant Medications
+- **admh**: Medical History
+- **advs**: Vital Signs
+- **adlb**: Laboratory Analysis
+- **adeg**: ECG Examinations
+
+<div class="img-border">
+```{r, echo=FALSE}
+knitr::include_graphics("../man/figures/readin.png")
+```
+</div>
+
+## Preview Data {#preview}
+
+Once the datasets have been read, the **Preview** button is enabled.
+
+<div class="img-border">
+```{r, echo=FALSE}
+knitr::include_graphics("../man/figures/prev_btn.png")
+```
+</div>
+
+<br>
+
+Click on the **Preview** button to quickly glance through the data sets that have been added
+for analysis. A modal window will pop up displaying the names of data sets loaded in a tabular format.
+Click on the expand button to view a specific data set.
+
+<br>
+
+<div class="img-border">
+```{r, echo=FALSE}
+knitr::include_graphics("../man/figures/prev_data.png")
+```
+</div>
+
+<br>
+
+## Filters Setup {#setup}
+
+### ADSL Filters
+
+Expand the **ADSL Filters** pill beneath the **Preview** button to add/remove any **adsl** specific 
+variables you want to filter *all* reports with. By default *SEX*, *RACE*, *ETHNIC*, *AGE*, 
+*SITEID* and *USUBJID* variables are selected.
+
+<div class="img-border">
+```{r, echo=FALSE}
+knitr::include_graphics("../man/figures/adsl_filt.png")
+```
+</div>
 
 **Note:** *All examples assume CDISC SDTM and/or ADaM format as input unless otherwise specified.*

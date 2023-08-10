@@ -106,6 +106,11 @@
 
     
     
+<style type="text/css">
+.img-border {
+  border-style: outset;
+}
+</style>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -118,10 +123,7 @@
 <li><a href="#launch">Launch application</a></li>
 <li><a href="#readdata">Upload/Read in data</a></li>
 <li><a href="#preview">Preview Data</a></li>
-<li><a href="#adsl">ADSL Filters</a></li>
-<li><a href="#domain">Domain Specific Filters</a></li>
-<li><a href="#tableopt">Table Options</a></li>
-<li><a href="#analysisflag">Analysis Flags</a></li>
+<li><a href="#setup">Filters Setup</a></li>
 </ul>
 <div class="section level3">
 <h3 id="launch">Launch application<a class="anchor" aria-label="anchor" href="#launch"></a>
@@ -129,18 +131,71 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ahasoplakus.github.io/clinTables/">clinTables</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="../reference/figures/home.png" border-style="outset" width="97%"></p>
+<p><code><a href="../reference/run_app.html">run_app()</a></code> will launch the application and the application homepage will load.</p>
+<div class="img-border">
+<p><img src="../reference/figures/home.png" width="97%" style="display: block; margin: auto;"></p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="readdata">Upload/Read in Data<a class="anchor" aria-label="anchor" href="#readdata"></a>
 </h3>
 <ul>
 <li>Switch to the <strong>Setup</strong> tab beside the <strong>About</strong> tab on Homepage</li>
-<li>Click on <strong>Load Synthetic Data</strong> if you want to run the application using synthetic data available within the package</li>
+<li>Turn on <strong>Load Synthetic Data</strong> if you want to run the application using synthetic data available within the package</li>
 <li>Click on the <strong>Upload Files</strong> button if you want to load data you want to run the application on. (Only <em>sas7bdat</em> <strong>or</strong> <em>RDS</em> formats are accepted)</li>
 </ul>
-<p><img src="../reference/figures/readin.png" border-style="outset" width="97%"></p>
+<div class="section level4">
+<h4 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a>
+</h4>
+<p>Only following <strong>ADaM</strong> standard datasets are accepted</p>
+<ul>
+<li>
+<strong>adsl</strong>: Subject-Level</li>
+<li>
+<strong>adae</strong>: Adverse Events</li>
+<li>
+<strong>adcm</strong>: Concomitant Medications</li>
+<li>
+<strong>admh</strong>: Medical History</li>
+<li>
+<strong>advs</strong>: Vital Signs</li>
+<li>
+<strong>adlb</strong>: Laboratory Analysis</li>
+<li>
+<strong>adeg</strong>: ECG Examinations</li>
+</ul>
+<div class="img-border">
+<p><img src="../reference/figures/readin.png" width="97%" style="display: block; margin: auto;"></p>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="preview">Preview Data<a class="anchor" aria-label="anchor" href="#preview"></a>
+</h3>
+<p>Once the datasets have been read, the <strong>Preview</strong> button is enabled.</p>
+<div class="img-border">
+<p><img src="../reference/figures/prev_btn.png" width="97%" style="display: block; margin: auto;"></p>
+</div>
+<p><br></p>
+<p>Click on the <strong>Preview</strong> button to quickly glance through the data sets that have been added for analysis. A modal window will pop up displaying the names of data sets loaded in a tabular format. Click on the expand button to view a specific data set.</p>
+<p><br></p>
+<div class="img-border">
+<p><img src="../reference/figures/prev_data.png" width="97%" style="display: block; margin: auto;"></p>
+</div>
+<p><br></p>
+</div>
+<div class="section level3">
+<h3 id="setup">Filters Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h3>
+<div class="section level4">
+<h4 id="adsl-filters">ADSL Filters<a class="anchor" aria-label="anchor" href="#adsl-filters"></a>
+</h4>
+<p>Expand the <strong>ADSL Filters</strong> pill beneath the <strong>Preview</strong> button to add/remove any <strong>adsl</strong> specific variables you want to filter <em>all</em> reports with. By default <em>SEX</em>, <em>RACE</em>, <em>ETHNIC</em>, <em>AGE</em>, <em>SITEID</em> and <em>USUBJID</em> variables are selected.</p>
+<div class="img-border">
+<p><img src="../reference/figures/adsl_filt.png" width="97%" style="display: block; margin: auto;"></p>
+</div>
 <p><strong>Note:</strong> <em>All examples assume CDISC SDTM and/or ADaM format as input unless otherwise specified.</em></p>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
