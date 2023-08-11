@@ -34,7 +34,8 @@ jobs:
           tryCatch(
             expr = {
                 x <- covr::package_coverage(
-                  path=".",
+                  path = ".",
+                  type = "all",
                   clean = FALSE,
                   quiet = FALSE,
                   line_exclusions = list(
