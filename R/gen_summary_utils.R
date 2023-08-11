@@ -307,14 +307,18 @@ build_disp_table <-
         summarize_row_groups(label_fstr = "Patients Randomized")
     }
 
+    if ("ITTFL" %in% names(adsl)) {
+      lyt <- lyt |>
+        count_values(
+          "ITTFL",
+          values = "Y",
+          denom = "N_col",
+          .labels = c(count_fraction = "ITT Population"),
+          table_names = c("ITT")
+        )
+    }
+
     lyt <- lyt |>
-      count_values(
-        "ITTFL",
-        values = "Y",
-        denom = "N_col",
-        .labels = c(count_fraction = "ITT Population"),
-        table_names = c("ITT")
-      ) |>
       count_values(
         "SAFFL",
         values = "Y",

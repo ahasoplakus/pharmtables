@@ -270,7 +270,8 @@ test_that("build_disp_table works with expected inputs", {
       RANDFL = sample(c("Y", "N"), 400, replace = TRUE),
       PPROTFL = sample(c("Y", "N"), 400, replace = TRUE),
       DCTREAS = DCSREAS
-    )
+    ) |>
+    select(-ITTFL)
 
   tbl_ <- build_disp_table(
     adsl = adsl_,
@@ -282,7 +283,7 @@ test_that("build_disp_table works with expected inputs", {
   )
 
   leaf_val_ <-
-    tbl_@children[["root"]]@children[["RANDFL"]]@children[["Y"]]@children[["ITT"]]@children[["count_fraction"]]@leaf_value # nolint
+    tbl_@children[["root"]]@children[["RANDFL"]]@children[["Y"]]@children[["SAFF"]]@children[["count_fraction"]]@leaf_value # nolint
   expect_equal(length(leaf_val), 4)
   expect_equal(leaf_val[["A: Drug X"]][[1]][[1]], 134)
   expect_equal(leaf_val[["B: Placebo"]][[1]][[1]], 134)
