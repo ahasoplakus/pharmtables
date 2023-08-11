@@ -5,6 +5,8 @@
 #' @noRd
 app_server <- function(input, output, session) {
   Sys.sleep(2)
+  options(shiny.maxRequestSize = 4096 * 1024^2)
+
   load_data <- mod_data_read_server("data_read_1")
 
   observe({
