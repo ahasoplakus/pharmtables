@@ -94,7 +94,8 @@
 
 
 
-
+<link href="user-guide_files/font-awesome-6.4.0/css/all.min.css" rel="stylesheet">
+<link href="user-guide_files/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>User Guide</h1>
@@ -109,6 +110,8 @@
 <style type="text/css">
 .img-border {
   border-style: outset;
+  justify-content: center;
+  display: flex;
 }
 </style>
 <div class="section level2">
@@ -124,6 +127,7 @@
 <li><a href="#readdata">Upload/Read in data</a></li>
 <li><a href="#preview">Preview Data</a></li>
 <li><a href="#setup">Filters Setup</a></li>
+<li><a href="#run">Run Application</a></li>
 </ul>
 <div class="section level3">
 <h3 id="launch">Launch application<a class="anchor" aria-label="anchor" href="#launch"></a>
@@ -135,6 +139,7 @@
 <div class="img-border">
 <p><img src="../reference/figures/home.png" width="97%" style="display: block; margin: auto;"></p>
 </div>
+<p><br></p>
 </div>
 <div class="section level3">
 <h3 id="readdata">Upload/Read in Data<a class="anchor" aria-label="anchor" href="#readdata"></a>
@@ -147,7 +152,7 @@
 <div class="section level4">
 <h4 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a>
 </h4>
-<p>Only following <strong>ADaM</strong> standard datasets are accepted</p>
+<p>The <strong>ADaM</strong> standard datasets listed below are accepted in <strong>clinTables v0.1.0</strong></p>
 <ul>
 <li>
 <strong>adsl</strong>: Subject-Level</li>
@@ -165,8 +170,13 @@
 <strong>adeg</strong>: ECG Examinations</li>
 </ul>
 <div class="img-border">
+<p><img src="../reference/figures/navbar.png" width="97%" style="display: block; margin: auto;"></p>
+</div>
+<p>Each of the domain specific reports can be accessed by the tabs placed in the navigation panel at the top of the application.</p>
+<div class="img-border">
 <p><img src="../reference/figures/readin.png" width="97%" style="display: block; margin: auto;"></p>
 </div>
+<p><br></p>
 </div>
 </div>
 <div class="section level3">
@@ -187,15 +197,56 @@
 <div class="section level3">
 <h3 id="setup">Filters Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h3>
-<div class="section level4">
-<h4 id="adsl-filters">ADSL Filters<a class="anchor" aria-label="anchor" href="#adsl-filters"></a>
-</h4>
-<p>Expand the <strong>ADSL Filters</strong> pill beneath the <strong>Preview</strong> button to add/remove any <strong>adsl</strong> specific variables you want to filter <em>all</em> reports with. By default <em>SEX</em>, <em>RACE</em>, <em>ETHNIC</em>, <em>AGE</em>, <em>SITEID</em> and <em>USUBJID</em> variables are selected.</p>
+<ul>
+<li>
+<h4 id="adsl-filters">ADSL Filters</h4>
+<ul>
+<li>Expand the <strong>ADSL Filters</strong> pill beneath the <strong>Preview</strong> button to add/remove any <strong>adsl</strong> specific variables to be added as filters. By default <em>SEX</em>, <em>RACE</em>, <em>ETHNIC</em>, <em>AGE</em>, <em>SITEID</em> and <em>USUBJID</em> variables are selected.</li>
+<li>At least one of the <strong>adsl</strong> variables need to be selected as a filter for the application to work.</li>
+</ul>
+</li>
+</ul>
 <div class="img-border">
 <p><img src="../reference/figures/adsl_filt.png" width="97%" style="display: block; margin: auto;"></p>
 </div>
-<p><strong>Note:</strong> <em>All examples assume CDISC SDTM and/or ADaM format as input unless otherwise specified.</em></p>
+<p><br></p>
+<ul>
+<li>
+<strong>ADSL Filters</strong> appears in the left sidebar <b>once the application is run</b> and can be applied to filter all domain specific reports.</li>
+</ul>
+<div class="img-border">
+<p><img src="../reference/figures/adsl_filt_app.png" width="97%" style="display: block; margin: auto;"></p>
 </div>
+<p><br></p>
+<ul>
+<li>
+<h4 id="domain-specific-adxx-filters">Domain Specific (ADxx) Filters</h4>
+<ul>
+<li>Expand the pills corresponding to each domain (ADAE, ADVS etc) to add/remove the domain specific variables to be added as filters. Here is an example for <strong>ADAE</strong> specific filters, where <strong>AESEV</strong> and <strong>AEACN</strong> have been added as filters for all <strong>ADAE</strong> related reports.</li>
+</ul>
+</li>
+</ul>
+<div class="img-border">
+<p><img src="../reference/figures/adae_filt.png" width="97%" style="display: block; margin: auto;"></p>
+</div>
+<p><br></p>
+<ul>
+<li>
+<strong>ADAE Filters</strong> will appear over the <strong>Table Options</strong> within the Filter window for all <strong>ADAE</strong> related reports, once the application is run. (Click on the <i class="fas fa-filter" role="presentation" aria-label="filter icon"></i> icon to open the filter window)</li>
+</ul>
+<div class="img-border">
+<p><img src="../reference/figures/adae_filt_app.png" width="97%" style="display: block; margin: auto;"></p>
+</div>
+<p><br></p>
+</div>
+<div class="section level3">
+<h3 id="run">Run Application<a class="anchor" aria-label="anchor" href="#run"></a>
+</h3>
+<p>Finally, run the application by clicking on the <strong>Run</strong> button.</p>
+<div class="img-border">
+<p><img src="../reference/figures/run_btn.png" width="97%" style="display: block; margin: auto;"></p>
+</div>
+<p><strong>Note:</strong> <em>All examples assume CDISC SDTM and/or ADaM format as input unless otherwise specified.</em></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

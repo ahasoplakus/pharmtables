@@ -7,22 +7,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  out.width = "97%",
-  fig.align = "center"
-)
-```
 
-```{css, echo=FALSE}
+
+<style type="text/css">
 .img-border {
   border-style: outset;
   justify-content: center;
   display: flex;
 }
-```
+</style>
 
 # Introduction
 
@@ -37,7 +30,8 @@ This article provides a step-by-step user guide to run the `clinTables` applicat
 
 ## Launch application {#launch}
 
-```{r launch, eval=FALSE}
+
+```r
 library(clinTables)
 run_app()
 ```
@@ -45,9 +39,9 @@ run_app()
 `run_app()` will launch the application and the application homepage will load.
 
 <div class="img-border">
-```{r home, echo=FALSE}
-knitr::include_graphics("../man/figures/home.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/home.png" alt="plot of chunk home" width="97%" />
+</div>
 </div>
 
 <br>
@@ -73,18 +67,18 @@ The **ADaM** standard datasets listed below are accepted in **clinTables v0.1.0*
 - **adeg**: ECG Examinations
 
 <div class="img-border">
-```{r navbar, echo=FALSE}
-knitr::include_graphics("../man/figures/navbar.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/navbar.png" alt="plot of chunk navbar" width="97%" />
+</div>
 </div>
 
 Each of the domain specific reports can be accessed by the  tabs placed in the navigation panel 
 at the top of the application.
 
 <div class="img-border">
-```{r read, echo=FALSE}
-knitr::include_graphics("../man/figures/readin.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/readin.png" alt="plot of chunk read" width="97%" />
+</div>
 </div>
 
 <br>
@@ -94,9 +88,9 @@ knitr::include_graphics("../man/figures/readin.png")
 Once the datasets have been read, the **Preview** button is enabled.
 
 <div class="img-border">
-```{r preview, echo=FALSE}
-knitr::include_graphics("../man/figures/prev_btn.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/prev_btn.png" alt="plot of chunk preview" width="97%" />
+</div>
 </div>
 
 <br>
@@ -108,9 +102,9 @@ tabular format. Click on the expand button to view a specific data set.
 <br>
 
 <div class="img-border">
-```{r data_preview, echo=FALSE}
-knitr::include_graphics("../man/figures/prev_data.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/prev_data.png" alt="plot of chunk data_preview" />
+</div>
 </div>
 
 <br>
@@ -126,9 +120,9 @@ knitr::include_graphics("../man/figures/prev_data.png")
     application to work.
 
 <div class="img-border">
-```{r adsl_filters, echo=FALSE}
-knitr::include_graphics("../man/figures/adsl_filt.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/adsl_filt.png" alt="plot of chunk adsl_filters" />
+</div>
 </div>
 
 <br>
@@ -137,9 +131,9 @@ knitr::include_graphics("../man/figures/adsl_filt.png")
     and can be applied to filter all domain specific reports.
 
 <div class="img-border">
-```{r adsl, echo=FALSE, dpi=300}
-knitr::include_graphics("../man/figures/adsl_filt_app.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/adsl_filt_app.png" alt="plot of chunk adsl" />
+</div>
 </div>
 
 <br>
@@ -151,21 +145,21 @@ knitr::include_graphics("../man/figures/adsl_filt_app.png")
     where **AESEV** and **AEACN** have been added as filters for all **ADAE** related reports.
 
 <div class="img-border">
-```{r adae_filters, echo=FALSE}
-knitr::include_graphics("../man/figures/adae_filt.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/adae_filt.png" alt="plot of chunk adae_filters" />
+</div>
 </div>
 
 <br>
 
   * **ADAE Filters** will appear over the **Table Options** within the Filter window 
   for all **ADAE** related reports, once the application is run. (Click on the 
-  `r shiny::icon("filter")` icon to open the filter window)
+  preserve908c7f262816edf3 icon to open the filter window)
   
 <div class="img-border">
-```{r adae, echo=FALSE}
-knitr::include_graphics("../man/figures/adae_filt_app.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/adae_filt_app.png" alt="plot of chunk adae" width="97%" />
+</div>
 </div>
 
 <br>
@@ -175,9 +169,9 @@ knitr::include_graphics("../man/figures/adae_filt_app.png")
 Finally, run the application by clicking on the **Run** button.
 
 <div class="img-border">
-```{r run, echo=FALSE, dpi=300}
-knitr::include_graphics("../man/figures/run_btn.png")
-```
+<div class="figure" style="text-align: center">
+<img src="../man/figures/run_btn.png" alt="plot of chunk run" />
+</div>
 </div>
 
 **Note:** *All examples assume CDISC SDTM and/or ADaM format as input unless otherwise specified.*

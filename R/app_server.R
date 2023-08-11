@@ -16,6 +16,19 @@ app_server <- function(input, output, session) {
   })
 
   observe({
+    showModal(
+      modalDialog(
+        includeMarkdown(app_sys("user-guide.md")),
+        title = tags$span(icon("circle-question"), tags$strong("User Guide")),
+        size = "xl",
+        easyClose = FALSE,
+        fade = TRUE
+      )
+    )
+  }) |>
+    bindEvent(input$guide)
+
+  observe({
     req(load_data$df_read())
     domain <- c("adsl", "adae", "admh", "adcm", "advs", "adlb", "adeg")
     walk(seq_along(domain) + 1, function(x) {
@@ -34,7 +47,7 @@ app_server <- function(input, output, session) {
       modalDialog(
         mod_data_preview_ui("data_preview_1"),
         title = tags$span(icon("eye"), tags$strong("Preview Data")),
-        size = "l",
+        size = "xl",
         easyClose = FALSE,
         fade = TRUE
       )

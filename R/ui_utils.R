@@ -74,7 +74,12 @@ dashboard_header <- function() {
           text = tags$span(icon("heart-pulse"), "ADEG")
         ),
         title = "ECG Analysis"
-      )
+      ),
+      tagAppendAttributes(actionLink(
+        "guide",
+        label = "",
+        icon = icon("circle-question")
+      ), style = "padding-top: 10px;")
     )
   )
 }
