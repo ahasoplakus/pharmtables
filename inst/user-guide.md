@@ -1,13 +1,3 @@
----
-title: "User Guide"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{User Guide}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-
 
 <style type="text/css">
 .img-border {
@@ -45,7 +35,7 @@ run_app()
 
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/home.png" alt="plot of chunk home" width="97%" />
+<img src="figures/home.png" alt="plot of chunk home" width="97%" />
 </div>
 </div>
 
@@ -73,7 +63,7 @@ The **ADaM** standard datasets listed below are accepted in **clinTables v0.1.0*
 
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/navbar.png" alt="plot of chunk navbar" width="97%" />
+<img src="figures/navbar.png" alt="plot of chunk navbar" width="97%" />
 </div>
 </div>
 
@@ -82,7 +72,7 @@ at the top of the application.
 
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/readin.png" alt="plot of chunk read" width="97%" />
+<img src="figures/readin.png" alt="plot of chunk read" width="97%" />
 </div>
 </div>
 
@@ -94,7 +84,7 @@ Once the datasets have been read, the **Preview** button is enabled.
 
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/prev_btn.png" alt="plot of chunk preview" width="97%" />
+<img src="figures/prev_btn.png" alt="plot of chunk preview" width="97%" />
 </div>
 </div>
 
@@ -108,7 +98,7 @@ tabular format. Click on the expand button to view a specific data set.
 
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/prev_data.png" alt="plot of chunk data_preview" />
+<img src="figures/prev_data.png" alt="plot of chunk data_preview" />
 </div>
 </div>
 
@@ -126,7 +116,7 @@ tabular format. Click on the expand button to view a specific data set.
 
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/adsl_filt.png" alt="plot of chunk adsl_filters" />
+<img src="figures/adsl_filt.png" alt="plot of chunk adsl_filters" />
 </div>
 </div>
 
@@ -137,7 +127,7 @@ tabular format. Click on the expand button to view a specific data set.
 
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/adsl_filt_app.png" alt="plot of chunk adsl" />
+<img src="figures/adsl_filt_app.png" alt="plot of chunk adsl" />
 </div>
 </div>
 
@@ -151,7 +141,7 @@ tabular format. Click on the expand button to view a specific data set.
 
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/adae_filt.png" alt="plot of chunk adae_filters" />
+<img src="figures/adae_filt.png" alt="plot of chunk adae_filters" />
 </div>
 </div>
 
@@ -163,7 +153,7 @@ tabular format. Click on the expand button to view a specific data set.
   
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/adae_filt_app.png" alt="plot of chunk adae" width="97%" />
+<img src="figures/adae_filt_app.png" alt="plot of chunk adae" width="97%" />
 </div>
 </div>
 
@@ -175,7 +165,7 @@ Finally, run the application by clicking on the **Run** button.
 
 <div class="img-border">
 <div class="figure" style="text-align: center">
-<img src="../man/figures/run_btn.png" alt="plot of chunk run" />
+<img src="figures/run_btn.png" alt="plot of chunk run" />
 </div>
 </div>
 

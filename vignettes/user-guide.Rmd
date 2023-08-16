@@ -24,6 +24,12 @@ knitr::opts_chunk$set(
 }
 ```
 
+```{css, echo=FALSE}
+a {
+  color: #3BACB6;
+}
+```
+
 # Introduction
 
 This article provides a step-by-step user guide to run the `clinTables` application.
