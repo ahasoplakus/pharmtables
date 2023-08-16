@@ -20,7 +20,9 @@ app_server <- function(input, output, session) {
   observe({
     showModal(
       modalDialog(
-        includeMarkdown(app_sys("user-guide.md")),
+        div(includeMarkdown(app_sys("user-guide.md")),
+          style = "padding-left: 5vw; padding-right: 5vw;"
+        ),
         title = tags$span(icon("circle-question"), tags$strong("User Guide")),
         size = "xl",
         easyClose = FALSE,

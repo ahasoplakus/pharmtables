@@ -15,6 +15,11 @@ vignette: >
   justify-content: center;
   display: flex;
 }
+
+a {
+ color: #3BACB6;
+}
+
 </style>
 
 # Introduction

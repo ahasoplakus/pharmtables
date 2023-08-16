@@ -74,9 +74,9 @@ mod_disposition_ui <- function(id) {
       ),
       maximizable = TRUE,
       width = 12,
-      height = "800px",
+      height = "80vh",
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
-        style = "overflow-x: scroll;"
+        style = "overflow-x: scroll; height: 70vh;"
       )
     )
   )

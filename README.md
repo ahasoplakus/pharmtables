@@ -28,8 +28,8 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 Version](https://img.shields.io/github/r-package/v/ahasoplakus/clinTables/main?color=purple&label=Development%20Version)](https://github.com/ahasoplakus/clinTables/tree/main)
 <!-- badges: end -->
 
-`clinTables` is a shiny application to visualize standard tables used in
-<b>Clinical Trials</b>
+`clinTables` is a shiny application to visualize standard safety tables
+used in <b>Clinical Trials</b>
 
 ## Installation
 
