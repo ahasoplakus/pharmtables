@@ -43,7 +43,7 @@ run_app()
 
 ## Upload/Read in Data {#readdata}
 
-- Switch to the **Setup** tab beside the **About** tab on Homepage
+- Switch to the **Setup** on the Homepage
 - Turn on **Load Synthetic Data** if you want to run the application using synthetic data available
 within the package
 - Click on the **Upload Files** button if you want to load data you want to run the application on.
@@ -149,7 +149,7 @@ tabular format. Click on the expand button to view a specific data set.
 
   * **ADAE Filters** will appear over the **Table Options** within the Filter window 
   for all **ADAE** related reports, once the application is run. (Click on the 
-  preserve908c7f262816edf3 icon to open the filter window)
+  <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/filter.svg" height = "20px" width = "20px" /> icon to open the filter window)
   
 <div class="img-border">
 <div class="figure" style="text-align: center">

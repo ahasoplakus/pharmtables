@@ -60,7 +60,7 @@ knitr::include_graphics("../man/figures/home.png")
 
 ## Upload/Read in Data {#readdata}
 
-- Switch to the **Setup** tab beside the **About** tab on Homepage
+- Switch to the **Setup** on the Homepage
 - Turn on **Load Synthetic Data** if you want to run the application using synthetic data available
 within the package
 - Click on the **Upload Files** button if you want to load data you want to run the application on.
