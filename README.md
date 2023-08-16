@@ -39,8 +39,8 @@ Latest `dev` version
 remotes::install_github("ahasoplakus/clinTables", ref = "devel", build_vignettes = TRUE)
 ```
 
-<left> After installation, install these packages with
-`install.packages(c("logger", "haven", "reactable", "markdown", "shinycssloaders", "flextable", "officer"))`
+<left> Find the app deployed
+<a href="https://sukalpo94.shinyapps.io/clinSafety/" target="_blank">here</a>
 </left>
 
 Run `library(clinTables)` to access all the exported functions from

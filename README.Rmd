@@ -50,7 +50,7 @@ remotes::install_github("ahasoplakus/clinTables", ref = "devel", build_vignettes
 ```
 
 <left>
-After installation, install these packages with `install.packages(c("logger", "haven", "reactable", "markdown", "shinycssloaders", "flextable", "officer"))`
+Find the app deployed <a href="https://sukalpo94.shinyapps.io/clinSafety/" target="_blank">here</a>
 </left>
 
 Run `library(clinTables)` to access all the exported functions from `clinTables` that help in reproducing analysis performed in the app. Or, you can run the application locally using:
