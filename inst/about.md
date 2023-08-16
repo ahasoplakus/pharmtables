@@ -20,7 +20,7 @@ as an R package as well.
 Install the latest `dev` version
 
 ``` r
-remotes::install_github("ahasoplakus/clinTables")
+remotes::install_github("ahasoplakus/clinTables", ref = "devel", build_vignettes = TRUE)
 ```
 
 After installation, install these packages from <b>CRAN</b>

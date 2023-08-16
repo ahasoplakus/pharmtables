@@ -46,7 +46,7 @@ Version](https://img.shields.io/github/r-package/v/ahasoplakus/clinTables/main?c
 Latest `dev` version
 
 ```{r, eval=FALSE}
-remotes::install_github("ahasoplakus/clinTables")
+remotes::install_github("ahasoplakus/clinTables", ref = "devel", build_vignettes = TRUE)
 ```
 
 <left>

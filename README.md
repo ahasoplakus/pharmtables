@@ -36,7 +36,7 @@ used in <b>Clinical Trials</b>
 Latest `dev` version
 
 ``` r
-remotes::install_github("ahasoplakus/clinTables")
+remotes::install_github("ahasoplakus/clinTables", ref = "devel", build_vignettes = TRUE)
 ```
 
 <left> After installation, install these packages with

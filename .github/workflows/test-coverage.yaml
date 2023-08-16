@@ -35,7 +35,7 @@ jobs:
             expr = {
                 x <- covr::package_coverage(
                   path = ".",
-                  type = "all",
+                  type = c("tests", "examples"),
                   clean = FALSE,
                   quiet = FALSE,
                   line_exclusions = list(
