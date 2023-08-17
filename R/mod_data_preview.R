@@ -9,18 +9,16 @@
 #' @importFrom shiny NS tagList
 mod_data_preview_ui <- function(id) {
   ns <- NS(id)
-  tagList(box(
-    id = ns("box_adxx_param"),
-    title = tags$strong("Datasets"),
-    maximizable = TRUE,
-    width = 12,
+  tagList(
     div(
       shinycssloaders::withSpinner(reactable::reactableOutput(ns("print_dat")),
         color = "#3BACB6"
       ),
-      style = "overflow-x: scroll; overflow-y: scroll;"
-    )
-  ))
+      style = "overflow-x: scroll; overflow-y: scroll; border-style: outset;"
+    ),
+    uiOutput(ns("data_in")),
+    div(verbatimTextOutput(ns("data_str")), style = "border-style: outset;")
+  )
 }
 
 #' data_preview Server Functions
@@ -35,9 +33,8 @@ mod_data_preview_server <- function(id, df) {
       logger::log_info("mod_data_preview_server: preview data")
 
       react_df <- tibble::tibble(
-        `Name` = names(df()),
-        `N_Rows` = map(df(), \(x) nrow(x)),
-        `N_Cols` = map(df(), \(x) ncol(x))
+        `Data` = names(df()),
+        `Dimension` = map(df(), \(x) paste0(dim(x)[1], " (Rows), ", dim(x)[2], " (Columns)"))
       )
       reactable::reactable(
         react_df,
@@ -64,6 +61,26 @@ mod_data_preview_server <- function(id, df) {
           )
         }
       )
+    })
+
+    output$data_in <- renderUI({
+      req(df())
+      req(prev_data())
+      div(
+        selectInput(
+          ns("data_up"),
+          label = "View Dataset Structure",
+          choices = names(df()),
+          selected = "adsl",
+          multiple = FALSE
+        ),
+        style = "padding-top: 2vh;"
+      )
+    })
+
+    output$data_str <- renderPrint({
+      req(input$data_up)
+      str(df()[[input$data_up]])
     })
 
     output$print_dat <- reactable::renderReactable({

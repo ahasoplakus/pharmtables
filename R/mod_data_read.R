@@ -44,17 +44,17 @@ mod_data_read_ui <- function(id) {
                 HTML("&nbsp;&nbsp;&nbsp;&nbsp;Upload Files"),
                 multiple = TRUE,
                 accept = c(".RDS", ".sas7bdat"),
-                width = "50%",
+                width = "49%",
                 buttonLabel = tags$span(icon("upload")),
                 placeholder = "No file selected",
                 capture = NULL
               )
             ),
-            column(
-              width = 6,
-              div(actionButton(ns("btn_prev"), "Preview"),
-                style = "justify-content: center; display: flex; padding-bottom: 30px; padding-right: 10px;" # nolint
-              )
+            div(
+              tooltip(actionLink(ns("btn_prev"), tags$span(icon("eye"), "")),
+                title = "Preview Data"
+              ),
+              style = "justify-content: center; display: flex; padding-bottom: 4vh; width: 50%"
             ),
             mod_setup_filters_ui(ns("setup_filters_1"))
           )
@@ -213,10 +213,10 @@ mod_data_read_server <- function(id) {
     observe({
       if (is.null(rv$df)) {
         disable("apply")
-        disable("btn_prev")
+        hide("btn_prev")
       } else {
         enable("apply")
-        enable("btn_prev")
+        show("btn_prev")
       }
     })
 

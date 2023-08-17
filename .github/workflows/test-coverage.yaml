@@ -44,8 +44,6 @@ jobs:
                   "R/run_app.R",
                   "R/ui_utils.R",
                   "R/mod_data_read.R" = c(165:173, 175:183, 190:194, 200:205),
-                  "R/mod_adsl_filters.R" = c(104:105),
-                  "R/mod_data_preview.R" = 63:66,
                   "R/mod_dt_table.R"
                   )
                 )

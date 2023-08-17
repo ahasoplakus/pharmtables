@@ -21,6 +21,7 @@ test_that("mod_global_filters_server works", {
       session$setInputs(race = levels(load_data()[[dataset]]$RACE))
       session$setInputs(country = levels(load_data()[[dataset]]$COUNTRY)[1])
       session$setInputs(age = max(load_data()[[dataset]]$AGE, na.rm = TRUE))
+      session$setInputs(age1 = max(load_data()[[dataset]]$AGE, na.rm = TRUE))
 
       all_race <- c(
         "ASIAN",
@@ -67,7 +68,7 @@ test_that("mod_global_filters_server works", {
 })
 
 test_that("module ui works", {
-  ui <- mod_adsl_filters_ui(id = "test")
+  ui <- mod_adsl_filters_ui(id = "global_filters_abc")
   golem::expect_shinytag(ui)
   # Check that formals have not been removed
   fmls <- formals(mod_adsl_filters_ui)

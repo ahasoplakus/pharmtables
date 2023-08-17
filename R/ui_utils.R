@@ -23,8 +23,7 @@ dashboard_header <- function() {
           tabName = "Tab1",
           text = tags$span(icon("home"), "")
         ),
-        title = "Home",
-        placement = "bottom"
+        title = "Home"
       ),
       tooltip(
         navbarTab(
@@ -75,11 +74,16 @@ dashboard_header <- function() {
         ),
         title = "ECG Analysis"
       ),
-      tagAppendAttributes(actionLink(
-        "guide",
-        label = "",
-        icon = icon("circle-question")
-      ), style = "padding-top: 10px;")
+      tooltip(
+        tagAppendAttributes(
+          actionLink(
+            "guide",
+            label = tags$span(icon("circle-question"), ""),
+          ),
+          style = "color: #526D82; padding-top: 1vh;"
+        ),
+        title = "User Guide"
+      )
     )
   )
 }
@@ -192,6 +196,7 @@ table_options <- function(ft) {
     flextable::align(align = "center", part = "header") |>
     flextable::align(align = "left", j = 1, part = "header") |>
     flextable::bold(bold = TRUE, part = "header") |>
+    flextable::font(fontname = "Arial", part = "all") |>
     flextable::border_inner_h(
       border = officer::fp_border(color = "#E1E5EA"),
       part = "all"
