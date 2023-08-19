@@ -144,12 +144,14 @@ mod_data_read_server <- function(id) {
               app_sys("extdata"), "/", x, ".RDS"
             ))) |>
             set_names(rv$data_list)
+          disable("def_data")
           logger::log_info(
             "mod_data_read_server: data read complete from system folder with {nrow(rv$df[[1]])} rows" # nolint
           )
         } else {
           rv$data_list <- str_remove_all(rv$upload$name, ".RDS|.sas7bdat")
           if (!identical(rv$data_list, character(0))) {
+            disable("def_data")
             rv$df <- read_data_list(rv$upload$datapath, rv$upload$name, rv$data_list)
             logger::log_info("mod_data_read_server: data read complete with {nrow(rv$df[[1]])} rows") # nolint
           } else {
