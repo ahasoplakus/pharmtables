@@ -16,8 +16,10 @@ mod_data_preview_ui <- function(id) {
       ),
       style = "overflow-x: scroll; overflow-y: scroll; border-style: outset;"
     ),
-    uiOutput(ns("data_in")),
-    div(verbatimTextOutput(ns("data_str")), style = "border-style: outset;")
+    div(reactable::reactableOutput(ns("print_dom")),
+      style = "overflow-x: scroll; overflow-y: scroll; padding-top: 2vh;"
+    ),
+    div(verbatimTextOutput(ns("data_str")), style = "padding-top: 2vh;")
   )
 }
 
@@ -44,48 +46,38 @@ mod_data_preview_server <- function(id, df) {
         highlight = TRUE,
         defaultPageSize = 10,
         paginationType = "jump",
-        details = function(rowNum) {
-          sub_df <- df()[[rowNum]]
-          div(
-            style = "padding: 1rem",
-            reactable::reactable(
-              sub_df,
-              columns = list(USUBJID = reactable::colDef(sticky = "left")),
-              filterable = TRUE,
-              bordered = TRUE,
-              striped = TRUE,
-              highlight = TRUE,
-              defaultPageSize = 5,
-              paginationType = "jump"
-            )
-          )
-        }
+        selection = "single"
       )
-    })
-
-    output$data_in <- renderUI({
-      req(df())
-      req(prev_data())
-      div(
-        selectInput(
-          ns("data_up"),
-          label = "View Dataset Structure",
-          choices = names(df()),
-          selected = "adsl",
-          multiple = FALSE
-        ),
-        style = "padding-top: 2vh;"
-      )
-    })
-
-    output$data_str <- renderPrint({
-      req(input$data_up)
-      str(df()[[input$data_up]])
     })
 
     output$print_dat <- reactable::renderReactable({
       req(prev_data())
       prev_data()
+    })
+
+    selected <- reactive(reactable::getReactableState("print_dat", "selected"))
+
+    output$data_str <- renderPrint({
+      req(selected())
+      utils::str(df()[[selected()]])
+    })
+
+    output$print_dom <- reactable::renderReactable({
+      validate(need(
+        length(selected()) > 0,
+        "Click on a radiobutton to view source datasets (upto 200 rows) and internal data structure"
+      ))
+
+      reactable::reactable(
+        slice_head(df()[[selected()]], n = min(200, nrow(df()[[selected()]]))),
+        columns = list(USUBJID = reactable::colDef(sticky = "left")),
+        filterable = TRUE,
+        bordered = TRUE,
+        striped = TRUE,
+        highlight = TRUE,
+        defaultPageSize = 5,
+        paginationType = "jump"
+      )
     })
   })
 }

@@ -324,3 +324,8 @@ div.card.setup_accord > div.card-header > h4 > a {
 p.rtables-main-title {
     font-weight: 600;
 }
+
+.shiny-output-error-validation {
+    color: #3BACB6 !important;
+    padding-left: 225px !important;
+}

@@ -49,12 +49,19 @@ mod_data_read_ui <- function(id) {
                 placeholder = "No file selected",
                 capture = NULL
               )
-            ),
-            div(
+            )
+          ),
+          style = "height: 135px;"
+        ),
+        fluidRow(
+          column(width = 3, offset = 1),
+          column(
+            width = 8,
+            fluidRow(
               tooltip(actionLink(ns("btn_prev"), tags$span(icon("eye"), "")),
                 title = "Preview Data"
               ),
-              style = "justify-content: center; display: flex; padding-bottom: 4vh; width: 50%"
+              style = "justify-content: center; display: flex; padding-bottom: 10px; width: 50%;"
             ),
             mod_setup_filters_ui(ns("setup_filters_1"))
           )
