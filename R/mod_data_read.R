@@ -41,7 +41,7 @@ mod_data_read_ui <- function(id) {
             fluidRow(
               fileInput(
                 ns("upload"),
-                HTML("&nbsp;&nbsp;&nbsp;&nbsp;Upload Files"),
+                HTML("&nbsp;&nbsp;Upload Files"),
                 multiple = TRUE,
                 accept = c(".RDS", ".sas7bdat"),
                 width = "49%",
@@ -70,7 +70,7 @@ mod_data_read_ui <- function(id) {
           column(width = 3, offset = 1),
           column(
             width = 4,
-            div(actionButton(ns("apply"), "Run"),
+            div(actionButton(ns("apply"), "Run", icon = icon("person-running")),
               style = "justify-content: center; display: flex;"
             )
           )
@@ -109,11 +109,11 @@ mod_data_read_server <- function(id) {
           "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
         )
         show_toast(
-          title = "Reading Synthetic data",
-          text = "Default datasets will be used for analysis",
+          title = "Reading Default Data",
+          text = "Default datasets available in the package are generated using random.cdisc.data",
           type = "success",
           position = "center",
-          width = "600px"
+          width = "50vw"
         )
         if (!is.null(input$upload)) {
           rv$upload <- list_assign(input$upload, name = NULL)
@@ -215,7 +215,7 @@ mod_data_read_server <- function(id) {
 
     observe({
       req(read_df())
-      updateActionButton(session, "apply", label = "Reload")
+      updateActionButton(session, "apply", label = "Reload", icon = icon("rotate"))
     }) |>
       bindEvent(input$apply, once = TRUE)
 

@@ -29,12 +29,9 @@
 #' }
 #'
 build_adsl_chars_table <-
-  function(title = "x.x: Study Subject Data",
-           subtitle = c(
-             "x.x.x: Demographic Characteristics",
-             "Table x.x.x.x: Demographic Characteristics - Full Analysis Set"
-           ),
-           footer = "Source: ADSL DDMMYYYY hh:mm; Listing x.xx; SDTM package: DDMMYYYY",
+  function(title = "",
+           subtitle = character(),
+           footer = character(),
            split_cols_by = "ARM",
            summ_vars = c("AGE", "SEX", "COUNTRY"),
            disp_stat = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction")) {
@@ -58,7 +55,7 @@ build_adsl_chars_table <-
           quantiles = c("IQR")
         )
       ) |>
-      append_topleft(c("", "Baseline Characteristic"))
+      append_topleft(c("", "Characteristic"))
   }
 
 

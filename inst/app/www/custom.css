@@ -22,6 +22,7 @@
     color: #FFC26F;
     background-color: #526D82;
     font-size: x-large;
+    font-family: monospace;
     padding-top: 6px;
     padding-bottom: 6px;
     padding-right: 24px;
@@ -34,7 +35,6 @@ b, strong {
 
 .fas {
     font-weight: 900;
-    color: #526D82;
 }
 
 .far {
@@ -42,14 +42,18 @@ b, strong {
     color: #526D82;
 }
 
-.fas.fa-upload {
+.fas.fa-upload, .fas.fa-person-running, .fas.fa-rotate {
     font-weight: 900;
     color: #fff;
 }
 
 .card {
-    box-shadow: 1px 1px 5px #FFC26F, 1px 1px 5px #526D82;
+    box-shadow: 1px 1px 5px #526D82, 1px 1px 5px #526D82;
     margin-bottom: 1rem;
+}
+
+.card-title {
+  font-family: monospace;
 }
 
 #data_read_1-btn_prev {
@@ -79,6 +83,7 @@ img {
 
 label {
     display: flex;
+    font-family: monospace;
 }
 
 div.sidebar .shiny-input-container {
@@ -95,6 +100,7 @@ div.sidebar .shiny-input-container {
     color: #fff;
     width: 180px;
     border-radius: 2rem;
+    font-family: monospace;
 }
 
 .btn-disabled {
@@ -127,9 +133,18 @@ div.sidebar .shiny-input-container {
     border: 2px solid grey;
 }
 
+.nav-item {
+    font-family: monospace;
+}
+
+.nav-pills .nav-link {
+    color: #6c757d;
+    border: 2px solid #c7c1c1 !important;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: #526D82;
-    background-color: #F3F4ED;
+    color: #FFC26F;
+    background-color: #526D82;
     margin-right: 5px !important;
     border: 2px solid #293B5F !important;
     font-weight: 400 !important;
@@ -190,7 +205,7 @@ div.sidebar .shiny-input-container {
 
 .d-block, .d-block:hover {
     display: block!important;
-    color: #3BACB6;
+    color: #526D82;
     text-align: center;
 }
 
@@ -321,8 +336,44 @@ div.card.setup_accord > div.card-header > h4 > a {
   color: #3BACB6 !important;
 }
 
-p.rtables-main-title {
-    font-weight: 600;
+.card-footer {
+    padding: .75rem 1.25rem;
+    background-color: gainsboro;
+    border-top: 0 solid rgba(0,0,0,.125);
+    font-size: small;
+    font-family: monospace;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: monospace;
+}
+
+.table {
+    font-family: monospace;
+    font-size: 15px;
+    border: 2px solid #343a40;
+    margin-top: -2rem;
+    pointer-events: none;
+}
+
+.table td {
+    border: 1px solid #343a40;
+}
+
+.table th {
+    background: gainsboro;
+    border-top: 1px solid #343a40;
+}
+
+.tabwid thead {
+    background-color: gainsboro !important;
+}
+
+div > table > tbody > tr > td > p > span,
+div > table > thead > tr > th > p > span {
+  font-family: monospace !important;
 }
 
 .shiny-output-error-validation {

@@ -192,17 +192,29 @@ dashboard_body <- function() {
 table_options <- function(ft) {
   ft |>
     flextable::autofit() |>
-    flextable::theme_vanilla() |>
     flextable::align(align = "center", part = "header") |>
     flextable::align(align = "left", j = 1, part = "header") |>
-    flextable::bold(bold = TRUE, part = "header") |>
-    flextable::font(fontname = "Arial", part = "all") |>
+    flextable::style(
+      pr_t = officer::fp_text(font.size = 11),
+      part = "body"
+    ) |>
+    flextable::style(
+      pr_t = officer::fp_text(
+        font.size = 11,
+        bold = TRUE,
+      ),
+      part = "header"
+    ) |>
     flextable::border_inner_h(
-      border = officer::fp_border(color = "#E1E5EA"),
+      border = officer::fp_border(color = "#343a40"),
+      part = "all"
+    ) |>
+    flextable::border_inner_v(
+      border = officer::fp_border(color = "#343a40"),
       part = "all"
     ) |>
     flextable::border_outer(
-      border = officer::fp_border(color = "#E1E5EA"),
+      border = officer::fp_border(color = "#343a40"),
       part = "all"
     ) |>
     flextable::htmltools_value()

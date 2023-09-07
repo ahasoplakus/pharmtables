@@ -25,7 +25,7 @@ app_server <- function(input, output, session) {
         ),
         title = tags$span(icon("circle-question"), tags$strong("User Guide")),
         size = "xl",
-        easyClose = FALSE,
+        easyClose = TRUE,
         fade = TRUE
       )
     )

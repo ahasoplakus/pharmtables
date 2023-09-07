@@ -176,7 +176,14 @@ build_adae_summary <-
         show_labels = "hidden"
       )
 
-    if ("AESEV" %in% names(adae)) {
+    if ("ASEV" %in% names(adae)) {
+      lyt <- lyt |>
+        count_occurrences_by_grade(
+          var = "ASEV",
+          show_labels = "hidden",
+          .indent_mods = 2L
+        )
+    } else if ("AESEV" %in% names(adae)) {
       lyt <- lyt |>
         count_occurrences_by_grade(
           var = "AESEV",

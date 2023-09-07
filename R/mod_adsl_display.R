@@ -12,7 +12,7 @@ mod_adsl_display_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adsl"),
-      title = tags$strong("Summary Statistics of Demographics and Baseline Characteristics"),
+      title = tags$strong("Table 1.1. Demographic Characteristics"),
       sidebar = boxSidebar(
         id = ns("demog_side"),
         background = "#EFF5F5",
@@ -64,9 +64,12 @@ mod_adsl_display_ui <- function(id) {
       ),
       maximizable = TRUE,
       width = 12,
-      height = "80vh",
+      headerBorder = FALSE,
+      footer = HTML("Abbreviations: <br>N: number of patients in treatment arm
+      <br>n: number of patients with given characteristic<br>
+      SD: standard deviation<br>Min-Max: Minimum and Maximum<br>IQR: inter-quartile range"),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
-        style = "overflow-x: scroll; height: 70vh;"
+        style = "overflow-x: scroll; height: 100vh;"
       )
     )
   )

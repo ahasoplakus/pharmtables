@@ -66,7 +66,6 @@ mod_adxx_bodsys_ui <-
         ),
         maximizable = TRUE,
         width = 12,
-        height = "80vh",
         div(
           shinycssloaders::withSpinner(
             mod_dt_table_ui(ns(
@@ -74,7 +73,7 @@ mod_adxx_bodsys_ui <-
             )),
             color = "#3BACB6"
           ),
-          style = "overflow-x: scroll; height: 70vh;"
+          style = "overflow-x: scroll; height: 100vh;"
         )
       )
     )

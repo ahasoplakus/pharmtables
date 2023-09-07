@@ -70,7 +70,6 @@ mod_adae_sev_tox_ui <- function(id) {
       ),
       maximizable = TRUE,
       width = 12,
-      height = "80vh",
       shinyWidgets::prettySwitch(
         ns("view"),
         label = "Toggle View",
@@ -81,7 +80,7 @@ mod_adae_sev_tox_ui <- function(id) {
         slim = FALSE
       ),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_2")), color = "#3BACB6"),
-        style = "overflow-x: scroll; height: 70vh;"
+        style = "overflow-x: scroll; height: 100vh;"
       )
     )
   )
