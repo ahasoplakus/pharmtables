@@ -12,7 +12,7 @@ mod_adae_summary_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adae_summ"),
-      title = tags$strong("Summary of Adverse Events"),
+      title = uiOutput(ns("table_title")),
       sidebar = boxSidebar(
         id = ns("adae_summ_side"),
         background = "#EFF5F5",
@@ -60,6 +60,7 @@ mod_adae_summary_ui <- function(id) {
       ),
       maximizable = TRUE,
       width = 12,
+      headerBorder = FALSE,
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_ae_summ")), color = "#3BACB6"),
         style = "overflow-x: scroll; height: 100vh;"
       )
@@ -74,7 +75,8 @@ mod_adae_summary_server <- function(id,
                                     dataset,
                                     df_out,
                                     adsl,
-                                    filters = reactive(NULL)) {
+                                    filters = reactive(NULL),
+                                    pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -215,6 +217,17 @@ mod_adae_summary_server <- function(id,
         )
       ) |>
       bindEvent(list(adsl(), input$run, filt_react$trig_report()))
+
+    output$table_title <- renderUI({
+      req(ae_summ())
+      req(pop_fil())
+      tags$strong(
+        paste0(
+          "Table 2.1. Overview of Adverse Events; ",
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_ae_summ",
       display_df = ae_summ

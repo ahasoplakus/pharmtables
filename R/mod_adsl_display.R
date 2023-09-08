@@ -12,7 +12,7 @@ mod_adsl_display_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adsl"),
-      title = tags$strong("Table 1.1. Demographic Characteristics"),
+      title = uiOutput(ns("table_title")),
       sidebar = boxSidebar(
         id = ns("demog_side"),
         background = "#EFF5F5",
@@ -81,7 +81,7 @@ mod_adsl_display_ui <- function(id) {
 #'
 #' @importFrom rtables basic_table split_cols_by split_rows_by add_overall_col
 #' @importFrom tern summarize_vars
-mod_adsl_display_server <- function(id, adsl) {
+mod_adsl_display_server <- function(id, adsl, pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -165,6 +165,17 @@ mod_adsl_display_server <- function(id, adsl) {
     }) |>
       bindCache(list(adsl(), input$split_col, input$summ_var, input$stats)) |>
       bindEvent(list(adsl(), rv$trig_report, input$run))
+
+    output$table_title <- renderUI({
+      req(disp_df())
+      req(pop_fil())
+      tags$strong(
+        paste0(
+          "Table 1.1. Demographic Characteristics; ",
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_1",
       display_df = disp_df

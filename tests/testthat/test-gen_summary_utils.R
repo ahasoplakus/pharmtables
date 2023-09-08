@@ -9,12 +9,7 @@ test_that("build_adsl_chars_table works", {
   )
 
   exp_lyt <- basic_table(
-    title = "x.x: Study Subject Data",
-    subtitles = c(
-      "x.x.x: Demographic Characteristics",
-      "Table x.x.x.x: Demographic Characteristics - Full Analysis Set"
-    ),
-    prov_footer = "Source: ADSL DDMMYYYY hh:mm; Listing x.xx; SDTM package: DDMMYYYY",
+    title = "",
     show_colcounts = TRUE
   ) |>
     split_cols_by("ARM", split_fun = drop_split_levels) |>
@@ -39,7 +34,7 @@ test_that("build_adsl_chars_table works", {
         quantiles = c("IQR")
       )
     ) |>
-    append_topleft(c("", "Baseline Characteristic"))
+    append_topleft(c("", "Characteristic"))
 
   expect_identical(lyt, exp_lyt)
 })

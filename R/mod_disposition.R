@@ -12,7 +12,7 @@ mod_disposition_ui <- function(id) {
   tagList(
     box(
       id = ns("box_disposition"),
-      title = tags$strong("Table 1.2. Patient Disposition"),
+      title = uiOutput(ns("table_title")),
       sidebar = boxSidebar(
         id = ns("disp_side"),
         background = "#EFF5F5",
@@ -85,7 +85,7 @@ mod_disposition_ui <- function(id) {
 #' disposition Server Functions
 #'
 #' @noRd
-mod_disposition_server <- function(id, adsl) {
+mod_disposition_server <- function(id, adsl, pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -175,6 +175,17 @@ mod_disposition_server <- function(id, adsl) {
         input$dct_reas
       )) |>
       bindEvent(list(adsl(), rv$trig_report, input$run))
+
+    output$table_title <- renderUI({
+      req(disp_df())
+      req(pop_fil())
+      tags$strong(
+        paste0(
+          "Table 1.2. Patient Disposition; ",
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_1",
       display_df = disp_df

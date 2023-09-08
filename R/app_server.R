@@ -81,7 +81,8 @@ app_server <- function(input, output, session) {
     )
 
   mod_adsl_server("adsl_1",
-    adsl = filtered_adsl
+    adsl = filtered_adsl,
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_adae_global_server(
@@ -89,7 +90,8 @@ app_server <- function(input, output, session) {
     dataset = "adae",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = reactive(load_data$adae_filters)
+    filters = reactive(load_data$adae_filters),
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_adxx_bodsys_server(
@@ -97,7 +99,8 @@ app_server <- function(input, output, session) {
     dataset = "admh",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = load_data$admh_filters
+    filters = load_data$admh_filters,
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_adxx_bodsys_server(
@@ -105,7 +108,8 @@ app_server <- function(input, output, session) {
     dataset = "adcm",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = load_data$adcm_filters
+    filters = load_data$adcm_filters,
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_bds_analysis_server(
@@ -113,7 +117,8 @@ app_server <- function(input, output, session) {
     dataset = "advs",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = reactive(load_data$advs_filters)
+    filters = reactive(load_data$advs_filters),
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_bds_analysis_server(
@@ -121,7 +126,8 @@ app_server <- function(input, output, session) {
     dataset = "adlb",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = reactive(load_data$adlb_filters)
+    filters = reactive(load_data$adlb_filters),
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_bds_analysis_server(
@@ -129,6 +135,7 @@ app_server <- function(input, output, session) {
     dataset = "adeg",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = reactive(load_data$adeg_filters)
+    filters = reactive(load_data$adeg_filters),
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 }

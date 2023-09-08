@@ -134,8 +134,6 @@ dashboard_body <- function() {
       tabItem(
         tabName = "Tab4",
         mod_adxx_bodsys_ui("admh_bodsys_1",
-          title = "Summary of Medical History By Body System or Organ Class and Dictionary-Derived
-          Term",
           domain = "ADMH",
           logo = "file-medical"
         )
@@ -143,8 +141,6 @@ dashboard_body <- function() {
       tabItem(
         tabName = "Tab5",
         mod_adxx_bodsys_ui("adcm_bodsys_1",
-          title = "Summary of Concomitant Medications by Medication Class and Standardized
-          Medication Name",
           domain = "ADCM",
           logo = "capsules"
         )
@@ -153,8 +149,6 @@ dashboard_body <- function() {
         tabName = "Tab6",
         mod_bds_analysis_ui("vitals_analysis_1",
           tab_title = "Vital Signs Tests Summary",
-          summ_title = "Summary of Vital Signs Tests by Parameter, Analysis Value and Visit",
-          shift_title = "Shift at post dose for Vital Signs",
           domain = "ADVS",
           logo = "stethoscope"
         )
@@ -162,17 +156,13 @@ dashboard_body <- function() {
       tabItem(
         tabName = "Tab7",
         mod_bds_analysis_ui("lab_analysis_1",
-          tab_title = "Laboratory Tests Summary",
-          summ_title = "Summary of Laboratory Tests by Parameter, Analysis Value and Visit",
-          shift_title = "Shift at post dose for Laboratory Tests"
+          tab_title = "Laboratory Tests Summary"
         )
       ),
       tabItem(
         tabName = "Tab8",
         mod_bds_analysis_ui("ecg_analysis_1",
           tab_title = "ECG Tests Summary",
-          summ_title = "Summary of ECG Tests by Parameter, Analysis Value and Visit",
-          shift_title = "Shift at post dose for ECG Tests",
           domain = "ADEG",
           logo = "heart-pulse"
         )

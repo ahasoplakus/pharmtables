@@ -16,7 +16,8 @@ test_that("mod_adae_sev_tox_server works", {
         )
       ),
       adsl = reactive(adsl),
-      filters = filt
+      filters = filt,
+      pop_fil = reactive("SAFFL")
     ),
     {
       ns <- session$ns

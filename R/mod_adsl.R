@@ -30,16 +30,18 @@ mod_adsl_ui <- function(id) {
 #' adsl Server Functions
 #'
 #' @noRd
-mod_adsl_server <- function(id, adsl) {
+mod_adsl_server <- function(id, adsl, pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
     mod_adsl_display_server("adsl_display_1",
-      adsl = adsl
+      adsl = adsl,
+      pop_fil = pop_fil
     )
 
     mod_disposition_server("disposition_1",
-      adsl = adsl
+      adsl = adsl,
+      pop_fil = pop_fil
     )
   })
 }

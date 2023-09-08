@@ -17,7 +17,8 @@ test_that("mod_adxx_param_server works", {
         )
       ),
       adsl = reactive(adsl),
-      filters = filt
+      filters = filt,
+      pop_fil = reactive("SAFFL")
     ),
     {
       ns <- session$ns
@@ -69,7 +70,8 @@ test_that("mod_adxx_param_server works with different dataset", {
         )
       ),
       adsl = reactive(adsl),
-      filters = filt
+      filters = filt,
+      pop_fil = reactive("SAFFL")
     ),
     {
       ns <- session$ns

@@ -16,10 +16,19 @@ mod_data_preview_ui <- function(id) {
       ),
       style = "overflow-x: scroll; overflow-y: scroll; border-style: outset;"
     ),
-    div(reactable::reactableOutput(ns("print_dom")),
+    div(
+      uiOutput(ns("valid_error"))
+    ),
+    div(
+      id = ns("list_dat"),
+      reactable::reactableOutput(ns("print_dom")),
       style = "overflow-x: scroll; overflow-y: scroll; padding-top: 2vh;"
     ),
-    div(verbatimTextOutput(ns("data_str")), style = "padding-top: 2vh;")
+    div(
+      id = ns("int_str"),
+      verbatimTextOutput(ns("data_str")),
+      style = "padding-top: 2vh;"
+    )
   )
 }
 
@@ -62,11 +71,26 @@ mod_data_preview_server <- function(id, df) {
       utils::str(df()[[selected()]])
     })
 
-    output$print_dom <- reactable::renderReactable({
+    observe({
+      if (length(selected()) > 0) {
+        show("list_dat")
+        show("int_str")
+      } else {
+        hide("list_dat")
+        hide("int_str")
+      }
+    })
+
+    output$valid_error <- renderUI({
       validate(need(
         length(selected()) > 0,
-        "Click on a radiobutton to view source datasets (upto 200 rows) and internal data structure"
+        "Click on a radiobutton to view source datasets (upto 200 rows) and its internal structure"
       ))
+      tagList()
+    })
+
+    output$print_dom <- reactable::renderReactable({
+      req(selected())
 
       reactable::reactable(
         slice_head(df()[[selected()]], n = min(200, nrow(df()[[selected()]]))),

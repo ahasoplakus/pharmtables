@@ -9,15 +9,13 @@
 #' @importFrom shiny NS tagList
 mod_adxx_bodsys_ui <-
   function(id,
-           title = "Summary of Adverse Events by Body System or Organ Class and Dictionary-Derived
-           Term",
            domain = "ADAE",
            logo = "head-side-cough") {
     ns <- NS(id)
     tagList(
       box(
         id = ns("box_adxx_bodsys"),
-        title = tags$strong(title),
+        title = uiOutput(ns("table_title")),
         sidebar = boxSidebar(
           id = ns("adxx_side_bodsys"),
           background = "#EFF5F5",
@@ -65,6 +63,7 @@ mod_adxx_bodsys_ui <-
           )
         ),
         maximizable = TRUE,
+        headerBorder = FALSE,
         width = 12,
         div(
           shinycssloaders::withSpinner(
@@ -86,7 +85,8 @@ mod_adxx_bodsys_server <- function(id,
                                    dataset,
                                    df_out,
                                    adsl,
-                                   filters = reactive(NULL)) {
+                                   filters = reactive(NULL),
+                                   pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -207,6 +207,27 @@ mod_adxx_bodsys_server <- function(id,
         filt_react$filter_cond()
       )) |>
       bindEvent(list(adsl(), filt_react$trig_report(), input$run))
+
+    output$table_title <- renderUI({
+      req(xx_bodsys())
+      req(pop_fil())
+      if (dataset == "adae") {
+        text <- "Table 2.2 Summary of Adverse Events by Body System or Organ Class and
+        Dictionary-Derived Term; "
+      } else if (dataset == "admh") {
+        text <- "Table 3.1 Summary of Medical History By Body System or Organ Class and
+        Dictionary-Derived Term; "
+      } else {
+        text <- "Table 4.1 Summary of Concomitant Medications by Medication Class and
+        Standardized Medication Name; "
+      }
+      tags$strong(
+        paste0(
+          text,
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_bodsys",
       display_df = xx_bodsys

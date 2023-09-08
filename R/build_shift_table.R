@@ -120,6 +120,17 @@ build_shift_table <-
       mutate(PCT = round(CNT / N * 100, 2)) |>
       select(-N)
 
+    wpb_anr <- wpb_anr |>
+      modify_at(
+        c("BNRIND", "ANRIND"),
+        \(x) case_match(x,
+          "H" ~ "HIGH",
+          "L" ~ "LOW",
+          "N" ~ "NORMAL",
+          .default = x
+        )
+      )
+
     if (isTRUE(default_view)) {
       ft_rows <- c("PARAM", trt_var, group_var, "BNRIND")
       ft_cols <- c("ANRIND")

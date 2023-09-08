@@ -16,7 +16,8 @@ test_that("mod_adxx_bodsys_server works", {
         )
       ),
       adsl = reactive(adsl),
-      filters = filt
+      filters = filt,
+      pop_fil = reactive("SAFFL")
     ),
     {
       ns <- session$ns
@@ -65,6 +66,11 @@ test_that("mod_adxx_bodsys_server works", {
 
       expect_equal(nrow(xx_bodsys()$out_df), 1934)
       expect_equal(nrow(xx_bodsys()$alt_df), 400)
+
+      expect_equal(
+        as.character(output$table_title$html),
+        "<strong>Table 2.2 Summary of Adverse Events by Body System or Organ Class and\n        Dictionary-Derived Term; Safety Population</strong>" # nolint
+      )
     }
   )
 })

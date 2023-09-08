@@ -4,7 +4,7 @@ test_that("mod_disposition_server works", {
   testServer(
     mod_disposition_server,
     # Add here your module params
-    args = list(id = "disposition_abc", adsl = reactive(adsl)),
+    args = list(id = "disposition_abc", adsl = reactive(adsl), pop_fil = reactive("ITTFL")),
     {
       ns <- session$ns
       expect_true(
@@ -35,6 +35,10 @@ test_that("mod_disposition_server works", {
 
       expect_true(!is.null(disp_df()$out_df))
       expect_identical(disp_df()$out_df, exp_tbl)
+      expect_equal(
+        as.character(output$table_title$html),
+        "<strong>Table 1.2. Patient Disposition; Intent-To-Treat Population</strong>"
+      )
     }
   )
 })

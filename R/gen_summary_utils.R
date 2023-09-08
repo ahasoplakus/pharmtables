@@ -311,6 +311,7 @@ build_disp_table <-
           values = "Y",
           denom = "N_col",
           .labels = c(count_fraction = "ITT Population"),
+          .formats = "xx (xx.x%)",
           table_names = c("ITT")
         )
     }
@@ -321,6 +322,7 @@ build_disp_table <-
         values = "Y",
         denom = "N_col",
         .labels = c(count_fraction = "Safety Population"),
+        .formats = "xx (xx.x%)",
         table_names = c("SAFF")
       )
 
@@ -331,6 +333,7 @@ build_disp_table <-
           values = "Y",
           denom = "N_col",
           .labels = c(count_fraction = "Per-protocol population"),
+          .formats = "xx (xx.x%)",
           table_names = c("PPR")
         )
     }
@@ -367,6 +370,7 @@ build_disp_table <-
           values = "COMPLETED",
           denom = "N_col",
           .labels = c(count_fraction = "Completed Treatment"),
+          .formats = "xx (xx.x%)",
           table_names = c("COMPLETED")
         ) |>
         count_values(
@@ -374,6 +378,7 @@ build_disp_table <-
           values = "ONGOING",
           denom = "N_col",
           .labels = c(count_fraction = "Ongoing Treatment"),
+          .formats = "xx (xx.x%)",
           table_names = c("ONGOING")
         ) |>
         split_rows_by(eot_var,
