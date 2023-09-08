@@ -78,6 +78,7 @@ mod_adxx_param_ui <- function(id,
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
       div(
         shinycssloaders::withSpinner(

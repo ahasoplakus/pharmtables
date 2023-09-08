@@ -73,6 +73,7 @@ mod_disposition_ui <- function(id) {
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),

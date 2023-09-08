@@ -21,7 +21,7 @@
     width: 300px;
     color: #FFC26F;
     background-color: #526D82;
-    font-size: x-large;
+    font-size: xx-large;
     font-family: monospace;
     padding-top: 6px;
     padding-bottom: 6px;
@@ -241,10 +241,11 @@ div.sidebar .shiny-input-container {
 
 .pretty.p-switch .state:before {
     border: 2px solid #293B5F;
+    background-color: #526D82 !important;
 }
 
 .pretty.p-switch .state label:after {
-    background-color: #fff !important;
+    background-color: #FFC26F !important;
     border: 2px solid #293B5F;
 }
 
@@ -253,7 +254,7 @@ div.sidebar .shiny-input-container {
 }
 
 .pretty.p-switch.p-fill input:checked~.state.p-info:before {
-    background-color: #fff !important;
+    background-color: #526D82 !important;
     border: 2px solid #293B5F;
 }
 
@@ -315,7 +316,7 @@ div.sidebar .shiny-input-container {
 }
 
 .side_accord > div {
-    padding: 0.5rem;
+    padding: 0.25rem;
 }
 
 div.card.side_accord > div.card-header {
@@ -328,17 +329,17 @@ div.card.setup_accord {
 }
 
 div.card.setup_accord > div.card-header {
-    background: #fff !important;
-    border: #FFC26F !important;
+    background: #F3F4ED !important;
+    border: 1px solid #526D82 !important;
 }
 
 div.card.setup_accord > div.card-header > h4 > a {
-  color: #3BACB6 !important;
+  color: #526D82 !important;
 }
 
 .card-footer {
     padding: .75rem 1.25rem;
-    background-color: gainsboro;
+    background-color: #F3F4ED;
     border-top: 0 solid rgba(0,0,0,.125);
     font-size: small;
     font-family: monospace;
@@ -353,6 +354,7 @@ p {
 .table {
     font-family: monospace;
     font-size: 15px;
+    color: #526D82 !important;
     border: 2px solid #343a40;
     margin-top: -2rem;
     pointer-events: none;
@@ -363,17 +365,23 @@ p {
 }
 
 .table th {
-    background: gainsboro;
+    background: #F3F4ED;
     border-top: 1px solid #343a40;
 }
 
 .tabwid thead {
-    background-color: gainsboro !important;
+    background-color: #F3F4ED !important;
 }
 
 div > table > tbody > tr > td > p > span,
 div > table > thead > tr > th > p > span {
   font-family: monospace !important;
+  color: #526D82 !important;
+}
+
+.btn-tool {
+    background-color: #526D82;
+    color: #FFC26F;
 }
 
 .shiny-output-error-validation {

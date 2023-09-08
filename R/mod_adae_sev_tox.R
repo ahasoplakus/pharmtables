@@ -67,6 +67,7 @@ mod_adae_sev_tox_ui <- function(id) {
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
       shinyWidgets::prettySwitch(

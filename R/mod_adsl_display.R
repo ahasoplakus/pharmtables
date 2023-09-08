@@ -63,6 +63,7 @@ mod_adsl_display_ui <- function(id) {
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
       footer = HTML("Abbreviations: <br>N: number of patients in treatment arm

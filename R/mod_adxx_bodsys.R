@@ -63,6 +63,7 @@ mod_adxx_bodsys_ui <-
           )
         ),
         maximizable = TRUE,
+        collapsible = FALSE,
         headerBorder = FALSE,
         width = 12,
         div(

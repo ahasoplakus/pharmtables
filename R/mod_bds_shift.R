@@ -63,6 +63,7 @@ mod_bds_shift_ui <- function(id,
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
       shinyWidgets::prettySwitch(
         ns("view"),
