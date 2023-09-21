@@ -44,7 +44,7 @@ b, strong {
 
 .fas.fa-upload, .fas.fa-person-running, .fas.fa-rotate {
     font-weight: 900;
-    color: #fff;
+    color: #FFC26F;
 }
 
 .card {
@@ -95,12 +95,17 @@ div.sidebar .shiny-input-container {
 }
 
 .btn-default {
-    background-color: #3BACB6;
+    background-color: #526D82;
     border-color: #ddd;
-    color: #fff;
+    color: #FFC26F;
     width: 180px;
     border-radius: 2rem;
     font-family: monospace;
+}
+
+.btn-default.hover,.btn-default:active,.btn-default:hover {
+    background-color: #E1E5EA !important;
+    color: #FFC26F !important;
 }
 
 .btn-disabled {
@@ -210,9 +215,9 @@ div.sidebar .shiny-input-container {
 }
 
 .side_apply {
-    background-color: #3BACB6;
+    background-color: #526D82;
     border-color: #ddd;
-    color: #fff;
+    color: #FFC26F;
     width: 180px;
     border-radius: 2rem;
     display: flex !important;
@@ -235,8 +240,9 @@ div.sidebar .shiny-input-container {
     line-height: 1;
 }
 
-.pretty .state label:before {
-    border-color: #293B5F !important;
+.pretty .state label:after,.pretty .state label:before {
+    border-color: #526D82 !important;
+    background-color: #526D82 !important;
 }
 
 .pretty.p-switch .state:before {
@@ -264,12 +270,13 @@ div.sidebar .shiny-input-container {
 }
 
 .pretty input:checked~.state.p-info label:after,.pretty.p-toggle .state.p-info label:after {
-    border-color: #293B5F !important;
-    background-color: #3BACB6 !important;
+    border: 1px solid #293B5F !important;
+    background-color: #FFC26F !important;
 }
 
 .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
-    background-color: #3BACB6 !important;
+    border: 1px solid #293B5F !important;
+    background-color: #FFC26F !important;
 }
 
 .irs--shiny .irs-bar {
@@ -282,7 +289,18 @@ div.sidebar .shiny-input-container {
 .irs--shiny .irs-from,
 .irs--shiny .irs-to,
 .irs--shiny .irs-single {
-  background-color: #3BACB6 !important;
+  background-color: #FFC26F !important;
+  color : #526D82 !important;
+  font-weight: bold;
+  border: 2px solid #526D82;
+}
+
+.irs-handle {
+    top: 22px !important;
+    height: 14px !important;
+    border: 2px solid #526D82 !important;
+    background-color: #FFC26F !important;
+    border-radius: 22px;
 }
 
 .bootstrap-select>.dropdown-toggle {
@@ -316,7 +334,7 @@ div.sidebar .shiny-input-container {
 }
 
 .side_accord > div {
-    padding: 0.25rem;
+    padding: 0.5rem;
 }
 
 div.card.side_accord > div.card-header {
