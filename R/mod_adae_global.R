@@ -16,15 +16,15 @@ mod_adae_global_ui <- function(id) {
       width = 12,
       collapsible = FALSE,
       tabPanel(
-        "Adverse Events Summary I",
+        "AE Summary",
         mod_adae_summary_ui(ns("adae_summary_1"))
       ),
       tabPanel(
-        "Adverse Events Summary II",
+        "AE By SOC/PT",
         mod_adxx_bodsys_ui(ns("adae_bodsys_1"))
       ),
       tabPanel(
-        "Adverse Events Summary III",
+        "AE By Severity/Toxicity",
         mod_adae_sev_tox_ui(ns("adae_sev_tox_1"))
       )
     )

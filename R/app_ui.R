@@ -18,7 +18,7 @@ app_ui <- function(request) {
       body = dashboard_body(),
       fullscreen = TRUE,
       dark = NULL,
-      help = NULL,
+      help = TRUE,
       scrollToTop = TRUE,
       preloader = list(html = tagList(
         waiter::spin_dots(),
@@ -43,7 +43,7 @@ golem_add_external_resources <- function() {
   )
 
   tags$head(
-    favicon(),
+    # favicon(),
     bundle_resources(
       path = app_sys("app/www"),
       app_title = "clinTables"

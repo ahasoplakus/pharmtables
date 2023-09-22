@@ -137,7 +137,7 @@ mod_adae_summary_server <- function(id,
 
       df <- ae_summ_init()$out_df
       choices <- names(select(df, all_of(ae_summ_init()$aesi_vars)))
-      selected <- choices
+      selected <- choices[!choices %in% c("CTC35", "CTC45")]
       labs <- as.character(ae_summ_init()$labs)
       trt_choices <-
         names(select(

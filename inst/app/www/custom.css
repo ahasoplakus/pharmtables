@@ -406,3 +406,13 @@ div > table > thead > tr > th > p > span {
     color: #3BACB6 !important;
     padding-left: 225px !important;
 }
+
+.custom-control-input:checked~.custom-control-label::before {
+    border-color: #FFC26F !important;
+    background-color: #526D82 !important;
+}
+
+.custom-switch .custom-control-input:checked~.custom-control-label::after {
+    background-color: #FFC26F !important;
+    transform: translateX(.75rem)
+}
