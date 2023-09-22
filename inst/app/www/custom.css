@@ -98,7 +98,7 @@ div.sidebar .shiny-input-container {
     background-color: #526D82;
     border-color: #ddd;
     color: #FFC26F;
-    width: 180px;
+    width: 120px;
     border-radius: 2rem;
     font-family: monospace;
 }
@@ -218,7 +218,7 @@ div.sidebar .shiny-input-container {
     background-color: #526D82;
     border-color: #ddd;
     color: #FFC26F;
-    width: 180px;
+    width: 120px;
     border-radius: 2rem;
     display: flex !important;
     justify-content: space-around;
@@ -282,7 +282,7 @@ div.sidebar .shiny-input-container {
 .irs--shiny .irs-bar {
     top: 25px;
     height: 8px;
-    border-color: #526D82 !important;
+    border: 1px solid #FFC26F !important;
     background: #526D82 !important;
 }
 
@@ -293,6 +293,15 @@ div.sidebar .shiny-input-container {
   color : #526D82 !important;
   font-weight: bold;
   border: 2px solid #526D82;
+}
+
+.irs-min, .irs-max {
+  background-color: #FFC26F !important;
+  color : #526D82 !important;
+  font-weight: bold;
+  font-size: 11px !important;
+  border: 2px solid #526D82;
+  width: 22px !important;
 }
 
 .irs-handle {
