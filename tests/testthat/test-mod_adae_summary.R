@@ -101,7 +101,7 @@ test_that("mod_adae_summary_server works", {
       expect_equal(nrow(ae_summ()$alt_df), 400)
       expect_equal(
         as.character(output$table_title$html),
-        "<strong>Table 2.1. Overview of Adverse Events; Safety Population</strong>"
+        "<strong>Table 2.1 Overview of Adverse Events; Safety Population</strong>"
       )
     }
   )

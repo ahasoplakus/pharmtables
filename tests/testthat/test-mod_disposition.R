@@ -37,7 +37,7 @@ test_that("mod_disposition_server works", {
       expect_identical(disp_df()$out_df, exp_tbl)
       expect_equal(
         as.character(output$table_title$html),
-        "<strong>Table 1.2. Patient Disposition; Intent-To-Treat Population</strong>"
+        "<strong>Table 1.2 Patient Disposition; Intent-To-Treat Population</strong>"
       )
     }
   )
