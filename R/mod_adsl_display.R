@@ -68,7 +68,7 @@ mod_adsl_display_ui <- function(id) {
       headerBorder = FALSE,
       footer = HTML("Abbreviations: <br>N: number of patients in treatment arm
       <br>n: number of patients with given characteristic<br>
-      SD: standard deviation<br>Min-Max: Minimum and Maximum<br>IQR: inter-quartile range"),
+      SD: standard deviation<br>Min-Max: minimum and maximum<br>IQR: inter-quartile range"),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
         style = "overflow-x: scroll; height: 100vh;"
       )
@@ -172,7 +172,7 @@ mod_adsl_display_server <- function(id, adsl, pop_fil) {
       req(pop_fil())
       tags$strong(
         paste0(
-          "Table 1.1. Demographic Characteristics; ",
+          "Table 1.1 Demographic Characteristics; ",
           str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
         )
       )

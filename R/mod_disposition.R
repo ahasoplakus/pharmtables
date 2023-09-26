@@ -76,6 +76,10 @@ mod_disposition_ui <- function(id) {
       collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
+      footer =
+        HTML("Abbreviations:<br>ITT: intention-to-treat<br>mITT: modified intention-to-treat
+             <br>N: number of patients in treatment arm<br>n: number of patients in specified
+             population or group"),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
         style = "overflow-x: scroll; height: 100vh;"
       )
@@ -182,7 +186,7 @@ mod_disposition_server <- function(id, adsl, pop_fil) {
       req(pop_fil())
       tags$strong(
         paste0(
-          "Table 1.2. Patient Disposition; ",
+          "Table 1.2 Patient Disposition; ",
           str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
         )
       )

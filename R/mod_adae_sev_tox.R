@@ -70,6 +70,10 @@ mod_adae_sev_tox_ui <- function(id) {
       collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
+      footer =
+        HTML("Abbreviations:<br> AE: adverse event<br>MedDRA: Medical Dictionary for Regulatory
+             Activities<br> N: number of patients in treatment arm<br>n: number of patients with
+             at least one event<br> SAE: serious adverse event"),
       shinyWidgets::prettySwitch(
         ns("view"),
         label = "Toggle View",
@@ -237,7 +241,7 @@ mod_adae_sev_tox_server <- function(id,
       req(pop_fil())
       tags$strong(
         paste0(
-          "Table 2.3. Summary of Adverse Events by Body System or Organ Class,
+          "Table 2.3 Summary of Adverse Events by Body System or Organ Class,
                Dictionary-Derived Term and Severity/Toxicity; ",
           str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
         )

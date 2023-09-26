@@ -80,6 +80,10 @@ mod_adxx_param_ui <- function(id,
       maximizable = TRUE,
       collapsible = FALSE,
       width = 12,
+      headerBorder = FALSE,
+      footer = HTML("Abbreviations: <br>N: number of patients in treatment arm
+      <br>n: number of patients with given characteristic<br>SD: standard deviation<br>Min-Max:
+      minimum and maximum"),
       div(
         shinycssloaders::withSpinner(
           mod_dt_table_ui(ns(
