@@ -157,8 +157,7 @@ filters_to_cond <- function(filter_list) {
     }
   })
 
-  filter_cond <- reduce(study_filters, paste, sep = " & ")
-  return(filter_cond)
+  reduce(study_filters, paste, sep = " & ")
 }
 
 #' Convert selectInput choices to named list
