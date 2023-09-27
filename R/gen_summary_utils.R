@@ -292,9 +292,11 @@ build_disp_table <-
            dcs_reas = "DCSREAS",
            dct_reas = "DCTREAS") {
     lyt <- basic_table(show_colcounts = TRUE) |>
-      split_cols_by(trt_var,
-        split_fun = add_overall_level("All Patients", first = FALSE)
-      )
+      split_cols_by(
+        trt_var,
+        split_fun = drop_split_levels
+      ) |>
+      add_overall_col("All Patients")
 
     if ("RANDFL" %in% names(adsl)) {
       lyt <- lyt |>
@@ -359,9 +361,11 @@ build_disp_table <-
     }
 
     lyt1 <- basic_table(show_colcounts = TRUE) |>
-      split_cols_by(trt_var,
-        split_fun = add_overall_level("All Patients", first = FALSE)
-      )
+      split_cols_by(
+        trt_var,
+        split_fun = drop_split_levels
+      ) |>
+      add_overall_col("All Patients")
 
     if (eot_var %in% names(adsl)) {
       lyt1 <- lyt1 |>
