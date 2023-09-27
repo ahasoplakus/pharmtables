@@ -195,3 +195,14 @@ read_data_list <- function(data_path, data_name, data_list) {
   }) |>
     set_names(data_list)
 }
+
+#' Drop Columns which has only missing values
+#'
+#' @param df data frame
+#'
+#' @return list of data frames
+#' @noRd
+#'
+drop_missing_cols <- function(df) {
+  discard(df_explicit_na(df), \(x) all(x %in% "<Missing>") | all(is.na(x)))
+}

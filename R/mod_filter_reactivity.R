@@ -35,20 +35,23 @@ mod_filter_reactivity_server <- function(id, df, dataset, filters, trt_var) {
 
     rv <- reactiveValues(trig_report = 0)
 
-    observe({
-      req(df()[[dataset]])
-      req(filters())
-      req(!identical(filters(), rv$cached_filter_list))
+    observe(
+      {
+        req(df()[[dataset]])
+        req(filters())
+        req(!identical(filters(), rv$cached_filter_list))
 
-      rv$widget <- tagList(
-        create_widget(
-          filters(),
-          df(),
-          dataset,
-          ns
+        rv$widget <- tagList(
+          create_widget(
+            filters(),
+            df(),
+            dataset,
+            ns
+          )
         )
-      )
-    })
+      },
+      priority = 926
+    )
 
     output$xx_filt_ui <- renderUI({
       req(rv$widget)

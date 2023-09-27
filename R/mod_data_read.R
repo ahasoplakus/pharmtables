@@ -167,7 +167,7 @@ mod_data_read_server <- function(id) {
 
     rv$setup_filters <- mod_setup_filters_server(
       "setup_filters_1",
-      eventReactive(rv$df, rv$df)
+      eventReactive(rv$df, map(rv$df, \(x) drop_missing_cols(x)))
     )
 
     read_df <- reactive({
@@ -192,7 +192,7 @@ mod_data_read_server <- function(id) {
       }
       logger::log_info("mod_data_read_server: sending data")
 
-      map(rv$df, \(x) df_explicit_na(x))
+      map(rv$df, \(x) drop_missing_cols(x))
     }) |>
       bindEvent(list(input$apply, rv$trig_reset), ignoreNULL = TRUE)
 
