@@ -133,10 +133,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(
-          load_data()[["adae"]],
-          !ends_with("FL")
-        )),
+        names(load_data()[["adae"]]),
         names(load_data()[["adsl"]])
       )
       choice_list <-
@@ -162,7 +159,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["admh"]], !ends_with("FL"))),
+        names(load_data()[["admh"]]),
         names(load_data()[["adsl"]])
       )
       choice_list <-
@@ -188,7 +185,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["adcm"]], !ends_with("FL"))),
+        names(load_data()[["adcm"]]),
         names(load_data()[["adsl"]])
       )
       choice_list <-
@@ -214,7 +211,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["advs"]], !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
+        names(select(load_data()[["advs"]], !ends_with(c("AVAL", "AVALU", "SEQ")))),
         names(load_data()[["adsl"]])
       )
       exclude_vars <- names(select(load_data()[["advs"]], !contains("CHG")))
@@ -242,7 +239,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["adlb"]], !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
+        names(select(load_data()[["adlb"]], !ends_with(c("AVAL", "AVALU", "SEQ")))),
         names(load_data()[["adsl"]])
       )
       exclude_vars <- names(select(load_data()[["adlb"]], !contains("CHG")))
@@ -270,7 +267,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["adeg"]], !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
+        names(select(load_data()[["adeg"]], !ends_with(c("AVAL", "AVALU", "SEQ")))),
         names(load_data()[["adsl"]])
       )
       exclude_vars <- names(select(load_data()[["adeg"]], !contains("CHG")))
