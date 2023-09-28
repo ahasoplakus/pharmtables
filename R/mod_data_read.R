@@ -225,6 +225,10 @@ mod_data_read_server <- function(id) {
         hide("btn_prev")
       } else {
         enable("apply")
+        disable("upload")
+        runjs(
+          "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
+        )
         show("btn_prev")
       }
     })

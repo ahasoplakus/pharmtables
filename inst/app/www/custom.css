@@ -3,7 +3,9 @@
 }
 
 .navbar-white {
-    background-color: #F3F4ED;
+    background-color: #ffffff;
+    border-top-left-radius: 15px;
+    border: 1px solid #F3F4ED;
 }
 
 .layout-fixed .main-sidebar {
@@ -15,6 +17,8 @@
     top: 0;
     text-align: center;
     background-color: #fff;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 25px;
 }
 
 #logo-id {
@@ -392,12 +396,7 @@ p {
 }
 
 .table th {
-    background: #F3F4ED;
     border-top: 1px solid #343a40;
-}
-
-.tabwid thead {
-    background-color: #F3F4ED !important;
 }
 
 div > table > tbody > tr > td > p > span,
