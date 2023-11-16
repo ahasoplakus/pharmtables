@@ -16,7 +16,6 @@ add_adae_flags(df)
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
 }
 \examples{
-library(clinTables)
 library(dplyr)
 data(adsl)
 data(adae)

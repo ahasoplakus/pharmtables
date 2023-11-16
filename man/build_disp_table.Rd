@@ -35,7 +35,6 @@ An \code{rtable} object of the \strong{Disposition Summary Table}
 Disposition Summary Table
 }
 \examples{
-library(clinTables)
 library(rtables)
 
 data(adsl)

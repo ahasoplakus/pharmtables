@@ -33,8 +33,6 @@ A tabletree object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-
-library(clinTables)
 data(adsl)
 lyt <- build_adsl_chars_table(
   split_cols_by = "ARM",

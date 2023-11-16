@@ -34,11 +34,10 @@ filtered Occurrencedata
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-
-library(clinTables)
 library(rtables)
 library(tern)
 library(dplyr)
+
 data(adsl)
 data(adae)
 adae <- filter(adae, SAFFL == "Y")

@@ -25,7 +25,6 @@
 #' @keywords generic
 #'
 #' @examples
-#' library(clinTables)
 #' data(adsl)
 #' data(adlb)
 #'

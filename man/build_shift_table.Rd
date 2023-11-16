@@ -46,7 +46,6 @@ being along time; the number of subjects is displayed in different range
 (e.g. low, normal, or high) at baseline and at selected time points or intervals.
 }
 \examples{
-library(clinTables)
 data(adsl)
 data(adlb)
 

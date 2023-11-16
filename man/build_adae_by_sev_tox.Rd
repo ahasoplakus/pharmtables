@@ -39,8 +39,6 @@ An rtable object
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
 }
 \examples{
-
-library(clinTables)
 library(rtables)
 data(adsl)
 data(adae)

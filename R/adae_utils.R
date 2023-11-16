@@ -11,7 +11,6 @@
 #'
 #' @export
 #' @examples
-#' library(clinTables)
 #' library(dplyr)
 #' data(adsl)
 #' data(adae)
@@ -86,8 +85,6 @@ add_adae_flags <- function(df) {
 #' @keywords adae_utils
 #'
 #' @examples
-#'
-#' library(clinTables)
 #' library(rtables)
 #' data(adsl)
 #' data(adae)
@@ -228,8 +225,6 @@ build_adae_summary <-
 #' @export
 #'
 #' @examples
-#'
-#' library(clinTables)
 #' library(rtables)
 #' data(adsl)
 #' data(adae)
