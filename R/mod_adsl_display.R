@@ -81,7 +81,7 @@ mod_adsl_display_ui <- function(id) {
 #' @noRd
 #'
 #' @importFrom rtables basic_table split_cols_by split_rows_by add_overall_col
-#' @importFrom tern summarize_vars
+#' @importFrom tern analyze_vars
 mod_adsl_display_server <- function(id, adsl, pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns

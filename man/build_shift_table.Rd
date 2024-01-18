@@ -46,8 +46,8 @@ being along time; the number of subjects is displayed in different range
 (e.g. low, normal, or high) at baseline and at selected time points or intervals.
 }
 \examples{
-data(adsl)
-data(adlb)
+adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+adlb <- pharmaverseadam::adlb |> drop_missing_cols()
 
 \dontrun{
 build_shift_table(

@@ -37,7 +37,7 @@ Disposition Summary Table
 \examples{
 library(rtables)
 
-data(adsl)
+adsl <- pharmaverseadam::adsl |> drop_missing_cols()
 
 tbl <- build_disp_table(
   adsl = adsl,

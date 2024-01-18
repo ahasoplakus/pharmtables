@@ -39,6 +39,7 @@ Suggests:
     logger,
     markdown,
     officer,
+    pharmaverseadam,
     reactable,
     rmarkdown,
     shinycssloaders,

@@ -14,13 +14,15 @@ create_widget <- function(filter_list, df, dataset, namespace) {
   filter_values <-
     filter_list |>
     set_names() |>
-    map(\(x) if (is.factor(df[[dataset]][[x]])) {
-      intersect(
-        levels(unique(pull(df[[dataset]], x))),
+    map(\(x) {
+      if (is.factor(df[[dataset]][[x]])) {
+        intersect(
+          levels(unique(pull(df[[dataset]], x))),
+          unique(pull(df[[dataset]], x))
+        )
+      } else {
         unique(pull(df[[dataset]], x))
-      )
-    } else {
-      unique(pull(df[[dataset]], x))
+      }
     })
 
   filters <- filter_list |>
@@ -52,10 +54,12 @@ create_widget <- function(filter_list, df, dataset, namespace) {
         choice_labs <-
           map_chr(
             choice_vals,
-            \(x) if (nchar(x) > 50) {
-              str_trunc(x, width = 50)
-            } else {
-              x
+            \(x) {
+              if (nchar(x) > 50) {
+                str_trunc(x, width = 50)
+              } else {
+                x
+              }
             }
           )
 
@@ -100,10 +104,12 @@ create_flag_widget <-
         }
         val
       }),
-      \(y) if (nchar(y) > 50) {
-        str_trunc(y, width = 50)
-      } else {
-        y
+      \(y) {
+        if (nchar(y) > 50) {
+          str_trunc(y, width = 50)
+        } else {
+          y
+        }
       }
     )
 
@@ -200,7 +206,12 @@ read_data_list <- function(data_path, data_name, data_list) {
 #' @param df data frame
 #'
 #' @return list of data frames
-#' @noRd
+#' @export
+#'
+#' @keywords internal
+#' @examples
+#'
+#' drop_missing_cols(pharmaverseadam::advs)
 #'
 drop_missing_cols <- function(df) {
   discard(df_explicit_na(df), \(x) all(x %in% "<Missing>") | all(is.na(x)))

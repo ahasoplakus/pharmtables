@@ -166,9 +166,9 @@ mod_disposition_server <- function(id, adsl, pop_fil) {
       logger::log_info("mod_disposition_server: disposition layout for display")
 
       return(list(
-        out_df = lyt,
+        out_df = lyt$df,
         alt_df = NULL,
-        lyt = NULL
+        lyt = list(lyt$lyt[[1]], lyt$lyt[[2]])
       ))
     }) |>
       bindCache(list(

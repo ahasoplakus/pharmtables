@@ -16,13 +16,16 @@ add_adae_flags(df)
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
 }
 \examples{
-library(dplyr)
-data(adsl)
-data(adae)
-adae_ <- add_adae_flags(adae)
+suppressMessages(library(dplyr))
 
-tbl <- select(adae_, c("USUBJID", setdiff(names(adae_), names(adae))))
-slice_head(tbl, n = 5)
+adsl <- pharmaverseadam::adsl
+adae <- pharmaverseadam::adae
+
+adae_ <- suppressMessages(add_adae_flags(adae))
+
+adae_ |>
+  select(c("USUBJID", setdiff(names(adae_), names(adae)))) |>
+  slice_head(n = 5)
 
 }
 \seealso{
