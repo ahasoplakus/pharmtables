@@ -140,9 +140,11 @@ mod_data_read_server <- function(id) {
           rv$data_list <-
             str_remove_all(list.files(app_sys("extdata")), ".RDS")
           rv$df <- rv$data_list |>
-            map(\(x) readRDS(paste0(
-              app_sys("extdata"), "/", x, ".RDS"
-            ))) |>
+            map(\(x) {
+              readRDS(paste0(
+                app_sys("extdata"), "/", x, ".RDS"
+              ))
+            }) |>
             set_names(rv$data_list)
           disable("def_data")
           logger::log_info(

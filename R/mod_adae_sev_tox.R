@@ -74,15 +74,6 @@ mod_adae_sev_tox_ui <- function(id) {
         HTML("Abbreviations:<br> AE: adverse event<br>MedDRA: Medical Dictionary for Regulatory
              Activities<br> N: number of patients in treatment arm<br>n: number of patients with
              at least one event<br> SAE: serious adverse event"),
-      shinyWidgets::prettySwitch(
-        ns("view"),
-        label = "Toggle View",
-        value = FALSE,
-        status = "info",
-        inline = TRUE,
-        fill = TRUE,
-        slim = FALSE
-      ),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_2")), color = "#3BACB6"),
         style = "overflow-x: scroll; height: 100vh;"
       )
@@ -205,21 +196,19 @@ mod_adae_sev_tox_server <- function(id,
         left_join(df_adsl) |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      out_df <- build_adae_by_sev_tox(
-        adsl = df_adsl,
-        df_adae = df,
+      lyt <- build_adae_by_sev_tox(
+        adae = df,
         colsby = input$split_col,
         filter_cond = filt_react$filter_cond(),
         grade_val = input$summ_var,
         class_val = input$class,
-        term_val = input$term,
-        default_view = input$view
+        term_val = input$term
       )
 
       return(list(
-        out_df = out_df,
-        alt_df = NULL,
-        lyt = NULL
+        out_df = lyt$df_out,
+        alt_df = df_adsl,
+        lyt = lyt$lyt
       ))
     }) |>
       bindCache(
@@ -230,11 +219,10 @@ mod_adae_sev_tox_server <- function(id,
           input$class,
           input$term,
           input$summ_var,
-          input$view,
           filt_react$filter_cond()
         )
       ) |>
-      bindEvent(list(adsl(), filt_react$trig_report(), input$run, input$view))
+      bindEvent(list(adsl(), filt_react$trig_report(), input$run))
 
     output$table_title <- renderUI({
       req(ae_explore())

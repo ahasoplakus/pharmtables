@@ -14,7 +14,7 @@ test_that("build_adsl_chars_table works", {
   ) |>
     split_cols_by("ARM", split_fun = drop_split_levels) |>
     add_overall_col("All Patients") |>
-    summarize_vars(
+    analyze_vars(
       c("AGE", "RACE"),
       .stats = c(
         "n",
@@ -244,7 +244,7 @@ test_that("build_generic_bds_table works with timepoint", {
 })
 
 test_that("build_disp_table works with expected inputs", {
-  tbl <- build_disp_table(
+  lyt <- build_disp_table(
     adsl = adsl,
     trt_var = "ARM",
     eos_var = "EOSSTT",
@@ -253,6 +253,14 @@ test_that("build_disp_table works with expected inputs", {
     dct_reas = "DCTREAS"
   )
 
+  tbl1 <- build_table(lyt = lyt$lyt[[1]], df = lyt$df)
+  tbl2 <- build_table(lyt = lyt$lyt[[2]], df = lyt$df)
+  rtables::col_info(tbl1) <- rtables::col_info(tbl2)
+
+  tbl <- rbind(tbl1, tbl2)
+
+  expect_snapshot(rbind(tbl1, tbl2))
+
   leaf_val <-
     tbl@children[["root"]]@children[["ma_ITT_SAFF"]]@children[["ITT"]]@children[["count_fraction"]]@leaf_value # nolint
 
@@ -260,6 +268,7 @@ test_that("build_disp_table works with expected inputs", {
   expect_equal(leaf_val[["A: Drug X"]][[1]][[1]], 134)
   expect_equal(leaf_val[["B: Placebo"]][[1]][[1]], 134)
 
+  set.seed(1234)
   adsl_ <- adsl |>
     mutate(
       RANDFL = sample(c("Y", "N"), 400, replace = TRUE),
@@ -268,7 +277,7 @@ test_that("build_disp_table works with expected inputs", {
     ) |>
     select(-ITTFL)
 
-  tbl_ <- build_disp_table(
+  lyt_ <- build_disp_table(
     adsl = adsl_,
     trt_var = "ARM",
     eos_var = "EOSSTT",
@@ -277,9 +286,17 @@ test_that("build_disp_table works with expected inputs", {
     dct_reas = "DCTREAS"
   )
 
+  tbl_1 <- build_table(lyt = lyt_$lyt[[1]], df = lyt_$df)
+  tbl_2 <- build_table(lyt = lyt_$lyt[[2]], df = lyt_$df)
+  rtables::col_info(tbl_1) <- rtables::col_info(tbl_2)
+
+  tbl_ <- rbind(tbl_1, tbl_2)
+
   leaf_val_ <-
     tbl_@children[["root"]]@children[["RANDFL"]]@children[["Y"]]@children[["SAFF"]]@children[["count_fraction"]]@leaf_value # nolint
   expect_equal(length(leaf_val), 4)
   expect_equal(leaf_val[["A: Drug X"]][[1]][[1]], 134)
   expect_equal(leaf_val[["B: Placebo"]][[1]][[1]], 134)
+
+  expect_snapshot(rbind(tbl_1, tbl_2))
 })

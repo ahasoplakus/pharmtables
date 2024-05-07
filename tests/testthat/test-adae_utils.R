@@ -1,6 +1,8 @@
 data(adsl)
 data(adae)
 
+options(warn = -1)
+
 test_that("add_adae_flags works as expected", {
   out_df <- add_adae_flags(adae)
 
@@ -81,6 +83,7 @@ test_that("build_adae_summary works", {
     append_topleft(c("", "Adverse Events"))
 
   expect_identical(lyt$lyt, exp_lyt)
+  expect_snapshot(build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl))
 })
 
 test_that("build_adae_summary works with filter condition", {
@@ -149,42 +152,19 @@ test_that("build_adae_summary works with filter condition", {
 
   expect_identical(lyt$lyt, exp_lyt)
   expect_equal(nrow(lyt$df_out), nrow(adae_1))
+  expect_snapshot(build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl))
 })
 
-test_that("build_adae_by_sev_tox works with default view", {
-  out_df <- build_adae_by_sev_tox(
-    adsl = adsl,
-    df_adae = adae,
+test_that("build_adae_by_sev_tox works", {
+  lyt <- build_adae_by_sev_tox(
+    adae = adae,
     colsby = "ARM",
     grade_val = "AESEV",
     class_val = "AESOC",
-    term_val = "AEDECOD",
-    default_view = TRUE
+    term_val = "AEDECOD"
   )
 
-  obj_clA <-
-    out_df@children[["cl A"]]@children[["AEDECOD"]]@children[["dcd A.1.1.1.1"]]@leaf_value
-  obj_clB <-
-    out_df@children[["cl B"]]@children[["AEDECOD"]]@children[["dcd B.1.1.1.1"]]@leaf_value
-
-  expect_equal(class(out_df)[1], "TableTree")
-  expect_equal(length(obj_clA), 16)
-  expect_identical(round(unlist(obj_clA[[1]]), 4), c(50, 0.3731))
-
-  expect_equal(length(obj_clB), 16)
-  expect_identical(round(unlist(obj_clB[[1]]), 4), c(47, 0.3507))
-})
-
-test_that("build_adae_by_sev_tox works with alternate view", {
-  out_df <- build_adae_by_sev_tox(
-    adsl = adsl,
-    df_adae = adae,
-    colsby = "ARM",
-    grade_val = "AESEV",
-    class_val = "AESOC",
-    term_val = "AEDECOD",
-    default_view = FALSE
-  )
+  out_df <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
 
   obj_clA <-
     out_df@children[["AESOC"]]@children[["cl A"]]@children[["AEDECOD"]]@children[["dcd A.1.1.1.1"]]@content@children # nolint
@@ -204,50 +184,35 @@ test_that("build_adae_by_sev_tox works with alternate view", {
   expect_identical(names(obj_clB), c("MILD", "MODERATE", "SEVERE"))
   expect_identical(names(val_obj_clB), c("A: Drug X", "B: Placebo", "C: Combination", "All Patients")) # nolint
   expect_identical(round(unlist(val_obj_clB[["A: Drug X"]]), 4), c(47, 0.3507))
+
+  expect_snapshot(out_df)
 })
 
 test_that("build_adae_by_sev_tox works with AETOXGR", {
-  out_df <- build_adae_by_sev_tox(
-    adsl = adsl,
-    df_adae = adae,
+  lyt <- build_adae_by_sev_tox(
+    adae = adae,
     colsby = "ARM",
     grade_val = "AETOXGR",
     class_val = "AESOC",
-    term_val = "AEDECOD",
-    default_view = TRUE
+    term_val = "AEDECOD"
   )
 
+  out_df <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
+
   expect_equal(class(out_df)[1], "TableTree")
+  expect_snapshot(out_df)
 
-  obj_clA <-
-    out_df@children[["cl A"]]@children[["AEDECOD"]]@children[["dcd A.1.1.1.1"]]@leaf_value
-  obj_clB <-
-    out_df@children[["cl B"]]@children[["AEDECOD"]]@children[["dcd B.1.1.1.1"]]@leaf_value
-
-  expect_equal(length(obj_clA), 24)
-  expect_equal(length(obj_clB), 24)
-
-  expect_identical(round(unlist(obj_clA[[1]]), 4), c(50, 0.3731))
-  expect_identical(round(unlist(obj_clB[[1]]), 4), c(47, 0.3507))
-
-  out_df1 <- build_adae_by_sev_tox(
-    adsl = adsl,
-    df_adae = adae,
+  lyt1 <- build_adae_by_sev_tox(
+    adae = adae,
     colsby = "ARM",
     filter_cond = filters_to_cond(list(SEX = c("F"))),
     grade_val = "AETOXGR",
     class_val = "AESOC",
-    term_val = "AEDECOD",
-    default_view = TRUE
+    term_val = "AEDECOD"
   )
 
+  out_df1 <- build_table(lyt = lyt1$lyt, df = lyt1$df_out, alt_counts_df = adsl)
+
   expect_equal(class(out_df1)[1], "TableTree")
-
-  obj_clA_ <-
-    out_df1@children[["cl A"]]@children[["AEDECOD"]]@children[["dcd A.1.1.1.1"]]@leaf_value
-  obj_clB_ <-
-    out_df1@children[["cl B"]]@children[["AEDECOD"]]@children[["dcd B.1.1.1.1"]]@leaf_value
-
-  expect_identical(round(unlist(obj_clA_[[1]]), 4), c(34, 0.2537))
-  expect_identical(round(unlist(obj_clB_[[1]]), 4), c(28, 0.209))
+  expect_snapshot(out_df1)
 })

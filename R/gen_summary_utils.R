@@ -15,7 +15,8 @@
 #' @export
 #'
 #' @examples
-#' data(adsl)
+#' adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+#'
 #' lyt <- build_adsl_chars_table(
 #'   split_cols_by = "ARM",
 #'   summ_vars = c("AGE", "RACE")
@@ -41,7 +42,7 @@ build_adsl_chars_table <-
     ) |>
       split_cols_by(split_cols_by, split_fun = drop_split_levels) |>
       add_overall_col("All Patients") |>
-      summarize_vars(
+      analyze_vars(
         summ_vars,
         .stats = disp_stat,
         .labels = c(
@@ -80,8 +81,8 @@ build_adsl_chars_table <-
 #' library(tern)
 #' library(dplyr)
 #'
-#' data(adsl)
-#' data(adae)
+#' adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+#' adae <- pharmaverseadam::adae |> drop_missing_cols()
 #' adae <- filter(adae, SAFFL == "Y")
 #'
 #' lyt <- build_generic_occurrence_table(
@@ -171,11 +172,11 @@ build_generic_occurrence_table <-
 #'
 #' @examples
 #' library(rtables)
-#' data(adsl)
-#' data(advs)
+#' adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+#' advs <- pharmaverseadam::advs |> drop_missing_cols()
 #'
 #' lyt <- build_generic_bds_table(advs,
-#'   param = "Diastolic Blood Pressure",
+#'   param = "Diastolic Blood Pressure (mmHg)",
 #'   trt_var = "ARM", visit = "AVISIT",
 #'   disp_vars = c("AVAL", "CHG")
 #' )
@@ -263,7 +264,7 @@ build_generic_bds_table <-
 #' @examples
 #' library(rtables)
 #'
-#' data(adsl)
+#' adsl <- pharmaverseadam::adsl |> drop_missing_cols()
 #'
 #' tbl <- build_disp_table(
 #'   adsl = adsl,
@@ -347,7 +348,7 @@ build_disp_table <-
         mutate(DCS = as.factor(!!!syms(dcs_reas)))
 
       lyt <- lyt |>
-        summarize_vars("DCS",
+        analyze_vars("DCS",
           .stats = "count_fraction",
           show_labels = "hidden",
           denom = "N_col"
@@ -390,17 +391,12 @@ build_disp_table <-
         mutate(DCT = as.factor(!!!syms(dct_reas)))
 
       lyt1 <- lyt1 |>
-        summarize_vars("DCT",
+        analyze_vars("DCT",
           .stats = "count_fraction",
           show_labels = "hidden",
           denom = "N_col"
         )
     }
 
-    tbl1 <- build_table(lyt = lyt, df = adsl)
-    tbl2 <- build_table(lyt = lyt1, df = adsl)
-
-    rtables::col_info(tbl1) <- rtables::col_info(tbl2)
-
-    rbind(tbl1, tbl2)
+    list(lyt = list(lyt, lyt1), df = adsl)
   }

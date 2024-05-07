@@ -38,8 +38,8 @@ library(rtables)
 library(tern)
 library(dplyr)
 
-data(adsl)
-data(adae)
+adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+adae <- pharmaverseadam::adae |> drop_missing_cols()
 adae <- filter(adae, SAFFL == "Y")
 
 lyt <- build_generic_occurrence_table(

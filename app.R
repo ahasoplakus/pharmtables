@@ -4,7 +4,7 @@
 
 # golem default's to these options
 pkgload::load_all(helpers = FALSE, attach_testthat = FALSE) # export_all = FALSE # ac removed: if false, IDEAFilter fails
-options( "golem.app.prod" = TRUE)
+options("golem.app.prod" = TRUE)
 options(shiny.sanitize.errors = FALSE)
 # options(shiny.autoload.r=FALSE) # needed for turning off options
 # rsconnect::writeManifest() # Needed for continuous deployment
