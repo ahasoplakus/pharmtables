@@ -77,11 +77,11 @@ mod_disposition_ui <- function(id) {
       width = 12,
       headerBorder = FALSE,
       footer =
-        HTML("Abbreviations:<br>ITT: intention-to-treat<br>mITT: modified intention-to-treat
+        HTML("ITT: intention-to-treat<br>mITT: modified intention-to-treat
              <br>N: number of patients in treatment arm<br>n: number of patients in specified
              population or group"),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
-        style = "overflow-x: scroll; height: 100vh;"
+        style = "overflow-x: scroll;"
       )
     )
   )

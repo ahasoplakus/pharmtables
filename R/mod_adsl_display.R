@@ -31,6 +31,13 @@ mod_adsl_display_ui <- function(id) {
                 selected = NULL,
                 width = "100vw"
               ),
+              selectizeInput(
+                ns("group_var"),
+                "Additional Grouping Variable(s)",
+                choices = NULL,
+                selected = NULL,
+                options = list(maxItems = 2)
+              ),
               selectInput(
                 ns("summ_var"),
                 "Summarize",
@@ -66,11 +73,11 @@ mod_adsl_display_ui <- function(id) {
       collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
-      footer = HTML("Abbreviations: <br>N: number of patients in treatment arm
+      footer = HTML("N: number of patients in treatment arm
       <br>n: number of patients with given characteristic<br>
       SD: standard deviation<br>Min-Max: minimum and maximum<br>IQR: inter-quartile range"),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
-        style = "overflow-x: scroll; height: 100vh;"
+        style = "overflow-x: scroll;"
       )
     )
   )
@@ -109,6 +116,15 @@ mod_adsl_display_server <- function(id, adsl, pop_fil) {
         "split_col",
         choices = trt_choices,
         selected = trt_choices[1]
+      )
+
+      updateSelectizeInput(
+        session,
+        "group_var",
+        "Additional Grouping Variable(s)",
+        choices = summ_vars,
+        selected = NULL,
+        options = list(maxItems = 2)
       )
 
       updateSelectInput(session,
@@ -152,6 +168,7 @@ mod_adsl_display_server <- function(id, adsl, pop_fil) {
         subtitle = "",
         footer = "",
         split_cols_by = input$split_col,
+        group_by = input$group_var,
         summ_vars = input$summ_var,
         disp_stat = input$stats
       )
@@ -164,7 +181,7 @@ mod_adsl_display_server <- function(id, adsl, pop_fil) {
         lyt = lyt
       ))
     }) |>
-      bindCache(list(adsl(), input$split_col, input$summ_var, input$stats)) |>
+      bindCache(list(adsl(), input$split_col, input$group_var, input$summ_var, input$stats)) |>
       bindEvent(list(adsl(), rv$trig_report, input$run))
 
     output$table_title <- renderUI({

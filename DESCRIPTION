@@ -1,4 +1,4 @@
-Package: clinTables
+Package: pharmtables
 Title: Clinical Trial Tables in R
 Version: 0.1.0
 Authors@R: 
@@ -6,13 +6,13 @@ Authors@R:
 Description: Shiny Application for visualizing some of the standard tables
     used in Clinical Trials.
 License: Apache License (>= 2)
-BugReports: https://github.com/ahasoplakus/clinTables/issues/
-URL: https://ahasoplakus.github.io/clinTables/, https://github.com/ahasoplakus/clinTables/
+BugReports: https://github.com/ahasoplakus/pharmtables/issues/
+URL: https://ahasoplakus.github.io/pharmtables/, https://github.com/ahasoplakus/pharmtables/
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.0.9000
+RoxygenNote: 7.3.2
 Depends:
     R (>= 3.6)
 Imports: 

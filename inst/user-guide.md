@@ -14,7 +14,7 @@ a {
 
 # Introduction
 
-This article provides a step-by-step user guide to run the `clinTables` application.
+This article provides a step-by-step user guide to run the `pharmtables` application.
 
 # Steps
 * [Launch application](#launch)
@@ -27,7 +27,7 @@ This article provides a step-by-step user guide to run the `clinTables` applicat
 
 
 ```r
-library(clinTables)
+library(pharmtables)
 run_app()
 ```
 
@@ -51,7 +51,7 @@ within the package
 
 ### Note
 
-The **ADaM** standard datasets listed below are accepted in **clinTables v0.1.0**
+The **ADaM** standard datasets listed below are accepted in **pharmtables v0.1.0**
 
 - **adsl**: Subject-Level
 - **adae**: Adverse Events

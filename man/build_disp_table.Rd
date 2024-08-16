@@ -48,8 +48,13 @@ tbl <- build_disp_table(
   dct_reas = "DCTREAS"
 )
 
+tbl1 <- build_table(lyt = tbl$lyt[[1]], df = tbl$df)
+tbl2 <- build_table(lyt = tbl$lyt[[2]], df = tbl$df)
+col_info(tbl1) <- col_info(tbl2)
+tt <- rbind(tbl1, tbl2)
+
 \dontrun{
-tt_to_flextable(tbl)
+tt_to_flextable(tt)
 }
 
 }

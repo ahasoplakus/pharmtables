@@ -18,7 +18,7 @@ app_ui <- function(request) {
       body = dashboard_body(),
       fullscreen = TRUE,
       dark = NULL,
-      help = TRUE,
+      help = NULL,
       scrollToTop = TRUE,
       preloader = list(html = tagList(
         waiter::spin_dots(),
@@ -46,7 +46,7 @@ golem_add_external_resources <- function() {
     # favicon(), # nolint
     bundle_resources(
       path = app_sys("app/www"),
-      app_title = "clinTables"
+      app_title = "pharmtables"
     ),
     useShinyjs()
   )

@@ -81,7 +81,7 @@ mod_adxx_param_ui <- function(id,
       collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
-      footer = HTML("Abbreviations: <br>N: number of patients in treatment arm
+      footer = HTML("N: number of patients in treatment arm
       <br>n: number of patients with given characteristic<br>SD: standard deviation<br>Min-Max:
       minimum and maximum"),
       div(
@@ -91,7 +91,7 @@ mod_adxx_param_ui <- function(id,
           )),
           color = "#3BACB6"
         ),
-        style = "overflow-x: scroll; height: 100vh;"
+        style = "overflow-x: scroll;"
       )
     )
   )

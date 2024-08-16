@@ -9,6 +9,7 @@ build_adsl_chars_table(
   subtitle = character(),
   footer = character(),
   split_cols_by = "ARM",
+  group_by = NULL,
   summ_vars = c("AGE", "SEX", "COUNTRY"),
   disp_stat = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction")
 )
@@ -21,6 +22,8 @@ build_adsl_chars_table(
 \item{footer}{(\code{character})\cr Footer of the demographic table.}
 
 \item{split_cols_by}{(\code{character})\cr Arm variable used to split table into columns.}
+
+\item{group_by}{(\code{character})\cr Additional Grouping Variables (max \code{2})}
 
 \item{summ_vars}{(\verb{vector of character})\cr Variables from df to include in the table.}
 

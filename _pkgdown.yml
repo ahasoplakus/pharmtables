@@ -1,4 +1,4 @@
-url: https://ahasoplakus.github.io/clinTables/
+url: https://ahasoplakus.github.io/pharmtables/
 
 template:
   bootstrap: 5
@@ -11,9 +11,9 @@ template:
     code_font: {google: "Poltawski Nowy"}
 repo:
   url:
-    home: https://github.com/ahasoplakus/clinTables/
-    source: https://github.com/ahasoplakus/clinTables/blob/devel/
-    issue: https://github.com/ahasoplakus/clinTables/issues/
+    home: https://github.com/ahasoplakus/pharmtables/
+    source: https://github.com/ahasoplakus/pharmtables/blob/devel/
+    issue: https://github.com/ahasoplakus/pharmtables/issues/
     user: https://github.com/
 
 reference:

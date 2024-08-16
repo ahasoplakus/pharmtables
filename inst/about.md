@@ -10,9 +10,9 @@
 
 # Introduction
 
-**clinTables** is a **R Shiny Application** to visualize standard safety tables used in <b>Clinical Trials</b>.\
+**pharmtables** is a **R Shiny Application** to visualize standard safety tables used in <b>Clinical Trials</b>.\
 It is developed using the <a href="https://thinkr-open.github.io/golem/" target="_blank">Golem</a>
-framework which creates Shiny Applications as R packages, so **clinTables** can be used (installed)
+framework which creates Shiny Applications as R packages, so **pharmtables** can be used (installed)
 as an R package as well.
 
 ## Installation
@@ -20,7 +20,7 @@ as an R package as well.
 Install the latest `dev` version
 
 ``` r
-remotes::install_github("ahasoplakus/clinTables", ref = "devel", build_vignettes = TRUE)
+remotes::install_github("ahasoplakus/pharmtables", ref = "devel", build_vignettes = TRUE)
 ```
 
 <!---

@@ -17,16 +17,14 @@
     top: 0;
     text-align: center;
     background-color: #fff;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 25px;
 }
 
 #logo-id {
     width: 300px;
-    color: #FFC26F;
+    color: #fff;
     background-color: #526D82;
-    font-size: xx-large;
-    font-family: monospace;
+    font-size: large;
+    font-family: math;
     padding-top: 6px;
     padding-bottom: 6px;
     padding-right: 24px;
@@ -48,7 +46,7 @@ b, strong {
 
 .fas.fa-upload, .fas.fa-person-running, .fas.fa-rotate {
     font-weight: 900;
-    color: #FFC26F;
+    color: #fff;
 }
 
 .card {
@@ -57,7 +55,7 @@ b, strong {
 }
 
 .card-title {
-  font-family: monospace;
+  font-family: math;
 }
 
 #data_read_1-btn_prev {
@@ -87,7 +85,7 @@ img {
 
 label {
     display: flex;
-    font-family: monospace;
+    font-family: math;
 }
 
 div.sidebar .shiny-input-container {
@@ -101,15 +99,15 @@ div.sidebar .shiny-input-container {
 .btn-default {
     background-color: #526D82;
     border-color: #ddd;
-    color: #FFC26F;
+    color: #fff;
     width: 120px;
     border-radius: 2rem;
-    font-family: monospace;
+    font-family: math;
 }
 
 .btn-default.hover,.btn-default:active,.btn-default:hover {
     background-color: #E1E5EA !important;
-    color: #FFC26F !important;
+    color: #fff !important;
 }
 
 .btn-disabled {
@@ -127,6 +125,8 @@ div.sidebar .shiny-input-container {
     width: 120px !important;
     color: #fff;
     position: relative;
+    border-top-left-radius: 15px !important;
+    border-bottom-left-radius: 0 !important;
 }
 
 .input-group>.custom-file,
@@ -140,10 +140,11 @@ div.sidebar .shiny-input-container {
     min-width: 0;
     margin-bottom: 0;
     border: 2px solid grey;
+    border-bottom-right-radius: 15px;
 }
 
 .nav-item {
-    font-family: monospace;
+    font-family: math;
 }
 
 .nav-pills .nav-link {
@@ -152,7 +153,7 @@ div.sidebar .shiny-input-container {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: #FFC26F;
+    color: #fff;
     background-color: #526D82;
     margin-right: 5px !important;
     border: 2px solid #293B5F !important;
@@ -180,7 +181,7 @@ div.sidebar .shiny-input-container {
   pointer-events: none;
   background: #F3F4ED !important;
   border-color: #526D82 !important;
-
+  border-radius: 0 !important;
 }
 
 #collapse_acc_st_filt_1.collapse.show>.card-body {
@@ -206,10 +207,18 @@ div.sidebar .shiny-input-container {
 }
 
 .accordion>.card>.card-header {
-    border-radius: 4px;
+    border-top-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
     border-color: #3BACB6 !important;
     margin-bottom: 0;
     background-color: #ffffff !important;
+}
+
+.accordion>.card:not(:last-of-type), .accordion>.card:not(:first-of-type) {
+    border-bottom: 0;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 15px;
 }
 
 .d-block, .d-block:hover {
@@ -221,7 +230,7 @@ div.sidebar .shiny-input-container {
 .side_apply {
     background-color: #526D82;
     border-color: #ddd;
-    color: #FFC26F;
+    color: #fff;
     width: 120px;
     border-radius: 2rem;
     display: flex !important;
@@ -255,7 +264,7 @@ div.sidebar .shiny-input-container {
 }
 
 .pretty.p-switch .state label:after {
-    background-color: #FFC26F !important;
+    background-color: #fff !important;
     border: 2px solid #293B5F;
 }
 
@@ -269,38 +278,38 @@ div.sidebar .shiny-input-container {
 }
 
 .pretty.p-switch.p-fill input:checked~.state label:after {
-    background-color: #FFC26F !important;
+    background-color: #fff !important;
     border: 2px solid #293B5F;
 }
 
 .pretty input:checked~.state.p-info label:after,.pretty.p-toggle .state.p-info label:after {
     border: 1px solid #293B5F !important;
-    background-color: #FFC26F !important;
+    background-color: #fff !important;
 }
 
 .pretty.p-default:not(.p-fill) input:checked~.state.p-info-o label:after {
     border: 1px solid #293B5F !important;
-    background-color: #FFC26F !important;
+    background-color: #fff !important;
 }
 
 .irs--shiny .irs-bar {
     top: 25px;
     height: 8px;
-    border: 1px solid #FFC26F !important;
+    border: 1px solid #fff !important;
     background: #526D82 !important;
 }
 
 .irs--shiny .irs-from,
 .irs--shiny .irs-to,
 .irs--shiny .irs-single {
-  background-color: #FFC26F !important;
+  background-color: #fff !important;
   color : #526D82 !important;
   font-weight: bold;
   border: 2px solid #526D82;
 }
 
 .irs-min, .irs-max {
-  background-color: #FFC26F !important;
+  background-color: #fff !important;
   color : #526D82 !important;
   font-weight: bold;
   font-size: 11px !important;
@@ -312,7 +321,7 @@ div.sidebar .shiny-input-container {
     top: 22px !important;
     height: 14px !important;
     border: 2px solid #526D82 !important;
-    background-color: #FFC26F !important;
+    background-color: #fff !important;
     border-radius: 22px;
 }
 
@@ -353,10 +362,12 @@ div.sidebar .shiny-input-container {
 div.card.side_accord > div.card-header {
     background: #F3F4ED !important;
     border: #526D82 !important;
+    border-radius: 0 !important;
 }
 
 div.card.setup_accord {
     box-shadow: 1px 1px 5px #526D82, 1px 1px 5px #526D82 !important;
+    border-style: none;
 }
 
 div.card.setup_accord > div.card-header {
@@ -373,54 +384,35 @@ div.card.setup_accord > div.card-header > h4 > a {
     background-color: #F3F4ED;
     border-top: 0 solid rgba(0,0,0,.125);
     font-size: small;
-    font-family: monospace;
+    font-family: math;
 }
 
 p {
     margin-top: 0;
     margin-bottom: 1rem;
-    font-family: monospace;
+    font-family: math;
 }
 
 .table {
-    font-family: monospace;
+    font-family: math;
     font-size: 15px;
     color: #526D82 !important;
-    border: 2px solid #343a40;
     margin-top: -2rem;
     pointer-events: none;
 }
 
-.table td {
-    border: 1px solid #343a40;
-}
-
-.table th {
-    border-top: 1px solid #343a40;
-}
-
 div > table > tbody > tr > td > p > span,
 div > table > thead > tr > th > p > span {
-  font-family: monospace !important;
+  font-family: math !important;
   color: #526D82 !important;
 }
 
 .btn-tool {
     background-color: #526D82;
-    color: #FFC26F;
+    color: #fff;
 }
 
 .shiny-output-error-validation {
     color: #3BACB6 !important;
     padding-left: 225px !important;
-}
-
-.custom-control-input:checked~.custom-control-label::before {
-    border-color: #FFC26F !important;
-    background-color: #526D82 !important;
-}
-
-.custom-switch .custom-control-input:checked~.custom-control-label::after {
-    background-color: #FFC26F !important;
-    transform: translateX(.75rem)
 }

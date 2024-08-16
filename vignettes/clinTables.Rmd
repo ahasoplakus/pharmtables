@@ -1,8 +1,8 @@
 ---
-title: "Get Started with {clinTables}"
+title: "Get Started with {pharmtables}"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Get Started with {clinTables}}
+  %\VignetteIndexEntry{Get Started with {pharmtables}}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 # Launch the application
 
 ```{r, eval=FALSE}
-library(clinTables)
+library(pharmtables)
 run_app()
 ```
 

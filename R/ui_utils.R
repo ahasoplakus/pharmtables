@@ -11,7 +11,7 @@ dashboard_header <- function() {
         src = "www/logo.png",
         style = "height:45px; width:40px"
       ),
-      "clinTables"
+      "PharmTables"
     ),
     status = "white",
     border = TRUE,
@@ -73,16 +73,6 @@ dashboard_header <- function() {
           text = tags$span(icon("heart-pulse"), "ADEG")
         ),
         title = "ECG Analysis"
-      ),
-      tooltip(
-        tagAppendAttributes(
-          actionLink(
-            "guide",
-            label = tags$span(icon("circle-question"), ""),
-          ),
-          style = "color: #526D82; padding-top: 1vh;"
-        ),
-        title = "User Guide"
       )
     )
   )
@@ -100,7 +90,7 @@ dashboard_sidebar <- function() {
     accordion(
       id = "acc_st_filt",
       accordionItem(
-        title = tags$span(icon("id-card"), tags$strong("ADSL Filters")),
+        title = tags$span(icon("id-card"), tags$strong("ADSL (Subject-Level)")),
         collapsed = FALSE,
         mod_adsl_filters_ui("adsl_filters_1")
       )
@@ -185,27 +175,18 @@ table_options <- function(ft) {
     flextable::align(align = "center", part = "header") |>
     flextable::align(align = "left", j = 1, part = "header") |>
     flextable::style(
-      pr_t = officer::fp_text(font.size = 11),
+      pr_t = officer::fp_text(font.size = 12),
       part = "body"
     ) |>
     flextable::style(
       pr_t = officer::fp_text(
-        font.size = 11,
+        font.size = 12,
         bold = TRUE,
       ),
       part = "header"
     ) |>
-    flextable::border_inner_h(
-      border = officer::fp_border(color = "#343a40"),
-      part = "all"
-    ) |>
-    flextable::border_inner_v(
-      border = officer::fp_border(color = "#343a40"),
-      part = "all"
-    ) |>
     flextable::border_outer(
       border = officer::fp_border(color = "#343a40"),
       part = "all"
-    ) |>
-    flextable::htmltools_value()
+    )
 }

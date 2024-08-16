@@ -66,7 +66,7 @@ mod_bds_shift_ui <- function(id,
       collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
-      footer = HTML("Abbreviations: <br>N: number of patients in treatment arm
+      footer = HTML("N: number of patients in treatment arm
       <br>n: number of patients with given characteristic"),
       shinyWidgets::prettySwitch(
         ns("view"),
@@ -81,7 +81,7 @@ mod_bds_shift_ui <- function(id,
         shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_shift")),
           color = "#3BACB6"
         ),
-        style = "overflow-x: scroll; height: 100vh;"
+        style = "overflow-x: scroll;"
       )
     )
   )

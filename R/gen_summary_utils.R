@@ -6,6 +6,7 @@
 #' @param subtitle (`character`)\cr Subtitle of the demographic table.
 #' @param footer (`character`)\cr Footer of the demographic table.
 #' @param split_cols_by (`character`)\cr Arm variable used to split table into columns.
+#' @param group_by (`character`)\cr Additional Grouping Variables (max `2`)
 #' @param summ_vars (`vector of character`)\cr Variables from df to include in the table.
 #' @param disp_stat (`vector of character`)\cr Statistics to display.
 #'
@@ -32,6 +33,7 @@ build_adsl_chars_table <-
            subtitle = character(),
            footer = character(),
            split_cols_by = "ARM",
+           group_by = NULL,
            summ_vars = c("AGE", "SEX", "COUNTRY"),
            disp_stat = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction")) {
     lyt <- basic_table(
@@ -41,7 +43,17 @@ build_adsl_chars_table <-
       show_colcounts = TRUE
     ) |>
       split_cols_by(split_cols_by, split_fun = drop_split_levels) |>
-      add_overall_col("All Patients") |>
+      add_overall_col("All Patients")
+    if (length(group_by) == 1) {
+      lyt <- lyt |>
+        split_rows_by(group_by)
+    } else if (length(group_by) > 1) {
+      lyt <- lyt |>
+        split_rows_by(group_by[1]) |>
+        split_rows_by(group_by[2])
+    }
+
+    lyt |>
       analyze_vars(
         summ_vars,
         .stats = disp_stat,
@@ -275,8 +287,13 @@ build_generic_bds_table <-
 #'   dct_reas = "DCTREAS"
 #' )
 #'
+#' tbl1 <- build_table(lyt = tbl$lyt[[1]], df = tbl$df)
+#' tbl2 <- build_table(lyt = tbl$lyt[[2]], df = tbl$df)
+#' col_info(tbl1) <- col_info(tbl2)
+#' tt <- rbind(tbl1, tbl2)
+#'
 #' \dontrun{
-#' tt_to_flextable(tbl)
+#' tt_to_flextable(tt)
 #' }
 #'
 build_disp_table <-

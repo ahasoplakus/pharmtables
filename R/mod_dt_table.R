@@ -44,16 +44,20 @@ mod_dt_table_server <- function(id, display_df) {
           tbl2 <- build_table(lyt = display_df()$lyt[[2]], df = display_df()$out_df)
           rtables::col_info(tbl1) <- rtables::col_info(tbl2)
 
-          df <- as_html(rbind(tbl1, tbl2))
+          tt <- rbind(tbl1, tbl2)
         } else {
-          df <- as_html(
-            build_table(
-              lyt = display_df()$lyt,
-              df = display_df()$out_df,
-              alt_counts_df = display_df()$alt_df
-            )
+          tt <- build_table(
+            lyt = display_df()$lyt,
+            df = display_df()$out_df,
+            alt_counts_df = display_df()$alt_df
           )
         }
+        df <- tt_to_flextable(
+          tt,
+          counts_in_newline = TRUE,
+          border = flextable::fp_border_default(color = "#343a40", width = 0.5),
+          theme = rtables::theme_docx_default(tt, font_size = 12, bold = "header")
+        )
       }
       df
     }) |>
@@ -62,7 +66,8 @@ mod_dt_table_server <- function(id, display_df) {
     output$out_data <- renderUI({
       req(df_out())
       logger::log_info("mod_dt_table_server: display data")
-      df_out()
+      df_out() |>
+        flextable::htmltools_value(ft.align = "center")
     })
   })
 }

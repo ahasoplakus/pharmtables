@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(clinTables)
+library(pharmtables)
 
-test_check("clinTables")
+test_check("pharmtables")

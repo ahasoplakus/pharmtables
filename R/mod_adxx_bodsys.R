@@ -66,7 +66,7 @@ mod_adxx_bodsys_ui <-
         collapsible = FALSE,
         headerBorder = FALSE,
         footer =
-          HTML("Abbreviations:<br>MedDRA: Medical Dictionary for Regulatory Activities<br>N: number
+          HTML("MedDRA: Medical Dictionary for Regulatory Activities<br>N: number
                of patients in treatment arm<br>n: number of patients with at least one event"),
         width = 12,
         div(
@@ -76,7 +76,7 @@ mod_adxx_bodsys_ui <-
             )),
             color = "#3BACB6"
           ),
-          style = "overflow-x: scroll; height: 100vh;"
+          style = "overflow-x: scroll;"
         )
       )
     )

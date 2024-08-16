@@ -29,7 +29,7 @@ mod_data_read_ui <- function(id) {
             fluidRow(
               prettySwitch(
                 ns("def_data"),
-                label = "Load Synthetic Data (random.cdisc.data)",
+                label = "Use Mock Datasets (pharmaverseadam)",
                 value = FALSE,
                 status = "info",
                 inline = TRUE,
@@ -41,7 +41,7 @@ mod_data_read_ui <- function(id) {
             fluidRow(
               fileInput(
                 ns("upload"),
-                HTML("&nbsp;&nbsp;Upload Files"),
+                HTML("&nbsp;&nbsp;Upload ADaM(s)"),
                 multiple = TRUE,
                 accept = c(".RDS", ".sas7bdat"),
                 width = "49%",
@@ -70,7 +70,7 @@ mod_data_read_ui <- function(id) {
           column(width = 3, offset = 1),
           column(
             width = 4,
-            div(actionButton(ns("apply"), "Run", icon = icon("person-running")),
+            div(actionButton(ns("apply"), "Launch", icon = icon("rocket")),
               style = "justify-content: center; display: flex;"
             )
           )
@@ -109,8 +109,8 @@ mod_data_read_server <- function(id) {
           "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
         )
         show_toast(
-          title = "Reading Default Data",
-          text = "Default datasets available in the package are generated using random.cdisc.data",
+          title = "Reading mock datasets from pharamverseadam",
+          text = "",
           type = "success",
           position = "center",
           width = "50vw"

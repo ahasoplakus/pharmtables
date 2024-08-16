@@ -18,21 +18,6 @@ app_server <- function(input, output, session) {
   })
 
   observe({
-    showModal(
-      modalDialog(
-        div(includeMarkdown(app_sys("user-guide.md")),
-          style = "padding-left: 5vw; padding-right: 5vw;"
-        ),
-        title = tags$span(icon("circle-question"), tags$strong("User Guide")),
-        size = "xl",
-        easyClose = TRUE,
-        fade = TRUE
-      )
-    )
-  }) |>
-    bindEvent(input$guide)
-
-  observe({
     req(load_data$df_read())
     domain <- c("adsl", "adae", "admh", "adcm", "advs", "adlb", "adeg")
     walk(seq_along(domain) + 1, function(x) {
