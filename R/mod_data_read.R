@@ -17,11 +17,11 @@ mod_data_read_ui <- function(id) {
       collapsible = FALSE,
       width = 12,
       tabPanel(
-        title = tags$span(icon("circle-info"), "About"),
+        title = "About",
         includeMarkdown(app_sys("about.md"))
       ),
       tabPanel(
-        title = tags$span(icon("gears"), "Setup"),
+        title = "Setup",
         fluidRow(
           column(width = 3, offset = 1),
           column(
@@ -57,12 +57,6 @@ mod_data_read_ui <- function(id) {
           column(width = 3, offset = 1),
           column(
             width = 8,
-            fluidRow(
-              tooltip(actionLink(ns("btn_prev"), tags$span(icon("eye"), "")),
-                title = "Preview Data"
-              ),
-              style = "justify-content: center; display: flex; padding-bottom: 10px; width: 50%;"
-            ),
             mod_setup_filters_ui(ns("setup_filters_1"))
           )
         ),
@@ -75,6 +69,10 @@ mod_data_read_ui <- function(id) {
             )
           )
         )
+      ),
+      tabPanel(
+        title = "Preview",
+        mod_data_preview_ui(ns("data_preview_1"))
       )
     )
   )
@@ -107,13 +105,6 @@ mod_data_read_server <- function(id) {
         disable("upload")
         runjs(
           "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
-        )
-        show_toast(
-          title = "Reading mock datasets from pharamverseadam",
-          text = "",
-          type = "success",
-          position = "center",
-          width = "50vw"
         )
         if (!is.null(input$upload)) {
           rv$upload <- list_assign(input$upload, name = NULL)
@@ -224,20 +215,38 @@ mod_data_read_server <- function(id) {
     observe({
       if (is.null(rv$df)) {
         disable("apply")
-        hide("btn_prev")
       } else {
         enable("apply")
         disable("upload")
         runjs(
           "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
         )
-        show("btn_prev")
+        show_toast(
+          title = "Datasets have been loaded",
+          text = "Hit the launch button to start",
+          timer = 2000,
+          type = "success",
+          position = "bottom-end",
+          width = "40vw"
+        )
       }
     })
 
+    observe({
+      toggleState(
+        selector = "#data_read_1-about > li:nth-child(3)",
+        condition = !is.null(rv$df),
+        asis = TRUE
+      )
+    })
+
+    mod_data_preview_server(
+      "data_preview_1",
+      eventReactive(rv$df, rv$df)
+    )
+
     return(list(
       df_read = read_df,
-      prev_data = eventReactive(rv$df, rv$df),
       study_filters = eventReactive(
         input$apply,
         rv$setup_filters$adsl_filt()
@@ -265,8 +274,7 @@ mod_data_read_server <- function(id) {
       adeg_filters = eventReactive(
         input$apply,
         rv$setup_filters$adeg_filt()
-      ),
-      prev_btn = reactive(input$btn_prev)
+      )
     ))
   })
 }

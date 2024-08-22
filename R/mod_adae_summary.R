@@ -17,13 +17,13 @@ mod_adae_summary_ui <- function(id) {
         id = ns("adae_summ_side"),
         background = "#EFF5F5",
         width = 35,
-        icon = icon("filter"),
+        icon = icon("table-cells"),
         mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         div(
           accordion(
             id = ns("summ_accord"),
             tagAppendAttributes(accordionItem(
-              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              title = tags$strong("Table Display Options"),
               collapsed = FALSE,
               selectInput(
                 ns("split_col"),

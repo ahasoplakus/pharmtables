@@ -167,13 +167,13 @@ div.sidebar .shiny-input-container {
     border-radius: 4px !important;
 }
 
-.nav-link.disabled {
+.nav-link.disabled, .nav-item.disabled {
     pointer-events: none;
     cursor: default;
     margin-right: 5px !important;
 }
 
-.nav-link.disabled > p > span > i {
+.nav-link.disabled > p > span > i, .nav-item.disabled > a, .nav-item.disabled > a > span > i {
     color: lightgray !important;
 }
 

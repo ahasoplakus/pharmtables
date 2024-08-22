@@ -19,14 +19,14 @@ mod_adxx_bodsys_ui <-
         sidebar = boxSidebar(
           id = ns("adxx_side_bodsys"),
           background = "#EFF5F5",
-          icon = icon("filter"),
+          icon = icon("table-cells"),
           width = 35,
           mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),
           div(
             accordion(
               id = ns("bodsys_accord"),
               tagAppendAttributes(accordionItem(
-                title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+                title = tags$strong("Table Display Options"),
                 collapsed = FALSE,
                 selectInput(
                   ns("split_col"),

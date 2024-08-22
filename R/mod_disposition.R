@@ -16,13 +16,13 @@ mod_disposition_ui <- function(id) {
       sidebar = boxSidebar(
         id = ns("disp_side"),
         background = "#EFF5F5",
-        icon = icon("filter"),
+        icon = icon("table-cells"),
         width = 35,
         div(
           accordion(
             id = ns("adsl_disp_accord"),
             tagAppendAttributes(accordionItem(
-              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              title = tags$strong("Table Display Options"),
               collapsed = FALSE,
               selectInput(
                 ns("split_col"),

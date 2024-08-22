@@ -30,25 +30,6 @@ app_server <- function(input, output, session) {
   }) |>
     bindEvent(load_data$df_read())
 
-  observe({
-    req(load_data$df_read())
-    showModal(
-      modalDialog(
-        mod_data_preview_ui("data_preview_1"),
-        title = tags$span(icon("eye"), tags$strong("Preview Data")),
-        size = "xl",
-        easyClose = FALSE,
-        fade = TRUE
-      )
-    )
-  }) |>
-    bindEvent(load_data$prev_btn())
-
-  mod_data_preview_server(
-    "data_preview_1",
-    load_data$prev_data
-  )
-
   adsl_filters <-
     mod_adsl_filters_server("adsl_filters_1",
       dataset = "adsl",

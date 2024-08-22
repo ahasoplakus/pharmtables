@@ -18,7 +18,7 @@ mod_adxx_param_ui <- function(id,
       sidebar = boxSidebar(
         id = ns("adxx_side_param"),
         background = "#EFF5F5",
-        icon = icon("filter"),
+        icon = icon("table-cells"),
         width = 35,
         div(uiOutput(ns("analysis_flag_ui"))),
         mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),
@@ -26,7 +26,7 @@ mod_adxx_param_ui <- function(id,
           accordion(
             id = ns("param_accord"),
             tagAppendAttributes(accordionItem(
-              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              title = tags$strong("Table Display Options"),
               collapsed = FALSE,
               selectInput(
                 ns("split_col"),

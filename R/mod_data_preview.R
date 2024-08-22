@@ -81,14 +81,6 @@ mod_data_preview_server <- function(id, df) {
       }
     })
 
-    output$valid_error <- renderUI({
-      validate(need(
-        length(selected()) > 0,
-        "Click on a radiobutton to view source datasets (upto 200 rows) and its internal structure"
-      ))
-      tagList()
-    })
-
     output$print_dom <- reactable::renderReactable({
       req(selected())
 

@@ -147,7 +147,7 @@ tabular format. Click on the expand button to view a specific data set.
 
 <br>
 
-  * **ADAE Filters** will appear over the **Table Options** within the Filter window 
+  * **ADAE Filters** will appear over the **Table Display Options** within the Filter window 
   for all **ADAE** related reports, once the application is run. (Click on the 
   <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/filter.svg" height = "20px" width = "20px" /> icon to open the filter window)
   

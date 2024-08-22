@@ -17,13 +17,13 @@ mod_adae_sev_tox_ui <- function(id) {
         id = ns("adae_side"),
         background = "#EFF5F5",
         width = 35,
-        icon = icon("filter"),
+        icon = icon("table-cells"),
         mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         div(
           accordion(
             id = ns("sevtox_accord"),
             tagAppendAttributes(accordionItem(
-              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              title = tags$strong("Table Display Options"),
               collapsed = FALSE,
               selectInput(
                 ns("split_col"),

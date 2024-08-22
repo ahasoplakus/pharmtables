@@ -11,7 +11,7 @@ dashboard_header <- function() {
         src = "www/logo.png",
         style = "height:45px; width:40px"
       ),
-      "PharmTables"
+      "PHARMTABLES"
     ),
     status = "white",
     border = TRUE,

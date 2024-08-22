@@ -164,9 +164,9 @@ knitr::include_graphics("../man/figures/adae_filt.png")
 
 <br>
 
-  * **ADAE Filters** will appear over the **Table Options** within the Filter window 
+  * **ADAE Filters** will appear over the **Table Display Options** within the Filter window 
   for all **ADAE** related reports, once the application is run. (Click on the 
-  `r shiny::icon("filter")` icon to open the filter window)
+  `r shiny::icon("table-cells")` icon to open the filter window)
   
 <div class="img-border">
 ```{r adae, echo=FALSE}
