@@ -28,8 +28,3 @@ library(pharmtables)
 run_app()
 ```
 
-<div class="img-border">
-```{r, echo=FALSE}
-knitr::include_graphics("../man/figures/home.png")
-```
-</div>
