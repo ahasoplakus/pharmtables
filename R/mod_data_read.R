@@ -21,7 +21,11 @@ mod_data_read_ui <- function(id) {
         includeMarkdown(app_sys("about.md"))
       ),
       tabPanel(
-        title = "Setup",
+        title = "User Guide",
+        includeMarkdown(app_sys("user-guide.md"))
+      ),
+      tabPanel(
+        title = "Study Setup",
         fluidRow(
           column(width = 3, offset = 1),
           column(
@@ -29,7 +33,7 @@ mod_data_read_ui <- function(id) {
             fluidRow(
               checkboxInput(
                 ns("def_data"),
-                label = "Use Mock Datasets (pharmaverseadam)",
+                label = "Use Synthetic Data",
                 value = FALSE,
                 width = "400px"
               )
@@ -230,7 +234,7 @@ mod_data_read_server <- function(id) {
 
     observe({
       toggleState(
-        selector = "#data_read_1-about > li:nth-child(3)",
+        selector = "#data_read_1-about > li:nth-child(4)",
         condition = !is.null(rv$df),
         asis = TRUE
       )
