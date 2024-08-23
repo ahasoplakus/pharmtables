@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   pharmtables: pharmtables.html
   user-guide: user-guide.html
-last_built: 2024-08-22T12:23Z
+last_built: 2024-08-23T13:12Z
 urls:
   reference: https://ahasoplakus.github.io/pharmtables/reference
   article: https://ahasoplakus.github.io/pharmtables/articles

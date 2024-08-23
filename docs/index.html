@@ -69,18 +69,34 @@
 </h1>
 </div>
 <!-- badges: start -->
-<p><code>pharmtables</code> is a shiny application to visualize standard safety tables used in <b>Clinical Trials</b></p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p><strong>{pharmtables}</strong> is a Shiny Application wrapped as an R package to visualize some common safety tables used in Clinical Analysis and Reporting. The application is developed using the <a href="https://thinkr-open.github.io/golem/" target="_blank" class="external-link">Golem</a> framework.</p>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Latest <code>dev</code> version</p>
+<p>The development version of the package can be installed using</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ahasoplakus/pharmtables"</span>, ref <span class="op">=</span> <span class="st">"devel"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><left> Find the app deployed <a href="https://sukalpo94.shinyapps.io/clinSafety/" target="_blank" class="external-link">here</a> </left></p>
-<p>Run <code><a href="https://ahasoplakus.github.io/pharmtables/">library(pharmtables)</a></code> to access all the exported functions from <code>pharmtables</code> that help in reproducing analysis performed in the app. Or, you can run the application locally using:</p>
+<p>After installation, the app can be launched locally using</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Launch the application</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ahasoplakus.github.io/pharmtables/">pharmtables</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/run_app.html">run_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><left> Find the app deployed <a href="https://sukalpo94.shinyapps.io/pharmtables/" target="_blank" class="external-link">here</a> </left></p>
+<p>List of tables that can be generated using {pharmtables} are</p>
+<ul>
+<li>Demographic and Clinical Characteristics</li>
+<li>Patient Disposition</li>
+<li>Overview of Adverse Events</li>
+<li>Summary of Adverse Events by System Organ Class and Preferred Term</li>
+<li>Summary of Adverse Events by System Organ Class and Preferred Term and Severity</li>
+<li>Summary of Concomitant Medications by Medication Class and Standardized Medication Name</li>
+<li>Summary of Medical History by Body System or Organ Class and Dictionary-Derived Term</li>
+<li>Summary of Vital Signs, Laboratory and ECG Tests by Parameter, Analysis Value and Visit</li>
+<li>Shift at post dose for Vital Signs, Laboratory and ECG Tests</li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

@@ -88,44 +88,14 @@ a {
 }
 </style>
 <div class="section level2">
-<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h2>
-<p>This article provides a step-by-step user guide to run the <code>pharmtables</code> application.</p>
-</div>
-<div class="section level2">
-<h2 id="steps">Steps<a class="anchor" aria-label="anchor" href="#steps"></a>
+<h2 id="readdata">Upload/Read in Data<a class="anchor" aria-label="anchor" href="#readdata"></a>
 </h2>
 <ul>
-<li><a href="#launch">Launch application</a></li>
-<li><a href="#readdata">Upload/Read in data</a></li>
-<li><a href="#preview">Preview Data</a></li>
-<li><a href="#setup">Filters Setup</a></li>
-<li><a href="#run">Run Application</a></li>
+<li>Switch to the <strong>Study Setup</strong> tab</li>
+<li>Select <strong>Use Synthetic Data</strong> if you want to run the application using synthetic data sets available in the package</li>
+<li>Select <strong>Upload ADaM(s)</strong> button to load external ADaM data sets. (Only <em>sas7bdat</em> <strong>or</strong> <em>RDS</em> formats are accepted)</li>
 </ul>
-<div class="section level3">
-<h3 id="launch">Launch application<a class="anchor" aria-label="anchor" href="#launch"></a>
-</h3>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ahasoplakus.github.io/pharmtables/">pharmtables</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/run_app.html">run_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/run_app.html">run_app()</a></code> will launch the application and the application homepage will load.</p>
-<div class="img-border">
-<p><img src="../reference/figures/home.png" width="97%" style="display: block; margin: auto;"></p>
-</div>
-<p><br></p>
-</div>
-<div class="section level3">
-<h3 id="readdata">Upload/Read in Data<a class="anchor" aria-label="anchor" href="#readdata"></a>
-</h3>
-<ul>
-<li>Switch to the <strong>Setup</strong> on the Homepage</li>
-<li>Turn on <strong>Load Synthetic Data</strong> if you want to run the application using synthetic data available within the package</li>
-<li>Click on the <strong>Upload Files</strong> button if you want to load data you want to run the application on. (Only <em>sas7bdat</em> <strong>or</strong> <em>RDS</em> formats are accepted)</li>
-</ul>
-<div class="section level4">
-<h4 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a>
-</h4>
-<p>The <strong>ADaM</strong> standard datasets listed below are accepted in <strong>pharmtables v0.1.0</strong></p>
+<p>The following CDISC Standard <strong>ADaM</strong> datasets are compatible with this version</p>
 <ul>
 <li>
 <strong>adsl</strong>: Subject-Level</li>
@@ -142,42 +112,24 @@ a {
 <li>
 <strong>adeg</strong>: ECG Examinations</li>
 </ul>
-<div class="img-border">
-<p><img src="../reference/figures/navbar.png" width="97%" style="display: block; margin: auto;"></p>
 </div>
-<p>Each of the domain specific reports can be accessed by the tabs placed in the navigation panel at the top of the application.</p>
-<div class="img-border">
-<p><img src="../reference/figures/readin.png" width="97%" style="display: block; margin: auto;"></p>
-</div>
-<p><br></p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="preview">Preview Data<a class="anchor" aria-label="anchor" href="#preview"></a>
-</h3>
-<p>Once the datasets have been read, the <strong>Preview</strong> button is enabled.</p>
-<div class="img-border">
-<p><img src="../reference/figures/prev_btn.png" width="97%" style="display: block; margin: auto;"></p>
-</div>
-<p><br></p>
-<p>Click on the <strong>Preview</strong> button to quickly glance through the data sets that have been added for analysis. A modal window will pop up displaying the names of data sets loaded in a tabular format. Click on the expand button to view a specific data set.</p>
-<p><br></p>
+<div class="section level2">
+<h2 id="preview">Preview Data<a class="anchor" aria-label="anchor" href="#preview"></a>
+</h2>
+<p>Once the data sets are uploaded, the <strong>Preview</strong> tab is enabled. Switch to the same to quickly glance through the list of data sets.</p>
 <div class="img-border">
 <p><img src="../reference/figures/prev_data.png" width="97%" style="display: block; margin: auto;"></p>
 </div>
 <p><br></p>
 </div>
+<div class="section level2">
+<h2 id="setup">Setup Filters<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h2>
 <div class="section level3">
-<h3 id="setup">Filters Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+<h3 id="subject-level-filters">Subject-Level Filters<a class="anchor" aria-label="anchor" href="#subject-level-filters"></a>
 </h3>
 <ul>
-<li>
-<h4 id="adsl-filters">ADSL Filters</h4>
-<ul>
-<li>Expand the <strong>ADSL Filters</strong> pill beneath the <strong>Preview</strong> button to add/remove any <strong>adsl</strong> specific variables to be added as filters. By default <em>SEX</em>, <em>RACE</em>, <em>ETHNIC</em>, <em>AGE</em>, <em>SITEID</em> and <em>USUBJID</em> variables are selected.</li>
-<li>At least one of the <strong>adsl</strong> variables need to be selected as a filter for the application to work.</li>
-</ul>
-</li>
+<li>Expand the <strong>ADSL</strong> navigation pill under <strong>Domain Specific Filters</strong> and select the name(s) of <strong>ADSL</strong> variables from the dropdown to enable subject-level filtering of all tables. By default <em>SEX</em>, <em>RACE</em>, <em>ETHNIC</em>, <em>AGE</em>, <em>SITEID</em> and <em>USUBJID</em> variables are chosen (At least one needs to be selected).</li>
 </ul>
 <div class="img-border">
 <p><img src="../reference/figures/adsl_filt.png" width="97%" style="display: block; margin: auto;"></p>
@@ -185,41 +137,29 @@ a {
 <p><br></p>
 <ul>
 <li>
-<strong>ADSL Filters</strong> appears in the left sidebar <b>once the application is run</b> and can be applied to filter all domain specific reports.</li>
+<strong>ADSL</strong> filters appears at the left sidebar of the app, under <strong>Population Flags</strong> filter.</li>
 </ul>
 <div class="img-border">
 <p><img src="../reference/figures/adsl_filt_app.png" width="97%" style="display: block; margin: auto;"></p>
 </div>
 <p><br></p>
+</div>
+<div class="section level3">
+<h3 id="domain-specific-filters">Domain Specific Filters<a class="anchor" aria-label="anchor" href="#domain-specific-filters"></a>
+</h3>
 <ul>
-<li>
-<h4 id="domain-specific-adxx-filters">Domain Specific (ADxx) Filters</h4>
-<ul>
-<li>Expand the pills corresponding to each domain (ADAE, ADVS etc) to add/remove the domain specific variables to be added as filters. Here is an example for <strong>ADAE</strong> specific filters, where <strong>AESEV</strong> and <strong>AEACN</strong> have been added as filters for all <strong>ADAE</strong> related reports.</li>
-</ul>
-</li>
+<li>Expand the navigation pills corresponding to each domain (ADAE, ADVS etc) and select the name(s) of domain specific variables to be added as filters. Here is an example for <strong>ADAE</strong> specific filters, where <strong>AESEV</strong> and <strong>AEACN</strong> have been added as filters for all <strong>ADAE</strong> related reports.</li>
 </ul>
 <div class="img-border">
 <p><img src="../reference/figures/adae_filt.png" width="97%" style="display: block; margin: auto;"></p>
 </div>
 <p><br></p>
 <ul>
-<li>
-<strong>ADAE Filters</strong> will appear over the <strong>Table Display Options</strong> within the Filter window for all <strong>ADAE</strong> related reports, once the application is run. (Click on the <i class="fas fa-table-cells" role="presentation" aria-label="table-cells icon"></i> icon to open the filter window)</li>
+<li>Reload the app and check the selected variables from <strong>ADAE</strong> appear as filters over the <strong>Table Display Options</strong> within the filter box for all <strong>ADAE</strong> related reports. (Click on the <i class="fas fa-table-cells" role="presentation" aria-label="table-cells icon"></i> icon to access the filter box)</li>
 </ul>
 <div class="img-border">
 <p><img src="../reference/figures/adae_filt_app.png" width="97%" style="display: block; margin: auto;"></p>
 </div>
-<p><br></p>
-</div>
-<div class="section level3">
-<h3 id="run">Run Application<a class="anchor" aria-label="anchor" href="#run"></a>
-</h3>
-<p>Finally, run the application by clicking on the <strong>Run</strong> button.</p>
-<div class="img-border">
-<p><img src="../reference/figures/run_btn.png" width="97%" style="display: block; margin: auto;"></p>
-</div>
-<p><strong>Note:</strong> <em>All examples assume CDISC SDTM and/or ADaM format as input unless otherwise specified.</em></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
