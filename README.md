@@ -28,26 +28,45 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 Version](https://img.shields.io/github/r-package/v/ahasoplakus/pharmtables/main?color=purple&label=Development%20Version)](https://github.com/ahasoplakus/pharmtables/tree/main)
 <!-- badges: end -->
 
-`pharmtables` is a shiny application to visualize standard safety tables
-used in <b>Clinical Trials</b>
+## Introduction
+
+**{pharmtables}** is a Shiny Application wrapped as an R package to
+visualize some common safety tables used in Clinical Analysis and
+Reporting. The application is developed using the
+<a href="https://thinkr-open.github.io/golem/" target="_blank">Golem</a>
+framework.
 
 ## Installation
 
-Latest `dev` version
+The development version of the package can be installed using
 
 ``` r
 remotes::install_github("ahasoplakus/pharmtables", ref = "devel", build_vignettes = TRUE)
 ```
 
-<left> Find the app deployed
-<a href="https://sukalpo94.shinyapps.io/clinSafety/" target="_blank">here</a>
-</left>
-
-Run `library(pharmtables)` to access all the exported functions from
-`pharmtables` that help in reproducing analysis performed in the app. Or,
-you can run the application locally using:
+After installation, the app can be launched locally using
 
 ``` r
-# Launch the application
+library(pharmtables)
 run_app()
 ```
+
+<left> Find the app deployed
+<a href="https://sukalpo94.shinyapps.io/pharmtables/" target="_blank">here</a>
+</left>
+
+List of tables that can be generated using {pharmtables} are
+
+-   Demographic and Clinical Characteristics
+-   Patient Disposition
+-   Overview of Adverse Events
+-   Summary of Adverse Events by System Organ Class and Preferred Term
+-   Summary of Adverse Events by System Organ Class and Preferred Term
+    and Severity
+-   Summary of Concomitant Medications by Medication Class and
+    Standardized Medication Name
+-   Summary of Medical History by Body System or Organ Class and
+    Dictionary-Derived Term
+-   Summary of Vital Signs, Laboratory and ECG Tests by Parameter,
+    Analysis Value and Visit
+-   Shift at post dose for Vital Signs, Laboratory and ECG Tests
