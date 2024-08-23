@@ -27,15 +27,11 @@ mod_data_read_ui <- function(id) {
           column(
             width = 8,
             fluidRow(
-              prettySwitch(
+              checkboxInput(
                 ns("def_data"),
                 label = "Use Mock Datasets (pharmaverseadam)",
                 value = FALSE,
-                status = "info",
-                inline = TRUE,
-                fill = TRUE,
-                slim = FALSE,
-                width = 6
+                width = "400px"
               )
             ),
             fluidRow(

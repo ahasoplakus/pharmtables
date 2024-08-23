@@ -66,8 +66,6 @@ mod_bds_shift_ui <- function(id,
       collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
-      footer = HTML("N: number of patients in treatment arm
-      <br>n: number of patients with given characteristic"),
       shinyWidgets::prettySwitch(
         ns("view"),
         label = "Toggle View",

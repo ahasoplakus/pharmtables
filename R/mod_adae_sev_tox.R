@@ -70,10 +70,6 @@ mod_adae_sev_tox_ui <- function(id) {
       collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
-      footer =
-        HTML("AE: adverse event<br>MedDRA: Medical Dictionary for Regulatory
-             Activities<br> N: number of patients in treatment arm<br>n: number of patients with
-             at least one event<br> SAE: serious adverse event"),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_2")), color = "#3BACB6"),
         style = "overflow-x: scroll;"
       )

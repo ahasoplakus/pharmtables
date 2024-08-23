@@ -46,7 +46,7 @@ golem_add_external_resources <- function() {
     # favicon(), # nolint
     bundle_resources(
       path = app_sys("app/www"),
-      app_title = "pharmtables"
+      app_title = "PHARMTABLES"
     ),
     useShinyjs()
   )

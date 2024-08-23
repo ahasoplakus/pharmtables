@@ -73,9 +73,6 @@ mod_adsl_display_ui <- function(id) {
       collapsible = FALSE,
       width = 12,
       headerBorder = FALSE,
-      footer = HTML("N: number of patients in treatment arm
-      <br>n: number of patients with given characteristic<br>
-      SD: standard deviation<br>Min-Max: minimum and maximum<br>IQR: inter-quartile range"),
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
         style = "overflow-x: scroll;"
       )
