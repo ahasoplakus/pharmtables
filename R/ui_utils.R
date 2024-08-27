@@ -123,14 +123,14 @@ dashboard_body <- function() {
       ),
       tabItem(
         tabName = "Tab4",
-        mod_adxx_bodsys_ui("admh_bodsys_1",
+        mod_occ_summary_ui("admh_bodsys_1",
           domain = "ADMH",
           logo = "file-medical"
         )
       ),
       tabItem(
         tabName = "Tab5",
-        mod_adxx_bodsys_ui("adcm_bodsys_1",
+        mod_occ_summary_ui("adcm_bodsys_1",
           domain = "ADCM",
           logo = "capsules"
         )

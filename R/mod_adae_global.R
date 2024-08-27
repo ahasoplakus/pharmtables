@@ -21,7 +21,7 @@ mod_adae_global_ui <- function(id) {
       ),
       tabPanel(
         "AE By SOC/PT",
-        mod_adxx_bodsys_ui(ns("adae_bodsys_1"))
+        mod_occ_summary_ui(ns("adae_bodsys_1"))
       ),
       tabPanel(
         "AE By Severity/Toxicity",
@@ -46,7 +46,7 @@ mod_adae_global_server <- function(id, dataset, df_out, adsl, filters, pop_fil) 
       pop_fil = pop_fil
     )
 
-    mod_adxx_bodsys_server(
+    mod_occ_summary_server(
       "adae_bodsys_1",
       dataset = dataset,
       df_out = df_out,

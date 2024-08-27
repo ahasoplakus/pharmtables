@@ -60,7 +60,7 @@ app_server <- function(input, output, session) {
     pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
-  mod_adxx_bodsys_server(
+  mod_occ_summary_server(
     "admh_bodsys_1",
     dataset = "admh",
     df_out = load_data$df_read,
@@ -69,7 +69,7 @@ app_server <- function(input, output, session) {
     pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
-  mod_adxx_bodsys_server(
+  mod_occ_summary_server(
     "adcm_bodsys_1",
     dataset = "adcm",
     df_out = load_data$df_read,

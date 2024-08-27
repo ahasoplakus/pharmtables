@@ -1,10 +1,10 @@
 data(adsl)
 data(adae)
 
-test_that("mod_adxx_bodsys_server works", {
+test_that("mod_occ_summary_server works", {
   filt <- reactiveVal()
   testServer(
-    mod_adxx_bodsys_server,
+    mod_occ_summary_server,
     # Add here your module params
     args = list(
       id = "adxx_bodsys_abc",
@@ -76,10 +76,10 @@ test_that("mod_adxx_bodsys_server works", {
 })
 
 test_that("module ui works", {
-  ui <- mod_adxx_bodsys_ui(id = "test")
+  ui <- mod_occ_summary_ui(id = "test")
   golem::expect_shinytaglist(ui)
   # Check that formals have not been removed
-  fmls <- formals(mod_adxx_bodsys_ui)
+  fmls <- formals(mod_occ_summary_ui)
   for (i in c("id")) {
     expect_true(i %in% names(fmls))
   }

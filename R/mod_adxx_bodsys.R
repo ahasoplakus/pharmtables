@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_adxx_bodsys_ui <-
+mod_occ_summary_ui <-
   function(id,
            domain = "ADAE",
            logo = "head-side-cough") {
@@ -82,7 +82,7 @@ mod_adxx_bodsys_ui <-
 #' adxx_bodsys Server Functions
 #'
 #' @noRd
-mod_adxx_bodsys_server <- function(id,
+mod_occ_summary_server <- function(id,
                                    dataset,
                                    df_out,
                                    adsl,
@@ -106,7 +106,7 @@ mod_adxx_bodsys_server <- function(id,
       req(adsl())
       req(df_out()[[dataset]])
       req(!identical(df_out()[[dataset]], rv$occ_cached))
-      logger::log_info("mod_adxx_bodsys_server: updating table options for {dataset}")
+      logger::log_info("mod_occ_summary_server: updating table options for {dataset}")
 
       df <- df_out()[[dataset]]
 
@@ -178,7 +178,7 @@ mod_adxx_bodsys_server <- function(id,
         select(USUBJID, input$split_col) |>
         unique()
 
-      logger::log_info("mod_adxx_bodsys_server: alt_data has {nrow(df_adsl)} rows")
+      logger::log_info("mod_occ_summary_server: alt_data has {nrow(df_adsl)} rows")
 
       df <- df_out()[[dataset]] |>
         left_join(df_adsl) |>
