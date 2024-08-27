@@ -68,7 +68,7 @@ mod_bds_shift_ui <- function(id,
       headerBorder = FALSE,
       shinyWidgets::prettySwitch(
         ns("view"),
-        label = "Toggle View",
+        label = "Alternate View",
         value = FALSE,
         status = "info",
         inline = TRUE,

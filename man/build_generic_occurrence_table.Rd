@@ -31,7 +31,7 @@ List containing table layout object of Generic Occurrence Table and
 filtered Occurrencedata
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+Create Generic Occurrence Summary Table
 }
 \examples{
 library(rtables)

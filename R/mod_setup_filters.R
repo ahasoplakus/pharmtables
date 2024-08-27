@@ -50,7 +50,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ), class = "setup_accord"),
         tagAppendAttributes(accordionItem(
-          title = "ADCM (Conmeds)",
+          title = "ADCM (Concomitant Medications)",
           selectizeInput(
             ns("adcm_var"),
             "",
@@ -70,7 +70,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ), class = "setup_accord"),
         tagAppendAttributes(accordionItem(
-          title = "ADLB (Labs)",
+          title = "ADLB (Laboratory Tests)",
           selectizeInput(
             ns("adlb_var"),
             "",
@@ -80,7 +80,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ), class = "setup_accord"),
         tagAppendAttributes(accordionItem(
-          title = "ADEG (ECG)",
+          title = "ADEG (ECG Tests)",
           selectizeInput(
             ns("adeg_var"),
             "",

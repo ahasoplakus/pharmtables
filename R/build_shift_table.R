@@ -1,6 +1,6 @@
 #' @title Create Shift Table
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #' Shift Tables show the progression of change from the baseline, with the progression often
 #' being along time; the number of subjects is displayed in different range
 #' (e.g. low, normal, or high) at baseline and at selected time points or intervals.

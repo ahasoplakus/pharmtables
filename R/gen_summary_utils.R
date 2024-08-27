@@ -1,7 +1,5 @@
 #' Baseline Demographic and Clinical Characteristics
 #'
-#' @description `r lifecycle::badge("stable")`
-#'
 #' @param title (`character`)\cr Title of the demographic table.
 #' @param subtitle (`character`)\cr Subtitle of the demographic table.
 #' @param footer (`character`)\cr Footer of the demographic table.
@@ -71,8 +69,6 @@ build_adsl_chars_table <-
 
 
 #' Create Generic Occurrence Summary Table
-#'
-#' @description `r lifecycle::badge("stable")`
 #'
 #' @param occ_df (`data.frame`)\cr Occurrence dataset (typically ADAE, ADMH etc)
 #' @param filter_cond (`character`)\cr Filtering condition required for `occ_df`.

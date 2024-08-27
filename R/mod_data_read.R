@@ -33,7 +33,7 @@ mod_data_read_ui <- function(id) {
             fluidRow(
               checkboxInput(
                 ns("def_data"),
-                label = "Use Synthetic Data",
+                label = HTML("&nbsp;&nbsp;Load Synthetic Datasets"),
                 value = FALSE,
                 width = "400px"
               )
@@ -41,7 +41,7 @@ mod_data_read_ui <- function(id) {
             fluidRow(
               fileInput(
                 ns("upload"),
-                HTML("&nbsp;&nbsp;Upload ADaM(s)"),
+                HTML("&nbsp;&nbsp;Upload ADaM Datasets (.sas7bdat/.RDS only)"),
                 multiple = TRUE,
                 accept = c(".RDS", ".sas7bdat"),
                 width = "49%",
@@ -222,8 +222,8 @@ mod_data_read_server <- function(id) {
           "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
         )
         show_toast(
-          title = "Datasets have been loaded",
-          text = "Hit the launch button to start",
+          title = "Processing Datasets completed",
+          text = "Hit Launch to start",
           timer = 2000,
           type = "success",
           position = "bottom-end",

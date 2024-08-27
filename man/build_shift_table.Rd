@@ -40,7 +40,6 @@ rows, else in columns.}
 A Flextable object of the Shift Table
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 Shift Tables show the progression of change from the baseline, with the progression often
 being along time; the number of subjects is displayed in different range
 (e.g. low, normal, or high) at baseline and at selected time points or intervals.

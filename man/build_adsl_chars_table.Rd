@@ -33,7 +33,7 @@ build_adsl_chars_table(
 A tabletree object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+Baseline Demographic and Clinical Characteristics
 }
 \examples{
 adsl <- pharmaverseadam::adsl |> drop_missing_cols()

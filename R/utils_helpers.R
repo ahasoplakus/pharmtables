@@ -176,7 +176,12 @@ filters_to_cond <- function(filter_list) {
 #' @noRd
 named_choice_list <- function(choices, dataset) {
   map(choices, \(x) x) |>
-    set_names(map_chr(choices, \(x) str_glue("{x}: {obj_label({dataset}[[x]])}")))
+    set_names(map_chr(
+      choices,
+      \(x) str_glue(
+        "{x}: {ifelse(is.null(obj_label({dataset}[[x]])), '', obj_label({dataset}[[x]]))}"
+      )
+    ))
 }
 
 
