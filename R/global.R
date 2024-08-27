@@ -46,4 +46,4 @@ utils::globalVariables(
   )
 )
 
-library(markdown) #nolint
+# library(markdown) #nolint
