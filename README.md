@@ -51,10 +51,6 @@ library(pharmtables)
 run_app()
 ```
 
-<left> Find the app deployed
-<a href="https://sukalpo94.shinyapps.io/pharmtables/" target="_blank">here</a>
-</left>
-
 List of tables that can be generated using {pharmtables} are
 
 -   Demographic and Clinical Characteristics
@@ -70,3 +66,9 @@ List of tables that can be generated using {pharmtables} are
 -   Summary of Vital Signs, Laboratory and ECG Tests by Parameter,
     Analysis Value and Visit
 -   Shift at post dose for Vital Signs, Laboratory and ECG Tests
+
+<left> Find the app deployed in
+<a href="https://sukalpo94.shinyapps.io/pharmtables/" target="_blank">shinyapps.io</a>
+and
+<a href="https://connect.posit.cloud/ahasoplakus/content/01919355-79eb-347f-660e-0798480b0230" taget="_blank">Posit
+Cloud Connect</a> </left>
