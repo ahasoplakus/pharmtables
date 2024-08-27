@@ -85,7 +85,7 @@ mod_data_preview_server <- function(id, df) {
       req(selected())
 
       reactable::reactable(
-        slice_head(df()[[selected()]], n = min(200, nrow(df()[[selected()]]))),
+        df()[[selected()]],
         columns = list(USUBJID = reactable::colDef(sticky = "left")),
         filterable = TRUE,
         bordered = TRUE,
