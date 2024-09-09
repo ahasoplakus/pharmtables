@@ -36,14 +36,12 @@ List containing Generic BDS table layout and filtered BDS data
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
 }
 \examples{
-
-library(clinTables)
 library(rtables)
-data(adsl)
-data(advs)
+adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+advs <- pharmaverseadam::advs |> drop_missing_cols()
 
 lyt <- build_generic_bds_table(advs,
-  param = "Diastolic Blood Pressure",
+  param = "Diastolic Blood Pressure (mmHg)",
   trt_var = "ARM", visit = "AVISIT",
   disp_vars = c("AVAL", "CHG")
 )

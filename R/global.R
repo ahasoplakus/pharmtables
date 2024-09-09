@@ -45,3 +45,5 @@ utils::globalVariables(
     "sp_labs"
   )
 )
+
+# library(markdown) #nolint

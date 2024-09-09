@@ -7,28 +7,26 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_adxx_bodsys_ui <-
+mod_occ_summary_ui <-
   function(id,
-           title = "Summary of Adverse Events by Body System or Organ Class and Dictionary-Derived
-           Term",
            domain = "ADAE",
            logo = "head-side-cough") {
     ns <- NS(id)
     tagList(
       box(
         id = ns("box_adxx_bodsys"),
-        title = tags$strong(title),
+        title = uiOutput(ns("table_title")),
         sidebar = boxSidebar(
           id = ns("adxx_side_bodsys"),
           background = "#EFF5F5",
-          icon = icon("filter"),
+          icon = icon("table-cells"),
           width = 35,
           mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),
           div(
             accordion(
               id = ns("bodsys_accord"),
               tagAppendAttributes(accordionItem(
-                title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+                title = tags$strong("Table Display Options"),
                 collapsed = FALSE,
                 selectInput(
                   ns("split_col"),
@@ -65,8 +63,9 @@ mod_adxx_bodsys_ui <-
           )
         ),
         maximizable = TRUE,
+        collapsible = FALSE,
+        headerBorder = FALSE,
         width = 12,
-        height = "800px",
         div(
           shinycssloaders::withSpinner(
             mod_dt_table_ui(ns(
@@ -83,11 +82,12 @@ mod_adxx_bodsys_ui <-
 #' adxx_bodsys Server Functions
 #'
 #' @noRd
-mod_adxx_bodsys_server <- function(id,
+mod_occ_summary_server <- function(id,
                                    dataset,
                                    df_out,
                                    adsl,
-                                   filters = reactive(NULL)) {
+                                   filters = reactive(NULL),
+                                   pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -106,7 +106,7 @@ mod_adxx_bodsys_server <- function(id,
       req(adsl())
       req(df_out()[[dataset]])
       req(!identical(df_out()[[dataset]], rv$occ_cached))
-      logger::log_info("mod_adxx_bodsys_server: updating table options for {dataset}")
+      logger::log_info("mod_occ_summary_server: updating table options for {dataset}")
 
       df <- df_out()[[dataset]]
 
@@ -178,7 +178,7 @@ mod_adxx_bodsys_server <- function(id,
         select(USUBJID, input$split_col) |>
         unique()
 
-      logger::log_info("mod_adxx_bodsys_server: alt_data has {nrow(df_adsl)} rows")
+      logger::log_info("mod_occ_summary_server: alt_data has {nrow(df_adsl)} rows")
 
       df <- df_out()[[dataset]] |>
         left_join(df_adsl) |>
@@ -208,6 +208,27 @@ mod_adxx_bodsys_server <- function(id,
         filt_react$filter_cond()
       )) |>
       bindEvent(list(adsl(), filt_react$trig_report(), input$run))
+
+    output$table_title <- renderUI({
+      req(xx_bodsys())
+      req(pop_fil())
+      if (dataset == "adae") {
+        text <- "Table 2.2 Summary of Adverse Events by Body System or Organ Class and
+        Dictionary-Derived Term; "
+      } else if (dataset == "admh") {
+        text <- "Table 3.1 Summary of Medical History By Body System or Organ Class and
+        Dictionary-Derived Term; "
+      } else {
+        text <- "Table 4.1 Summary of Concomitant Medications by Medication Class and
+        Standardized Medication Name; "
+      }
+      tags$strong(
+        paste0(
+          text,
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_bodsys",
       display_df = xx_bodsys

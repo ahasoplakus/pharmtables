@@ -14,13 +14,15 @@ create_widget <- function(filter_list, df, dataset, namespace) {
   filter_values <-
     filter_list |>
     set_names() |>
-    map(\(x) if (is.factor(df[[dataset]][[x]])) {
-      intersect(
-        levels(unique(pull(df[[dataset]], x))),
+    map(\(x) {
+      if (is.factor(df[[dataset]][[x]])) {
+        intersect(
+          levels(unique(pull(df[[dataset]], x))),
+          unique(pull(df[[dataset]], x))
+        )
+      } else {
         unique(pull(df[[dataset]], x))
-      )
-    } else {
-      unique(pull(df[[dataset]], x))
+      }
     })
 
   filters <- filter_list |>
@@ -52,10 +54,12 @@ create_widget <- function(filter_list, df, dataset, namespace) {
         choice_labs <-
           map_chr(
             choice_vals,
-            \(x) if (nchar(x) > 50) {
-              str_trunc(x, width = 50)
-            } else {
-              x
+            \(x) {
+              if (nchar(x) > 50) {
+                str_trunc(x, width = 50)
+              } else {
+                x
+              }
             }
           )
 
@@ -100,10 +104,12 @@ create_flag_widget <-
         }
         val
       }),
-      \(y) if (nchar(y) > 50) {
-        str_trunc(y, width = 50)
-      } else {
-        y
+      \(y) {
+        if (nchar(y) > 50) {
+          str_trunc(y, width = 50)
+        } else {
+          y
+        }
       }
     )
 
@@ -157,8 +163,7 @@ filters_to_cond <- function(filter_list) {
     }
   })
 
-  filter_cond <- reduce(study_filters, paste, sep = " & ")
-  return(filter_cond)
+  reduce(study_filters, paste, sep = " & ")
 }
 
 #' Convert selectInput choices to named list
@@ -171,7 +176,12 @@ filters_to_cond <- function(filter_list) {
 #' @noRd
 named_choice_list <- function(choices, dataset) {
   map(choices, \(x) x) |>
-    set_names(map_chr(choices, \(x) str_glue("{x}: {obj_label({dataset}[[x]])}")))
+    set_names(map_chr(
+      choices,
+      \(x) str_glue(
+        "{x}: {ifelse(is.null(obj_label({dataset}[[x]])), '', obj_label({dataset}[[x]]))}"
+      )
+    ))
 }
 
 
@@ -194,4 +204,20 @@ read_data_list <- function(data_path, data_name, data_list) {
     df
   }) |>
     set_names(data_list)
+}
+
+#' Drop Columns which has only missing values
+#'
+#' @param df data frame
+#'
+#' @return list of data frames
+#' @export
+#'
+#' @keywords internal
+#' @examples
+#'
+#' drop_missing_cols(pharmaverseadam::advs)
+#'
+drop_missing_cols <- function(df) {
+  discard(df_explicit_na(df), \(x) all(x %in% "<Missing>") | all(is.na(x)))
 }

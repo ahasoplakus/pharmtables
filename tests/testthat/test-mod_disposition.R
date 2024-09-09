@@ -4,7 +4,7 @@ test_that("mod_disposition_server works", {
   testServer(
     mod_disposition_server,
     # Add here your module params
-    args = list(id = "disposition_abc", adsl = reactive(adsl)),
+    args = list(id = "disposition_abc", adsl = reactive(adsl), pop_fil = reactive("ITTFL")),
     {
       ns <- session$ns
       expect_true(
@@ -24,7 +24,7 @@ test_that("mod_disposition_server works", {
       session$setInputs(dct_reas = "DCTREAS")
       session$setInputs(run = 1)
 
-      exp_tbl <- build_disp_table(
+      exp_lyt <- build_disp_table(
         adsl = adsl(),
         trt_var = "ARM",
         eos_var = "EOSSTT",
@@ -33,8 +33,24 @@ test_that("mod_disposition_server works", {
         dct_reas = "DCTREAS"
       )
 
-      expect_true(!is.null(disp_df()$out_df))
-      expect_identical(disp_df()$out_df, exp_tbl)
+      tbl1 <- build_table(lyt = disp_df()$lyt[[1]], df = disp_df()$out_df)
+      tbl2 <- build_table(lyt = disp_df()$lyt[[2]], df = disp_df()$out_df)
+      rtables::col_info(tbl1) <- rtables::col_info(tbl2)
+      act_tbl <- rbind(tbl1, tbl2)
+
+      tbl_1 <- build_table(lyt = exp_lyt$lyt[[1]], df = exp_lyt$df)
+      tbl_2 <- build_table(lyt = exp_lyt$lyt[[2]], df = exp_lyt$df)
+      rtables::col_info(tbl_1) <- rtables::col_info(tbl_2)
+      exp_tbl <- rbind(tbl_1, tbl_2)
+
+      expect_identical(disp_df()$out_df, exp_lyt$df)
+      expect_identical(disp_df()$lyt, exp_lyt$lyt)
+      expect_identical(act_tbl, exp_tbl)
+      expect_snapshot(rbind(tbl1, tbl2))
+      expect_equal(
+        as.character(output$table_title$html),
+        "<strong>Table 1.2 Patient Disposition; Intent-To-Treat Population</strong>"
+      )
     }
   )
 })

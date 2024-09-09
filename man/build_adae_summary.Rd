@@ -23,12 +23,12 @@ List containing layout object of ADAE Summary Table and filtered ADAE data
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
 }
 \examples{
+suppressMessages(library(rtables))
 
-library(clinTables)
-library(rtables)
-data(adsl)
-data(adae)
-adae_ <- add_adae_flags(adae)
+adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+adae <- pharmaverseadam::adae |> drop_missing_cols()
+
+adae_ <- suppressMessages(add_adae_flags(adae))
 lyt <- build_adae_summary(
   adae = adae_,
   filter_cond = NULL,

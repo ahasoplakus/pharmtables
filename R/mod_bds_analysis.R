@@ -10,8 +10,6 @@
 mod_bds_analysis_ui <-
   function(id,
            tab_title = "",
-           summ_title = "",
-           shift_title = "",
            domain = "ADLB",
            logo = "flask-vial") {
     ns <- NS(id)
@@ -24,7 +22,6 @@ mod_bds_analysis_ui <-
         tab_title,
         mod_adxx_param_ui(
           ns("bds_param_1"),
-          title = summ_title,
           domain = domain,
           logo = logo
         )
@@ -33,7 +30,6 @@ mod_bds_analysis_ui <-
         "Shift Table",
         mod_bds_shift_ui(
           ns("bds_shift_1"),
-          title = shift_title,
           domain = domain,
           logo = logo
         )
@@ -45,7 +41,7 @@ mod_bds_analysis_ui <-
 #'
 #' @noRd
 mod_bds_analysis_server <-
-  function(id, dataset, df_out, adsl, filters) {
+  function(id, dataset, df_out, adsl, filters, pop_fil) {
     moduleServer(id, function(input, output, session) {
       ns <- session$ns
 
@@ -54,7 +50,8 @@ mod_bds_analysis_server <-
         dataset = dataset,
         df_out = df_out,
         adsl = adsl,
-        filters = filters()
+        filters = filters(),
+        pop_fil = pop_fil
       )
 
       mod_bds_shift_server(
@@ -62,7 +59,8 @@ mod_bds_analysis_server <-
         dataset = dataset,
         df_out = df_out,
         adsl = adsl,
-        filters = filters()
+        filters = filters(),
+        pop_fil = pop_fil
       )
     })
   }

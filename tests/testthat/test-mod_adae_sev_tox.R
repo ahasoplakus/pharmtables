@@ -16,7 +16,8 @@ test_that("mod_adae_sev_tox_server works", {
         )
       ),
       adsl = reactive(adsl),
-      filters = filt
+      filters = filt,
+      pop_fil = reactive("SAFFL")
     ),
     {
       ns <- session$ns
@@ -34,7 +35,6 @@ test_that("mod_adae_sev_tox_server works", {
       session$setInputs(class = "AESOC")
       session$setInputs(term = "AETERM")
       session$setInputs(summ_var = "AETOXGR")
-      session$setInputs(view = FALSE)
       session$setInputs(run = 1)
 
       exp_lyt <- basic_table() |>
@@ -73,15 +73,30 @@ test_that("mod_adae_sev_tox_server works", {
         alt_counts_df = adsl()
       )
 
-      expect_identical(ae_explore()$out_df, exp_df)
-      expect_equal(nrow(ae_explore()$alt_df), NULL)
-      expect_identical(ae_explore()$lyt, NULL)
+      act_df <- build_table(
+        lyt = ae_explore()$lyt,
+        df = ae_explore()$out_df,
+        alt_counts_df = ae_explore()$alt_df
+      )
+
+      expect_identical(act_df, exp_df)
+      expect_identical(ae_explore()$lyt, exp_lyt)
+      expect_identical(ae_explore()$alt_df, select(adsl(), all_of(c("USUBJID", "ARM"))))
 
       filt("AESER")
       session$flushReact()
 
-      expect_identical(ae_explore()$out_df, exp_df)
-      expect_equal(nrow(ae_explore()$alt_df), NULL)
+      expect_identical(act_df, exp_df)
+      expect_identical(ae_explore()$lyt, exp_lyt)
+      expect_identical(ae_explore()$alt_df, select(adsl(), all_of(c("USUBJID", "ARM"))))
+
+      expect_snapshot(
+        build_table(
+          lyt = ae_explore()$lyt,
+          df = ae_explore()$out_df,
+          alt_counts_df = ae_explore()$alt_df
+        )
+      )
     }
   )
 })

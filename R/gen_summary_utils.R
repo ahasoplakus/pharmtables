@@ -1,11 +1,10 @@
 #' Baseline Demographic and Clinical Characteristics
 #'
-#' @description `r lifecycle::badge("stable")`
-#'
 #' @param title (`character`)\cr Title of the demographic table.
 #' @param subtitle (`character`)\cr Subtitle of the demographic table.
 #' @param footer (`character`)\cr Footer of the demographic table.
 #' @param split_cols_by (`character`)\cr Arm variable used to split table into columns.
+#' @param group_by (`character`)\cr Additional Grouping Variables (max `2`)
 #' @param summ_vars (`vector of character`)\cr Variables from df to include in the table.
 #' @param disp_stat (`vector of character`)\cr Statistics to display.
 #'
@@ -15,9 +14,8 @@
 #' @export
 #'
 #' @examples
+#' adsl <- pharmaverseadam::adsl |> drop_missing_cols()
 #'
-#' library(clinTables)
-#' data(adsl)
 #' lyt <- build_adsl_chars_table(
 #'   split_cols_by = "ARM",
 #'   summ_vars = c("AGE", "RACE")
@@ -29,13 +27,11 @@
 #' }
 #'
 build_adsl_chars_table <-
-  function(title = "x.x: Study Subject Data",
-           subtitle = c(
-             "x.x.x: Demographic Characteristics",
-             "Table x.x.x.x: Demographic Characteristics - Full Analysis Set"
-           ),
-           footer = "Source: ADSL DDMMYYYY hh:mm; Listing x.xx; SDTM package: DDMMYYYY",
+  function(title = "",
+           subtitle = character(),
+           footer = character(),
            split_cols_by = "ARM",
+           group_by = NULL,
            summ_vars = c("AGE", "SEX", "COUNTRY"),
            disp_stat = c("n", "mean_sd", "se", "median", "range", "quantiles", "count_fraction")) {
     lyt <- basic_table(
@@ -45,8 +41,18 @@ build_adsl_chars_table <-
       show_colcounts = TRUE
     ) |>
       split_cols_by(split_cols_by, split_fun = drop_split_levels) |>
-      add_overall_col("All Patients") |>
-      summarize_vars(
+      add_overall_col("All Patients")
+    if (length(group_by) == 1) {
+      lyt <- lyt |>
+        split_rows_by(group_by)
+    } else if (length(group_by) > 1) {
+      lyt <- lyt |>
+        split_rows_by(group_by[1]) |>
+        split_rows_by(group_by[2])
+    }
+
+    lyt |>
+      analyze_vars(
         summ_vars,
         .stats = disp_stat,
         .labels = c(
@@ -58,13 +64,11 @@ build_adsl_chars_table <-
           quantiles = c("IQR")
         )
       ) |>
-      append_topleft(c("", "Baseline Characteristic"))
+      append_topleft(c("", "Characteristic"))
   }
 
 
 #' Create Generic Occurrence Summary Table
-#'
-#' @description `r lifecycle::badge("stable")`
 #'
 #' @param occ_df (`data.frame`)\cr Occurrence dataset (typically ADAE, ADMH etc)
 #' @param filter_cond (`character`)\cr Filtering condition required for `occ_df`.
@@ -81,13 +85,12 @@ build_adsl_chars_table <-
 #' @keywords generic
 #'
 #' @examples
-#'
-#' library(clinTables)
 #' library(rtables)
 #' library(tern)
 #' library(dplyr)
-#' data(adsl)
-#' data(adae)
+#'
+#' adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+#' adae <- pharmaverseadam::adae |> drop_missing_cols()
 #' adae <- filter(adae, SAFFL == "Y")
 #'
 #' lyt <- build_generic_occurrence_table(
@@ -176,14 +179,12 @@ build_generic_occurrence_table <-
 #' @keywords generic
 #'
 #' @examples
-#'
-#' library(clinTables)
 #' library(rtables)
-#' data(adsl)
-#' data(advs)
+#' adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+#' advs <- pharmaverseadam::advs |> drop_missing_cols()
 #'
 #' lyt <- build_generic_bds_table(advs,
-#'   param = "Diastolic Blood Pressure",
+#'   param = "Diastolic Blood Pressure (mmHg)",
 #'   trt_var = "ARM", visit = "AVISIT",
 #'   disp_vars = c("AVAL", "CHG")
 #' )
@@ -269,10 +270,9 @@ build_generic_bds_table <-
 #' @keywords generic
 #'
 #' @examples
-#' library(clinTables)
 #' library(rtables)
 #'
-#' data(adsl)
+#' adsl <- pharmaverseadam::adsl |> drop_missing_cols()
 #'
 #' tbl <- build_disp_table(
 #'   adsl = adsl,
@@ -283,8 +283,13 @@ build_generic_bds_table <-
 #'   dct_reas = "DCTREAS"
 #' )
 #'
+#' tbl1 <- build_table(lyt = tbl$lyt[[1]], df = tbl$df)
+#' tbl2 <- build_table(lyt = tbl$lyt[[2]], df = tbl$df)
+#' col_info(tbl1) <- col_info(tbl2)
+#' tt <- rbind(tbl1, tbl2)
+#'
 #' \dontrun{
-#' tt_to_flextable(tbl)
+#' tt_to_flextable(tt)
 #' }
 #'
 build_disp_table <-
@@ -295,9 +300,11 @@ build_disp_table <-
            dcs_reas = "DCSREAS",
            dct_reas = "DCTREAS") {
     lyt <- basic_table(show_colcounts = TRUE) |>
-      split_cols_by(trt_var,
-        split_fun = add_overall_level("All Patients", first = FALSE)
-      )
+      split_cols_by(
+        trt_var,
+        split_fun = drop_split_levels
+      ) |>
+      add_overall_col("All Patients")
 
     if ("RANDFL" %in% names(adsl)) {
       lyt <- lyt |>
@@ -307,19 +314,25 @@ build_disp_table <-
         summarize_row_groups(label_fstr = "Patients Randomized")
     }
 
+    if ("ITTFL" %in% names(adsl)) {
+      lyt <- lyt |>
+        count_values(
+          "ITTFL",
+          values = "Y",
+          denom = "N_col",
+          .labels = c(count_fraction = "ITT Population"),
+          .formats = "xx (xx.x%)",
+          table_names = c("ITT")
+        )
+    }
+
     lyt <- lyt |>
-      count_values(
-        "ITTFL",
-        values = "Y",
-        denom = "N_col",
-        .labels = c(count_fraction = "ITT Population"),
-        table_names = c("ITT")
-      ) |>
       count_values(
         "SAFFL",
         values = "Y",
         denom = "N_col",
         .labels = c(count_fraction = "Safety Population"),
+        .formats = "xx (xx.x%)",
         table_names = c("SAFF")
       )
 
@@ -330,6 +343,7 @@ build_disp_table <-
           values = "Y",
           denom = "N_col",
           .labels = c(count_fraction = "Per-protocol population"),
+          .formats = "xx (xx.x%)",
           table_names = c("PPR")
         )
     }
@@ -347,7 +361,7 @@ build_disp_table <-
         mutate(DCS = as.factor(!!!syms(dcs_reas)))
 
       lyt <- lyt |>
-        summarize_vars("DCS",
+        analyze_vars("DCS",
           .stats = "count_fraction",
           show_labels = "hidden",
           denom = "N_col"
@@ -355,9 +369,11 @@ build_disp_table <-
     }
 
     lyt1 <- basic_table(show_colcounts = TRUE) |>
-      split_cols_by(trt_var,
-        split_fun = add_overall_level("All Patients", first = FALSE)
-      )
+      split_cols_by(
+        trt_var,
+        split_fun = drop_split_levels
+      ) |>
+      add_overall_col("All Patients")
 
     if (eot_var %in% names(adsl)) {
       lyt1 <- lyt1 |>
@@ -366,6 +382,7 @@ build_disp_table <-
           values = "COMPLETED",
           denom = "N_col",
           .labels = c(count_fraction = "Completed Treatment"),
+          .formats = "xx (xx.x%)",
           table_names = c("COMPLETED")
         ) |>
         count_values(
@@ -373,6 +390,7 @@ build_disp_table <-
           values = "ONGOING",
           denom = "N_col",
           .labels = c(count_fraction = "Ongoing Treatment"),
+          .formats = "xx (xx.x%)",
           table_names = c("ONGOING")
         ) |>
         split_rows_by(eot_var,
@@ -386,17 +404,12 @@ build_disp_table <-
         mutate(DCT = as.factor(!!!syms(dct_reas)))
 
       lyt1 <- lyt1 |>
-        summarize_vars("DCT",
+        analyze_vars("DCT",
           .stats = "count_fraction",
           show_labels = "hidden",
           denom = "N_col"
         )
     }
 
-    tbl1 <- build_table(lyt = lyt, df = adsl)
-    tbl2 <- build_table(lyt = lyt1, df = adsl)
-
-    rtables::col_info(tbl1) <- rtables::col_info(tbl2)
-
-    rbind(tbl1, tbl2)
+    list(lyt = list(lyt, lyt1), df = adsl)
   }

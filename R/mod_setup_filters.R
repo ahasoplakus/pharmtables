@@ -11,11 +11,16 @@ mod_setup_filters_ui <- function(id) {
   ns <- NS(id)
   tagList(
     fluidRow(
+      div(HTML("Domain Specific Filters"), style = "display: inline-block; font-family: math; color: #000; font-size: 1.25rem; font-weight: bold;"),
+      style = "justify-content: center; width: 26vw;"
+    ),
+    br(),
+    fluidRow(
       accordion(
         id = ns("acc_study_setup"),
         width = 6,
         tagAppendAttributes(accordionItem(
-          title = "ADSL Filters",
+          title = "ADSL (Subject-Level)",
           selectizeInput(
             ns("adsl_var"),
             "",
@@ -25,7 +30,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ), class = "setup_accord"),
         tagAppendAttributes(accordionItem(
-          title = "ADAE Filters",
+          title = "ADAE (Adverse Events)",
           selectizeInput(
             ns("adae_var"),
             "",
@@ -35,7 +40,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ), class = "setup_accord"),
         tagAppendAttributes(accordionItem(
-          title = "ADMH Filters",
+          title = "ADMH (Medical History)",
           selectizeInput(
             ns("admh_var"),
             "",
@@ -45,7 +50,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ), class = "setup_accord"),
         tagAppendAttributes(accordionItem(
-          title = "ADCM Filters",
+          title = "ADCM (Concomitant Medications)",
           selectizeInput(
             ns("adcm_var"),
             "",
@@ -55,7 +60,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ), class = "setup_accord"),
         tagAppendAttributes(accordionItem(
-          title = "ADVS Filters",
+          title = "ADVS (Vital Signs)",
           selectizeInput(
             ns("advs_var"),
             "",
@@ -65,7 +70,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ), class = "setup_accord"),
         tagAppendAttributes(accordionItem(
-          title = "ADLB Filters",
+          title = "ADLB (Laboratory Tests)",
           selectizeInput(
             ns("adlb_var"),
             "",
@@ -75,7 +80,7 @@ mod_setup_filters_ui <- function(id) {
           )
         ), class = "setup_accord"),
         tagAppendAttributes(accordionItem(
-          title = "ADEG Filters",
+          title = "ADEG (ECG Tests)",
           selectizeInput(
             ns("adeg_var"),
             "",
@@ -133,10 +138,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(
-          load_data()[["adae"]],
-          !ends_with("FL")
-        )),
+        names(load_data()[["adae"]]),
         names(load_data()[["adsl"]])
       )
       choice_list <-
@@ -162,7 +164,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["admh"]], !ends_with("FL"))),
+        names(load_data()[["admh"]]),
         names(load_data()[["adsl"]])
       )
       choice_list <-
@@ -188,7 +190,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["adcm"]], !ends_with("FL"))),
+        names(load_data()[["adcm"]]),
         names(load_data()[["adsl"]])
       )
       choice_list <-
@@ -214,7 +216,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["advs"]], !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
+        names(select(load_data()[["advs"]], !ends_with(c("AVAL", "AVALU", "SEQ")))),
         names(load_data()[["adsl"]])
       )
       exclude_vars <- names(select(load_data()[["advs"]], !contains("CHG")))
@@ -242,7 +244,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["adlb"]], !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
+        names(select(load_data()[["adlb"]], !ends_with(c("AVAL", "AVALU", "SEQ")))),
         names(load_data()[["adsl"]])
       )
       exclude_vars <- names(select(load_data()[["adlb"]], !contains("CHG")))
@@ -270,7 +272,7 @@ mod_setup_filters_server <- function(id, load_data) {
       )
 
       choices <- setdiff(
-        names(select(load_data()[["adeg"]], !ends_with(c("FL", "AVAL", "AVALU", "SEQ")))),
+        names(select(load_data()[["adeg"]], !ends_with(c("AVAL", "AVALU", "SEQ")))),
         names(load_data()[["adsl"]])
       )
       exclude_vars <- names(select(load_data()[["adeg"]], !contains("CHG")))

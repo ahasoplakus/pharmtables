@@ -10,7 +10,7 @@
 #'
 #' @noRd
 app_sys <- function(...) {
-  system.file(..., package = "clinTables")
+  system.file(..., package = "pharmtables")
 }
 
 

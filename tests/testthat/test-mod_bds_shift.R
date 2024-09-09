@@ -15,7 +15,8 @@ test_that("mod_bds_shift_server works", {
         adlb = adlb
       )),
       adsl = reactive(adsl),
-      filters = filt
+      filters = filt,
+      pop_fil = reactive("SAFFL")
     ),
     {
       ns <- session$ns

@@ -11,7 +11,7 @@ dashboard_header <- function() {
         src = "www/logo.png",
         style = "height:45px; width:40px"
       ),
-      "clinTables"
+      "PHARMTABLES"
     ),
     status = "white",
     border = TRUE,
@@ -23,8 +23,7 @@ dashboard_header <- function() {
           tabName = "Tab1",
           text = tags$span(icon("home"), "")
         ),
-        title = "Home",
-        placement = "bottom"
+        title = "Home"
       ),
       tooltip(
         navbarTab(
@@ -91,7 +90,7 @@ dashboard_sidebar <- function() {
     accordion(
       id = "acc_st_filt",
       accordionItem(
-        title = tags$span(icon("id-card"), tags$strong("ADSL Filters")),
+        title = tags$span(icon("id-card"), tags$strong("ADSL (Subject-Level)")),
         collapsed = FALSE,
         mod_adsl_filters_ui("adsl_filters_1")
       )
@@ -124,18 +123,14 @@ dashboard_body <- function() {
       ),
       tabItem(
         tabName = "Tab4",
-        mod_adxx_bodsys_ui("admh_bodsys_1",
-          title = "Summary of Medical History By Body System or Organ Class and Dictionary-Derived
-          Term",
+        mod_occ_summary_ui("admh_bodsys_1",
           domain = "ADMH",
           logo = "file-medical"
         )
       ),
       tabItem(
         tabName = "Tab5",
-        mod_adxx_bodsys_ui("adcm_bodsys_1",
-          title = "Summary of Concomitant Medications by Medication Class and Standardized
-          Medication Name",
+        mod_occ_summary_ui("adcm_bodsys_1",
           domain = "ADCM",
           logo = "capsules"
         )
@@ -144,8 +139,6 @@ dashboard_body <- function() {
         tabName = "Tab6",
         mod_bds_analysis_ui("vitals_analysis_1",
           tab_title = "Vital Signs Tests Summary",
-          summ_title = "Summary of Vital Signs Tests by Parameter, Analysis Value and Visit",
-          shift_title = "Shift at post dose for Vital Signs",
           domain = "ADVS",
           logo = "stethoscope"
         )
@@ -153,17 +146,13 @@ dashboard_body <- function() {
       tabItem(
         tabName = "Tab7",
         mod_bds_analysis_ui("lab_analysis_1",
-          tab_title = "Laboratory Tests Summary",
-          summ_title = "Summary of Laboratory Tests by Parameter, Analysis Value and Visit",
-          shift_title = "Shift at post dose for Laboratory Tests"
+          tab_title = "Laboratory Tests Summary"
         )
       ),
       tabItem(
         tabName = "Tab8",
         mod_bds_analysis_ui("ecg_analysis_1",
           tab_title = "ECG Tests Summary",
-          summ_title = "Summary of ECG Tests by Parameter, Analysis Value and Visit",
-          shift_title = "Shift at post dose for ECG Tests",
           domain = "ADEG",
           logo = "heart-pulse"
         )
@@ -183,17 +172,21 @@ dashboard_body <- function() {
 table_options <- function(ft) {
   ft |>
     flextable::autofit() |>
-    flextable::theme_vanilla() |>
     flextable::align(align = "center", part = "header") |>
     flextable::align(align = "left", j = 1, part = "header") |>
-    flextable::bold(bold = TRUE, part = "header") |>
-    flextable::border_inner_h(
-      border = officer::fp_border(color = "#E1E5EA"),
-      part = "all"
+    flextable::style(
+      pr_t = officer::fp_text(font.size = 12),
+      part = "body"
+    ) |>
+    flextable::style(
+      pr_t = officer::fp_text(
+        font.size = 12,
+        bold = TRUE,
+      ),
+      part = "header"
     ) |>
     flextable::border_outer(
-      border = officer::fp_border(color = "#E1E5EA"),
+      border = officer::fp_border(color = "#343a40"),
       part = "all"
-    ) |>
-    flextable::htmltools_value()
+    )
 }

@@ -1,6 +1,6 @@
 #' @title Create Shift Table
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description
 #' Shift Tables show the progression of change from the baseline, with the progression often
 #' being along time; the number of subjects is displayed in different range
 #' (e.g. low, normal, or high) at baseline and at selected time points or intervals.
@@ -25,9 +25,8 @@
 #' @keywords generic
 #'
 #' @examples
-#' library(clinTables)
-#' data(adsl)
-#' data(adlb)
+#' adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+#' adlb <- pharmaverseadam::adlb |> drop_missing_cols()
 #'
 #' \dontrun{
 #' build_shift_table(
@@ -95,10 +94,12 @@ build_shift_table <-
 
     if (!is.null(group_var)) {
       group_anr <-
-        map(group_var, \(x) tibble::tibble(!!x := intersect(
-          levels(as.factor(bds_df[[x]])),
-          unique(df[[x]])
-        ))) |>
+        map(group_var, \(x) {
+          tibble::tibble(!!x := intersect(
+            levels(as.factor(bds_df[[x]])),
+            unique(df[[x]])
+          ))
+        }) |>
         reduce(tidyr::expand_grid)
       dummy_anr <- cross_join(dummy_anr, group_anr)
     }
@@ -119,6 +120,19 @@ build_shift_table <-
       ) |>
       mutate(PCT = round(CNT / N * 100, 2)) |>
       select(-N)
+
+    wpb_anr <- wpb_anr |>
+      modify_at(
+        c("BNRIND", "ANRIND"),
+        \(x) {
+          case_match(x,
+            "H" ~ "HIGH",
+            "L" ~ "LOW",
+            "N" ~ "NORMAL",
+            .default = x
+          )
+        }
+      )
 
     if (isTRUE(default_view)) {
       ft_rows <- c("PARAM", trt_var, group_var, "BNRIND")

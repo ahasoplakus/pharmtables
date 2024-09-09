@@ -3,7 +3,7 @@ data(adsl)
 test_that("mod_adsl_display_server works", {
   testServer(mod_adsl_display_server,
     # Add here your module params
-    args = list(id = "adsl_display_abc", adsl = reactive(adsl)),
+    args = list(id = "adsl_display_abc", adsl = reactive(adsl), pop_fil = reactive("SAFFL")),
     {
       ns <- session$ns
       expect_true(inherits(ns, "function"))
@@ -51,6 +51,10 @@ test_that("mod_adsl_display_server works", {
 
       expect_identical(disp_df()$lyt, exp_lyt1)
       expect_false(identical(disp_df()$lyt, exp_lyt))
+      expect_equal(
+        as.character(output$table_title$html),
+        "<strong>Table 1.1 Demographic Characteristics; Safety Population</strong>"
+      )
     }
   )
 })

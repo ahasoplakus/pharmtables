@@ -5,6 +5,8 @@
 #' @noRd
 app_server <- function(input, output, session) {
   Sys.sleep(2)
+  options(shiny.maxRequestSize = 4096 * 1024^2)
+
   load_data <- mod_data_read_server("data_read_1")
 
   observe({
@@ -28,25 +30,6 @@ app_server <- function(input, output, session) {
   }) |>
     bindEvent(load_data$df_read())
 
-  observe({
-    req(load_data$df_read())
-    showModal(
-      modalDialog(
-        mod_data_preview_ui("data_preview_1"),
-        title = tags$span(icon("eye"), tags$strong("Preview Data")),
-        size = "l",
-        easyClose = FALSE,
-        fade = TRUE
-      )
-    )
-  }) |>
-    bindEvent(load_data$prev_btn())
-
-  mod_data_preview_server(
-    "data_preview_1",
-    load_data$prev_data
-  )
-
   adsl_filters <-
     mod_adsl_filters_server("adsl_filters_1",
       dataset = "adsl",
@@ -64,7 +47,8 @@ app_server <- function(input, output, session) {
     )
 
   mod_adsl_server("adsl_1",
-    adsl = filtered_adsl
+    adsl = filtered_adsl,
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_adae_global_server(
@@ -72,23 +56,26 @@ app_server <- function(input, output, session) {
     dataset = "adae",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = reactive(load_data$adae_filters)
+    filters = reactive(load_data$adae_filters),
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
-  mod_adxx_bodsys_server(
+  mod_occ_summary_server(
     "admh_bodsys_1",
     dataset = "admh",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = load_data$admh_filters
+    filters = load_data$admh_filters,
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
-  mod_adxx_bodsys_server(
+  mod_occ_summary_server(
     "adcm_bodsys_1",
     dataset = "adcm",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = load_data$adcm_filters
+    filters = load_data$adcm_filters,
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_bds_analysis_server(
@@ -96,7 +83,8 @@ app_server <- function(input, output, session) {
     dataset = "advs",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = reactive(load_data$advs_filters)
+    filters = reactive(load_data$advs_filters),
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_bds_analysis_server(
@@ -104,7 +92,8 @@ app_server <- function(input, output, session) {
     dataset = "adlb",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = reactive(load_data$adlb_filters)
+    filters = reactive(load_data$adlb_filters),
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 
   mod_bds_analysis_server(
@@ -112,6 +101,7 @@ app_server <- function(input, output, session) {
     dataset = "adeg",
     df_out = load_data$df_read,
     adsl = filtered_adsl,
-    filters = reactive(load_data$adeg_filters)
+    filters = reactive(load_data$adeg_filters),
+    pop_fil = eventReactive(filtered_adsl(), adsl_filters$filters()$pop)
   )
 }

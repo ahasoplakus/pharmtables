@@ -31,16 +31,15 @@ List containing table layout object of Generic Occurrence Table and
 filtered Occurrencedata
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+Create Generic Occurrence Summary Table
 }
 \examples{
-
-library(clinTables)
 library(rtables)
 library(tern)
 library(dplyr)
-data(adsl)
-data(adae)
+
+adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+adae <- pharmaverseadam::adae |> drop_missing_cols()
 adae <- filter(adae, SAFFL == "Y")
 
 lyt <- build_generic_occurrence_table(

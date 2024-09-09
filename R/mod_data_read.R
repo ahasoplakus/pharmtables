@@ -17,45 +17,46 @@ mod_data_read_ui <- function(id) {
       collapsible = FALSE,
       width = 12,
       tabPanel(
-        title = tags$span(icon("circle-info"), "About"),
+        title = "About",
         includeMarkdown(app_sys("about.md"))
       ),
       tabPanel(
-        title = tags$span(icon("gears"), "Setup"),
+        title = "User Guide",
+        includeMarkdown(app_sys("user-guide.md"))
+      ),
+      tabPanel(
+        title = "Study Setup",
         fluidRow(
           column(width = 3, offset = 1),
           column(
             width = 8,
             fluidRow(
-              prettySwitch(
+              checkboxInput(
                 ns("def_data"),
-                label = "Load Synthetic Data (random.cdisc.data)",
+                label = HTML("&nbsp;&nbsp;Load Synthetic Datasets"),
                 value = FALSE,
-                status = "info",
-                inline = TRUE,
-                fill = TRUE,
-                slim = FALSE,
-                width = 6
+                width = "400px"
               )
             ),
             fluidRow(
               fileInput(
                 ns("upload"),
-                HTML("&nbsp;&nbsp;&nbsp;&nbsp;Upload Files"),
+                HTML("&nbsp;&nbsp;Upload ADaM Datasets (.sas7bdat/.RDS only)"),
                 multiple = TRUE,
                 accept = c(".RDS", ".sas7bdat"),
-                width = "50%",
+                width = "49%",
                 buttonLabel = tags$span(icon("upload")),
                 placeholder = "No file selected",
                 capture = NULL
               )
-            ),
-            column(
-              width = 6,
-              div(actionButton(ns("btn_prev"), "Preview"),
-                style = "justify-content: center; display: flex; padding-bottom: 30px; padding-right: 10px;" # nolint
-              )
-            ),
+            )
+          ),
+          style = "height: 135px;"
+        ),
+        fluidRow(
+          column(width = 3, offset = 1),
+          column(
+            width = 8,
             mod_setup_filters_ui(ns("setup_filters_1"))
           )
         ),
@@ -63,11 +64,15 @@ mod_data_read_ui <- function(id) {
           column(width = 3, offset = 1),
           column(
             width = 4,
-            div(actionButton(ns("apply"), "Run"),
+            div(actionButton(ns("apply"), "Launch", icon = icon("rocket")),
               style = "justify-content: center; display: flex;"
             )
           )
         )
+      ),
+      tabPanel(
+        title = "Preview",
+        mod_data_preview_ui(ns("data_preview_1"))
       )
     )
   )
@@ -101,13 +106,6 @@ mod_data_read_server <- function(id) {
         runjs(
           "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
         )
-        show_toast(
-          title = "Reading Synthetic data",
-          text = "Default datasets will be used for analysis",
-          type = "success",
-          position = "center",
-          width = "600px"
-        )
         if (!is.null(input$upload)) {
           rv$upload <- list_assign(input$upload, name = NULL)
         }
@@ -133,16 +131,20 @@ mod_data_read_server <- function(id) {
           rv$data_list <-
             str_remove_all(list.files(app_sys("extdata")), ".RDS")
           rv$df <- rv$data_list |>
-            map(\(x) readRDS(paste0(
-              app_sys("extdata"), "/", x, ".RDS"
-            ))) |>
+            map(\(x) {
+              readRDS(paste0(
+                app_sys("extdata"), "/", x, ".RDS"
+              ))
+            }) |>
             set_names(rv$data_list)
+          disable("def_data")
           logger::log_info(
             "mod_data_read_server: data read complete from system folder with {nrow(rv$df[[1]])} rows" # nolint
           )
         } else {
           rv$data_list <- str_remove_all(rv$upload$name, ".RDS|.sas7bdat")
           if (!identical(rv$data_list, character(0))) {
+            disable("def_data")
             rv$df <- read_data_list(rv$upload$datapath, rv$upload$name, rv$data_list)
             logger::log_info("mod_data_read_server: data read complete with {nrow(rv$df[[1]])} rows") # nolint
           } else {
@@ -158,7 +160,7 @@ mod_data_read_server <- function(id) {
 
     rv$setup_filters <- mod_setup_filters_server(
       "setup_filters_1",
-      eventReactive(rv$df, rv$df)
+      eventReactive(rv$df, map(rv$df, \(x) drop_missing_cols(x)))
     )
 
     read_df <- reactive({
@@ -183,7 +185,7 @@ mod_data_read_server <- function(id) {
       }
       logger::log_info("mod_data_read_server: sending data")
 
-      map(rv$df, \(x) df_explicit_na(x))
+      map(rv$df, \(x) drop_missing_cols(x))
     }) |>
       bindEvent(list(input$apply, rv$trig_reset), ignoreNULL = TRUE)
 
@@ -206,23 +208,45 @@ mod_data_read_server <- function(id) {
 
     observe({
       req(read_df())
-      updateActionButton(session, "apply", label = "Reload")
+      updateActionButton(session, "apply", label = "Reload", icon = icon("rotate"))
     }) |>
       bindEvent(input$apply, once = TRUE)
 
     observe({
       if (is.null(rv$df)) {
         disable("apply")
-        disable("btn_prev")
       } else {
         enable("apply")
-        enable("btn_prev")
+        disable("upload")
+        runjs(
+          "$('#data_read_1-upload').parent().removeClass('btn-default').addClass('btn-disabled');"
+        )
+        show_toast(
+          title = "Processing Datasets completed",
+          text = "Hit Launch to start",
+          timer = 2000,
+          type = "success",
+          position = "bottom-end",
+          width = "40vw"
+        )
       }
     })
 
+    observe({
+      toggleState(
+        selector = "#data_read_1-about > li:nth-child(4)",
+        condition = !is.null(rv$df),
+        asis = TRUE
+      )
+    })
+
+    mod_data_preview_server(
+      "data_preview_1",
+      eventReactive(rv$df, rv$df)
+    )
+
     return(list(
       df_read = read_df,
-      prev_data = eventReactive(rv$df, rv$df),
       study_filters = eventReactive(
         input$apply,
         rv$setup_filters$adsl_filt()
@@ -250,8 +274,7 @@ mod_data_read_server <- function(id) {
       adeg_filters = eventReactive(
         input$apply,
         rv$setup_filters$adeg_filt()
-      ),
-      prev_btn = reactive(input$btn_prev)
+      )
     ))
   })
 }

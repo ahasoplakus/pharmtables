@@ -8,18 +8,17 @@
 #'
 #' @importFrom shiny NS tagList
 mod_bds_shift_ui <- function(id,
-                             title = "",
                              domain = "ADLB",
                              logo = "flask-vial") {
   ns <- NS(id)
   tagList(
     box(
       id = ns("box_bds_shift"),
-      title = tags$strong(title),
+      title = uiOutput(ns("table_title")),
       sidebar = boxSidebar(
         id = ns("bds_side_shift"),
         background = "#EFF5F5",
-        icon = icon("filter"),
+        icon = icon("table-cells"),
         width = 35,
         div(uiOutput(ns(
           "analysis_flag_ui"
@@ -33,7 +32,7 @@ mod_bds_shift_ui <- function(id,
           accordion(
             id = ns("shift_accord"),
             tagAppendAttributes(accordionItem(
-              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              title = tags$strong("Table Display Options"),
               collapsed = FALSE,
               selectInput(
                 ns("split_col"),
@@ -64,12 +63,13 @@ mod_bds_shift_ui <- function(id,
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
-      height = "800px",
+      headerBorder = FALSE,
       shinyWidgets::prettySwitch(
         ns("view"),
-        label = "Toggle View",
-        value = TRUE,
+        label = "Alternate View",
+        value = FALSE,
         status = "info",
         inline = TRUE,
         fill = TRUE,
@@ -92,7 +92,8 @@ mod_bds_shift_server <- function(id,
                                  dataset,
                                  df_out,
                                  adsl,
-                                 filters = reactive(NULL)) {
+                                 filters = reactive(NULL),
+                                 pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -302,6 +303,24 @@ mod_bds_shift_server <- function(id,
         input$view,
         rv$pop_trigger
       ))
+
+    output$table_title <- renderUI({
+      req(xx_shift())
+      req(pop_fil())
+      if (dataset == "advs") {
+        text <- "Table 5.2 Shift at post dose for Vital Signs; "
+      } else if (dataset == "adlb") {
+        text <- "Table 6.2 Shift at post dose for Laboratory Tests; "
+      } else {
+        text <- "Table 7.2 Shift at post dose for ECG Tests; "
+      }
+      tags$strong(
+        paste0(
+          text,
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_shift",
       display_df = xx_shift

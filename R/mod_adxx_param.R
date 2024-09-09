@@ -8,18 +8,17 @@
 #'
 #' @importFrom shiny NS tagList
 mod_adxx_param_ui <- function(id,
-                              title = "",
                               domain = "ADVS",
                               logo = "stethoscope") {
   ns <- NS(id)
   tagList(
     box(
       id = ns("box_adxx_param"),
-      title = tags$strong(title),
+      title = uiOutput(ns("table_title")),
       sidebar = boxSidebar(
         id = ns("adxx_side_param"),
         background = "#EFF5F5",
-        icon = icon("filter"),
+        icon = icon("table-cells"),
         width = 35,
         div(uiOutput(ns("analysis_flag_ui"))),
         mod_filter_reactivity_ui(ns("filter_reactivity_1"), domain = domain, logo = logo),
@@ -27,7 +26,7 @@ mod_adxx_param_ui <- function(id,
           accordion(
             id = ns("param_accord"),
             tagAppendAttributes(accordionItem(
-              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              title = tags$strong("Table Display Options"),
               collapsed = FALSE,
               selectInput(
                 ns("split_col"),
@@ -79,8 +78,9 @@ mod_adxx_param_ui <- function(id,
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
-      height = "800px",
+      headerBorder = FALSE,
       div(
         shinycssloaders::withSpinner(
           mod_dt_table_ui(ns(
@@ -101,7 +101,8 @@ mod_adxx_param_server <- function(id,
                                   dataset,
                                   df_out,
                                   adsl,
-                                  filters = reactive(NULL)) {
+                                  filters = reactive(NULL),
+                                  pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -280,6 +281,24 @@ mod_adxx_param_server <- function(id,
         filt_react$filter_cond()
       )) |>
       bindEvent(list(adsl(), filt_react$trig_report(), input$run, rv$pop_trigger))
+
+    output$table_title <- renderUI({
+      req(xx_param())
+      req(pop_fil())
+      if (dataset == "advs") {
+        text <- "Table 5.1 Summary of Vital Signs Tests by Parameter, Analysis Value and Visit; "
+      } else if (dataset == "adlb") {
+        text <- "Table 6.1 Summary of Laboratory Tests by Parameter, Analysis Value and Visit; "
+      } else {
+        text <- "Table 7.1 Summary of ECG Tests by Parameter, Analysis Value and Visit; "
+      }
+      tags$strong(
+        paste0(
+          text,
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_param",
       display_df = xx_param

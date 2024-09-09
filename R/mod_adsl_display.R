@@ -12,17 +12,17 @@ mod_adsl_display_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adsl"),
-      title = tags$strong("Summary Statistics of Demographics and Baseline Characteristics"),
+      title = uiOutput(ns("table_title")),
       sidebar = boxSidebar(
         id = ns("demog_side"),
         background = "#EFF5F5",
-        icon = icon("filter"),
+        icon = icon("table-cells"),
         width = 35,
         div(
           accordion(
             id = ns("adsl_accord"),
             tagAppendAttributes(accordionItem(
-              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              title = tags$strong("Table Display Options"),
               collapsed = FALSE,
               selectInput(
                 ns("split_col"),
@@ -30,6 +30,13 @@ mod_adsl_display_ui <- function(id) {
                 choices = NULL,
                 selected = NULL,
                 width = "100vw"
+              ),
+              selectizeInput(
+                ns("group_var"),
+                "Additional Grouping Variable(s)",
+                choices = NULL,
+                selected = NULL,
+                options = list(maxItems = 2)
               ),
               selectInput(
                 ns("summ_var"),
@@ -63,8 +70,9 @@ mod_adsl_display_ui <- function(id) {
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
-      height = "800px",
+      headerBorder = FALSE,
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
         style = "overflow-x: scroll;"
       )
@@ -77,8 +85,8 @@ mod_adsl_display_ui <- function(id) {
 #' @noRd
 #'
 #' @importFrom rtables basic_table split_cols_by split_rows_by add_overall_col
-#' @importFrom tern summarize_vars
-mod_adsl_display_server <- function(id, adsl) {
+#' @importFrom tern analyze_vars
+mod_adsl_display_server <- function(id, adsl, pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -105,6 +113,15 @@ mod_adsl_display_server <- function(id, adsl) {
         "split_col",
         choices = trt_choices,
         selected = trt_choices[1]
+      )
+
+      updateSelectizeInput(
+        session,
+        "group_var",
+        "Additional Grouping Variable(s)",
+        choices = summ_vars,
+        selected = NULL,
+        options = list(maxItems = 2)
       )
 
       updateSelectInput(session,
@@ -148,6 +165,7 @@ mod_adsl_display_server <- function(id, adsl) {
         subtitle = "",
         footer = "",
         split_cols_by = input$split_col,
+        group_by = input$group_var,
         summ_vars = input$summ_var,
         disp_stat = input$stats
       )
@@ -160,8 +178,19 @@ mod_adsl_display_server <- function(id, adsl) {
         lyt = lyt
       ))
     }) |>
-      bindCache(list(adsl(), input$split_col, input$summ_var, input$stats)) |>
+      bindCache(list(adsl(), input$split_col, input$group_var, input$summ_var, input$stats)) |>
       bindEvent(list(adsl(), rv$trig_report, input$run))
+
+    output$table_title <- renderUI({
+      req(disp_df())
+      req(pop_fil())
+      tags$strong(
+        paste0(
+          "Table 1.1 Demographic Characteristics; ",
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_1",
       display_df = disp_df

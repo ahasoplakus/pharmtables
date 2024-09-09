@@ -12,20 +12,18 @@ mod_adae_sev_tox_ui <- function(id) {
   tagList(
     box(
       id = ns("box_adae"),
-      title =
-        tags$strong("Summary of Adverse Events by Body System or Organ Class,
-                    Dictionary-Derived Term and Severity/Toxicity"),
+      title = uiOutput(ns("table_title")),
       sidebar = boxSidebar(
         id = ns("adae_side"),
         background = "#EFF5F5",
         width = 35,
-        icon = icon("filter"),
+        icon = icon("table-cells"),
         mod_filter_reactivity_ui(ns("filter_reactivity_1")),
         div(
           accordion(
             id = ns("sevtox_accord"),
             tagAppendAttributes(accordionItem(
-              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              title = tags$strong("Table Display Options"),
               collapsed = FALSE,
               selectInput(
                 ns("split_col"),
@@ -50,7 +48,7 @@ mod_adae_sev_tox_ui <- function(id) {
               ),
               selectInput(
                 ns("summ_var"),
-                "Summarize",
+                "Severity/Toxicity",
                 choices = NULL,
                 selected = NULL,
                 width = "100vw"
@@ -69,17 +67,9 @@ mod_adae_sev_tox_ui <- function(id) {
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
-      height = "800px",
-      shinyWidgets::prettySwitch(
-        ns("view"),
-        label = "Toggle View",
-        value = FALSE,
-        status = "info",
-        inline = TRUE,
-        fill = TRUE,
-        slim = FALSE
-      ),
+      headerBorder = FALSE,
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_2")), color = "#3BACB6"),
         style = "overflow-x: scroll;"
       )
@@ -97,7 +87,8 @@ mod_adae_sev_tox_server <- function(id,
                                     dataset,
                                     df_out,
                                     adsl,
-                                    filters = reactive(NULL)) {
+                                    filters = reactive(NULL),
+                                    pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -201,21 +192,19 @@ mod_adae_sev_tox_server <- function(id,
         left_join(df_adsl) |>
         filter(USUBJID %in% unique(df_adsl$USUBJID))
 
-      out_df <- build_adae_by_sev_tox(
-        adsl = df_adsl,
-        df_adae = df,
+      lyt <- build_adae_by_sev_tox(
+        adae = df,
         colsby = input$split_col,
         filter_cond = filt_react$filter_cond(),
         grade_val = input$summ_var,
         class_val = input$class,
-        term_val = input$term,
-        default_view = input$view
+        term_val = input$term
       )
 
       return(list(
-        out_df = out_df,
-        alt_df = NULL,
-        lyt = NULL
+        out_df = lyt$df_out,
+        alt_df = df_adsl,
+        lyt = lyt$lyt
       ))
     }) |>
       bindCache(
@@ -226,11 +215,22 @@ mod_adae_sev_tox_server <- function(id,
           input$class,
           input$term,
           input$summ_var,
-          input$view,
           filt_react$filter_cond()
         )
       ) |>
-      bindEvent(list(adsl(), filt_react$trig_report(), input$run, input$view))
+      bindEvent(list(adsl(), filt_react$trig_report(), input$run))
+
+    output$table_title <- renderUI({
+      req(ae_explore())
+      req(pop_fil())
+      tags$strong(
+        paste0(
+          "Table 2.3 Summary of Adverse Events by Body System or Organ Class,
+               Dictionary-Derived Term and Severity/Toxicity; ",
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_2",
       display_df = ae_explore

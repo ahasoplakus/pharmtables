@@ -8,7 +8,7 @@ name: lint
 
 jobs:
   lint:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -26,7 +26,7 @@ jobs:
           needs: lint
 
       - name: Lint
-        run: lintr::lint_package()
+        run: lintr::lint_package(linters = lintr::linters_with_defaults(indentation_linter=NULL, line_length_linter(100), object_name_linter=NULL))
         shell: Rscript {0}
         env:
           LINTR_ERROR_ON_LINT: true

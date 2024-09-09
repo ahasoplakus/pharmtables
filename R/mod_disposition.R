@@ -12,17 +12,17 @@ mod_disposition_ui <- function(id) {
   tagList(
     box(
       id = ns("box_disposition"),
-      title = tags$strong("Patient Disposition"),
+      title = uiOutput(ns("table_title")),
       sidebar = boxSidebar(
         id = ns("disp_side"),
         background = "#EFF5F5",
-        icon = icon("filter"),
+        icon = icon("table-cells"),
         width = 35,
         div(
           accordion(
             id = ns("adsl_disp_accord"),
             tagAppendAttributes(accordionItem(
-              title = tags$span(icon("table-cells"), tags$strong("Table Options")),
+              title = tags$strong("Table Display Options"),
               collapsed = FALSE,
               selectInput(
                 ns("split_col"),
@@ -73,8 +73,9 @@ mod_disposition_ui <- function(id) {
         )
       ),
       maximizable = TRUE,
+      collapsible = FALSE,
       width = 12,
-      height = "800px",
+      headerBorder = FALSE,
       div(shinycssloaders::withSpinner(mod_dt_table_ui(ns("dt_table_1")), color = "#3BACB6"),
         style = "overflow-x: scroll;"
       )
@@ -85,7 +86,7 @@ mod_disposition_ui <- function(id) {
 #' disposition Server Functions
 #'
 #' @noRd
-mod_disposition_server <- function(id, adsl) {
+mod_disposition_server <- function(id, adsl, pop_fil) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
@@ -161,9 +162,9 @@ mod_disposition_server <- function(id, adsl) {
       logger::log_info("mod_disposition_server: disposition layout for display")
 
       return(list(
-        out_df = lyt,
+        out_df = lyt$df,
         alt_df = NULL,
-        lyt = NULL
+        lyt = list(lyt$lyt[[1]], lyt$lyt[[2]])
       ))
     }) |>
       bindCache(list(
@@ -175,6 +176,17 @@ mod_disposition_server <- function(id, adsl) {
         input$dct_reas
       )) |>
       bindEvent(list(adsl(), rv$trig_report, input$run))
+
+    output$table_title <- renderUI({
+      req(disp_df())
+      req(pop_fil())
+      tags$strong(
+        paste0(
+          "Table 1.2 Patient Disposition; ",
+          str_replace_all(str_to_title(attr(adsl()[[pop_fil()]], "label")), " Flag", "")
+        )
+      )
+    })
 
     mod_dt_table_server("dt_table_1",
       display_df = disp_df

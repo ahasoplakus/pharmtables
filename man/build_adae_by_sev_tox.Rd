@@ -5,20 +5,16 @@
 \title{Adverse Events Table by Body System and Severity/Toxicity}
 \usage{
 build_adae_by_sev_tox(
-  adsl,
-  df_adae,
+  adae,
   colsby = "ARM",
   filter_cond = NULL,
   grade_val = "AESEV",
   class_val = "AESOC",
-  term_val = "AEDECOD",
-  default_view = TRUE
+  term_val = "AEDECOD"
 )
 }
 \arguments{
-\item{adsl}{(\code{data.frame})\cr ADSL dataset.}
-
-\item{df_adae}{(\code{data.frame})\cr ADAE dataset.}
+\item{adae}{(\code{data.frame})\cr ADAE dataset.}
 
 \item{colsby}{(\code{character})\cr Variable used to split table into columns.}
 
@@ -28,9 +24,7 @@ build_adae_by_sev_tox(
 
 \item{class_val}{(\code{character})\cr System Organ Class/Body System Class i.e. \code{AESOC} or \code{AEBODSYS}}
 
-\item{term_val}{(\code{character})\cr Dictionary Derived Term i.e. \code{AEDECOD} or \code{AETERM}}
-
-\item{default_view}{(\code{logical})\cr \code{TRUE} displays values of \code{grade_val} into columns.}
+\item{term_val}{(\code{character})\cr Dictionary Derived Term i.e. \code{AEDECOD} or \code{AETERM}.}
 }
 \value{
 An rtable object
@@ -39,21 +33,20 @@ An rtable object
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#maturing}{\figure{lifecycle-maturing.svg}{options: alt='[Maturing]'}}}{\strong{[Maturing]}}
 }
 \examples{
+suppressMessages(library(rtables, quietly = TRUE))
 
-library(clinTables)
-library(rtables)
-data(adsl)
-data(adae)
+adsl <- pharmaverseadam::adsl |> drop_missing_cols()
+adae <- pharmaverseadam::adae |> drop_missing_cols()
 
-tbl <- build_adae_by_sev_tox(
-  adsl = adsl,
-  df_adae = adae,
+lyt <- build_adae_by_sev_tox(
+  adae = adae,
   colsby = "ARM",
   grade_val = "AESEV",
   class_val = "AESOC",
-  term_val = "AEDECOD",
-  default_view = TRUE
+  term_val = "AEDECOD"
 )
+
+tbl <- build_table(lyt = lyt$lyt, df = lyt$df_out, alt_counts_df = adsl)
 
 \dontrun{
 tt_to_flextable(tbl)

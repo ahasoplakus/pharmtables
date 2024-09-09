@@ -2,7 +2,7 @@
 title: "User Guide"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{User Guide}
+  %\VignetteIndexEntry{User Guide} 
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,45 +19,24 @@ knitr::opts_chunk$set(
 ```{css, echo=FALSE}
 .img-border {
   border-style: outset;
+  justify-content: center;
+  display: flex;
 }
 ```
 
-# Introduction
-
-This article provides a step-by-step user guide to run the `clinTables` application.
-
-# Steps
-* [Launch application](#launch)
-* [Upload/Read in data](#readdata)
-* [Preview Data](#preview)
-* [Filters Setup](#setup)
-
-## Launch application {#launch}
-
-```{r, eval=FALSE}
-library(clinTables)
-run_app()
+```{css, echo=FALSE}
+a {
+  color: #3BACB6;
+}
 ```
 
-`run_app()` will launch the application and the application homepage will load.
+# Upload/Read and Preview{#readdata}
 
-<div class="img-border">
-```{r, echo=FALSE}
-knitr::include_graphics("../man/figures/home.png")
-```
-</div>
+- Switch to the **Study Setup** tab
+- Select **Use Synthetic Data** if you want to run the application using synthetic data sets available in the package
+- Select **Upload ADaM(s)** button to load external ADaM data sets. (Only *sas7bdat* **or** *RDS* formats are accepted)
 
-## Upload/Read in Data {#readdata}
-
-- Switch to the **Setup** tab beside the **About** tab on Homepage
-- Turn on **Load Synthetic Data** if you want to run the application using synthetic data available
-within the package
-- Click on the **Upload Files** button if you want to load data you want to run the application on.
-(Only *sas7bdat* **or** *RDS* formats are accepted)
-
-### Note
-
-Only following **ADaM** standard datasets are accepted
+The following CDISC Standard **ADaM** datasets are compatible with this version
 
 - **adsl**: Subject-Level
 - **adae**: Adverse Events
@@ -67,50 +46,43 @@ Only following **ADaM** standard datasets are accepted
 - **adlb**: Laboratory Analysis
 - **adeg**: ECG Examinations
 
-<div class="img-border">
-```{r, echo=FALSE}
-knitr::include_graphics("../man/figures/readin.png")
-```
-</div>
-
-## Preview Data {#preview}
-
-Once the datasets have been read, the **Preview** button is enabled.
+Once the data sets are uploaded, the **Preview** tab is enabled. Switch to the same to quickly glance through the list of data sets.
 
 <div class="img-border">
-```{r, echo=FALSE}
-knitr::include_graphics("../man/figures/prev_btn.png")
+```{r prev_data, echo=FALSE}
+knitr::include_graphics("../man/figures/prev_data.gif")
 ```
 </div>
 
 <br>
 
-Click on the **Preview** button to quickly glance through the data sets that have been added
-for analysis. A modal window will pop up displaying the names of data sets loaded in a tabular format.
-Click on the expand button to view a specific data set.
+# Setup Filters {#setup}
 
-<br>
+## Subject-Level Filters
+
+- Expand the **ADSL** navigation pill under **Domain Specific Filters** and select the name(s) of **ADSL** variables from the dropdown to enable subject-level filtering of all tables across <b>all domains</b>. By default *SEX*, *RACE*, *ETHNIC*, *AGE*, *SITEID* and *USUBJID* variables are chosen (At least one needs to be selected).
+
+- **ADSL** filters appears at the left sidebar of the app, under **Population Flags** filter.
 
 <div class="img-border">
-```{r, echo=FALSE}
-knitr::include_graphics("../man/figures/prev_data.png")
+```{r adsl, echo=FALSE, dpi=300}
+knitr::include_graphics("../man/figures/adsl_filt.gif")
 ```
 </div>
 
 <br>
 
-## Filters Setup {#setup}
+## Domain Specific Filters
 
-### ADSL Filters
+- Expand the navigation pills corresponding to each domain (ADAE, ADVS etc) and select the name(s) of domain specific variables to be added as filters. Here is an example for **ADAE** specific filters, where **AESEV** and **AEACN** have been added as filters for all **ADAE** related reports.
 
-Expand the **ADSL Filters** pill beneath the **Preview** button to add/remove any **adsl** specific 
-variables you want to filter *all* reports with. By default *SEX*, *RACE*, *ETHNIC*, *AGE*, 
-*SITEID* and *USUBJID* variables are selected.
+<br>
+
+- Reload the app and check the selected variables from **ADAE** appear as filters over the **Table Display Options** within the filter box for all **ADAE** related reports. (Click on the `r shiny::icon("table-cells")` icon to access the filter box)
 
 <div class="img-border">
-```{r, echo=FALSE}
-knitr::include_graphics("../man/figures/adsl_filt.png")
+```{r adae_filters, echo=FALSE}
+knitr::include_graphics("../man/figures/dom_filt.gif")
 ```
 </div>
 
-**Note:** *All examples assume CDISC SDTM and/or ADaM format as input unless otherwise specified.*

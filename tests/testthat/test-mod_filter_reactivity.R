@@ -77,12 +77,31 @@ test_that("mod_filter_reactivity_server works", {
       )
       expect_identical(rv$filters, rv$cached_filters)
       expect_equal(rv$trig_report, 3)
+
+      filt(c("AESER", "AESEV"))
+      session$flushReact()
+
+      session$setInputs(aesev = c("MILD"))
+      expect_equal(rv$filters$aesev, c("MILD"))
+      expect_equal(
+        rv$filter_cond,
+        'AESER %in% c("N","Y") & AESEV %in% c("MILD")'
+      )
+
+      filt(c("AESER"))
+      session$flushReact()
+
+      expect_equal(rv$filters$aeser, c("N", "Y"))
+      expect_equal(
+        rv$filter_cond,
+        'AESER %in% c("N","Y")'
+      )
     }
   )
 })
 
 test_that("module ui works", {
-  ui <- mod_filter_reactivity_ui(id = "test")
+  ui <- mod_filter_reactivity_ui(id = "filter_reactivity_123")
   golem::expect_shinytaglist(ui)
   # Check that formals have not been removed
   fmls <- formals(mod_filter_reactivity_ui)
