@@ -12,7 +12,7 @@ mod_setup_filters_ui <- function(id) {
   tagList(
     fluidRow(
       div(HTML("Domain Specific Filters"), style = "display: inline-block; font-family: math; color: #000; font-size: 1.25rem; font-weight: bold;"),
-      style = "justify-content: center; width: 360px;"
+      style = "justify-content: center; width: 26vw;"
     ),
     br(),
     fluidRow(
