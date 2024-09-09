@@ -62,27 +62,8 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">drop_missing_cols</span><span class="op">(</span><span class="fu">pharmaverseadam</span><span class="fu">::</span><span class="va"><a href="https://pharmaverse.github.io/pharmaverseadam/reference/advs.html" class="external-link">advs</a></span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 65,032 x 98</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID  DOMAIN USUBJID VSSEQ VSTESTCD VSTEST VSPOS VSORRES VSORRESU VSSTRESC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> CDISCPI~ &lt;Miss~ 01-701~    <span style="color: #BB0000;">NA</span> &lt;Missin~ &lt;Miss~ &lt;Mis~ &lt;Missi~ &lt;Missin~ &lt;Missin~</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># i 65,022 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># i 88 more variables: VSSTRESN &lt;dbl&gt;, VSSTRESU &lt;fct&gt;, VSSTAT &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   VSLOC &lt;fct&gt;, VSBLFL &lt;fct&gt;, VISITNUM &lt;dbl&gt;, VISIT &lt;fct&gt;, VISITDY &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   VSDTC &lt;fct&gt;, VSDY &lt;dbl&gt;, VSTPT &lt;fct&gt;, VSTPTNUM &lt;dbl&gt;, VSELTM &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   VSTPTREF &lt;fct&gt;, TRTSDT &lt;date&gt;, TRTEDT &lt;date&gt;, TRT01A &lt;fct&gt;, TRT01P &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ADT &lt;date&gt;, ADY &lt;dbl&gt;, PARAMCD &lt;fct&gt;, AVAL &lt;dbl&gt;, ATPTN &lt;dbl&gt;, ATPT &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   AVISIT &lt;fct&gt;, AVISITN &lt;dbl&gt;, DTYPE &lt;fct&gt;, ONTRTFL &lt;fct&gt;, ANRLO &lt;dbl&gt;, ...</span></span>
+<span class="r-in"><span><span class="fu">drop_missing_cols</span><span class="op">(</span><span class="fu">pharmaverseadam</span><span class="fu">::</span><span class="va">advs</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called 'pharmaverseadam'</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

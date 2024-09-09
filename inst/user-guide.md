@@ -11,7 +11,7 @@ a {
 }
 </style>
 
-# Upload/Read in Data
+# Upload/Read and Preview
 
 -   Switch to the **Study Setup** tab
 -   Select **Use Synthetic Data** if you want to run the application
@@ -30,12 +30,10 @@ version
 -   **adlb**: Laboratory Analysis
 -   **adeg**: ECG Examinations
 
-# Preview Data
-
 Once the data sets are uploaded, the **Preview** tab is enabled. Switch
 to the same to quickly glance through the list of data sets.
 
-<img src="../man/figures/prev_data.png" width="97%" style="display: block; margin: auto;" />
+<img src="../man/figures/prev_data.gif" width="97%" style="display: block; margin: auto;" />
 
 <br>
 
@@ -45,18 +43,15 @@ to the same to quickly glance through the list of data sets.
 
 -   Expand the **ADSL** navigation pill under **Domain Specific
     Filters** and select the name(s) of **ADSL** variables from the
-    dropdown to enable subject-level filtering of all tables. By default
-    *SEX*, *RACE*, *ETHNIC*, *AGE*, *SITEID* and *USUBJID* variables are
-    chosen (At least one needs to be selected).
-
-<img src="../man/figures/adsl_filt.png" width="97%" style="display: block; margin: auto;" />
-
-<br>
+    dropdown to enable subject-level filtering of all tables across
+    <b>all domains</b>. By default *SEX*, *RACE*, *ETHNIC*, *AGE*,
+    *SITEID* and *USUBJID* variables are chosen (At least one needs to
+    be selected).
 
 -   **ADSL** filters appears at the left sidebar of the app, under
     **Population Flags** filter.
 
-<img src="../man/figures/adsl_filt_app.png" width="97%" style="display: block; margin: auto;" />
+<img src="../man/figures/adsl_filt.gif" width="97%" style="display: block; margin: auto;" />
 
 <br>
 
@@ -68,8 +63,6 @@ to the same to quickly glance through the list of data sets.
     **AESEV** and **AEACN** have been added as filters for all **ADAE**
     related reports.
 
-<img src="../man/figures/adae_filt.png" width="97%" style="display: block; margin: auto;" />
-
 <br>
 
 -   Reload the app and check the selected variables from **ADAE** appear
@@ -78,4 +71,4 @@ to the same to quickly glance through the list of data sets.
     <i class="fas fa-table-cells" role="presentation" aria-label="table-cells icon"></i>
     icon to access the filter box)
 
-<img src="../man/figures/adae_filt_app.png" width="97%" style="display: block; margin: auto;" />
+<img src="../man/figures/dom_filt.gif" width="97%" style="display: block; margin: auto;" />

@@ -30,7 +30,7 @@ a {
 }
 ```
 
-# Upload/Read in Data {#readdata}
+# Upload/Read and Preview{#readdata}
 
 - Switch to the **Study Setup** tab
 - Select **Use Synthetic Data** if you want to run the application using synthetic data sets available in the package
@@ -46,13 +46,11 @@ The following CDISC Standard **ADaM** datasets are compatible with this version
 - **adlb**: Laboratory Analysis
 - **adeg**: ECG Examinations
 
-# Preview Data {#preview}
-
 Once the data sets are uploaded, the **Preview** tab is enabled. Switch to the same to quickly glance through the list of data sets.
 
 <div class="img-border">
 ```{r prev_data, echo=FALSE}
-knitr::include_graphics("../man/figures/prev_data.png")
+knitr::include_graphics("../man/figures/prev_data.gif")
 ```
 </div>
 
@@ -62,21 +60,13 @@ knitr::include_graphics("../man/figures/prev_data.png")
 
 ## Subject-Level Filters
 
-- Expand the **ADSL** navigation pill under **Domain Specific Filters** and select the name(s) of **ADSL** variables from the dropdown to enable subject-level filtering of all tables. By default *SEX*, *RACE*, *ETHNIC*, *AGE*, *SITEID* and *USUBJID* variables are chosen (At least one needs to be selected).
-
-<div class="img-border">
-```{r adsl_filters, echo=FALSE}
-knitr::include_graphics("../man/figures/adsl_filt.png")
-```
-</div>
-
-<br>
+- Expand the **ADSL** navigation pill under **Domain Specific Filters** and select the name(s) of **ADSL** variables from the dropdown to enable subject-level filtering of all tables across <b>all domains</b>. By default *SEX*, *RACE*, *ETHNIC*, *AGE*, *SITEID* and *USUBJID* variables are chosen (At least one needs to be selected).
 
 - **ADSL** filters appears at the left sidebar of the app, under **Population Flags** filter.
 
 <div class="img-border">
 ```{r adsl, echo=FALSE, dpi=300}
-knitr::include_graphics("../man/figures/adsl_filt_app.png")
+knitr::include_graphics("../man/figures/adsl_filt.gif")
 ```
 </div>
 
@@ -86,18 +76,13 @@ knitr::include_graphics("../man/figures/adsl_filt_app.png")
 
 - Expand the navigation pills corresponding to each domain (ADAE, ADVS etc) and select the name(s) of domain specific variables to be added as filters. Here is an example for **ADAE** specific filters, where **AESEV** and **AEACN** have been added as filters for all **ADAE** related reports.
 
-<div class="img-border">
-```{r adae_filters, echo=FALSE}
-knitr::include_graphics("../man/figures/adae_filt.png")
-```
-</div>
-
 <br>
 
 - Reload the app and check the selected variables from **ADAE** appear as filters over the **Table Display Options** within the filter box for all **ADAE** related reports. (Click on the `r shiny::icon("table-cells")` icon to access the filter box)
-  
+
 <div class="img-border">
-```{r adae, echo=FALSE}
-knitr::include_graphics("../man/figures/adae_filt_app.png")
+```{r adae_filters, echo=FALSE}
+knitr::include_graphics("../man/figures/dom_filt.gif")
 ```
 </div>
+
